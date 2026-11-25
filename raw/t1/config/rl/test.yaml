@@ -1,0 +1,133 @@
+seq:
+    [
+      'FL_HIP_ROLL_Joint',
+      'FL_HIP_PITCH_Joint',
+      'FL_KNEE_Joint',
+
+      'FR_HIP_ROLL_Joint',
+      'FR_HIP_PITCH_Joint',
+      'FR_KNEE_Joint',
+
+      'RL_HIP_ROLL_Joint',
+      'RL_HIP_PITCH_Joint',
+      'RL_KNEE_Joint',
+      'RL_FOOT_Joint',
+
+      'RR_HIP_ROLL_Joint',
+      'RR_HIP_PITCH_Joint',
+      'RR_KNEE_Joint',
+      'RR_FOOT_Joint',
+    ]
+
+  # define the action sequence
+  action_seq:
+    [
+      'FL_HIP_ROLL_Joint',
+      'FL_HIP_PITCH_Joint',
+      'FL_KNEE_Joint',
+
+      'FR_HIP_ROLL_Joint',
+      'FR_HIP_PITCH_Joint',
+      'FR_KNEE_Joint',
+      
+      'RL_HIP_ROLL_Joint',
+      'RL_HIP_PITCH_Joint',
+      'RL_KNEE_Joint',
+      'RL_FOOT_Joint',
+      
+      'RR_HIP_ROLL_Joint',
+      'RR_HIP_PITCH_Joint',
+      'RR_KNEE_Joint',
+      'RR_FOOT_Joint',
+    ]
+
+  action_scale: [ 0.4, 0.4, 0.4, 
+                  0.4, 0.4, 0.4, 
+                  0.4, 0.4, 0.4, 0.4, 
+                  0.4, 0.4, 0.4, 0.4 ]
+  imu_pitch_offset: 0.0
+
+
+ACConfig:
+  infer:
+    frame_stack: 10
+
+  clips:
+    obs_clip: 100.0
+    action_clip: 100.0
+
+  reduction:   
+    wheel_reduction: 0.25
+    hip_reduction: 0.5
+
+  # planner:
+  #   enable: false
+  #   velocity: 10
+  #   acceleration: 10
+  #   dt: 1   # ms
+
+  robot:
+    # seq same as action_seq
+    # real params
+    kps: [ 
+      30.0, 30.0, 30.0, 
+      30.0, 30.0, 30.0, 
+      30.0, 30.0, 30.0, 0.0, 
+      30.0, 30.0, 30.0, 0.0 ]
+    kds: [ 
+      1.0, 1.0, 1.0,
+      1.0, 1.0, 1.0, 
+      1.0, 1.0, 1.0, 1.0, 
+      1.0, 1.0, 1.0, 1.0 ]
+    default_dof_pos: [ 
+      0.0, 0.705, -1.41, 
+      0.0, 0.705, -1.41, 
+      0.0, 1.155, -1.831, 0.0, 
+      0.0, 1.155, -1.831, 0.0 ]
+    default_kp: 30
+    default_kd: 1.0
+
+
+WalkConfig:
+  max_cycle_time: 0.9 # t_set
+
+  # define obs index
+  obs_index:
+    imu_omega: 0
+    imu_euler: 3
+    pos: 6
+    vel: 18
+    action: 32
+    command: 46
+    cpg: 49
+
+  walk:
+    switch_stand_walk: false
+    walk_mode: true
+    stand_cmd_threshold: 0.05
+
+  obs_scales:
+    dof_pos: 1.0
+    dof_vel: 0.05
+    lin_vel: 2.0
+    ang_vel: 0.25
+
+  command_scales:
+    map_y: 0.5
+    map_yaw: 0.6
+    cmd_x_min: -1.0
+    cmd_x_max: 1.8
+
+  filter:
+    imu_vel_cutoff_freq: 100
+    q_vel_cutoff_freq: [
+      100, 100, 100, 
+      100, 100, 100, 
+      100, 100, 100, 10, 
+      100, 100, 100, 10]
+
+  custom:
+    wheel_stiffness_increase_time: 5.0
+
+  stand_actions: [ 'QUADRUPED_STAND_DEFAULT']
+  acc: 1.0

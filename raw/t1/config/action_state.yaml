@@ -1,0 +1,188 @@
+state_actions:
+  "STARTING":
+    - name: JOINT_DEFAULT
+      auto_transition: false
+    - name: CROUCH_DOWN_DEFAULT
+      auto_transition: false
+    - name: SIT_UP_DEFAULT
+      auto_transition: false
+    - name: SIT_DOWN_DEFAULT
+      auto_transition: false
+
+  "STABLE":
+    - name: STAND_DEFAULT
+      auto_transition: false
+    - name: QUADRUPED_LOCOMOTION_DEFAULT  # Note(chuan): 放这里的理由是action测试下来比较稳定
+      auto_transition: false  
+    - name: QUADRUPED_LOCOMOTION_STEP
+      auto_transition: false  
+    - name: BIPED_LOCOMOTION_WBC
+      auto_transition: false
+    - name: BIPED_LOCOMOTION_ANIMATION
+      auto_transition: false
+    - name: QUADRUPED_LOCOMOTION_STRETCH
+      auto_transition: false
+    - name: QUADRUPED_LOCOMOTION_DANCE
+      auto_transition: false
+    - name: QUADRUPED_LOCOMOTION_RUN
+      auto_transition: false
+    - name: BIPED_LOCOMOTION_TERRAIN
+      auto_transition: false
+    - name: BIPED_LOCOMOTION_RUN
+      auto_transition: false
+    - name: QUADRUPED_LOCOMOTION_TERRAIN
+      auto_transition: false
+    - name: BIPED_LOCOMOTION_DEFAULT
+      auto_transition: false
+    - name: QUADRUPED_PUSH_UP
+      auto_transition: false
+    - name: BIPED_RECORD_UPPER
+      auto_transition: false
+    - name: BIPED_CUSTOM_UPPER
+      auto_transition: false
+
+  "MOVING":
+    - name: LOCOMOTION_DEFAULT
+      auto_transition: false
+    - name: LOCOMOTION_STEP
+      auto_transition: false
+    - name: SQUAT_DEFAULT
+      auto_transition: false
+    - name: QUADRUPED_READY_STAND_DEFAULT
+      auto_transition: false
+    - name: QUADRUPED_TO_BIPED
+      auto_transition: false
+    - name: QUADRUPED_TO_BIPED_ROTATE
+      auto_transition: false
+    - name: QUADRUPED_TO_BIPED_FRONTFLIP
+      auto_transition: false
+    - name: BIPED_TO_QUADRUPED
+      auto_transition: false
+    - name: QUADRUPED_LOCOMOTION_JUMP
+      auto_transition: false
+    - name: BIPED_TO_QUADRUPED_FRONTFLIP
+      auto_transition: false
+    - name: BIPED_TO_QUADRUPED_ROTATE
+      auto_transition: false
+    - name: QUADRUPED_LOCOMOTION_FRONTFLIP
+      auto_transition: false
+    - name: QUADRUPED_LOCOMOTION_BACKFLIP
+      auto_transition: false
+    - name: BIPED_LOCOMOTION_ROTATE_LOCAL
+      auto_transition: false
+    - name: BIPED_LOCOMOTION_BACKBEND
+      auto_transition: false
+    - name: BIPED_YUZURU 
+      auto_transition: false
+    - name: BIPED_SPLIT 
+      auto_transition: false
+    - name: BIPED_LOCOMOTION_MOONWALK
+      auto_transition: false
+    - name: BIPED_LOCOMOTION_DANCE
+      auto_transition: false
+    - name: BIPED_LOCOMOTION_WBCDANCE
+      auto_transition: false
+    - name: BIPED_RECOVERY
+      auto_transition: false
+    - name: BIPED_MIMIC
+      auto_transition: false
+    - name: BIPED_LINGCHUANG_MIMIC
+      auto_transition: false
+    - name: BIPED_GIMBAL
+      auto_transition: false
+    - name: BIPED_NPZ_MIMIC
+      auto_transition: false
+
+  "SAFE":
+    - name: PASSIVE_DEFAULT
+      auto_transition: false
+    - name: DAMPING_DEFAULT
+      auto_transition: false
+    - name: QUADRUPED_RECOVERY
+      auto_transition: false
+    - name: QUADRUPED_STAND_DEFAULT
+      auto_transition: false
+    - name: QUADRUPED_STAND_REVERSE_DEFAULT  # 四足前肢手臂反轴站立
+      auto_transition: false
+    - name: QUADRUPED_LOCOMOTION_REVERSE_DEFAULT 
+      auto_transition: false
+    - name: QUADRUPED_BODY_ADJUST_DEFAULT  # 四足姿态调整
+      auto_transition: false            
+    # - name: BIPED_RECOVERY
+    #   auto_transition: false
+    - name: BIPED_STAND_DEFAULT
+      auto_transition: false
+    - name: QUADRUPED_LOCOMOTION_BIONIC
+      auto_transition: false
+    - name: QUADRUPED_GET_DOWN_DEFAULT
+      auto_transition: false
+    - name: STORE_DEFAULT
+      auto_transition: false
+    - name: QUADRUPED_LOCOMOTION_PRIDE
+      auto_transition: false
+    - name: QUADRUPED_MIMIC
+      auto_transition: false
+    - name: QUADRUPED_LOCOMOTION_PLEASURE
+      auto_transition: false
+    - name: QUADRUPED_SIT_DOWN_DEFAULT
+      auto_transition: false
+    - name: QUADRUPED_LOCOMOTION_HANDSHAKE
+      auto_transition: false
+    - name: QUAD_LIE_DOWN
+      auto_transition: false
+    - name: QUADRUPED_CROUCH_DEFAULT
+      auto_transition: false
+
+
+  "SPECIAL":
+    - name: MANIPULATE_DEFAULT
+      auto_transition: false
+    - name: VR_REMOTE_CONTROLLER
+      auto_transition: false
+    - name: GROUNDUP
+      auto_transition: false
+
+  "TEST":
+    - name: TEST_PLATFORM
+      auto_transition: false
+    - name: TRAJECTORY_GENERATOR
+      auto_transition: false
+    - name: TEST_FOURIER
+      auto_transition: false
+
+default_action:
+  stable: STAND_DEFAULT
+  moving: LOCOMOTION_DEFAULT
+
+start_states:
+  sit: SIT_UP_DEFAULT
+  lie_down: CROUCH_DOWN_DEFAULT
+
+estimator:
+  check_fall: true
+  check_soar: true
+  secure_action: DAMPING_DEFAULT
+
+elapse_time: 2000  # ms
+
+# 切换 action 前 IMU 姿态校验，仅检查 roll/pitch（rad），不检查 yaw（机体朝向）
+action_imu_check:
+  QUADRUPED_LOCOMOTION_BIONIC:
+    default_roll: 0.0
+    default_pitch: 0.0
+    roll_tolerance: 0.12    # ~7 deg
+    pitch_tolerance: 0.12   # ~7 deg
+
+# 特定action
+recovery_behaviors:
+  recovery_action: QUADRUPED_RECOVERY
+  actions: 
+    - QUADRUPED_READY_STAND_DEFAULT
+    - QUADRUPED_SIT_DOWN_DEFAULT
+    - QUADRUPED_GET_DOWN_DEFAULT
+    - STORE_DEFAULT
+    - QUADRUPED_CROUCH_DEFAULT
+    - QUADRUPED_STAND_DEFAULT
+    - QUADRUPED_LOCOMOTION_DEFAULT
+    - QUADRUPED_LOCOMOTION_TERRAIN
+    - QUADRUPED_LOCOMOTION_RUN

@@ -1,0 +1,78 @@
+cmd_guard:
+  expiration_time_ms: 200 # unit: ms
+
+body_posture_guard:
+  # 通用兜底（当下面分形态参数未设置或<=0时生效）
+  fall_count_threshold: 3
+  fall_delta_threshold: 60.0
+  stand_arm_delta: 45.0
+
+  # T1双足（x为上）
+  biped_fall_count_threshold: 3
+  biped_fall_delta_threshold: 60.0
+  biped_stand_arm_delta: 45.0
+  monitored_actions_biped: # 位控站立、行走、奔跑、越野、wbc
+    - BIPED_STAND_DEFAULT
+    - BIPED_LOCOMOTION_DEFAULT
+    - BIPED_LOCOMOTION_RUN
+    - BIPED_LOCOMOTION_TERRAIN
+    - BIPED_LOCOMOTION_WBC
+    - BIPED_CUSTOM_UPPER
+    - BIPED_LOCOMOTION_ANIMATION
+    - BIPED_MIMIC
+    - BIPED_LINGCHUANG_MIMIC
+    - BIPED_GIMBAL
+    - BIPED_LOCOMOTION_MOONWALK
+    - BIPED_RECORD_UPPER
+    - BIPED_LOCOMOTION_WBCDANCE
+    - BIPED_NPZ_MIMIC
+
+
+  # T1四足（z为上）
+  quadruped_fall_count_threshold: 3
+  quadruped_fall_delta_threshold: 60.0
+  quadruped_stand_arm_delta: 45.0
+  monitored_actions_quadruped: # 位控站立、行走、奔跑、越野、踏步、握手、伸展
+    - QUADRUPED_STAND_DEFAULT
+    - QUADRUPED_LOCOMOTION_DEFAULT
+    - QUADRUPED_LOCOMOTION_RUN
+    - QUADRUPED_LOCOMOTION_TERRAIN
+    - QUADRUPED_LOCOMOTION_HANDSHAKE
+    - QUADRUPED_LOCOMOTION_STEP
+    - QUADRUPED_LOCOMOTION_STRETCH
+    - QUADRUPED_PUSH_UP
+    - QUADRUPED_MIMIC
+    - QUADRUPED_LOCOMOTION_BIONIC
+    - QUADRUPED_LOCOMOTION_PRIDE
+    - QUADRUPED_LOCOMOTION_PLEASURE
+    - QUADRUPED_LOCOMOTION_DANCE
+    - QUADRUPED_SIT_DOWN_DEFAULT
+    - QUADRUPED_LOCOMOTION_JUMP
+    - QUADRUPED_CROUCH_DEFAULT
+    - QUADRUPED_STAND_REVERSE_DEFAULT
+    - QUADRUPED_LOCOMOTION_REVERSE_DEFAULT
+    - QUADRUPED_BODY_ADJUST_DEFAULT
+
+  # T1 通道2（与 Q1 相同参数）：gyro_norm_threshold_rad_s<=0 时仅通道1；启用通道2 时必须配置 fall_delta_soft_threshold>0
+  gyro_norm_threshold_rad_s: 6.0
+  fall_delta_soft_threshold: 48.0
+  gyro_fall_count_threshold: 3
+
+# 通道3：基于 URDF 正向运动学的"脚相对躯干位置"摔倒检测
+# BIPED 时 BASELINK 系下：x 为上方向（脚标称 ~ -0.62）、z 为前后方向（脚标称 ~ 0）
+# 命中条件：任一脚 |z| > biped_horizontal_abs_max 或 |x| < biped_vertical_abs_min
+foot_relative_guard:
+  enabled: true
+  urdf_file_name: qd1.urdf
+  torso_link: BASELINK
+  biped_left_foot_link: RL_FOOT_Link
+  biped_right_foot_link: RR_FOOT_Link
+  biped_horizontal_abs_max: 0.8  # 前后方向阈值，超过即"摔出"
+  biped_vertical_abs_min: 0.4    # 竖直方向阈值，小于即"塌缩"
+  count_threshold: 20
+
+data_timeout_guard:
+  enabled: true
+  imu_timeout_ms: 10    # IMU 数据接收超时阈值（ms）
+  joint_timeout_ms: 10  # Joint 数据接收超时阈值（ms）
+  hds_report_interval_ms: 1000  # 持续超时期间的 HDS 周期性上报间隔（ms）

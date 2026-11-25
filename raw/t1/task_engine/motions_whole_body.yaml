@@ -1,0 +1,999 @@
+# T1 全身动作列表（四足/双足变形机）
+# 包含以 whole_body 形式执行的表演/表情/舞蹈动作（四足全身、双足全身及跨形态）。
+# 字段说明参见 cfg/t1/motions.yaml 文件头注释。
+
+# ─── 本文件使用的黑名单锚点 ─────────────────────────────────────────────────
+
+action_black_lists:
+  t1_quadruped_posture: &t1_quadruped_posture_black_list
+    - PASSIVE_DEFAULT
+    - DAMPING_DEFAULT
+    - STORE_DEFAULT
+    - STAND_UP
+    - QUADRUPED_RECOVERY
+    - QUADRUPED_TO_BIPED
+    - QUADRUPED_TO_BIPED_ROTATE
+    - QUADRUPED_TO_BIPED_FRONTFLIP
+    - BIPED_TO_QUADRUPED
+    - BIPED_TO_QUADRUPED_ROTATE
+    - BIPED_TO_QUADRUPED_FRONTFLIP
+
+  t1_quadruped_motion: &t1_quadruped_motion_black_list
+    - DAMPING_DEFAULT
+    - STORE_DEFAULT
+    - STAND_UP
+    - QUADRUPED_RECOVERY
+    - QUADRUPED_TO_BIPED
+    - QUADRUPED_TO_BIPED_ROTATE
+    - QUADRUPED_TO_BIPED_FRONTFLIP
+    - BIPED_TO_QUADRUPED
+    - BIPED_TO_QUADRUPED_ROTATE
+    - BIPED_TO_QUADRUPED_FRONTFLIP
+
+  t1_quadruped_dance: &t1_quadruped_dance_black_list
+    - DAMPING_DEFAULT
+    - STORE_DEFAULT
+    - STAND_UP
+    - QUADRUPED_RECOVERY
+    - QUADRUPED_TO_BIPED
+    - QUADRUPED_TO_BIPED_ROTATE
+    - QUADRUPED_TO_BIPED_FRONTFLIP
+    - BIPED_TO_QUADRUPED
+    - BIPED_TO_QUADRUPED_ROTATE
+    - BIPED_TO_QUADRUPED_FRONTFLIP
+
+  t1_quadruped_low_posture_recover_motion: &t1_quadruped_low_posture_recover_motion_black_list
+    - DAMPING_DEFAULT
+    - STORE_DEFAULT
+    - STAND_UP
+    - QUADRUPED_RECOVERY
+    - QUADRUPED_TO_BIPED
+    - QUADRUPED_TO_BIPED_ROTATE
+    - QUADRUPED_TO_BIPED_FRONTFLIP
+    - BIPED_TO_QUADRUPED
+    - BIPED_TO_QUADRUPED_ROTATE
+    - BIPED_TO_QUADRUPED_FRONTFLIP
+
+  t1_biped_motion: &t1_biped_motion_black_list
+    - PASSIVE_DEFAULT
+    - DAMPING_DEFAULT
+    - STORE_DEFAULT
+    - STAND_UP
+    - LYING_DEFAULT
+    - LIE_FACE_DOWN
+    - LIE_FACE_UP
+    - BIPED_SIT_DOWN
+    - BIPED_RECOVERY
+    - QUADRUPED_TO_BIPED
+    - QUADRUPED_TO_BIPED_ROTATE
+    - QUADRUPED_TO_BIPED_FRONTFLIP
+    - BIPED_TO_QUADRUPED
+    - BIPED_TO_QUADRUPED_ROTATE
+    - BIPED_TO_QUADRUPED_FRONTFLIP
+
+  t1_biped_upper_body: &t1_biped_upper_body_black_list
+    - PASSIVE_DEFAULT
+    - DAMPING_DEFAULT
+    - STORE_DEFAULT
+    - STAND_UP
+    - LYING_DEFAULT
+    - LIE_FACE_DOWN
+    - LIE_FACE_UP
+    - BIPED_SIT_DOWN
+    - BIPED_RECOVERY
+    - QUADRUPED_TO_BIPED
+    - QUADRUPED_TO_BIPED_ROTATE
+    - QUADRUPED_TO_BIPED_FRONTFLIP
+    - BIPED_TO_QUADRUPED
+    - BIPED_TO_QUADRUPED_ROTATE
+    - BIPED_TO_QUADRUPED_FRONTFLIP
+
+# ─── 全身动作共有默认值 ─────────────────────────────────────────────────────
+# skill 未显式配置 lowest_battery 时使用 skill_lowest_battery。
+# motion 未显式配置 safety_check_param 时使用下方默认值。
+# 动作级或 skill 级的显式配置始终优先。
+defaults:
+  skill_lowest_battery: 5
+  obstacle_check: true   # 设为 true 且配置了 safety_check_param 时，仲裁阶段会对此类动作执行障碍物检测
+  interrupt: true
+  safety_check_param:
+    height: 1.0      # 单位：米
+    obstacle_range: 0.5  # 障碍物检查距离，单位：米
+    radius: 0.3      # 防跌落检测半径，单位：米
+    quad_directions: [15]
+    quad_servo_angle: [0]
+    biped_direction: 15
+    timeout_ms: 1000
+
+# ─── 全身动作列表 ───────────────────────────────────────────────────────────
+motions:
+  - animation_id: 1     # kGreet  打招呼
+    min_post_process_signal: 100
+    animation_name: "greet"
+    animation_name_zh: "打招呼"
+    sort_order: 7
+    audio_delay_ms: 2000
+    motion_name_code: 1225
+    motion_type: "app"
+    motion_list_type: ["bipedal", "quadrupedal"]
+    action_type: 4
+    skill_list:
+      - action_name: "QUADRUPED_SIT_DOWN_DEFAULT"
+        current_action_list:
+          - QUADRUPED_SIT_DOWN_DEFAULT
+        motion_part: "whole_body"
+        interrupt: false
+        motion_action_name: "QUADRUPED_LOCOMOTION_HANDSHAKE"
+        support_app: false
+        obstacle_check: false
+      - action_name: "QUADRUPED_STAND_DEFAULT"
+        motion_part: "whole_body"
+        interrupt: false
+        motion_action_name: "QUADRUPED_LOCOMOTION_HANDSHAKE"
+        support_app: true
+        obstacle_check: false
+        action_black_list: *t1_quadruped_low_posture_recover_motion_black_list
+      - action_name: "BIPED_LOCOMOTION_WBC"
+        motion_part: "upper_body"
+        interrupt: true
+        motion_id: 1003
+        obstacle_check: false
+        support_app: true
+        action_black_list: *t1_biped_upper_body_black_list
+
+  - animation_id: 2     # kRightHandshake  右手握手
+    min_post_process_signal: 100
+    animation_name: "right_handshake"
+    animation_name_zh: "右手握手"
+    sort_order: 9
+    audio_delay_ms: 2000
+    motion_name_code: 1226
+    motion_type: "app"
+    motion_list_type: ["bipedal", "quadrupedal"]
+    action_type: 4
+    skill_list:
+      - action_name: "QUADRUPED_SIT_DOWN_DEFAULT"
+        current_action_list:
+          - QUADRUPED_SIT_DOWN_DEFAULT
+        motion_part: "whole_body"
+        interrupt: false
+        motion_action_name: "QUADRUPED_LOCOMOTION_HANDSHAKE"
+        support_app: false
+        obstacle_check: false
+      - action_name: "QUADRUPED_STAND_DEFAULT"
+        motion_part: "whole_body"
+        interrupt: false
+        motion_action_name: "QUADRUPED_LOCOMOTION_HANDSHAKE"
+        support_app: true
+        obstacle_check: false
+        action_black_list: *t1_quadruped_low_posture_recover_motion_black_list
+      - action_name: "BIPED_LOCOMOTION_WBC"
+        motion_part: "upper_body"
+        interrupt: true
+        motion_id: 1002
+        obstacle_check: false
+        support_app: true
+        action_black_list: *t1_biped_upper_body_black_list
+
+  - animation_id: 7     # kDance  跳舞
+    min_post_process_signal: 100
+    animation_name: "dance"
+    animation_name_zh: "跳舞"
+    audio_delay_ms: 0
+    sort_order: 1
+    motion_name_code: 1231
+    motion_type: "app"
+    motion_list_type: ["bipedal", "quadrupedal"]
+    action_type: 4
+    skill_list:
+      - action_name: "QUADRUPED_LOCOMOTION_DEFAULT"
+        motion_part: "whole_body"
+        motion_action_name: "QUADRUPED_LOCOMOTION_DANCE"
+        post_audio:
+          - audio_file: "/robot/software/task_engine/resource/resource_audios/"
+            quadruped: "四足舞蹈A.wav"
+            biped: "四足舞蹈A.wav"
+        support_app: true
+        obstacle_check: false
+        action_black_list: *t1_quadruped_dance_black_list
+      - action_name: "BIPED_LOCOMOTION_WBC"
+        motion_part: "whole_body"
+        motion_name: "BIPED_MIMIC_SKATING"
+        wait_motion_idle_before_motion: true
+        wait_motion_idle_timeout_ms: 12000
+        async_post_audio: true
+        post_audio:
+          - audio_file: "/robot/software/task_engine/resource/resource_audios/"
+            quadruped: "人形舞蹈A-30s.wav"
+            biped: "人形舞蹈A-30s.wav"
+        support_app: true
+        action_black_list: *t1_biped_upper_body_black_list
+
+  - animation_id: 10    # kDance_C  跳舞B
+    min_post_process_signal: 100
+    animation_name: "dance_b"
+    animation_name_zh: "跳舞B"
+    sort_order: 2
+    motion_name_code: 2510
+    motion_type: "app"
+    motion_list_type: ["bipedal", "quadrupedal"]
+    action_type: 4
+    skill_list:
+      - action_name: "QUADRUPED_STAND_DEFAULT"
+        motion_part: "whole_body"
+        motion_name: "QUAD_MIMIC_DANCE_TWO"
+        post_audio:
+          - audio_file: "/robot/software/task_engine/resource/resource_audios/"
+            quadruped: "四足舞蹈B.wav"
+            biped: "四足舞蹈B.wav"
+        support_app: true
+        obstacle_check: false
+        action_black_list: *t1_quadruped_motion_black_list
+      - action_name: "BIPED_LOCOMOTION_WBC"
+        motion_part: "whole_body"
+        motion_id: 2023
+        wait_motion_idle_before_motion: true
+        wait_motion_idle_timeout_ms: 12000
+        async_post_audio: true
+        post_audio:
+          - audio_file: "/robot/software/task_engine/resource/resource_audios/"
+            quadruped: "人形舞蹈B.wav"
+            biped: "人形舞蹈B.wav"
+        support_app: true
+        action_black_list: *t1_biped_upper_body_black_list
+
+  - animation_id: 11    # kDance_D  跳舞C
+    min_post_process_signal: 100
+    animation_name: "dance_c"
+    animation_name_zh: "跳舞C"
+    sort_order: 3
+    motion_name_code: 1777
+    motion_type: "app"
+    motion_list_type: ["bipedal", "quadrupedal"]
+    action_type: 4
+    skill_list:
+      - action_name: "QUADRUPED_STAND_DEFAULT"
+        motion_part: "whole_body"
+        motion_name: "QUAD_MIMIC_DANCE_THREE"
+        post_audio:
+          - audio_file: "/robot/software/task_engine/resource/resource_audios/"
+            quadruped: "四足舞蹈C.wav"
+            biped: "四足舞蹈C.wav"
+        support_app: true
+        obstacle_check: false
+        action_black_list: *t1_quadruped_motion_black_list
+      - action_name: "BIPED_LOCOMOTION_WBC"
+        motion_part: "whole_body"
+        motion_id: 2043
+        wait_motion_idle_before_motion: true
+        wait_motion_idle_timeout_ms: 12000
+        async_post_audio: true
+        post_audio:
+          - audio_file: "/robot/software/task_engine/resource/resource_audios/"
+            quadruped: "人形舞蹈C.wav"
+            biped: "人形舞蹈C.wav"
+        support_app: true
+        action_black_list: *t1_biped_upper_body_black_list
+
+  - animation_id: 25    # kProud  骄傲
+    min_post_process_signal: 100
+    animation_name: "proud"
+    animation_name_zh: "骄傲"
+    sort_order: 29
+    audio_delay_ms: 1000
+    motion_name_code: 1238
+    motion_type: "app"
+    motion_list_type: ["bipedal", "quadrupedal"]
+    action_type: 4
+    skill_list:
+      - action_name: "QUADRUPED_LOCOMOTION_DEFAULT"
+        motion_part: "whole_body"
+        motion_name: "QUAD_MIMIC_PRIDE"
+        support_app: true
+        obstacle_check: false
+        action_black_list: *t1_quadruped_low_posture_recover_motion_black_list
+      - action_name: "BIPED_LOCOMOTION_WBC"
+        motion_part: "upper_body"
+        motion_id: 2017
+        obstacle_check: false
+        support_app: true
+        action_black_list: *t1_biped_upper_body_black_list
+
+  - animation_id: 26    # kJoy  喜悦
+    min_post_process_signal: 100
+    animation_name: "joy"
+    animation_name_zh: "喜悦"
+    sort_order: 30
+    audio_delay_ms: 1000
+    motion_name_code: 1239
+    motion_type: "app"
+    motion_list_type: ["bipedal", "quadrupedal"]
+    action_type: 4
+    skill_list:
+      - action_name: "QUADRUPED_LOCOMOTION_DEFAULT"
+        motion_part: "whole_body"
+        motion_action_name: "QUADRUPED_LOCOMOTION_PLEASURE"
+        support_app: true
+        obstacle_check: false
+        action_black_list: *t1_quadruped_low_posture_recover_motion_black_list
+      - action_name: "BIPED_LOCOMOTION_WBC"
+        motion_part: "upper_body"
+        motion_id: 2002
+        obstacle_check: false
+        support_app: true
+        action_black_list: *t1_biped_upper_body_black_list
+
+  - animation_id: 27    # kStretch  伸懒腰（四足）
+    min_post_process_signal: 100
+    animation_name: "stretch"
+    animation_name_zh: "伸懒腰"
+    sort_order: 50
+    audio_delay_ms: 0
+    motion_name_code: 1240
+    motion_type: "app"
+    motion_list_type: ["quadrupedal"]
+    action_type: 4
+    obstacle_check: false
+    skill_list:
+      - action_name: "QUADRUPED_LOCOMOTION_DEFAULT"
+        motion_part: "whole_body"
+        motion_action_name: "QUADRUPED_LOCOMOTION_STRETCH"
+        current_action_list:
+          - QUADRUPED_GET_DOWN_DEFAULT
+          - QUADRUPED_SIT_DOWN_DEFAULT
+        support_app: true
+        action_black_list: *t1_quadruped_posture_black_list
+      - action_name: "QUADRUPED_LOCOMOTION_DEFAULT"
+        motion_part: "whole_body"
+        motion_action_name: "QUADRUPED_LOCOMOTION_STRETCH"
+        support_app: true
+        action_black_list: *t1_quadruped_motion_black_list
+
+  - animation_id: 38    # kPosing  摆姿势（四足）
+    min_post_process_signal: 100
+    animation_name: "posing"
+    animation_name_zh: "摆姿势"
+    sort_order: 69
+    motion_name_code: 1786
+    motion_type: "app"
+    motion_list_type: ["quadrupedal"]
+    action_type: 2
+    obstacle_check: false
+    skill_list:
+      - action_name: "QUADRUPED_LOCOMOTION_DEFAULT"
+        motion_part: "whole_body"
+        motion_action_name: "QUADRUPED_LOCOMOTION_BIONIC"
+        support_app: false
+        action_black_list: *t1_quadruped_motion_black_list
+
+  - animation_id: 40    # kPushUp  俯卧撑（四足）
+    min_post_process_signal: 100
+    animation_name: "push_up"
+    animation_name_zh: "俯卧撑"
+    sort_order: 51
+    motion_name_code: 1788
+    motion_type: "app"
+    motion_list_type: ["quadrupedal"]
+    action_type: 4
+    interrupt: true
+    obstacle_check: false
+    skill_list:
+      - action_name: "QUADRUPED_LOCOMOTION_DEFAULT"
+        motion_part: "whole_body"
+        motion_action_name: "QUADRUPED_PUSH_UP"
+        post_emoticon: 240
+        support_app: true
+        action_black_list: *t1_quadruped_low_posture_recover_motion_black_list
+
+  - animation_id: 41    # 向前跳
+    min_post_process_signal: 100
+    animation_name: "forward_jump"
+    animation_name_zh: "向前跳"
+    motion_name_code: 1789
+    motion_type: "app"
+    interrupt: false
+    extreme_motion: true
+    motion_list_type: ["quadrupedal"]
+    action_type: 4
+    skill_list:
+      - action_name: "QUADRUPED_STAND_DEFAULT"
+        motion_part: "whole_body"
+        motion_action_name: "QUADRUPED_LOCOMOTION_JUMP"
+        support_app: true
+        lowest_battery: 30
+        action_black_list: *t1_quadruped_motion_black_list
+
+  - animation_id: 43    # kRhythm  律动
+    min_post_process_signal: 100
+    animation_name: "rhythm"
+    animation_name_zh: "律动"
+    sort_order: 38
+    motion_name_code: 1791
+    motion_type: "app"
+    motion_list_type: ["bipedal", "quadrupedal"]
+    action_type: 4
+    skill_list:
+      - action_name: "QUADRUPED_STAND_DEFAULT"
+        motion_part: "whole_body"
+        motion_name: "QUAD_MIMIC_RHYTHM"
+        support_app: true
+        obstacle_check: false
+        action_black_list: *t1_quadruped_low_posture_recover_motion_black_list
+      - action_name: "BIPED_LOCOMOTION_WBC"
+        motion_part: "upper_body"
+        motion_id: 2031
+        obstacle_check: false
+        support_app: true
+        action_black_list: *t1_biped_upper_body_black_list
+
+  - animation_id: 44    # kFear  害怕
+    min_post_process_signal: 100
+    animation_name: "fear"
+    animation_name_zh: "害怕"
+    sort_order: 32
+    motion_name_code: 1792
+    motion_type: "app"
+    motion_list_type: ["bipedal", "quadrupedal"]
+    action_type: 4
+    skill_list:
+      - action_name: "QUADRUPED_STAND_DEFAULT"
+        motion_part: "whole_body"
+        motion_name: "QUAD_MIMIC_SCARED"
+        support_app: true
+        obstacle_check: false
+        action_black_list: *t1_quadruped_low_posture_recover_motion_black_list
+      - action_name: "BIPED_LOCOMOTION_WBC"
+        motion_part: "upper_body"
+        motion_id: 2034
+        obstacle_check: false
+        support_app: true
+        action_black_list: *t1_biped_upper_body_black_list
+
+  - animation_id: 45    # kSad  难过
+    min_post_process_signal: 100
+    animation_name: "sad"
+    animation_name_zh: "难过"
+    sort_order: 33
+    motion_name_code: 1793
+    motion_type: "app"
+    motion_list_type: ["bipedal", "quadrupedal"]
+    action_type: 4
+    skill_list:
+      - action_name: "QUADRUPED_STAND_DEFAULT"
+        motion_part: "whole_body"
+        motion_name: "QUAD_MIMIC_SAD"
+        support_app: true
+        obstacle_check: false
+        action_black_list: *t1_quadruped_low_posture_recover_motion_black_list
+      - action_name: "BIPED_LOCOMOTION_WBC"
+        motion_part: "upper_body"
+        motion_id: 2033
+        obstacle_check: false
+        support_app: true
+        action_black_list: *t1_biped_upper_body_black_list
+
+  - animation_id: 49    # kListenPosture  聆听姿态
+    min_post_process_signal: 100
+    animation_name: "listen_posture"
+    animation_name_zh: "聆听姿态"
+    sort_order: 66
+    motion_name_code: 1797
+    motion_list_type: ["bipedal", "quadrupedal"]
+    skill_list:
+      - action_name: "QUADRUPED_STAND_DEFAULT"
+        motion_part: "whole_body"
+        motion_name: "QUAD_MIMIC_HEED"
+        support_app: false
+        obstacle_check: false
+        action_black_list: *t1_quadruped_motion_black_list
+      - action_name: "BIPED_LOCOMOTION_WBC"
+        motion_part: "upper_body"
+        motion_id: 2041
+        obstacle_check: false
+        support_app: false
+        action_black_list: *t1_biped_upper_body_black_list
+
+  - animation_id: 50    # kTalkPosture  说话姿态
+    min_post_process_signal: 100
+    animation_name: "talk_posture"
+    animation_name_zh: "说话姿态"
+    sort_order: 67
+    motion_name_code: 1798
+    motion_list_type: ["bipedal", "quadrupedal"]
+    skill_list:
+      - action_name: "QUADRUPED_STAND_DEFAULT"
+        motion_part: "whole_body"
+        obstacle_check: false
+        motion_name: "QUAD_MIMIC_TALK"
+        support_app: false
+        action_black_list: *t1_quadruped_motion_black_list
+      - action_name: "BIPED_LOCOMOTION_WBC"
+        motion_part: "upper_body"
+        motion_id: 2024
+        obstacle_check: false
+        support_app: false
+        action_black_list: *t1_biped_upper_body_black_list
+
+  - animation_id: 51    # kThinkPosture  思考姿态
+    min_post_process_signal: 100
+    animation_name: "think_posture"
+    animation_name_zh: "思考姿态"
+    sort_order: 68
+    motion_name_code: 1799
+    motion_list_type: ["bipedal", "quadrupedal"]
+    skill_list:
+      - action_name: "QUADRUPED_STAND_DEFAULT"
+        motion_part: "whole_body"
+        motion_name: "QUAD_MIMIC_PONDER"
+        support_app: false
+        obstacle_check: false
+        action_black_list: *t1_quadruped_motion_black_list
+      - action_name: "BIPED_LOCOMOTION_WBC"
+        motion_part: "upper_body"
+        motion_id: 2035
+        obstacle_check: false
+        support_app: false
+        action_black_list: *t1_biped_upper_body_black_list
+
+  - animation_id: 52    # kMoonwalk  太空步（双足）
+    min_post_process_signal: 100
+    animation_name: "moonwalk"
+    animation_name_zh: "太空步"
+    sort_order: 5
+    motion_name_code: 1270
+    motion_type: "app"
+    motion_list_type: ["bipedal"]
+    action_type: 4
+    skill_list:
+      - action_name: "BIPED_LOCOMOTION_WBC"
+        motion_part: "whole_body"
+        motion_action_name: "BIPED_LOCOMOTION_MOONWALK"
+        pre_audio:
+          audio_file: "/robot/software/task_engine/resource/resource_audios/"
+          candidates: ["太空步18s.wav", "太空步16s.wav"]
+        support_app: true
+        action_black_list: *t1_biped_motion_black_list
+
+  - animation_id: 53    # kExitMoonwalk  退出太空步（双足）
+    min_post_process_signal: 53
+    animation_name: "exit_moonwalk"
+    animation_name_zh: "退出太空步"
+    sort_order: 6
+    motion_name_code: 1800
+    motion_type: "app"
+    motion_list_type: ["bipedal"]
+    action_type: 2
+    obstacle_check: false
+    skill_list:
+      - action_name: "BIPED_LOCOMOTION_WBC"
+        motion_part: "whole_body"
+        current_action_list:
+          - BIPED_LOCOMOTION_MOONWALK
+        pre_audio:
+          param_type: "stop"
+        motion_action_name: "BIPED_LOCOMOTION_WBC"
+        support_app: false
+        action_black_list: *t1_biped_motion_black_list
+
+  - animation_id: 54    # kQuadrupedMimicGlance  四足四处打量
+    min_post_process_signal: 100
+    animation_name: "quadruped_mimic_glance"
+    animation_name_zh: "四足四处打量"
+    sort_order: 52
+    motion_name_code: 1801
+    motion_type: "app"
+    motion_list_type: ["quadrupedal"]
+    action_type: 4
+    obstacle_check: false
+    skill_list:
+      - action_name: "QUADRUPED_STAND_DEFAULT"
+        motion_part: "whole_body"
+        motion_name: "QUAD_MIMIC_GLANCE"
+        support_app: true
+        action_black_list: *t1_quadruped_motion_black_list
+
+  - animation_id: 57    # kRhythm2  律动2（四足）
+    min_post_process_signal: 100
+    animation_name: "rhythm_2"
+    animation_name_zh: "律动2"
+    sort_order: 39
+    motion_name_code: 1870
+    motion_list_type: ["quadrupedal"]
+    obstacle_check: false
+    skill_list:
+      - action_name: "QUADRUPED_STAND_DEFAULT"
+        motion_part: "whole_body"
+        motion_name: "QUAD_MIMIC_RHYTHM_TWO"
+        support_app: false
+        action_black_list: *t1_quadruped_motion_black_list
+
+  - animation_id: 62    # kQuadrupedTalk1  四足说话动作1
+    min_post_process_signal: 100
+    animation_name: "quadruped_talk_1"
+    animation_name_zh: "四足说话动作1"
+    sort_order: 61
+    motion_name_code: 1803
+    motion_list_type: ["quadrupedal"]
+    obstacle_check: false
+    skill_list:
+      - action_name: "QUADRUPED_STAND_DEFAULT"
+        motion_part: "whole_body"
+        motion_name: "QUAD_MIMIC_TALK_ONE"
+        support_app: false
+        action_black_list: *t1_quadruped_motion_black_list
+
+  - animation_id: 63    # kQuadrupedTalk2  四足说话动作2
+    min_post_process_signal: 100
+    animation_name: "quadruped_talk_2"
+    animation_name_zh: "四足说话动作2"
+    sort_order: 62
+    motion_name_code: 1804
+    motion_list_type: ["quadrupedal"]
+    obstacle_check: false
+    skill_list:
+      - action_name: "QUADRUPED_STAND_DEFAULT"
+        motion_part: "whole_body"
+        motion_name: "QUAD_MIMIC_TALK_TWO"
+        support_app: false
+        action_black_list: *t1_quadruped_motion_black_list
+
+  - animation_id: 64    # kQuadrupedTalk3  四足说话动作3
+    min_post_process_signal: 100
+    animation_name: "quadruped_talk_3"
+    animation_name_zh: "四足说话动作3"
+    sort_order: 63
+    motion_name_code: 1805
+    motion_list_type: ["quadrupedal"]
+    obstacle_check: false
+    skill_list:
+      - action_name: "QUADRUPED_STAND_DEFAULT"
+        motion_part: "whole_body"
+        motion_name: "QUAD_MIMIC_TALK_THREE"
+        support_app: false
+        action_black_list: *t1_quadruped_motion_black_list
+
+  - animation_id: 65    # kQuadrupedTalk4  四足说话动作4
+    min_post_process_signal: 100
+    animation_name: "quadruped_talk_4"
+    animation_name_zh: "四足说话动作4"
+    sort_order: 64
+    motion_name_code: 1806
+    motion_list_type: ["quadrupedal"]
+    obstacle_check: false
+    skill_list:
+      - action_name: "QUADRUPED_STAND_DEFAULT"
+        motion_part: "whole_body"
+        motion_name: "QUAD_MIMIC_TALK_FOUR"
+        support_app: false
+        action_black_list: *t1_quadruped_motion_black_list
+
+  - animation_id: 68    # 四足讲话动作5
+    min_post_process_signal: 100
+    animation_name: "quadruped_talk_5"
+    animation_name_zh: "四足讲话动作5"
+    sort_order: 65
+    motion_name_code: 1875
+    motion_list_type: ["quadrupedal"]
+    obstacle_check: false
+    skill_list:
+      - action_name: "QUADRUPED_STAND_DEFAULT"
+        motion_part: "whole_body"
+        motion_name: "QUAD_MIMIC_TALK_FIVE"
+        support_app: false
+        action_black_list: *t1_quadruped_motion_black_list
+
+  - animation_id: 77    # 呼吸动作（四足）
+    min_post_process_signal: 100
+    animation_name: "breath"
+    animation_name_zh: "呼吸动作"
+    sort_order: 40
+    motion_name_code: 1884
+    motion_list_type: ["quadrupedal"]
+    obstacle_check: false
+    skill_list:
+      - action_name: "QUADRUPED_STAND_DEFAULT"
+        motion_part: "whole_body"
+        motion_name: "QUAD_MIMIC_BREATH"
+        support_app: false
+        action_black_list: *t1_quadruped_motion_black_list
+
+  - animation_id: 80    # 随机跳舞：四足固定播 id=7；双足按权重从 7/10/11/3061 中选一个
+    min_post_process_signal: 100
+    animation_name: "random_dance"
+    animation_name_zh: "随机跳舞"
+    motion_type: "app"
+    support_app: false
+    motion_list_type: ["bipedal", "quadrupedal"]
+    quadruped_dance_ids: [7]
+    biped_dance_ids: [7, 10, 11, 3061]
+    biped_dance_weights: [3, 1, 1, 1]   # 各候选 id 对应的相对权重，省略或长度不匹配时退化为均匀分布
+
+  - animation_id: 3061     # kDance  跳舞（世界杯）
+    min_post_process_signal: 100
+    animation_name: "dance"
+    animation_name_zh: "跳舞"
+    sort_order: 4
+    audio_delay_ms: 0
+    motion_name_code: 1905
+    motion_type: "app"
+    motion_list_type: ["bipedal"]
+    action_type: 4
+    skill_list:
+      - action_name: "BIPED_LOCOMOTION_WBC"
+        motion_part: "whole_body"
+        motion_name: "BIPED_MIMIC_DANCE_WORLDCUP_ONE"
+        wait_motion_idle_before_motion: true
+        wait_motion_idle_timeout_ms: 12000
+        async_post_audio: true
+        post_audio:
+          - audio_file: "/robot/software/task_engine/resource/resource_audios/"
+            quadruped: "世界杯跳舞音乐.wav"
+            biped: "世界杯跳舞音乐.wav"
+        support_app: true
+        action_black_list: *t1_biped_upper_body_black_list
+
+  - animation_id: 3081     # 影视飓风-狗拉小车
+    min_post_process_signal: 100
+    animation_name: "tow_pull_cart"
+    animation_name_zh: "牵引拉车"
+    sort_order: 72
+    motion_name_code: 2555
+    motion_type: "app"
+    motion_list_type: ["quadrupedal"]
+    interrupt: false
+    action_type: 4
+    skill_list:
+      - action_name: "QUADRUPED_LOCOMOTION_DEFAULT"
+        motion_part: "whole_body"
+        motion_action_name: "QUADRUPED_LOCOMOTION_TERRAIN"
+        support_app: true
+        action_black_list: *t1_quadruped_low_posture_recover_motion_black_list
+
+  # - animation_id: 3082     #影视飓风-从桌子上/后备箱跳下
+  #   min_post_process_signal: 100
+  #   animation_name: "light_leap_down"
+  #   animation_name_zh: "轻巧跃下"
+  #   sort_order: 73
+  #   motion_name_code: 2556
+  #   motion_type: "app"
+  #   motion_list_type: ["quadrupedal"]
+  #   interrupt: false
+  #   action_type: 4
+  #   obstacle_check: false
+  #   skill_list:
+  #     - action_name: "QUADRUPED_LOCOMOTION_DEFAULT"
+  #       motion_part: "whole_body"
+  #       motion_action_name: "QUADRUPED_LOCOMOTION_JUMP"
+  #       support_app: true
+  #       lowest_battery: 30
+  #       action_black_list: *t1_quadruped_motion_black_list
+
+  # - animation_id: 3083     # C罗空中旋转siu（人形） 世界杯
+  #   min_post_process_signal: 100
+  #   animation_name: "aerial_spin"
+  #   animation_name_zh: "凌空回旋"
+  #   sort_order: 74
+  #   motion_name_code: 2548
+  #   motion_type: "app"
+  #   motion_list_type: ["bipedal"]
+  #   interrupt: false
+  #   action_type: 4
+  #   skill_list:
+  #     - action_name: "BIPED_LOCOMOTION_WBC"
+  #       motion_part: "whole_body"
+  #       motion_name: "BIPED_LINGCHUANG_MIMIC_CLUO_JUMP"
+  #       post_audio:
+  #         - audio_file: "/robot/software/task_engine/resource/resource_audios/"
+  #           quadruped: "凌空回旋.wav"
+  #           biped: "凌空回旋.wav"
+  #       support_app: true
+  #       action_black_list: *t1_biped_upper_body_black_list
+
+  # - animation_id: 3084     # 梅西滑跪接双手指天（人形） 世界杯
+  #   min_post_process_signal: 100
+  #   animation_name: "victory_slide_kneel"
+  #   animation_name_zh: "胜利滑跪"
+  #   sort_order: 75
+  #   motion_name_code: 2549
+  #   motion_type: "app"
+  #   motion_list_type: ["bipedal"]
+  #   interrupt: false
+  #   action_type: 4
+  #   skill_list:
+  #     - action_name: "BIPED_LOCOMOTION_WBC"
+  #       motion_part: "whole_body"
+  #       motion_name: "BIPED_LINGCHUANG_MIMIC_MEIXI"
+  #       post_audio:
+  #         - audio_file: "/robot/software/task_engine/resource/resource_audios/"
+  #           quadruped: "胜利滑跪.wav"
+  #           biped: "胜利滑跪.wav"
+  #       support_app: true
+  #       action_black_list: *t1_biped_upper_body_black_list
+
+  # - animation_id: 3085     # 小彩旗（人形） China joy
+  #   min_post_process_signal: 100
+  #   animation_name: "energetic_spin"
+  #   animation_name_zh: "元气转圈"
+  #   sort_order: 76
+  #   motion_name_code: 2550
+  #   motion_type: "app"
+  #   motion_list_type: ["bipedal"]
+  #   interrupt: false
+  #   action_type: 4
+  #   skill_list:
+  #     - action_name: "BIPED_LOCOMOTION_WBC"
+  #       motion_part: "whole_body"
+  #       motion_action_name: "BIPED_LOCOMOTION_WBCDANCE"
+  #       post_audio:
+  #         - audio_file: "/robot/software/task_engine/resource/resource_audios/"
+  #           quadruped: "元气转圈.wav"
+  #           biped: "元气转圈.wav"
+  #       support_app: true
+  #       action_black_list: *t1_biped_upper_body_black_list
+
+  - animation_id: 3086     # 欢乐1（人形） 新动作
+    min_post_process_signal: 100
+    animation_name: "energetic_dance"
+    animation_name_zh: "元气热舞"
+    sort_order: 77
+    motion_name_code: 2551
+    motion_type: "app"
+    motion_list_type: ["bipedal"]
+    interrupt: false
+    action_type: 4
+    skill_list:
+      - action_name: "BIPED_LOCOMOTION_WBC"
+        motion_part: "whole_body"
+        motion_name: "BIPED_NPZ_MIMIC_JOYOUS"
+        post_audio:
+          - audio_file: "/robot/software/task_engine/resource/resource_audios/"
+            quadruped: "元气热舞.wav"
+            biped: "元气热舞.wav"
+        support_app: true
+        action_black_list: *t1_biped_upper_body_black_list
+
+  - animation_id: 3087     # 欢乐2（人形） 新动作
+    min_post_process_signal: 100
+    animation_name: "cheerful_dance"
+    animation_name_zh: "欢快劲舞"
+    sort_order: 78
+    motion_name_code: 2552
+    motion_type: "app"
+    motion_list_type: ["bipedal"]
+    interrupt: false
+    action_type: 4
+    skill_list:
+      - action_name: "BIPED_LOCOMOTION_WBC"
+        motion_part: "whole_body"
+        motion_name: "BIPED_NPZ_MIMIC_JOYOUS2"
+        post_audio:
+          - audio_file: "/robot/software/task_engine/resource/resource_audios/"
+            quadruped: "欢快劲舞.wav"
+            biped: "欢快劲舞.wav"
+        support_app: true
+        action_black_list: *t1_biped_upper_body_black_list
+
+  - animation_id: 3088     # 欢乐3（人形） 新动作
+    min_post_process_signal: 100
+    animation_name: "robotic_dance_step"
+    animation_name_zh: "机械舞步"
+    sort_order: 79
+    motion_name_code: 2553
+    motion_type: "app"
+    motion_list_type: ["bipedal"]
+    interrupt: false
+    action_type: 4
+    skill_list:
+      - action_name: "BIPED_LOCOMOTION_WBC"
+        motion_part: "whole_body"
+        motion_name: "BIPED_NPZ_MIMIC_JOYOUS3"
+        post_audio:
+          - audio_file: "/robot/software/task_engine/resource/resource_audios/"
+            quadruped: "机械舞步.wav"
+            biped: "机械舞步.wav"
+        support_app: true
+        action_black_list: *t1_biped_upper_body_black_list
+
+  # - animation_id: 3089     # 花样滑冰
+  #   min_post_process_signal: 100
+  #   animation_name: "figure_skating"
+  #   animation_name_zh: "花样滑冰"
+  #   sort_order: 80
+  #   motion_name_code: 2554
+  #   motion_type: "app"
+  #   motion_list_type: ["bipedal"]
+  #   interrupt: false
+  #   action_type: 4
+  #   skill_list:
+  #     - action_name: "BIPED_LOCOMOTION_WBC"
+  #       motion_part: "whole_body"
+  #       motion_name: "BIPED_NPZ_MIMIC_FIGURE_SKATING"
+  #       post_audio:
+  #         - audio_file: "/robot/software/task_engine/resource/resource_audios/"
+  #           quadruped: "花式轮滑.wav"
+  #           biped: "花式轮滑.wav"
+  #       support_app: true
+  #       action_black_list: *t1_biped_upper_body_black_list
+
+  # - animation_id: 3098     # 冰上旋舞
+  #   min_post_process_signal: 100
+  #   animation_name: "ice_spin_dance"
+  #   animation_name_zh: "冰上旋舞"
+  #   sort_order: 81
+  #   motion_name_code: 3098
+  #   motion_type: "app"
+  #   motion_list_type: ["bipedal"]
+  #   interrupt: false
+  #   action_type: 4
+  #   skill_list:
+  #     - action_name: "BIPED_LOCOMOTION_WBC"
+  #       motion_part: "whole_body"
+  #       motion_name: "BIPED_NPZ_MIMIC_AABATTERY"
+  #       async_post_audio: true
+  #       post_audio:
+  #         - audio_file: "/robot/software/task_engine/resource/resource_audios/"
+  #           quadruped: "冰上旋舞.wav"
+  #           biped: "冰上旋舞.wav"
+  #       support_app: true
+  #       action_black_list: *t1_biped_upper_body_black_list
+
+  # - animation_id: 3099     # 极光冰舞
+  #   min_post_process_signal: 100
+  #   animation_name: "aurora_ice_dance"
+  #   animation_name_zh: "极光冰舞"
+  #   sort_order: 82
+  #   motion_name_code: 3099
+  #   motion_type: "app"
+  #   motion_list_type: ["bipedal"]
+  #   interrupt: false
+  #   action_type: 4
+  #   skill_list:
+  #     - action_name: "BIPED_LOCOMOTION_WBC"
+  #       motion_part: "whole_body"
+  #       motion_name: "BIPED_NPZ_MIMIC_IWILLBETHERE"
+  #       async_post_audio: true
+  #       post_audio:
+  #         - audio_file: "/robot/software/task_engine/resource/resource_audios/"
+  #           quadruped: "极光冰舞.wav"
+  #           biped: "极光冰舞.wav"
+  #       support_app: true
+  #       action_black_list: *t1_biped_upper_body_black_list
+
+  # - animation_id: 3100     # 滑行登场
+  #   min_post_process_signal: 100
+  #   animation_name: "sliding_entrance"
+  #   animation_name_zh: "滑行登场"
+  #   sort_order: 83
+  #   motion_name_code: 3107
+  #   motion_type: "app"
+  #   motion_list_type: ["bipedal"]
+  #   interrupt: false
+  #   action_type: 4
+  #   skill_list:
+  #     - action_name: "BIPED_LOCOMOTION_WBC"
+  #       motion_part: "whole_body"
+  #       motion_name: "BIPED_NPZ_MIMIC_101"
+  #       support_app: true
+  #       action_black_list: *t1_biped_upper_body_black_list
+
+  # - animation_id: 3101     # 四月的谎言
+  #   min_post_process_signal: 100
+  #   animation_name: "april_lie"
+  #   animation_name_zh: "四月的谎言"
+  #   sort_order: 84
+  #   motion_name_code: 3635
+  #   motion_type: "app"
+  #   motion_list_type: ["bipedal"]
+  #   interrupt: false
+  #   action_type: 4
+  #   skill_list:
+  #     - action_name: "BIPED_LOCOMOTION_WBC"
+  #       motion_part: "whole_body"
+  #       motion_name: "BIPED_NPZ_APRIL_LIE"
+  #       async_post_audio: true
+  #       post_audio:
+  #         - audio_file: "/robot/software/task_engine/resource/resource_audios/"
+  #           quadruped: "四月的谎言.wav"
+  #           biped: "四月的谎言.wav"
+  #       support_app: true
+  #       action_black_list: *t1_biped_upper_body_black_list

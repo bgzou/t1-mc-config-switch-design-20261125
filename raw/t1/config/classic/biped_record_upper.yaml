@@ -1,0 +1,18 @@
+step_time: 10
+duration_time_limit: 300
+# START 时从 default_pos 线性插值到当前上肢姿态,过渡帧写入 CSV 但不计入录制时长
+# tick = clamp(ceil(max_disp / padding_speed_rad), min_padding_tick, max_padding_tick)
+padding_speed_rad: 0.015  # 每 tick 最大关节位移 (rad);0.015 * 100Hz = 1.5 rad/s ≈ 86 deg/s
+padding_tick: 100          # padding_speed_rad <= 0 时的固定帧数
+min_padding_tick: 30       # 自适应下限
+max_padding_tick: 500      # 自适应上限
+joints:
+  -
+    - UPPER_JOINT # upper-arm partition (cfg still carries upper/lower name lists)
+    -
+      upper_joint_num: 6
+      lower_joint_num: 8
+      upper: ["FL_HIP_ROLL_Joint", "FL_HIP_PITCH_Joint", "FL_KNEE_Joint", "FR_HIP_ROLL_Joint", "FR_HIP_PITCH_Joint", "FR_KNEE_Joint"]
+      lower: ["RL_HIP_ROLL_Joint", "RL_HIP_PITCH_Joint", "RL_KNEE_Joint", "RL_FOOT_Joint", "RR_HIP_ROLL_Joint", "RR_HIP_PITCH_Joint", "RR_KNEE_Joint", "RR_FOOT_Joint"]
+      upper_kp: [0.5, 0.0, 0.0, 0.5, 0.0, 0.0]
+      upper_kd: [0.1, 0.0, 0.0, 0.1, 0.0, 0.0]

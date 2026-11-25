@@ -1,0 +1,329 @@
+BaseConfig:
+  model_type: "Walk"
+
+  use_debug: true
+  dt: 0.01  # 100Hz
+
+  policy:
+    type: "onnx"
+    device: "cpu"
+    path: "./rl_models/t1_bi_moonwalk_v2_0807.onnx"
+
+  # obs-action nums will be obtained by urdf
+  obs_nums: 51
+  q_nums: 14
+  action_nums: 14
+
+  joints_name:
+    [
+      'FL_HIP_ROLL_Joint',
+      'FL_HIP_PITCH_Joint',
+      'FL_KNEE_Joint',
+
+      'FR_HIP_ROLL_Joint',
+      'FR_HIP_PITCH_Joint',
+      'FR_KNEE_Joint',
+
+      'RL_HIP_ROLL_Joint',
+      'RL_HIP_PITCH_Joint',
+      'RL_KNEE_Joint',
+      'RL_FOOT_Joint',
+
+      'RR_HIP_ROLL_Joint',
+      'RR_HIP_PITCH_Joint',
+      'RR_KNEE_Joint',
+      'RR_FOOT_Joint',
+    ]
+
+  #define the obs sequence
+  seq:
+    [
+      'FL_HIP_ROLL_Joint',
+      'FL_HIP_PITCH_Joint',
+      'FL_KNEE_Joint',
+
+      'FR_HIP_ROLL_Joint',
+      'FR_HIP_PITCH_Joint',
+      'FR_KNEE_Joint',
+
+      'RL_HIP_ROLL_Joint',
+      'RL_HIP_PITCH_Joint',
+      'RL_KNEE_Joint',
+      'RL_FOOT_Joint',
+
+      'RR_HIP_ROLL_Joint',
+      'RR_HIP_PITCH_Joint',
+      'RR_KNEE_Joint',
+      'RR_FOOT_Joint',
+    ]
+
+  # define the action sequence
+  action_seq:
+    [
+      'FL_HIP_ROLL_Joint',
+      'FL_HIP_PITCH_Joint',
+      'FL_KNEE_Joint',
+
+      'FR_HIP_ROLL_Joint',
+      'FR_HIP_PITCH_Joint',
+      'FR_KNEE_Joint',
+
+      'RL_HIP_ROLL_Joint',
+      'RL_HIP_PITCH_Joint',
+      'RL_KNEE_Joint',
+      'RL_FOOT_Joint',
+
+      'RR_HIP_ROLL_Joint',
+      'RR_HIP_PITCH_Joint',
+      'RR_KNEE_Joint',
+      'RR_FOOT_Joint',
+    ]
+
+  action_scale: [ 0.0, 0.0, 0.0,
+                  0.0, 0.0, 0.0,
+                  0.0, 0.2, 0.2, 2.0,
+                  0.0, 0.2, 0.2, 2.0 ]
+
+  imu_pitch_offset: 0.0
+
+
+ACConfig:
+  infer:
+    frame_stack: 10
+
+  clips:
+    obs_clip: 20.0
+    action_clip: 20.0
+
+  reduction:
+    wheel_reduction: 1.0
+    hip_reduction: 0.0
+
+  robot:
+    # seq same as action_seq
+    # real params
+    kps: [
+      50.0, 30.0, 30.0,
+      50.0, 30.0, 30.0,
+      50.0, 30.0, 30.0, 0.0,
+      50.0, 30.0, 30.0, 0.0 ]
+    kds: [
+      1.0, 1.0, 1.0,
+      1.0, 1.0, 1.0,
+      1.0, 1.0, 1.0, 0.5,
+      1.0, 1.0, 1.0, 0.5 ]
+    default_dof_pos: [
+      0.0, 1.57080, 0.63023,
+      0.0, 1.57080, 0.63023,
+      0.0, 1.91986, -0.65799, 0.0,
+      0.0, 1.91986, -0.65799, 0.0 ]
+
+    default_kp: 30
+    default_kd: 1.0
+
+
+WalkConfig:
+  desired_contact: [1, 1]
+  # define obs index
+  obs_index:
+    imu_omega: 0
+    imu_euler: 3
+    pos: 6
+    vel: 18
+    action: 32
+    command: 46
+    phase: 50
+
+  obs_scales:
+    dof_pos: 1.0
+    dof_vel: 0.05
+    lin_vel: 2.0
+    ang_vel: 0.25
+
+  command_scales:
+    cmd_x_min: -0.5
+    cmd_x_max: 0.5
+    cmd_yaw_min: -0.5
+    cmd_yaw_max: 0.5
+    height: 0.02  # 对齐训练 height range [-0.02, 0]: 满杆 level=1 对应 -0.02m (原 0.15 远超训练分布 7.5x)
+    dyaw: 0.5
+
+  custom:
+    start_time: 1.0
+    cycle_time: 2.0 # 1.0 - 3.0
+    repetition: 100.0
+    transition_duration: 0.15
+    pitch_mode: "periodic"
+    pitch_periodic_amplitude: 0.0
+    pitch_periodic_bias: 0.08
+    pitch_periodic_freq_scale: 1.0
+
+  filter:
+    imu_vel_cutoff_freq: 100
+    q_vel_cutoff_freq: [
+      100, 100, 100,
+      100, 100, 100,
+      100, 100, 100, 50,
+      100, 100, 100, 50]
+
+  limits:
+    lower_limit: [-0.43633, -1.1868, -2.5831, -0.43633, -1.1868, -2.5831]
+    upper_limit: [ 0.43633,  4.3284,  2.5831,  0.43633,  4.3284,  2.5831]
+
+  odom:
+    wheel_radius: 0.07
+    odom_enable_x: 0.3
+    odom_kp_x: 0.5
+    odom_kd_x: 0.02
+    max_vel_x: 0.3
+    max_vel_yaw: 0.5
+    odom_enable_yaw: 0.2
+    odom_kp_yaw: 0.1
+    max_delta_yaw: 2.0
+    odom_log_decimation: 1
+    max_delta_x: 10
+    odom_comp_decimation: 1
+    odom_disable_after_switch_s: 1
+
+  # ik: ellipse IK planner; csv: replay and interpolate arm CSV; sine: legacy sine fallback
+  arm_mode: "ik"
+  arm_csv:
+    path: "./res/biped_moonwalk/qd1_bi_moonwalk.csv"
+    loop: true
+    time_scale: 6.5
+    phase_offset: 0.0
+
+  arm_ref:
+    left_direction: "ccw"
+    right_direction: "ccw"
+
+    left_hip_body_xz: [0.0, 0.1733]
+    right_hip_body_xz: [0.0, 0.1733]
+
+    left_center: [0.078594, -0.213446]
+    left_major_axis_p0: [0.201774, -0.175481]
+    left_major_axis_p1: [-0.044586, -0.251411]
+    left_minor_axis_p0: [0.08743, -0.242115]
+    left_minor_axis_p1: [0.069758, -0.184777]
+
+    # left_center: [0.104317, -0.172355]
+    # left_major_axis_p0: [0.227497, -0.13439]
+    # left_major_axis_p1: [-0.018863, -0.21032]
+    # left_minor_axis_p0: [0.113153, -0.201024]
+    # left_minor_axis_p1: [0.095481, -0.143686]
+
+    # [Task1] 与训练 qd1_t2d0 legged_robot_config 对齐: 右臂复用左臂椭圆, 消除非对称手臂扰动
+    right_center: [0.078594, -0.213446]  # = left
+    right_major_axis_p0: [0.201774, -0.175481]  # = left
+    right_major_axis_p1: [-0.044586, -0.251411]  # = left
+    right_minor_axis_p0: [0.08743, -0.242115]  # = left
+    right_minor_axis_p1: [0.069758, -0.184777]  # = left
+
+    # right_center: [0.104317, -0.172355]   # = left
+    # right_major_axis_p0: [0.227497, -0.13439]  # = left
+    # right_major_axis_p1: [-0.018863, -0.21032]  # = left
+    # right_minor_axis_p0: [0.113153, -0.201024]   # = left
+    # right_minor_axis_p1: [0.095481, -0.143686]   # = left
+
+    left_keypoints:
+      - [0.00, 0.0786, -0.244756]
+      - [0.25, -0.044903, -0.249264]
+      - [0.50, 0.078588, -0.182136]
+      - [0.75, 0.202091, -0.177628]
+
+    # left_keypoints:
+    #   - [0.00, 0.104323, -0.203665]
+    #   - [0.25, -0.019180, -0.208173]
+    #   - [0.50, 0.104311, -0.141045]
+    #   - [0.75, 0.227814, -0.136537]
+
+    # 右臂 keypoint 相位 +0.5(反相), 与训练一致: 左臂峰值在 0.75, 右臂峰值在 0.25
+    right_keypoints:
+      - [0.00, 0.078588, -0.182136]
+      - [0.25, 0.202091, -0.177628]
+      - [0.50, 0.0786, -0.244756]
+      - [0.75, -0.044903, -0.249264]
+
+    # right_keypoints:
+    #   - [0.00, 0.104311, -0.141045]
+    #   - [0.25, 0.227814, -0.136537]
+    #   - [0.50, 0.104323, -0.203665]
+    #   - [0.75, -0.019180, -0.208173]
+
+    upper_arm_length: 0.215
+    lower_arm_length: 0.213372
+    upper_arm_vector_xz: [0.0, -0.215]
+    lower_arm_vector_xz: [-0.021555, -0.21228]
+    workspace_margin: 0.02
+
+    x_sign: 1.0
+    z_sign: 1.0
+    pitch_sign: 1.0
+    knee_sign: 1.0
+    knee_bend_sign: 1.0
+    pitch_offset: 0.0
+    knee_offset: 0.0
+    # 手臂参考相对腿部相位的超前量(0~1, 单位:周期)。正值=超前。
+    # 低刚度柔性手臂跟踪滞后大, 用它在真机上调到手臂与腿同相(建议从 0.3 起步往 0.4~0.5 试)。
+    phase_offset: 0.2
+
+    debug_log_arm_ref: false
+
+  stand_actions: [ 'BIPEDAL_STAND_DEFAULT']
+  d_cmd: [3.0, 0.2, 3.0, 0.2]
+
+  acc_x: 1.0
+  acc_x_accel: 1.0
+  v_z: 0.2
+  acc_yaw: 3.0
+  exit_wait_step: 20
+  exit_wait_stop_step_min: 20
+  exit_wait_stop_step: 100
+  bias_vx : 0.0
+  bias_dyaw : 0.0
+  transition_frames: 15
+
+  yaw_acc:
+    d_fast: 3.0
+    d_slow: 0.0
+
+    # 前肢轨迹跟踪 PD（与 animation_player animation 段一致；低刚度需重力补偿）
+  arm_default_kp: 4.0
+  arm_default_kd: 0.4
+  arm_joints:
+    - name: "FL_HIP_ROLL_Joint"
+      kp: 4.0
+      kd: 0.4
+      gravity_scale: 0.9
+    - name: "FL_HIP_PITCH_Joint"
+      kp: 3.0
+      kd: 0.4
+      gravity_scale: 0.9
+    - name: "FL_KNEE_Joint"
+      kp: 4.0
+      kd: 0.4
+      gravity_scale: 0.7
+    - name: "FR_HIP_ROLL_Joint"
+      kp: 4.0
+      kd: 0.4
+      gravity_scale: 0.9
+    - name: "FR_HIP_PITCH_Joint"
+      kp: 3.0
+      kd: 0.4
+      gravity_scale: 0.9
+    - name: "FR_KNEE_Joint"
+      kp: 4.0
+      kd: 0.4
+      gravity_scale: 0.7
+
+  gravity_comp_enable: true
+  gravity_comp_scale: 1.0
+
+  clip_tau:
+    FL_HIP_ROLL_Joint: 1.0
+    FL_HIP_PITCH_Joint: 1.0
+    FL_KNEE_Joint: 0.5
+    FR_HIP_ROLL_Joint: 1.0
+    FR_HIP_PITCH_Joint: 1.0
+    FR_KNEE_Joint: 0.5
+    default: 1.0

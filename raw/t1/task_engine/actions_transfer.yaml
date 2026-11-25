@@ -1,0 +1,324 @@
+# T1 McAction 转换图（有向图）
+# 描述从当前 McAction 状态跳转到目标状态时所需的直接转换关系。
+#
+# 字段说明：
+#   from:     当前所处的 McAction 名称
+#   to:       需要切换到的目标 McAction 名称
+#   form:     适用的机器人形态（biped / quadruped）
+#   delay_ms: 切换完成后需等待的毫秒数（0 = 不等待）
+#   note:     触发场景说明
+#
+# 来源：src/task_description/t1_animation_task_description.cpp
+
+transfers:
+
+  # ─────────────────────────────────────────────
+  # 双足（Biped）转换
+  # ─────────────────────────────────────────────
+
+  # 行走/运动模式 → WBC（播放上肢 motion_id 动作前）
+  - from: "BIPED_LOCOMOTION_DEFAULT"
+    to: "BIPED_LOCOMOTION_WBC"
+    form: biped
+    delay_ms: 150
+    note: "非 WBC 行走模式下播放上肢动作，需先切换到 WBC"
+
+  - from: "BIPED_LOCOMOTION_TERRAIN"
+    to: "BIPED_LOCOMOTION_WBC"
+    form: biped
+    delay_ms: 150
+    note: "地形行走模式下播放上肢动作，需先切换到 WBC"
+
+  - from: "BIPED_LOCOMOTION_RUN"
+    to: "BIPED_LOCOMOTION_WBC"
+    form: biped
+    delay_ms: 150
+    note: "跑步模式下播放上肢动作，需先切换到 WBC"
+
+  - from: "BIPED_MIMIC"
+    to: "BIPED_LOCOMOTION_WBC"
+    form: biped
+    delay_ms: 150
+    note: "MIMIC 动作模式下复位到双足默认姿态，需先切换到 WBC"
+
+  - from: "QUADRUPED_TO_BIPED"
+    to: "BIPED_LOCOMOTION_WBC"
+    form: biped
+    delay_ms: 150
+    note: "变形到双足后尚未稳定，需先切换到 WBC"
+
+  - from: "QUADRUPED_TO_BIPED_ROTATE"
+    to: "BIPED_LOCOMOTION_WBC"
+    form: biped
+    delay_ms: 150
+    note: "旋转变形到双足后尚未稳定，需先切换到 WBC"
+
+  # WBC / ANIMATION / RUN 三者可直接相互切换（无需等待）
+  - from: "BIPED_LOCOMOTION_WBC"
+    to: "BIPED_LOCOMOTION_ANIMATION"
+    form: biped
+    delay_ms: 50
+    note: "WBC → ANIMATION（播放全身动画动作）"
+
+  - from: "BIPED_LOCOMOTION_ANIMATION"
+    to: "BIPED_LOCOMOTION_WBC"
+    form: biped
+    delay_ms: 50
+    note: "ANIMATION → WBC（动画结束后切回上肢 WBC 模式）"
+
+  - from: "BIPED_LOCOMOTION_RUN"
+    to: "BIPED_LOCOMOTION_DEFAULT"
+    form: biped
+    delay_ms: 0
+    note: "RUN → DEFAULT（切换户外/室内模式前先退出跑步模式）"
+
+  - from: "BIPED_LOCOMOTION_RUN"
+    to: "BIPED_LOCOMOTION_ANIMATION"
+    form: biped
+    delay_ms: 50
+    note: "RUN → ANIMATION（跑步模式下直接切换到动画模式）"
+
+  - from: "BIPED_LOCOMOTION_ANIMATION"
+    to: "BIPED_LOCOMOTION_RUN"
+    form: biped
+    delay_ms: 50
+    note: "ANIMATION → RUN"
+
+  # WBC → 太空步 / 退出太空步
+  - from: "BIPED_LOCOMOTION_WBC"
+    to: "BIPED_LOCOMOTION_MOONWALK"
+    form: biped
+    delay_ms: 0
+    note: "kMoonwalk：从 WBC 进入太空步模式"
+
+  - from: "BIPED_LOCOMOTION_MOONWALK"
+    to: "BIPED_LOCOMOTION_WBC"
+    form: biped
+    delay_ms: 0
+    note: "kExitMoonwalk：退出太空步，返回 WBC"
+
+  # WBC → 变形（双足→四足）
+  - from: "BIPED_LOCOMOTION_WBC"
+    to: "BIPED_TO_QUADRUPED"
+    form: biped
+    delay_ms: 0
+    note: "kEasyTransformate 双足形态：WBC → 简易变形到四足"
+
+  - from: "BIPED_LOCOMOTION_WBC"
+    to: "BIPED_TO_QUADRUPED_ROTATE"
+    form: biped
+    delay_ms: 0
+    note: "kTransformateRotate 双足形态：WBC → 旋转变形到四足"
+
+  # MODE_CARRY 双足：WBC → 变形 → STORE
+  - from: "BIPED_LOCOMOTION_WBC"
+    to: "BIPED_TO_QUADRUPED_ROTATE"
+    form: biped
+    delay_ms: 0
+    note: "MODE_CARRY 双足形态：先变形到四足再进入搬运姿态"
+
+  - from: "BIPED_RECORD_UPPER"
+    to: "BIPED_LOCOMOTION_WBC"
+    form: biped
+    delay_ms: 50
+    note: "录制模式下直接切换到 WBC"
+
+  # ─────────────────────────────────────────────
+  # 四足（Quadruped）转换
+  # ─────────────────────────────────────────────
+
+  # 被动/阻尼状态起身：直接进入四足稳定站立
+  # 注：STAND_UP(1007) 属 Q 系列站起动作，T1 四足下发会报 can not find action，
+  #     T1 四足站起的正确目标即 QUADRUPED_STAND_DEFAULT(101)，从 PASSIVE 可直达。
+  - from: "DAMPING_DEFAULT"
+    to: "PASSIVE_DEFAULT"
+    form: quadruped
+    delay_ms: 100
+    note: "阻尼状态先恢复到被动状态"
+
+  - from: "DAMPING_DEFAULT"
+    to: "QUADRUPED_GET_DOWN_DEFAULT"
+    form: quadruped
+    delay_ms: 0
+    note: "kLieDown：阻尼状态下允许直接进入四足趴下"
+
+  - from: "PASSIVE_DEFAULT"
+    to: "QUADRUPED_GET_DOWN_DEFAULT"
+    form: quadruped
+    delay_ms: 0
+    note: "kLieDown：被动状态下允许直接进入四足趴下"
+
+  - from: "PASSIVE_DEFAULT"
+    to: "QUADRUPED_RECOVERY"
+    form: quadruped
+    delay_ms: 0
+    note: "kRecoverPosture：被动状态下直接触发四足恢复"
+
+  - from: "PASSIVE_DEFAULT"
+    to: "QUADRUPED_STAND_DEFAULT"
+    form: quadruped
+    delay_ms: 1000
+    note: "PASSIVE_DEFAULT 状态下直接进入四足站立锁定并等待稳定"
+
+  # 快速运动模式 → DEFAULT（播放非行走动作前先降速）
+  - from: "QUADRUPED_LOCOMOTION_RUN"
+    to: "QUADRUPED_LOCOMOTION_DEFAULT"
+    form: quadruped
+    delay_ms: 0
+    note: "快速奔跑时执行非行走动画，需先降速到 DEFAULT"
+
+  # 模式切换：DEFAULT → RUN / TERRAIN（升挡）
+  # 三种 locomotion gait 模式经由 DEFAULT 互切：
+  #   MODE_INDOORS=DEFAULT / MODE_OUTDOORS=TERRAIN / MODE_SUPERPOWER=RUN
+  # 补齐正向边后，RUN↔TERRAIN 可经 DEFAULT 中转（BFS 多跳）
+  - from: "QUADRUPED_LOCOMOTION_DEFAULT"
+    to: "QUADRUPED_LOCOMOTION_RUN"
+    form: quadruped
+    delay_ms: 0
+    note: "MODE_SUPERPOWER：从默认行走切换到奔跑模式"
+
+  - from: "QUADRUPED_LOCOMOTION_DEFAULT"
+    to: "QUADRUPED_LOCOMOTION_TERRAIN"
+    form: quadruped
+    delay_ms: 0
+    note: "MODE_OUTDOORS：从默认行走切换到地形模式"
+
+  - from: "QUADRUPED_STAND_DEFAULT"
+    to: "QUADRUPED_LOCOMOTION_JUMP"
+    form: quadruped
+    delay_ms: 0
+    note: "向前跳动作：从四足默认行走模式切换到 JUMP"
+
+  - from: "QUADRUPED_LOCOMOTION_TERRAIN"
+    to: "QUADRUPED_LOCOMOTION_DEFAULT"
+    form: quadruped
+    delay_ms: 0
+    note: "地形模式时执行非行走动画，需先切换到 DEFAULT"
+
+  - from: "QUADRUPED_LOCOMOTION_DANCE"
+    to: "QUADRUPED_LOCOMOTION_DEFAULT"
+    form: quadruped
+    delay_ms: 0
+    note: "舞蹈模式执行复位/停止动作前，需先切换到 DEFAULT"
+
+  - from: "QUADRUPED_LOCOMOTION_DANCE"
+    to: "QUADRUPED_LOCOMOTION_RUN"
+    form: quadruped
+    delay_ms: 0
+    note: "舞蹈模式执行复位/停止动作时，允许直接切换到 RUN"
+
+  - from: "QUADRUPED_LOCOMOTION_DANCE"
+    to: "QUADRUPED_LOCOMOTION_TERRAIN"
+    form: quadruped
+    delay_ms: 0
+    note: "舞蹈模式执行复位/停止动作时，允许直接切换到 TERRAIN"
+
+  # 任意非 STAND_DEFAULT 状态 → STAND_DEFAULT（播放全身 motion_name 前）
+  - from: "QUADRUPED_LOCOMOTION_DEFAULT"
+    to: "QUADRUPED_STAND_DEFAULT"
+    form: quadruped
+    delay_ms: 100
+    note: "播放全身预设动作（motion_name）前需进入站立锁定姿态"
+
+  - from: "QUADRUPED_LOCOMOTION_RUN"
+    to: "QUADRUPED_STAND_DEFAULT"
+    form: quadruped
+    delay_ms: 100
+    note: "播放全身预设动作前，经由 DEFAULT 降速后再进入 STAND_DEFAULT"
+
+  - from: "QUADRUPED_LOCOMOTION_TERRAIN"
+    to: "QUADRUPED_STAND_DEFAULT"
+    form: quadruped
+    delay_ms: 100
+    note: "播放全身预设动作前，经由 DEFAULT 降速后再进入 STAND_DEFAULT"
+
+  - from: "QUADRUPED_LOCOMOTION_DANCE"
+    to: "QUADRUPED_STAND_DEFAULT"
+    form: quadruped
+    delay_ms: 100
+    note: "舞蹈模式执行站立复位前，先退出舞蹈并进入 STAND_DEFAULT"
+
+  # 低位/特殊状态 → STAND_DEFAULT（kProud/kJoy/kGreet/kRightHandshake/kLeftHandshake/kStretch 前）
+  - from: "QUADRUPED_GET_DOWN_DEFAULT"
+    to: "QUADRUPED_STAND_DEFAULT"
+    form: quadruped
+    delay_ms: 0
+    note: "趴下状态执行 Proud/Joy/Greet/Handshake/Stretch 前需先站起"
+
+  - from: "QUADRUPED_SIT_DOWN_DEFAULT"
+    to: "QUADRUPED_STAND_DEFAULT"
+    form: quadruped
+    delay_ms: 800
+    note: "坐下状态执行 Proud/Joy/Greet/Handshake/Stretch 前需先站起"
+
+  - from: "STORE_DEFAULT"
+    to: "QUADRUPED_STAND_DEFAULT"
+    form: quadruped
+    delay_ms: 0
+    note: "搬运/收纳状态执行 Proud/Joy/Greet/Handshake/Stretch 前需先站起"
+
+  - from: "QUADRUPED_LOCOMOTION_HANDSHAKE"
+    to: "QUADRUPED_STAND_DEFAULT"
+    form: quadruped
+    delay_ms: 0
+    note: "握手状态执行 Proud/Joy/Greet/Stretch 前需先退出握手姿态"
+
+  # 坐姿起身：先进入 STAND_DEFAULT 稳定，再进入 DEFAULT
+  - from: "QUADRUPED_STAND_DEFAULT"
+    to: "QUADRUPED_LOCOMOTION_DEFAULT"
+    form: quadruped
+    delay_ms: 500
+    note: "kStandUp：坐姿先切到站立锁定，稳定后再进入四足默认行走模式"
+
+  # 变形：四足 → 双足
+  - from: "QUADRUPED_LOCOMOTION_DEFAULT"
+    to: "QUADRUPED_TO_BIPED"
+    form: quadruped
+    delay_ms: 0
+    note: "kEasyTransformate 四足形态：DEFAULT → 简易变形到双足"
+
+  - from: "QUADRUPED_MIMIC"
+    to: "QUADRUPED_LOCOMOTION_DEFAULT"
+    form: quadruped
+    delay_ms: 0
+    note: "QUADRUPED_MIMIC -> QUADRUPED_LOCOMOTION_DEFAULT: 退出 Mimic 模式，回到四足默认行走模式"
+
+  - from: "QUADRUPED_MIMIC"
+    to: "QUADRUPED_STAND_DEFAULT"
+    form: quadruped
+    delay_ms: 0
+    note: "QUADRUPED_MIMIC -> QUADRUPED_STAND_DEFAULT: 退出 Mimic 模式，回到四足站立默认模式"
+
+  - from: "QUADRUPED_STAND_DEFAULT"
+    to: "BIPED_LOCOMOTION_WBC"
+    form: quadruped
+    delay_ms: 0
+    note: "kStandUp：四足已处于 STAND_DEFAULT，触发变形到双足 WBC"
+
+  # kStandUp 特殊：四足已在 STAND/DEFAULT 时触发变形到双足
+  - from: "QUADRUPED_STAND_DEFAULT"
+    to: "BIPED_LOCOMOTION_WBC"
+    form: quadruped
+    delay_ms: 0
+    note: "kStandUp：四足已处于 STAND_DEFAULT，触发变形到双足 WBC"
+
+  # kLieDown / MODE_CARRY 快速运动时先降速
+  - from: "QUADRUPED_LOCOMOTION_RUN"
+    to: "QUADRUPED_LOCOMOTION_DEFAULT"
+    form: quadruped
+    delay_ms: 0
+    note: "kLieDown/MODE_CARRY：快速运动时先降速再趴下/搬运"
+
+  # 俯卧撑结束后退出到默认行走
+  - from: "QUADRUPED_PUSH_UP"
+    to: "QUADRUPED_LOCOMOTION_DEFAULT"
+    form: quadruped
+    delay_ms: 0
+    note: "俯卧撑动作结束/被打断后，恢复到四足默认行走模式"
+
+  # 搬运模式：QUADRUPED 进入 STORE
+  - from: "QUADRUPED_LOCOMOTION_DEFAULT"
+    to: "STORE_DEFAULT"
+    form: quadruped
+    delay_ms: 0
+    note: "MODE_CARRY 四足形态：进入搬运收纳姿态"

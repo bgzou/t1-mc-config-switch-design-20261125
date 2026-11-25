@@ -1,0 +1,216 @@
+BaseConfig:
+  model_type: "Walk"
+
+  use_debug: true
+  dt: 0.01  # 100Hz
+
+  # policy:
+  #   type: "rknn"
+  #   device: "rk3588"
+  #   path: "./rl_models/model_run.rknn"
+  policy:
+    type: "onnx"
+    device: "cpu"
+    # path: "./rl_models/t2_quad_walk_new_0814.onnx" 
+    path: "./rl_models/t2_quad_walk_0902.onnx"
+
+  # obs-action nums will be obtained by urdf
+  obs_nums: 57
+  q_nums: 14
+  action_nums: 14
+
+  joints_name:
+    [
+      'FL_HIP_ROLL_Joint',
+      'FL_HIP_PITCH_Joint',
+      'FL_KNEE_Joint',
+      
+      'FR_HIP_ROLL_Joint',
+      'FR_HIP_PITCH_Joint',
+      'FR_KNEE_Joint',
+
+      'RL_HIP_ROLL_Joint',
+      'RL_HIP_PITCH_Joint',
+      'RL_KNEE_Joint',
+      'RL_FOOT_Joint',
+      
+      'RR_HIP_ROLL_Joint',
+      'RR_HIP_PITCH_Joint',
+      'RR_KNEE_Joint',
+      'RR_FOOT_Joint',
+    ]
+
+  #define the obs sequence
+  seq:
+    [
+      'FL_HIP_ROLL_Joint',
+      'FL_HIP_PITCH_Joint',
+      'FL_KNEE_Joint',
+      
+      'FR_HIP_ROLL_Joint',
+      'FR_HIP_PITCH_Joint',
+      'FR_KNEE_Joint',
+
+      'RL_HIP_ROLL_Joint',
+      'RL_HIP_PITCH_Joint',
+      'RL_KNEE_Joint',
+      'RL_FOOT_Joint',
+      
+      'RR_HIP_ROLL_Joint',
+      'RR_HIP_PITCH_Joint',
+      'RR_KNEE_Joint',
+      'RR_FOOT_Joint',
+    ]
+
+  # define the action sequence
+  action_seq:
+    [
+      'FL_HIP_ROLL_Joint',
+      'FL_HIP_PITCH_Joint',
+      'FL_KNEE_Joint',
+
+      'FR_HIP_ROLL_Joint',
+      'FR_HIP_PITCH_Joint',
+      'FR_KNEE_Joint',
+      
+      'RL_HIP_ROLL_Joint',
+      'RL_HIP_PITCH_Joint',
+      'RL_KNEE_Joint',
+      'RL_FOOT_Joint',
+      
+      'RR_HIP_ROLL_Joint',
+      'RR_HIP_PITCH_Joint',
+      'RR_KNEE_Joint',
+      'RR_FOOT_Joint',
+    ]
+
+  action_scale: [ 0.1, 0.25, 0.25, 
+                  0.1, 0.25, 0.25, 
+                  0.1, 0.25, 0.25, 0.0, 
+                  0.1, 0.25, 0.25, 0.0 ]
+  imu_pitch_offset: 0.0
+
+
+ACConfig:
+  infer:
+    frame_stack: 10
+
+  clips:
+    obs_clip: 50.0
+    action_clip: 50.0
+
+  reduction:   
+    wheel_reduction: 0.25
+    hip_reduction: 0.5
+  
+  action:
+    activation: [   1.0, 1.0, 1.0, 
+                    1.0, 1.0, 1.0, 
+                    1.0, 1.0, 1.0, 0.0, 
+                    1.0, 1.0, 1.0, 0.0 ]
+  # planner:
+  #   enable: false
+  #   velocity: 10
+  #   acceleration: 10
+  #   dt: 1   # ms
+
+  robot:
+    # seq same as action_seq
+    # real params
+    kps: [ 
+      30.0, 30.0, 30.0, 
+      30.0, 30.0, 30.0, 
+      30.0, 30.0, 30.0, 0.0, 
+      30.0, 30.0, 30.0, 0.0 ]
+    kds: [ 
+      0.5, 0.5, 0.5,
+      0.5, 0.5, 0.5, 
+      0.5, 0.5, 0.5, 1.0, 
+      0.5, 0.5, 0.5, 1.0 ]
+    default_dof_pos: [ 
+      0.0, 0.6781, -1.3533, 
+      0.0, 0.6781, -1.3533, 
+      0.0, 1.0624, -1.8321, 0.0, 
+      0.0, 1.0624, -1.8321, 0.0 ]
+    default_kp: 30
+    default_kd: 1.0
+
+
+WalkConfig:
+  max_cycle_time: 0.8 # t_set
+  min_cycle_time: 0.15
+  step_length: 0.5
+  
+
+  # define obs index
+  obs_index:
+    imu_omega: 0
+    imu_euler: 3
+    pos: 6
+    vel: 18
+    action: 32
+    command: 46
+    cpg: 49
+
+  walk:
+    switch_stand_walk: false
+    walk_mode: true
+    stand_cmd_threshold: 0.05
+
+  obs_scales:
+    dof_pos: 1.0
+    dof_vel: 0.05
+    lin_vel: 2.0
+    ang_vel: 0.25
+
+  command_scales:
+    cmd_x_min: -0.5
+    cmd_x_max: 0.5
+    # cmd_x_max: 0.5
+    cmd_y_min: -0.3
+    cmd_y_max: 0.3
+    cmd_yaw_min: -0.78
+    cmd_yaw_max: 0.78
+
+    cpg_cmd_y: 2.0 # vel_all
+    cpg_cmd_yaw: 1.0 # vel_all
+    cmd_x_forward_bias_scale: 1.1   
+    cmd_x_backward_bias_scale: 1.0  
+
+  odom:
+    enable: true
+    min_forward_cmd: 0.2
+    user_y_deadband: 0.05
+    user_yaw_deadband: 0.05
+    kp_yaw: 1.0
+    kd_yaw: 0.1
+    max_cmd_yaw: 0.4
+    max_yaw_comp_rate: 5.0
+    max_yaw_err: 0.5
+    yaw_comp_decimation: 2
+    log_decimation: 50
+
+  filter:
+    imu_vel_cutoff_freq: 100
+    q_vel_cutoff_freq: [
+      100, 100, 100, 
+      100, 100, 100, 
+      100, 100, 100, 10, 
+      100, 100, 100, 10]
+
+  custom:
+    wheel_stiffness_increase_time: 3.0
+    transition_duration: 0.2  # 动作切换平滑时长(秒)
+    joint_pos_clip: true
+
+  stand_actions: [ 'QUADRUPED_STAND_DEFAULT']
+  acc_x: 2.0
+  acc_y: 2.0
+  acc_yaw: 2.0
+  acc_step_x: 2.0
+  acc_step_y: 1.0
+  acc_step_yaw: 1.0
+  tau_limit: [15, 30, 30,
+              15, 30, 30,
+              30, 30, 30, 15,
+              30, 30, 30, 15]

@@ -1,0 +1,245 @@
+BaseConfig:
+  model_type: "Walk"
+
+  use_debug: true
+  dt: 0.01  # 100Hz
+
+  policy:
+    type: "onnx"
+    device: "cpu"
+    #path: "./rl_models/wbc0517.onnx"
+    path: "./rl_models/wbc2026071201.onnx"
+
+  obs_nums: 49
+  q_nums: 14
+  action_nums: 14
+
+  joints_name:
+    [
+      'FL_HIP_ROLL_Joint',
+      'FL_HIP_PITCH_Joint',
+      'FL_KNEE_Joint',
+      'FR_HIP_ROLL_Joint',
+      'FR_HIP_PITCH_Joint',
+      'FR_KNEE_Joint',
+      'RL_HIP_ROLL_Joint',
+      'RL_HIP_PITCH_Joint',
+      'RL_KNEE_Joint',
+      'RL_FOOT_Joint',
+      'RR_HIP_ROLL_Joint',
+      'RR_HIP_PITCH_Joint',
+      'RR_KNEE_Joint',
+      'RR_FOOT_Joint',
+    ]
+
+  seq:
+    [
+      'FL_HIP_ROLL_Joint',
+      'FL_HIP_PITCH_Joint',
+      'FL_KNEE_Joint',
+      'FR_HIP_ROLL_Joint',
+      'FR_HIP_PITCH_Joint',
+      'FR_KNEE_Joint',
+      'RL_HIP_ROLL_Joint',
+      'RL_HIP_PITCH_Joint',
+      'RL_KNEE_Joint',
+      'RL_FOOT_Joint',
+      'RR_HIP_ROLL_Joint',
+      'RR_HIP_PITCH_Joint',
+      'RR_KNEE_Joint',
+      'RR_FOOT_Joint',
+    ]
+
+  action_seq:
+    [
+      'FL_HIP_ROLL_Joint',
+      'FL_HIP_PITCH_Joint',
+      'FL_KNEE_Joint',
+      'FR_HIP_ROLL_Joint',
+      'FR_HIP_PITCH_Joint',
+      'FR_KNEE_Joint',
+      'RL_HIP_ROLL_Joint',
+      'RL_HIP_PITCH_Joint',
+      'RL_KNEE_Joint',
+      'RL_FOOT_Joint',
+      'RR_HIP_ROLL_Joint',
+      'RR_HIP_PITCH_Joint',
+      'RR_KNEE_Joint',
+      'RR_FOOT_Joint',
+    ]
+
+  action_scale: [ 0.1, 0.1, 0.1,
+                  0.1, 0.1, 0.1,
+                  0.1, 0.2, 0.2, 2.0,
+                  0.1, 0.2, 0.2, 2.0 ]
+
+  imu_pitch_offset: 0.0
+
+
+ACConfig:
+  infer:
+    frame_stack: 10
+
+  clips:
+    obs_clip: 20.0
+    action_clip: 20.0
+
+  reduction:
+    wheel_reduction: 1.0
+    hip_reduction: 0.0
+
+  robot:
+    kps: [
+      50, 50, 50,
+      50, 50, 50,
+      100.0, 30.0, 30.0, 0.0,
+      100.0, 30.0, 30.0, 0.0 ]
+    kds: [
+      1.5, 1.5, 1.5,
+      1.5, 1.5, 1.5,
+      1.5, 1.0, 1.0, 0.5,
+      1.5, 1.0, 1.0, 0.5 ]
+
+    default_dof_pos: [
+      0.0, 1.57080, 0.6302,
+      0.0, 1.57080, 0.6302,
+      0.0, 1.91986, -0.6579, 0.0,
+      0.0, 1.91986, -0.6579, 0.0 ]
+
+    default_kp: 30
+    default_kd: 1.0
+
+
+WalkConfig:
+  obs_index:
+    imu_omega: 0
+    imu_euler: 3
+    pos: 6
+    vel: 18
+    action: 32
+    command: 46
+
+  obs_scales:
+    dof_pos: 1.0
+    dof_vel: 0.05
+    lin_vel: 2.0
+    ang_vel: 0.25
+
+  command_scales:
+    cmd_x_min: -1.2
+    cmd_x_max: 1.2
+    cmd_yaw_min: -3.0
+    cmd_yaw_max: 3.0
+    height: 0.0
+    dyaw: 1.2
+    # 手臂拖拽（牵手/推背）速度限幅
+    drag_x_min: -1.0
+    drag_x_max: 1.0
+    drag_yaw_min: -1.5
+    drag_yaw_max: 1.5
+    xlim_with_yaw: 0.0
+
+  filter:
+    imu_vel_cutoff_freq: 100
+    q_vel_cutoff_freq: [
+      100, 100, 100,
+      100, 100, 100,
+      100, 100, 100, 50,
+      100, 100, 100, 50]
+
+  odom:
+    wheel_radius: 0.07
+    odom_enable_x: 0.3
+    odom_kp_x: 0.5
+    odom_kd_x: 0.02
+    max_vel_x: 0.3
+    max_vel_yaw: 0.5
+    odom_enable_yaw: 0.2
+    odom_kp_yaw: 0.1
+    max_delta_yaw: 2.0
+    odom_log_decimation: 1
+    max_delta_x: 10
+    odom_comp_decimation: 1
+    odom_disable_after_switch_s: 1
+
+  acc_x: 1.0
+  acc_x_accel: 1.0
+  v_z: 0.2
+  acc_yaw: 3.0
+  exit_wait_step: 20
+  bias_vx: 0.0
+  bias_h: 0.0
+  bias_dyaw: 0.0
+
+  auto_next_actions: true
+  default_next_action: BIPED_LOCOMOTION_WBC
+
+  yaw_acc:
+    d_fast: 3.0
+    d_slow: 0.0
+
+  planner:
+    duration: 2.0
+    dt_ms: 10
+
+  gimbal_table:
+    - gimbal: 5000
+      path: "./classic/gimbal/arm_lift_smooth.csv"  # 平滑抬臂
+    - gimbal: 5001
+      path: "./classic/gimbal/arm_trajectory_90.csv"  # 90度用户抬臂
+    - gimbal: 5002
+      path: "./classic/gimbal/arm_trajectory_120.csv"  # 120度用户抬臂
+
+  # 默认使用90度用户抬臂轨迹
+  gear_motion_path: "./classic/gimbal/arm_lift_smooth.csv"
+
+  # 用户控臂：level 抬手；roll 摆臂；motion id=4(UseRight) Idle 切换左右手
+  user_arm:
+    level_max: 90.0
+    level_speed_up: 15.0
+    level_speed_down: 15.0
+    roll_max_left: 45.0
+    roll_max_right: 45.0
+    roll_speed_left: 15.0
+    roll_speed_right: 15.0
+    release_confirm_frames: 40  # level≈0 且 roll≈0 连续帧数后退出控臂
+
+  # 手臂拖拽（牵手 + 推背）：复用 WBC 的 ArmDragLocomotion。
+  # gimbal 场景一只手持相机（intent_.use_left 控制手，从检测屏蔽），另一只手牵引。
+  arm_drag:
+    enable: true
+    deadzone_roll_threshold: 0.17   # rad，约 10°，|roll| 低于此不转
+    w_deadzone_roll_threshold: 0.17
+    roll_threshold: 0.3             # rad，持续贴近该角后进入持续加速转圈
+    yaw_spin_confirm_frames: 5
+    yaw_spin_accel: 2.0
+    yaw_vel_scale_kp: 10.0
+    yaw_vel_scale_kd: 0.8
+    bx_qz_cmd_ka: 3.14
+    bx_qz_cmd_kb: 17.5
+    forward_pos_threshold: 0.30     # 手端前向位移阈值（BASELINK z, m）
+    forward_confirm_frames: 100     # 连续满足前进条件的帧数（100Hz 下约 1s）
+    wheel_default_x: 0.0
+    wheel_pos_threshold: 0.02
+    wheel_cmd_reduce_kp: 18.0
+    wheel_cmd_rise_kp: 10.0
+    forward_base_accel: 0.0
+    forward_base_decel: 0.0
+    wheel_decel_reset_threshold: 0.2
+    # 推背
+    push_wheel_threshold: 5.0
+    push_accel_kp: 3.0
+    push_decel_kp: 3.0
+    push_release_decel: 0.6
+    push_vel_max: 1.4
+    push_stop_threshold: 0.05
+    push_confirm_frames: 50
+    joystick_cooldown_frames: 250   # 摇杆活动后禁止推背的冷却帧数
+
+  # 牵引手柔顺：拖拽生效时把牵引手（非相机手）设为「重力补偿浮动」，可被人轻松拉动；相机手保持刚性
+  arm_compliance:
+    kp: [4.0, 2.0, 4.0]   # roll / pitch / knee
+    kd: 0.2
+    gravity_scale: 0.6    # 重力矩缩放（<1 略欠补，避免上飘）
+    clip_tau: 1.0         # 跟踪 PD 限幅 (N·m)，重力前馈不受限
+    rest_return_rate: 0.5 # 静息目标回 default 限速 (rad/s)，越小回落越慢

@@ -1,0 +1,87 @@
+# SKU -> 型号映射
+sku_map:
+  T1-3X: { model_type: T, sku_name: T1典藏 }
+  Q1-2X: { model_type: Q, sku_name: Q1高配 }
+  T1-2X: { model_type: T, sku_name: T1高配 }
+  Q1-1X: { model_type: Q, sku_name: Q1低配 }
+  T1-1X: { model_type: T, sku_name: T1低配 }
+  Q1: { model_type: Q, sku_name: Q1 }
+  Q1_Explorer_Edition: { model_type: Q, sku_name: Q1探索版 }
+  Q1_Pro: { model_type: Q, sku_name: Q1 Pro }
+  Q1_Pro_Explorer_Edition: { model_type: Q, sku_name: Q1 Pro探索版 }
+
+# 各型号模式配置
+configs:
+  # ===== T 系列 =====
+  T:
+    boot_mode: quiet
+    mode_timeout_min: 2         # T 系列超能模式 2min 超时回退(覆盖顶层默认)
+    bipedal:            # 双足模式
+      modes:
+        quiet:   # 轻音模式
+          value: 1
+          forward_speed_range: [0.5, 0.5]
+          backward_speed_range: [0.2, 0.5]
+          rotation_speed_range: [45, 60]
+          lateral_speed: null
+        terrain: # 越障模式
+          value: 2
+          forward_speed_range: [0.5, 1.2]
+          backward_speed_range: [0.5, 0.9]
+          rotation_speed_range: [45, 90]
+          lateral_speed: null
+        super:   # 超能模式
+          value: 3
+          forward_speed_range: [0.5, 2.5]
+          backward_speed_range: [0.5, 0.9]
+          rotation_speed_range: [75, 120]
+          lateral_speed: null
+
+    quadruped:          # 四足模式
+      modes:
+        quiet:   # 轻音模式
+          value: 1
+          forward_speed_range: [0.5, 0.5]
+          backward_speed_range: [0.2, 0.5]
+          rotation_speed_range: [30, 45]
+          lateral_speed: 0.3
+        terrain: # 越障模式
+          value: 2
+          forward_speed_range: [0.5, 1.2]
+          backward_speed_range: [0.5, 0.9]
+          rotation_speed_range: [45, 45]
+          lateral_speed: 0.3
+        super:   # 超能模式
+          value: 3
+          forward_speed_range: [0.5, 3]
+          backward_speed_range: [0.5, 0.9]
+          rotation_speed_range: [45, 45]
+          lateral_speed: 0.3
+
+  # ===== Q 系列 =====
+  Q:
+    boot_mode: quiet    # 开机默认进入轻音模式
+    modes:
+      quiet:   # 轻音模式
+        value: 1
+        forward_speed_range: [0.4, 0.4]
+        backward_speed_range: [0.2, 0.5]
+        rotation_speed_range: [45, 60]
+        lateral_speed: 0.1
+      terrain: # 越障模式
+        value: 2
+        forward_speed_range: [0.4, 0.6]
+        backward_speed_range: [0.5, 0.6]
+        rotation_speed_range: [45, 60]
+        lateral_speed: 0.1
+      super:   # 超能模式
+        value: 3
+        forward_speed_range: [0.6, 1.2]
+        backward_speed_range: [0.5, 0.6]
+        rotation_speed_range: [60, 90]
+        lateral_speed: 0.2
+
+mode_timeout_min: 15           # 超能模式超时默认值(min), 未配置型号级覆盖时生效
+env_stable_min: 10              # 感知环境稳定10秒后采纳(室内/室外自动切换)
+
+

@@ -1,0 +1,175 @@
+BaseConfig:
+  model_type: "Walk"
+
+  use_debug: true
+  dt: 0.01  # 100Hz
+
+  # policy:
+  #   type: "rknn"
+  #   device: "rk3588"
+  #   path: "./rl_models/model_run.rknn"
+  policy:
+    type: "onnx"
+    device: "cpu"
+    # path: "./rl_models/rec1021_4900.onnx"
+    # path: "./rl_models/t1_quad_recovery_v1.0_1021.onnx"
+    # path: "./rl_models/t1_quad_recovery_v1.5_0405.onnx"
+    #path: "./rl_models/t1_quad_recovery_v2.0_0725.onnx"
+    path: "./rl_models/t1_quad_recovery_v2.0_0814.onnx"
+  # obs-action nums will be obtained by urdf
+  obs_nums: 47
+  q_nums: 14
+  action_nums: 14
+
+  joints_name:
+    [
+      'FL_HIP_ROLL_Joint',
+      'FL_HIP_PITCH_Joint',
+      'FL_KNEE_Joint',
+      
+      'FR_HIP_ROLL_Joint',
+      'FR_HIP_PITCH_Joint',
+      'FR_KNEE_Joint',
+
+      'RL_HIP_ROLL_Joint',
+      'RL_HIP_PITCH_Joint',
+      'RL_KNEE_Joint',
+      'RL_FOOT_Joint',
+      
+      'RR_HIP_ROLL_Joint',
+      'RR_HIP_PITCH_Joint',
+      'RR_KNEE_Joint',
+      'RR_FOOT_Joint',
+    ]
+
+  #define the obs sequence
+  seq:
+    [
+      'FL_HIP_ROLL_Joint',
+      'FL_HIP_PITCH_Joint',
+      'FL_KNEE_Joint',
+
+      'FR_HIP_ROLL_Joint',
+      'FR_HIP_PITCH_Joint',
+      'FR_KNEE_Joint',
+
+      'RL_HIP_ROLL_Joint',
+      'RL_HIP_PITCH_Joint',
+      'RL_KNEE_Joint',
+      'RL_FOOT_Joint',
+
+      'RR_HIP_ROLL_Joint',
+      'RR_HIP_PITCH_Joint',
+      'RR_KNEE_Joint',
+      'RR_FOOT_Joint',
+    ]
+
+  # define the action sequence
+  action_seq:
+    [
+      'FL_HIP_ROLL_Joint',
+      'FL_HIP_PITCH_Joint',
+      'FL_KNEE_Joint',
+
+      'FR_HIP_ROLL_Joint',
+      'FR_HIP_PITCH_Joint',
+      'FR_KNEE_Joint',
+      
+      'RL_HIP_ROLL_Joint',
+      'RL_HIP_PITCH_Joint',
+      'RL_KNEE_Joint',
+      'RL_FOOT_Joint',
+      
+      'RR_HIP_ROLL_Joint',
+      'RR_HIP_PITCH_Joint',
+      'RR_KNEE_Joint',
+      'RR_FOOT_Joint',
+    ]
+
+  action_scale: [ 0.1, 0.2, 0.2,
+                  0.1, 0.2, 0.2, 
+                  0.1, 0.2, 0.2, 0.2,
+                  0.1, 0.2, 0.2, 0.2]
+                  
+  imu_pitch_offset: 0.0
+
+
+ACConfig:
+  infer:
+    frame_stack: 10
+
+  clips:
+    obs_clip: 20.0
+    action_clip: 20.0
+
+  reduction:   
+    wheel_reduction: 0.0
+    hip_reduction: 1.0
+
+  # planner:
+  #   enable: false
+  #   velocity: 10
+  #   acceleration: 10
+  #   dt: 1   # ms
+
+  robot:
+    # seq same as action_seq
+    # real params
+    kps: [ 
+      30.0, 30.0, 30.0, 
+      30.0, 30.0, 30.0, 
+      30.0, 30.0, 30.0, 0.0, 
+      30.0, 30.0, 30.0, 0.0 ]
+    kds: [ 
+      1.0, 1.0, 1.0,
+      1.0, 1.0, 1.0, 
+      1.0, 1.0, 1.0, 0.5, 
+      1.0, 1.0, 1.0, 0.5 ]
+    default_dof_pos: [
+      0.0, 0.678,-1.353,
+      0.0, 0.678,-1.353,
+      0.0, 1.062,-1.832, 0.0,
+      0.0, 1.062,-1.832, 0.0 ]
+    default_kp: 30
+    default_kd: 1.0
+
+
+WalkConfig:
+  # define obs index
+  obs_index:
+    imu_omega: 0
+    imu_euler: 3
+    pos: 6
+    vel: 18
+    action: 32
+    phase: 46
+
+  obs_scales:
+    dof_pos: 1.0
+    dof_vel: 0.05
+    lin_vel: 2.0
+    ang_vel: 0.25
+
+  filter:
+    imu_vel_cutoff_freq: 100
+    q_vel_cutoff_freq: [
+      100, 100, 100, 
+      100, 100, 100, 
+      100, 100, 100, 10, 
+      100, 100, 100, 10]
+  recovery_time: 10
+  auto_switch_timeout: 8
+  start_time: 0.0
+  action_transition_time: 1.5
+  auto_next_actions: true
+  # after_recovery_action 为空时兜底; RECOVERY 出边仅 STEP, 故必经踏步: RECOVERY -> STEP -> 此目标
+  default_next_action: QUADRUPED_LOCOMOTION_DEFAULT
+  exit_pos_threshold: 0.5
+  exit_stable_duration: 1.0
+  stand_success_gz_thr: -0.8    # 站起判定阈值: 竖直时 g_body.z()≈-1, z<=此阈值视为已站起
+  imu_stale_timeout_ms: 100.0   # IMU 数据停更超过此时长(ms)视为不可信
+
+  custom:
+    pre_step: 50
+    joint_pos_clip: true
+    joint_vel_clip: true

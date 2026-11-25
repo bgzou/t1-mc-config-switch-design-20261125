@@ -1,0 +1,89 @@
+step_time: 0.002
+phase_duration_time: 1.5
+exit_timeout: 2.5
+exit_position_threshold: 0.1
+joints:
+  - name: "FL_HIP_ROLL_Joint"
+    kp: 100.0
+    kp_d: 0.0
+    kd: 1.0
+    kd_d: 3.0
+    position: 0.0475
+  - name: "FL_HIP_PITCH_Joint"
+    kp: 100.0
+    kp_d: 0.0
+    kd: 1.0
+    kd_d: 3.0
+    position: 0.709
+  - name: "FL_KNEE_Joint"
+    kp: 100.0
+    kp_d: 0.0
+    kd: 1.0
+    kd_d: 3.0
+    position: -2.623
+  - name: "FR_HIP_ROLL_Joint"
+    kp: 100.0
+    kp_d: 0.0
+    kd: 1.0
+    kd_d: 3.0
+    position: -0.0475
+  - name: "FR_HIP_PITCH_Joint"
+    kp: 100.0
+    kp_d: 0.0
+    kd: 1.0
+    kd_d: 3.0
+    position: 0.709
+  - name: "FR_KNEE_Joint"
+    kp: 100.0
+    kp_d: 0.0
+    kd: 1.0
+    kd_d: 3.0
+    position: -2.623
+  - name: "RL_HIP_ROLL_Joint"
+    kp: 100.0
+    kp_d: 0.0
+    kd: 1.0
+    kd_d: 3.0
+    position: 0.066
+  - name: "RL_HIP_PITCH_Joint"
+    kp: 100.0
+    kp_d: 0.0
+    kd: 1.0
+    kd_d: 3.0
+    position: 0.531
+  - name: "RL_KNEE_Joint"
+    kp: 100.0
+    kp_d: 0.0
+    kd: 1.0
+    kd_d: 3.0
+    position: -2.535
+  - name: "RL_FOOT_Joint"
+    kp: 0.0
+    kp_d: 0.0
+    kd: 0.4
+    kd_d: 0.4
+    position: 0.0
+  - name: "RR_HIP_ROLL_Joint"
+    kp: 100.0
+    kp_d: 0.0
+    kd: 1.0
+    kd_d: 3.0
+    position: -0.066
+  - name: "RR_HIP_PITCH_Joint"
+    kp: 100.0
+    kp_d: 0.0
+    kd: 1.0
+    kd_d: 3.0
+    position: 0.531
+  - name: "RR_KNEE_Joint"
+    kp: 100.0
+    kp_d: 0.0
+    kd: 1.0
+    kd_d: 3.0
+    position: -2.535
+  - name: "RR_FOOT_Joint"
+    kp: 0.0
+    kp_d: 0.0
+    kd: 0.4
+    kd_d: 0.4
+    position: 0.0

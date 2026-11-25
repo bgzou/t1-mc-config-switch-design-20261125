@@ -1,0 +1,641 @@
+﻿machine,group,file,size_mb,params,param_bytes_mb,nodes,opset,ir,producer,in_names,in_dims,in_flat,out_flat,out_dims,top_ops,n_ops,dtypes
+qd1_t2d0,本机,actor_critic.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,actor_critic_20251110.onnx,0.87,227101,0.866,16,11,6,pytorch,observations;observation_history,"[1, 50];[1, 500]",50,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,actor_critic_flip2quad_head_10k.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,actor_critic_flip2quad_imu_delay_5k.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,actor_critic_flip2quad_TN_barrier_40k.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,actor_critic_flipstand_terrain_sqrt_25k.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,actor_critic_flipstand_TN_barrier_20k.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,actor_critic_fllipstand_single_frame_10k.onnx,0.569,148750,0.567,7,11,6,pytorch,observations,"[1, 52]",52,14,"[1, 14]",Gemm:4;Elu:3,2,FLOAT:8
+qd1_t2d0,本机,actor_critic_n.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,actor_critic_quad2bi_flipstand_ultra_55k_TN_barrier.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,actor_critic_rightfirst_backflip.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,bi2quad_0126_13.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,bi2quad_ref_0101.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,bi2quad_ref_s035_w4_1230.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,bi2quad_speed_new_obs.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,bif0509.onnx,0.864,225565,0.86,16,11,6,pytorch,observations;observation_history,"[1, 49];[1, 490]",49,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,biped_rotation0711.onnx,0.886,231281,0.882,16,11,6,pytorch,observations;observation_history,"[1, 49];[1, 490]",49,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,bi_cluo_model_16500.onnx,4.162,931614,3.554,35,12,7,pytorch,obs;time_step,"[1, 264];[1, 1]",264,14,"[1, 14];[1, 14];[1, 14];[1, 11, 3];[1, 11, 4];[1, 11, 3];[1, 11, 3];[1, 2];[1, 14];[1, 12];[1, 14];[1, 14]",Constant:12;Gather:11;Gemm:4;Elu:3;Cast:1;Squeeze:1,9,FLOAT:10
+qd1_t2d0,本机,bi_cluo_model_24500.onnx,13.275,3301150,12.593,37,12,7,pytorch,obs;time_step,"[1, 264];[1, 1]",264,14,"[1, 14];[1, 14];[1, 14];[1, 11, 3];[1, 11, 4];[1, 11, 3];[1, 11, 3];[1, 2];[1, 14];[1, 12];[1, 14];[1, 14]",Constant:12;Gather:11;Gemm:5;Elu:4;Cast:1;Squeeze:1,9,FLOAT:12
+qd1_t2d0,本机,bi_dance_liuxingwu_acc_1_model_12750.onnx,4.593,742830,2.834,34,12,7,pytorch,obs;time_step,"[1, 80];[1, 1]",80,14,"[1, 14];[1, 14];[1, 14];[1, 11, 3];[1, 11, 4];[1, 11, 3];[1, 11, 3];[1, 2];[1, 14];[1, 12];[1, 14];[1, 14]",Constant:11;Gather:11;Gemm:4;Elu:3;Cast:1;Squeeze:1,9,FLOAT:10
+qd1_t2d0,本机,bi_dance_liuxingwu_pd_30kp_model_19500.onnx,4.593,742830,2.834,34,12,7,pytorch,obs;time_step,"[1, 80];[1, 1]",80,14,"[1, 14];[1, 14];[1, 14];[1, 11, 3];[1, 11, 4];[1, 11, 3];[1, 11, 3];[1, 2];[1, 14];[1, 12];[1, 14];[1, 14]",Constant:11;Gather:11;Gemm:4;Elu:3;Cast:1;Squeeze:1,9,FLOAT:10
+qd1_t2d0,本机,bi_dance_liuxingwu_wheel_03kd_model_19000.onnx,5.428,931614,3.554,35,12,7,pytorch,obs;time_step,"[1, 264];[1, 1]",264,14,"[1, 14];[1, 14];[1, 14];[1, 11, 3];[1, 11, 4];[1, 11, 3];[1, 11, 3];[1, 2];[1, 14];[1, 12];[1, 14];[1, 14]",Constant:12;Gather:11;Gemm:4;Elu:3;Cast:1;Squeeze:1,9,FLOAT:10
+qd1_t2d0,本机,bi_fast0422_2.0.onnx,0.864,225565,0.86,16,11,6,pytorch,observations;observation_history,"[1, 49];[1, 490]",49,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,bi_haicao_model_10500.onnx,4.342,931614,3.554,35,12,7,pytorch,obs;time_step,"[1, 264];[1, 1]",264,14,"[1, 14];[1, 14];[1, 14];[1, 11, 3];[1, 11, 4];[1, 11, 3];[1, 11, 3];[1, 2];[1, 14];[1, 12];[1, 14];[1, 14]",Constant:12;Gather:11;Gemm:4;Elu:3;Cast:1;Squeeze:1,9,FLOAT:10
+qd1_t2d0,本机,bi_haicao_model_12500.onnx,5.119,931614,3.554,35,12,7,pytorch,obs;time_step,"[1, 264];[1, 1]",264,14,"[1, 14];[1, 14];[1, 14];[1, 11, 3];[1, 11, 4];[1, 11, 3];[1, 11, 3];[1, 2];[1, 14];[1, 12];[1, 14];[1, 14]",Constant:12;Gather:11;Gemm:4;Elu:3;Cast:1;Squeeze:1,9,FLOAT:10
+qd1_t2d0,本机,bi_haicao_model_14500.onnx,5.119,931614,3.554,35,12,7,pytorch,obs;time_step,"[1, 264];[1, 1]",264,14,"[1, 14];[1, 14];[1, 14];[1, 11, 3];[1, 11, 4];[1, 11, 3];[1, 11, 3];[1, 2];[1, 14];[1, 12];[1, 14];[1, 14]",Constant:12;Gather:11;Gemm:4;Elu:3;Cast:1;Squeeze:1,9,FLOAT:10
+qd1_t2d0,本机,bi_meixi_model_10500.onnx,4.137,931614,3.554,35,12,7,pytorch,obs;time_step,"[1, 264];[1, 1]",264,14,"[1, 14];[1, 14];[1, 14];[1, 11, 3];[1, 11, 4];[1, 11, 3];[1, 11, 3];[1, 2];[1, 14];[1, 12];[1, 14];[1, 14]",Constant:12;Gather:11;Gemm:4;Elu:3;Cast:1;Squeeze:1,9,FLOAT:10
+qd1_t2d0,本机,bi_npz_mimic_101_260917.onnx,0.8,209204,0.798,9,18,8,pytorch,obs,"[1, 83]",83,14,"[1, 14]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+qd1_t2d0,本机,bi_npz_mimic_101_260918.onnx,0.8,209204,0.798,9,18,8,pytorch,obs,"[1, 83]",83,14,"[1, 14]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+qd1_t2d0,本机,bi_npz_mimic_101_61_260919.onnx,0.8,209204,0.798,9,18,8,pytorch,obs,"[1, 83]",83,14,"[1, 14]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+qd1_t2d0,本机,bi_npz_mimic_aabattery_baodi_260915.onnx,0.8,209204,0.798,9,18,8,pytorch,obs,"[1, 83]",83,14,"[1, 14]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+qd1_t2d0,本机,bi_npz_mimic_aabattery_jy_260917.onnx,0.8,209204,0.798,9,18,8,pytorch,obs,"[1, 83]",83,14,"[1, 14]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+qd1_t2d0,本机,bi_npz_mimic_april_lie_260923.onnx,0.8,209204,0.798,9,18,8,pytorch,obs,"[1, 83]",83,14,"[1, 14]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+qd1_t2d0,本机,bi_npz_mimic_figure_skating_260828.onnx,0.8,209204,0.798,9,18,8,pytorch,obs,"[1, 83]",83,14,"[1, 14]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+qd1_t2d0,本机,bi_npz_mimic_figure_skating_260923.onnx,0.8,209204,0.798,9,18,8,pytorch,obs,"[1, 83]",83,14,"[1, 14]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+qd1_t2d0,本机,bi_npz_mimic_iwllbethere_wuqitiao_260915.onnx,0.8,209204,0.798,9,18,8,pytorch,obs,"[1, 83]",83,14,"[1, 14]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+qd1_t2d0,本机,bi_npz_mimic_joyous2_260827.onnx,0.8,209204,0.798,9,18,8,pytorch,obs,"[1, 83]",83,14,"[1, 14]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+qd1_t2d0,本机,bi_npz_mimic_joyous2_260908.onnx,0.8,209204,0.798,9,18,8,pytorch,obs,"[1, 83]",83,14,"[1, 14]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+qd1_t2d0,本机,bi_npz_mimic_joyous3_260828.onnx,0.8,209204,0.798,9,18,8,pytorch,obs,"[1, 83]",83,14,"[1, 14]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+qd1_t2d0,本机,bi_npz_mimic_joyous_260827.onnx,0.8,209204,0.798,9,18,8,pytorch,obs,"[1, 83]",83,14,"[1, 14]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+qd1_t2d0,本机,bi_qiumi_model_10500.onnx,3.846,931614,3.554,35,12,7,pytorch,obs;time_step,"[1, 264];[1, 1]",264,14,"[1, 14];[1, 14];[1, 14];[1, 11, 3];[1, 11, 4];[1, 11, 3];[1, 11, 3];[1, 2];[1, 14];[1, 12];[1, 14];[1, 14]",Constant:12;Gather:11;Gemm:4;Elu:3;Cast:1;Squeeze:1,9,FLOAT:10
+qd1_t2d0,本机,bi_qiumi_model_13000.onnx,4.132,931614,3.554,35,12,7,pytorch,obs;time_step,"[1, 264];[1, 1]",264,14,"[1, 14];[1, 14];[1, 14];[1, 11, 3];[1, 11, 4];[1, 11, 3];[1, 11, 3];[1, 2];[1, 14];[1, 12];[1, 14];[1, 14]",Constant:12;Gather:11;Gemm:4;Elu:3;Cast:1;Squeeze:1,9,FLOAT:10
+qd1_t2d0,本机,lift0514_swing.onnx,0.864,225565,0.86,16,11,6,pytorch,observations;observation_history,"[1, 49];[1, 490]",49,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,quad2bipe_t0.5_19k.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,quad2bi_rotate_run_new_pos.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,quad2bi_rotate_s04_w5.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,quad2bi_rotate_s04_w5_new_pos_1230.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,quad2bi_s04_w10_hip_50_new_pos.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,quad2bi_wheel_ref_0131.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,quad_handshake_9k.onnx,0.852,222493,0.849,16,11,6,pytorch,observations;observation_history,"[1, 47];[1, 470]",47,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,quad_handshake_height.onnx,0.852,222493,0.849,16,11,6,pytorch,observations;observation_history,"[1, 47];[1, 470]",47,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,quad_run_s04_w025_vel3.onnx,0.911,237853,0.907,16,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,quad_t15_terrain_.onnx,0.916,238957,0.912,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t2d0,本机,quad_terrain_0124_t07_s025_w0_06_03.onnx,0.911,237853,0.907,16,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,quad_terrain_0125_9k.onnx,0.911,237853,0.907,16,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,quad_terrain_bad_pos.onnx,0.916,238957,0.912,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t2d0,本机,quad_terrain_beta06_.onnx,0.916,238957,0.912,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t2d0,本机,quad_terrain_t15_good_pos.onnx,0.916,238957,0.912,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t2d0,本机,quad_terrain_test_bezier.onnx,0.911,237853,0.907,16,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t15_bi2quad_norm_0524.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t15_bi2quad_norm_v1.1_test.onnx,0.882,229779,0.877,29,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;ReduceMean:2;Constant:2;Add:2;Sub:1,12,FLOAT:22
+qd1_t2d0,本机,t15_bi2quad_norm_v1.3_test.onnx,0.882,229779,0.877,29,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;ReduceMean:2;Constant:2;Add:2;Sub:1,12,FLOAT:22
+qd1_t2d0,本机,t15_bi2quad_norm_v1.4.onnx,0.882,229779,0.877,29,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;ReduceMean:2;Constant:2;Add:2;Sub:1,12,FLOAT:22
+qd1_t2d0,本机,t15_bi2quad_norm_w25_test.onnx,0.88,229741,0.876,18,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t2d0,本机,t15_bi2quad_rotate_v1.1_terrain.onnx,0.899,234387,0.894,29,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;ReduceMean:2;Constant:2;Add:2;Sub:1,12,FLOAT:22
+qd1_t2d0,本机,t15_bi2quad_rotate_v1.3_test.onnx,0.899,234387,0.894,29,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;ReduceMean:2;Constant:2;Add:2;Sub:1,12,FLOAT:22
+qd1_t2d0,本机,t15_bi2quad_speed_0515.onnx,0.898,234349,0.894,18,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t2d0,本机,t15_bi2quad_yaw_0525.onnx,0.898,234349,0.894,18,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t2d0,本机,t15_bi_recovery_v1.0_test.onnx,0.852,222493,0.849,16,11,6,pytorch,observations;observation_history,"[1, 47];[1, 470]",47,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t15_bi_recovery_v1.2_0402.onnx,0.852,222493,0.849,16,11,6,pytorch,observations;observation_history,"[1, 47];[1, 470]",47,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t15_bi_walk_0413.onnx,0.864,225565,0.86,16,11,6,pytorch,observations;observation_history,"[1, 49];[1, 490]",49,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t15_bi_walk_v1.0_0326.onnx,0.864,225565,0.86,16,11,6,pytorch,observations;observation_history,"[1, 49];[1, 490]",49,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t15_bi_walk_v1.2_0322.onnx,0.864,225565,0.86,16,11,6,pytorch,observations;observation_history,"[1, 49];[1, 490]",49,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t15_handshake_v1.3.onnx,0.857,223597,0.853,18,11,6,pytorch,observations;observation_history,"[1, 47];[1, 470]",47,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t2d0,本机,t15_q2b_norm_v1.3_27k_.onnx,0.882,229779,0.877,29,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;ReduceMean:2;Constant:2;Add:2;Sub:1,12,FLOAT:22
+qd1_t2d0,本机,t15_quad2bi_norm_test_0418.onnx,0.88,229741,0.876,18,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t2d0,本机,t15_quad2bi_norm_v1.2_test.onnx,0.882,229779,0.877,29,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;ReduceMean:2;Constant:2;Add:2;Sub:1,12,FLOAT:22
+qd1_t2d0,本机,t15_quad2bi_norm_v1.3_test.onnx,0.882,229779,0.877,29,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;ReduceMean:2;Constant:2;Add:2;Sub:1,12,FLOAT:22
+qd1_t2d0,本机,t15_quad2bi_rotate_v1.0_terrain.onnx,0.899,234387,0.894,29,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;ReduceMean:2;Constant:2;Add:2;Sub:1,12,FLOAT:22
+qd1_t2d0,本机,t15_quad2bi_rotate_v1.5_test.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t15_quad2bi_v1.4_norm.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t15_quad2bi_yaw_v1.6_0516.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t15_quad_handshake_v1.2_.onnx,0.857,223597,0.853,18,11,6,pytorch,observations;observation_history,"[1, 47];[1, 470]",47,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t2d0,本机,t15_quad_jump_platform.onnx,0.852,222493,0.849,16,11,6,pytorch,observations;observation_history,"[1, 47];[1, 470]",47,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t15_quad_jump_v1.2_0418.onnx,0.852,222493,0.849,16,11,6,pytorch,observations;observation_history,"[1, 47];[1, 470]",47,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t15_quad_jump_v1.4_0516.onnx,0.852,222493,0.849,16,11,6,pytorch,observations;observation_history,"[1, 47];[1, 470]",47,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t15_quad_jump_v1.5.onnx,0.852,222493,0.849,16,11,6,pytorch,observations;observation_history,"[1, 47];[1, 470]",47,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t15_quad_loco_v1.7_0405.onnx,0.916,238957,0.912,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t2d0,本机,t15_quad_run_test_0428_new.onnx,0.911,237853,0.907,16,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t15_quad_run_v1.2_0330.onnx,0.916,238957,0.912,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t2d0,本机,t15_quad_run_v1.3_test.onnx,0.916,238957,0.912,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t2d0,本机,t15_quad_terrain_0516.onnx,0.916,238957,0.912,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t2d0,本机,t15_quad_terrain_v1.2_.onnx,0.916,238957,0.912,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t2d0,本机,t15_quad_terrain_v1.3_test.onnx,0.917,238995,0.912,29,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;ReduceMean:2;Constant:2;Add:2;Sub:1,12,FLOAT:22
+qd1_t2d0,本机,t15_quad_twist_v1.0_test.onnx,0.87,227101,0.866,16,11,6,pytorch,observations;observation_history,"[1, 50];[1, 500]",50,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t15_quad_twist_xy_v1.0.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t1_bi2quad_rotate_v1.0_0307_speed.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t1_bi2quad_v1.0_1226.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t1_bi_fast_v1.0_0307.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t1_bi_moonwalk_v1.0_1231.onnx,0.905,236317,0.901,16,11,6,pytorch,observations;observation_history,"[1, 56];[1, 560]",56,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t1_bi_moonwalk_v2_0807.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t1_bi_moonwalk_v2_0827.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t1_bi_moonwalk_v2_0912.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t1_bi_moonwalk_v2_0916.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t1_bi_recovery_v1.0_0113.onnx,0.852,222493,0.849,16,11,6,pytorch,observations;observation_history,"[1, 47];[1, 470]",47,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t1_bi_split_v1.0_0307_15mm.onnx,0.87,227101,0.866,16,11,6,pytorch,observations;observation_history,"[1, 50];[1, 500]",50,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t1_bi_walkterrain_v1.0_0227_test.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t1_bi_walk_v1.0_0307_t05.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t1_bi_wbc_pitch0522.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t1_bi_wbc_v1.0_0110_delay.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t1_bi_wbc_v1.0_1228.onnx,0.911,237853,0.907,16,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t1_bi_yuzuru_v1.0_0123.onnx,0.905,236317,0.901,16,11,6,pytorch,observations;observation_history,"[1, 56];[1, 560]",56,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t1_flip2quad_v1.0_0307_40k.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t1_flipstand_v1.0_0307.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t1_quad2bi_rotate_v1.0_0307_t15.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t1_quad2bi_v1.0_1225.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t1_quad_backflip_v1.0_0307.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t1_quad_frontflip_v1.0_0307.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t1_quad_handshake_v1.0_0307.onnx,0.852,222493,0.849,16,11,6,pytorch,observations;observation_history,"[1, 47];[1, 470]",47,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t1_quad_handshake_v1.1_0308_r.onnx,0.852,222493,0.849,16,11,6,pytorch,observations;observation_history,"[1, 47];[1, 470]",47,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t1_quad_recovery_v1.0_1021.onnx,0.864,225565,0.86,16,11,6,pytorch,observations;observation_history,"[1, 49];[1, 490]",49,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t1_quad_recovery_v1.5_0405.onnx,0.852,222493,0.849,16,11,6,pytorch,observations;observation_history,"[1, 47];[1, 470]",47,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t1_quad_recovery_v2.0_0814.onnx,0.869,226909,0.866,16,11,6,pytorch,observations;observation_history,"[1, 47];[1, 470]",47,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t1_quad_terrain_v1.1_0308.onnx,0.916,238957,0.912,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t2d0,本机,t1_quad_twist_v1.0_0307.onnx,0.87,227101,0.866,16,11,6,pytorch,observations;observation_history,"[1, 50];[1, 500]",50,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t1_quad_walk_v1.0_swing09.onnx,0.916,238957,0.912,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t2d0,本机,t1_quad_walk_v1.1_test.onnx,0.916,238957,0.912,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t2d0,本机,t2.2_quad2bi_norm_0708.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t2_2_quad_walk_lite_test0704.onnx,0.911,237853,0.907,16,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t2_b2q_norm_v1.0_0601.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t2_b2q_speed_0602_test.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t2_b2q_speed_v1.0_0601.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t2_bifast_0709.onnx,0.864,225565,0.86,16,11,6,pytorch,observations;observation_history,"[1, 49];[1, 490]",49,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t2_bifast_0730.onnx,0.864,225565,0.86,16,11,6,pytorch,observations;observation_history,"[1, 49];[1, 490]",49,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t2_q2b_flip_0720.onnx,0.874,228209,0.871,16,11,6,pytorch,observations;observation_history,"[1, 47];[1, 470]",47,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t2_q2b_yaw_v1.1.2_1.8.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t2_quad2bi_yaw_6837.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t2_quad2bi_yaw_v1.0_0601.onnx,0.898,234349,0.894,18,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t2d0,本机,t2_quad2bi_yaw_v1.1_test.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t2_quad_frontflip_0703.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t2_quad_recovery_v1.1_0615.onnx,0.852,222493,0.849,16,11,6,pytorch,observations;observation_history,"[1, 47];[1, 470]",47,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t2_quad_run_bug_fix_0727.onnx,0.916,238957,0.912,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t2d0,本机,t2_quad_run_new_cpg.onnx,0.916,238957,0.912,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t2d0,本机,t2_quad_stretch_fix_hip_0911.onnx,0.886,231277,0.882,18,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t2d0,本机,t2_quad_terrain_0919.onnx,0.929,242545,0.925,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t2d0,本机,t2_quad_terrain_new_test.onnx,0.916,238957,0.912,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t2d0,本机,t2_quad_terrain_push_0926.onnx,0.929,242545,0.925,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t2d0,本机,t2_quad_terrain_vx1.0_0823.onnx,0.929,242545,0.925,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t2d0,本机,t2_quad_twist_0803.onnx,0.87,227101,0.866,16,11,6,pytorch,observations;observation_history,"[1, 50];[1, 500]",50,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t2_quad_twist_charge_pos_kp40.onnx,0.886,231277,0.882,18,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t2d0,本机,t2_quad_twist_v1.0_0708.onnx,0.87,227101,0.866,16,11,6,pytorch,observations;observation_history,"[1, 50];[1, 500]",50,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t2_quad_twist_v1.2_0727.onnx,0.875,228205,0.871,18,11,6,pytorch,observations;observation_history,"[1, 50];[1, 500]",50,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t2d0,本机,t2_quad_twist_xyz_0729_test.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t2_quad_twist_xy_0725.onnx,0.886,231277,0.882,18,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t2d0,本机,t2_quad_twist_xy_v1.0_0708.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t2_quad_walk_0710_test.onnx,0.916,238957,0.912,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t2d0,本机,t2_quad_walk_0902.onnx,0.916,238957,0.912,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t2d0,本机,t2_quad_walk_lite_0713.onnx,0.911,237853,0.907,16,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,t2_quad_walk_new_cpg.onnx,0.916,238957,0.912,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t2d0,本机,t2_quad_walk_re_0907.onnx,0.916,238957,0.912,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t2d0,本机,t2_quad_walk_re_nowheel.onnx,0.916,238957,0.912,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t2d0,本机,t2_quad_walk_v1.2_0611_new_pos.onnx,0.916,238957,0.912,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t2d0,本机,terrain0313.onnx,0.864,225565,0.86,16,11,6,pytorch,observations;observation_history,"[1, 49];[1, 490]",49,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,terrain0314.onnx,0.864,225565,0.86,16,11,6,pytorch,observations;observation_history,"[1, 49];[1, 490]",49,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,terrain0315.onnx,0.864,225565,0.86,16,11,6,pytorch,observations;observation_history,"[1, 49];[1, 490]",49,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,wbc0517.onnx,0.864,225565,0.86,16,11,6,pytorch,observations;observation_history,"[1, 49];[1, 490]",49,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,wbc1206.onnx,0.911,237853,0.907,16,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,wbc1226.onnx,0.911,237853,0.907,16,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,wbc1230.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,wbc2026071201.onnx,0.864,225565,0.86,16,11,6,pytorch,observations;observation_history,"[1, 49];[1, 490]",49,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,wbcterrain2026081801.onnx,0.864,225565,0.86,16,11,6,pytorch,observations;observation_history,"[1, 49];[1, 490]",49,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,wbcterrain2026083102.onnx,0.864,225565,0.86,16,11,6,pytorch,observations;observation_history,"[1, 49];[1, 490]",49,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,wbcterrain2026092602.onnx,0.864,225565,0.86,16,11,6,pytorch,observations;observation_history,"[1, 49];[1, 490]",49,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,wbc_delay0101.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,wbc_delay1231.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,wbc_kd0.5.onnx,0.911,237853,0.907,16,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,wbc_noref.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,wbc_roll_pitch_terrain0524.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,wbc_terrain20260807.onnx,0.864,225565,0.86,16,11,6,pytorch,observations;observation_history,"[1, 49];[1, 490]",49,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,wbc_terrain_lift0515.onnx,0.864,225565,0.86,16,11,6,pytorch,observations;observation_history,"[1, 49];[1, 490]",49,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,yuzuru.onnx,0.905,236317,0.901,16,11,6,pytorch,observations;observation_history,"[1, 56];[1, 560]",56,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,yuzuru0121.onnx,0.905,236317,0.901,16,11,6,pytorch,observations;observation_history,"[1, 56];[1, 560]",56,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t2d0,本机,yuzuru1224.onnx,0.905,236317,0.901,16,11,6,pytorch,observations;observation_history,"[1, 56];[1, 560]",56,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+q1_t0d0,其他机型,fly_0422.onnx,0.88,230282,0.878,9,18,8,pytorch,obs,"[1, 122]",122,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t0d0,其他机型,model_25998.onnx,15.753,2886410,11.011,34,12,7,pytorch,obs;time_step,"[1, 122];[1, 1]",122,22,"[1, 22];[1, 22];[1, 22];[1, 12, 3];[1, 12, 4];[1, 12, 3];[1, 12, 3];[1, 2];[1, 22];[1, 22];[1, 22];[1, 22]",Constant:11;Gather:11;Gemm:4;Elu:3;Cast:1;Squeeze:1,9,FLOAT:10
+q1_t0d0,其他机型,motion_tracking.onnx,0.868,227198,0.867,9,18,8,pytorch,obs,"[1, 116]",116,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t0d0,其他机型,q1_backflipSquat_v3.1_20260417.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t0d0,其他机型,q1_backhandFlip_v1.0_20260412.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t0d0,其他机型,q1_backhandFlip_v1.1_20260412.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t0d0,其他机型,q1_backHandspringAndBackSomersault_v6.0_20260330.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t0d0,其他机型,q1_blind_terrain_20260524_4500.onnx,1.712,446692,1.704,40,11,6,pytorch,observations;observation_history,"[1, 76];[1, 380]",76,22,"[1, 22];[1, 2]",Gemm:13;Constant:10;Elu:8;Concat:2;Slice:2;Gather:1,10,FLOAT:27
+q1_t0d0,其他机型,q1_blind_terrain_v2.0_20260615.onnx,1.712,446692,1.704,40,11,6,pytorch,observations;observation_history,"[1, 76];[1, 380]",76,22,"[1, 22];[1, 2]",Gemm:13;Constant:10;Elu:8;Concat:2;Slice:2;Gather:1,10,FLOAT:27
+q1_t0d0,其他机型,q1_boxing_v1.0_20260226.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t0d0,其他机型,q1_boxing_v2.0_20260330.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t0d0,其他机型,q1_cedeng_simple_collision_model_3750.onnx,1.807,235728,0.899,39,11,6,pytorch,obs;time_step,"[1, 132];[1, 1]",132,24,"[1, 24];[1, 24];[1, 24];[1, 12, 3];[1, 12, 4];[1, 12, 3];[1, 12, 3];[1, 2];[1, 24];[1, 24];[1, 24];[1, 24]",Constant:12;Gather:11;Gemm:4;Cast:3;Elu:3;Squeeze:1,11,FLOAT:12
+q1_t0d0,其他机型,q1_cluoSiuZhuanShou_v1.0_20260618.onnx,1.922,502281,1.916,49,11,6,pytorch,input,"[1, 1380]",1380,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t0d0,其他机型,q1_crawl_to_fold.onnx,0.874,228740,0.873,9,18,8,pytorch,obs,"[1, 119]",119,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t0d0,其他机型,q1_danceLocking_v1.0_20260401.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t0d0,其他机型,q1_elbowStand_v1.0_20260301.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t0d0,其他机型,q1_floorCombo_v1.0_20260302.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t0d0,其他机型,q1_getUp_v1.0_20260422.onnx,0.88,230282,0.878,9,18,8,pytorch,obs,"[1, 122]",122,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t0d0,其他机型,q1_getUp_v2.0_20260516.onnx,0.88,230282,0.878,9,18,8,pytorch,obs,"[1, 122]",122,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t0d0,其他机型,q1_getUp_v2.1_20260520.onnx,0.88,230282,0.878,9,18,8,pytorch,obs,"[1, 122]",122,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t0d0,其他机型,q1_getUp_v3.0_20260530.onnx,0.874,228740,0.873,9,18,8,pytorch,obs,"[1, 119]",119,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t0d0,其他机型,q1_getUp_v3.1_20260618.onnx,0.874,228740,0.873,9,18,8,pytorch,obs,"[1, 119]",119,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t0d0,其他机型,q1_getUp_v3.2_20260629.onnx,0.874,228740,0.873,9,18,8,pytorch,obs,"[1, 119]",119,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t0d0,其他机型,q1_getUp_v3.3_20260630.onnx,0.874,228740,0.873,9,18,8,pytorch,obs,"[1, 119]",119,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t0d0,其他机型,q1_headSpin_v1.0_20260227.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t0d0,其他机型,q1_introPose1_v2.0_20260327.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t0d0,其他机型,q1_introPose3_v2.0_20260327.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t0d0,其他机型,q1_introPose6_v2.0_20260327.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t0d0,其他机型,q1_introPose7_v4.0_20260422.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t0d0,其他机型,q1_introPose7_v5.0_20260603.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t0d0,其他机型,q1_lie_v1.0_20260706.onnx,0.874,228740,0.873,9,18,8,pytorch,obs,"[1, 119]",119,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t0d0,其他机型,q1_lyingFaceDownToStandingByTrick_v1.0_20260306.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t0d0,其他机型,q1_lyingFaceDownToStanding_v3.0_20260404.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t0d0,其他机型,q1_lyingFaceUpToStanding_v1.0_20260305.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t0d0,其他机型,q1_lyingFaceUpToStanding_v2.0_20260326.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t0d0,其他机型,q1_lyingFaceUpToStanding_v5.0_20260421.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t0d0,其他机型,q1_lying_to_fold.onnx,0.874,228740,0.873,9,18,8,pytorch,obs,"[1, 119]",119,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t0d0,其他机型,q1_moonKickSpin_v11.2_20260419.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t0d0,其他机型,q1_nikePose_v1.0_20260228.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t0d0,其他机型,q1_random_ground.onnx,2.994,784374,2.992,9,18,8,pytorch,obs,"[1, 1200]",1200,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t0d0,其他机型,q1_random_ground_v2.1_20260618.onnx,2.994,784374,2.992,9,18,8,pytorch,obs,"[1, 1200]",1200,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t0d0,其他机型,q1_random_ground_v2.2_20260628.onnx,2.994,784374,2.992,9,18,8,pytorch,obs,"[1, 1200]",1200,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t0d0,其他机型,q1_random_ground_v2.3_20260705.onnx,2.994,784374,2.992,9,18,8,pytorch,obs,"[1, 1200]",1200,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t0d0,其他机型,q1_random_ground_v2.4_20260709.onnx,2.994,784374,2.992,9,18,8,pytorch,obs,"[1, 1200]",1200,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t0d0,其他机型,q1_random_recovery.onnx,0.876,229254,0.875,9,18,8,pytorch,obs,"[1, 120]",120,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t0d0,其他机型,q1_runningFrontFlip_v1.0_20260304.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t0d0,其他机型,q1_sit_v1.0_20260516.onnx,0.88,230282,0.878,9,18,8,pytorch,obs,"[1, 122]",122,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t0d0,其他机型,q1_sit_v1.0_20260602.onnx,0.874,228740,0.873,9,18,8,pytorch,obs,"[1, 119]",119,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t0d0,其他机型,q1_standingSideFlip_v9.1_20260328.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t0d0,其他机型,q1_standingToLyingFaceDown_v1.0_20260305.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t0d0,其他机型,q1_standingToLyingFaceDown_v2.0_20260326.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t0d0,其他机型,q1_standingToLyingFaceDown_v3.0_20260403.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t0d0,其他机型,q1_standingToLyingFaceUp_v1.0_20260303.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t0d0,其他机型,q1_standingToLyingFaceUp_v3.0_20260326.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t0d0,其他机型,q1_thomasFlair_v1.0_20260223.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t0d0,其他机型,q1_walkRun_upperPosCtrl_v1.0_20260615.onnx,1.059,276444,1.055,19,11,6,pytorch,observations;observation_history,"[1, 71];[1, 355]",71,22,"[1, 22]",Gemm:10;Elu:6;Concat:2;Constant:1,4,FLOAT:20
+q1_t0d0,其他机型,q1_walkRun_upperPosCtrl_v1.1_20260622.onnx,1.059,276444,1.055,19,11,6,pytorch,observations;observation_history,"[1, 71];[1, 355]",71,22,"[1, 22]",Gemm:10;Elu:6;Concat:2;Constant:1,4,FLOAT:20
+q1_t0d0,其他机型,q1_walkRun_upperPosCtrl_v2.1_20260629.onnx,1.059,276444,1.055,19,11,6,pytorch,observations;observation_history,"[1, 71];[1, 355]",71,22,"[1, 22]",Gemm:10;Elu:6;Concat:2;Constant:1,4,FLOAT:20
+q1_t0d0,其他机型,q1_walkRun_v2.3.10_20260420.onnx,1.712,446692,1.704,40,11,6,pytorch,observations;observation_history,"[1, 76];[1, 380]",76,22,"[1, 22];[1, 2]",Gemm:13;Constant:10;Elu:8;Concat:2;Slice:2;Gather:1,10,FLOAT:27
+q1_t0d0,其他机型,q1_walkRun_v2.5.0_20260525.onnx,1.712,446692,1.704,40,11,6,pytorch,observations;observation_history,"[1, 76];[1, 380]",76,22,"[1, 22];[1, 2]",Gemm:13;Constant:10;Elu:8;Concat:2;Slice:2;Gather:1,10,FLOAT:27
+q1_t0d0,其他机型,q1_wbc_v2.0_20260325.onnx,1.297,339071,1.293,27,11,6,pytorch,input,"[1, 730]",730,12,"[1, 12]",Gemm:10;Constant:8;Elu:6;Slice:2;Concat:1,5,FLOAT:20
+q1_t0d0,其他机型,q1_wbc_v5.5_20260522.onnx,1.297,339071,1.293,27,11,6,pytorch,input,"[1, 730]",730,12,"[1, 12]",Gemm:10;Constant:8;Elu:6;Slice:2;Concat:1,5,FLOAT:20
+q1_t0d0,其他机型,q1_boxing_v2.0_20260330.detector.onnx,0.881,227549,0.868,9,18,10,pytorch,obs,"[1, 750]",750,1,"[1, 1]",Gemm:3;LayerNormalization:2;Relu:2;Sub:1;Div:1,5,FLOAT:12
+q1_t0d0,其他机型,q1_danceLocking_v1.0_20260401.detector.onnx,0.881,227549,0.868,9,18,10,pytorch,obs,"[1, 750]",750,1,"[1, 1]",Gemm:3;LayerNormalization:2;Relu:2;Sub:1;Div:1,5,FLOAT:12
+q1_t0d0,其他机型,q1_getUp_v3.1_20260618.detector.onnx,1.266,325405,1.241,17,18,10,pytorch,obs,"[1, 750]",750,1,[1],Gemm:5;Reshape:3;LayerNormalization:3;Elu:3;Sub:1;Div:1,7,FLOAT:18;INT64:3
+q1_t0d0,其他机型,q1_getUp_v3.2_20260629.detector.onnx,1.266,325405,1.241,17,18,10,pytorch,obs,"[1, 750]",750,1,[1],Gemm:5;Reshape:3;LayerNormalization:3;Elu:3;Sub:1;Div:1,7,FLOAT:18;INT64:3
+q1_t0d0,其他机型,q1_getUp_v3.3_20260630.detector.onnx,1.266,325405,1.241,17,18,10,pytorch,obs,"[1, 750]",750,1,[1],Gemm:5;Reshape:3;LayerNormalization:3;Elu:3;Sub:1;Div:1,7,FLOAT:18;INT64:3
+q1_t0d0,其他机型,q1_introPose1_v2.0_20260327.detector.onnx,0.881,227549,0.868,9,18,10,pytorch,obs,"[1, 750]",750,1,"[1, 1]",Gemm:3;LayerNormalization:2;Relu:2;Sub:1;Div:1,5,FLOAT:12
+q1_t0d0,其他机型,q1_introPose7_v4.0_20260422.detector.onnx,0.881,227549,0.868,9,18,10,pytorch,obs,"[1, 750]",750,1,"[1, 1]",Gemm:3;LayerNormalization:2;Relu:2;Sub:1;Div:1,5,FLOAT:12
+q1_t0d0,其他机型,q1_lie_v1.0_20260706.detector.onnx,1.266,325405,1.241,17,18,10,pytorch,obs,"[1, 750]",750,1,[1],Gemm:5;Reshape:3;LayerNormalization:3;Elu:3;Sub:1;Div:1,7,FLOAT:18;INT64:3
+q1_t0d0,其他机型,q1_lyingFaceDownToStanding_v3.0_20260404.detector.onnx,0.881,227549,0.868,9,18,10,pytorch,obs,"[1, 750]",750,1,"[1, 1]",Gemm:3;LayerNormalization:2;Relu:2;Sub:1;Div:1,5,FLOAT:12
+q1_t2d0,其他机型,douyin_3500.onnx,19.275,2886410,11.011,35,12,7,pytorch,obs;time_step,"[1, 122];[1, 1]",122,22,"[1, 22];[1, 22];[1, 22];[1, 12, 3];[1, 12, 4];[1, 12, 3];[1, 12, 3];[1, 2];[1, 22];[1, 22];[1, 22];[1, 22]",Constant:12;Gather:11;Gemm:4;Elu:3;Cast:1;Squeeze:1,9,FLOAT:10
+q1_t2d0,其他机型,fly_0422.onnx,0.88,230282,0.878,9,18,8,pytorch,obs,"[1, 122]",122,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t2d0,其他机型,motion_tracking.onnx,0.868,227198,0.867,9,18,8,pytorch,obs,"[1, 116]",116,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t2d0,其他机型,q1_5mKeaihui_v2.0_20260818.onnx,1.922,502281,1.916,49,11,6,pytorch,input,"[1, 1380]",1380,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_5mKeai_v2.0_20260818.onnx,1.922,502281,1.916,49,11,6,pytorch,input,"[1, 1380]",1380,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_babyQ_v1.0_20260831.onnx,1.922,502281,1.916,46,11,6,pytorch,input,"[1, 1380]",1380,22,"[1, 22]",Constant:17;Gemm:14;Elu:9;Slice:4;Concat:1;Add:1,6,FLOAT:28
+q1_t2d0,其他机型,q1_backflipSquat_v3.1_20260417.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_backflipSquat_v8.2_20260721.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_backhandFlip_v1.0_20260412.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_backhandFlip_v1.1_20260412.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_backHandspringAndBackSomersault_v6.0_20260330.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_baozhaqianghuo-nan_v3.0_20260831.onnx,1.922,502281,1.916,49,11,6,pytorch,input,"[1, 1380]",1380,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_blind_terrain_20260524_4500.onnx,1.712,446692,1.704,40,11,6,pytorch,observations;observation_history,"[1, 76];[1, 380]",76,22,"[1, 22];[1, 2]",Gemm:13;Constant:10;Elu:8;Concat:2;Slice:2;Gather:1,10,FLOAT:27
+q1_t2d0,其他机型,q1_blind_terrain_v2.0_20260615.onnx,1.712,446692,1.704,40,11,6,pytorch,observations;observation_history,"[1, 76];[1, 380]",76,22,"[1, 22];[1, 2]",Gemm:13;Constant:10;Elu:8;Concat:2;Slice:2;Gather:1,10,FLOAT:27
+q1_t2d0,其他机型,q1_blind_terrain_v2.0_20260819.onnx,1.903,497810,1.899,26,11,6,pytorch,obs,"[1, 500]",500,13,"[1, 13]",Gemm:8;Elu:5;ReduceMean:2;Constant:2;Add:2;Sub:1,12,FLOAT:18
+q1_t2d0,其他机型,q1_blind_terrain_v2.0_20260820.onnx,1.904,497810,1.899,32,11,6,pytorch,obs,"[1, 500]",500,15,"[1, 15]",Gemm:8;Constant:6;Elu:5;ReduceMean:2;Add:2;Concat:2,13,FLOAT:18
+q1_t2d0,其他机型,q1_blind_terrain_v2.0_20260822.onnx,1.904,497810,1.899,32,11,6,pytorch,obs,"[1, 500]",500,15,"[1, 15]",Gemm:8;Constant:6;Elu:5;ReduceMean:2;Add:2;Concat:2,13,FLOAT:18
+q1_t2d0,其他机型,q1_boxing_v1.0_20260226.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_boxing_v2.0_20260330.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_cedeng_simple_collision_model_3750.onnx,1.807,235728,0.899,39,11,6,pytorch,obs;time_step,"[1, 132];[1, 1]",132,24,"[1, 24];[1, 24];[1, 24];[1, 12, 3];[1, 12, 4];[1, 12, 3];[1, 12, 3];[1, 2];[1, 24];[1, 24];[1, 24];[1, 24]",Constant:12;Gather:11;Gemm:4;Cast:3;Elu:3;Squeeze:1,11,FLOAT:12
+q1_t2d0,其他机型,q1_chenshitaiji_v1.0_20260831.onnx,1.922,502281,1.916,46,11,6,pytorch,input,"[1, 1380]",1380,22,"[1, 22]",Constant:17;Gemm:14;Elu:9;Slice:4;Concat:1;Add:1,6,FLOAT:28
+q1_t2d0,其他机型,q1_cluoSiuZhuanShou_v1.0_20260618.onnx,1.922,502281,1.916,49,11,6,pytorch,input,"[1, 1380]",1380,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_crawl2fold_v1.1_20260722.onnx,0.874,228740,0.873,9,18,8,pytorch,obs,"[1, 119]",119,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t2d0,其他机型,q1_crawl_to_fold.onnx,0.874,228740,0.873,9,18,8,pytorch,obs,"[1, 119]",119,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t2d0,其他机型,q1_danceGo_v2.0_20260817.onnx,1.922,502281,1.916,49,11,6,pytorch,input,"[1, 1380]",1380,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_danceLocking_v1.0_20260401.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_elbowStand_v1.0_20260301.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_floorCombo_v1.0_20260302.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_fly_0604.onnx,0.874,228740,0.873,9,18,8,pytorch,obs,"[1, 119]",119,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t2d0,其他机型,q1_getUp_v1.0_20260422.onnx,0.88,230282,0.878,9,18,8,pytorch,obs,"[1, 122]",122,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t2d0,其他机型,q1_getUp_v2.0_20260516.onnx,0.88,230282,0.878,9,18,8,pytorch,obs,"[1, 122]",122,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t2d0,其他机型,q1_getUp_v2.1_20260520.onnx,0.88,230282,0.878,9,18,8,pytorch,obs,"[1, 122]",122,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t2d0,其他机型,q1_getUp_v3.0_20260530.onnx,0.874,228740,0.873,9,18,8,pytorch,obs,"[1, 119]",119,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t2d0,其他机型,q1_getUp_v3.1_20260618.onnx,0.874,228740,0.873,9,18,8,pytorch,obs,"[1, 119]",119,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t2d0,其他机型,q1_getUp_v3.2_20260629.onnx,0.874,228740,0.873,9,18,8,pytorch,obs,"[1, 119]",119,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t2d0,其他机型,q1_getUp_v3.3_20260630.onnx,0.874,228740,0.873,9,18,8,pytorch,obs,"[1, 119]",119,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t2d0,其他机型,q1_getUp_v4.0_20260708.onnx,0.874,228740,0.873,9,18,8,pytorch,obs,"[1, 119]",119,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t2d0,其他机型,q1_headSpin_v1.0_20260227.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_introPose1_v2.0_20260327.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_introPose3_v2.0_20260327.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_introPose6_v2.0_20260327.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_introPose7_v4.0_20260422.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_introPose7_v5.0_20260603.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_kuaileshiqu2_v3.0_20260824.onnx,1.922,502281,1.916,49,11,6,pytorch,input,"[1, 1380]",1380,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_kuli_v1.1_20260909.onnx,1.922,502281,1.916,49,11,6,pytorch,input,"[1, 1380]",1380,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_ladingwu2_v3.0_20260607.onnx,1.922,502281,1.916,49,11,6,pytorch,input,"[1, 1380]",1380,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_ladingwu2_v4.1_20260607.onnx,1.922,502281,1.916,49,11,6,pytorch,input,"[1, 1380]",1380,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_ladingwu2_v4.2_20260608.onnx,1.922,502281,1.916,49,11,6,pytorch,input,"[1, 1380]",1380,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_lie_v1.0_20260706.onnx,0.874,228740,0.873,9,18,8,pytorch,obs,"[1, 119]",119,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t2d0,其他机型,q1_lie_v1.1_20260709.onnx,0.874,228740,0.873,9,18,8,pytorch,obs,"[1, 119]",119,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t2d0,其他机型,q1_lyingFaceDownToStandingByTrick_v1.0_20260306.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_lyingFaceDownToStanding_v3.0_20260404.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_lyingFaceUpToStanding_v1.0_20260305.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_lyingFaceUpToStanding_v2.0_20260326.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_lyingFaceUpToStanding_v5.0_20260421.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_lying_to_fold.onnx,0.874,228740,0.873,9,18,8,pytorch,obs,"[1, 119]",119,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t2d0,其他机型,q1_mg_v1.0_20260820.onnx,1.909,498697,1.902,46,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:17;Gemm:14;Elu:9;Slice:4;Concat:1;Add:1,6,FLOAT:28
+q1_t2d0,其他机型,q1_mimicBaseModel_v1.3_20260825.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_moonKickSpin_v11.2_20260419.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_nikePose_v1.0_20260228.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_random_ground.onnx,2.994,784374,2.992,9,18,8,pytorch,obs,"[1, 1200]",1200,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t2d0,其他机型,q1_random_ground_v2.0_20260618.onnx,2.994,784374,2.992,9,18,8,pytorch,obs,"[1, 1200]",1200,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t2d0,其他机型,q1_random_ground_v2.1_20260618.onnx,2.994,784374,2.992,9,18,8,pytorch,obs,"[1, 1200]",1200,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t2d0,其他机型,q1_random_ground_v2.2_20260628.onnx,2.994,784374,2.992,9,18,8,pytorch,obs,"[1, 1200]",1200,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t2d0,其他机型,q1_random_ground_v2.3_20260705.onnx,2.994,784374,2.992,9,18,8,pytorch,obs,"[1, 1200]",1200,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t2d0,其他机型,q1_random_ground_v2.4_20260709.onnx,2.994,784374,2.992,9,18,8,pytorch,obs,"[1, 1200]",1200,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t2d0,其他机型,q1_runningFrontFlip_v1.0_20260304.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_run_jump_v1.1_20260728.onnx,1.922,502281,1.916,46,11,6,pytorch,input,"[1, 1380]",1380,22,"[1, 22]",Constant:17;Gemm:14;Elu:9;Slice:4;Concat:1;Add:1,6,FLOAT:28
+q1_t2d0,其他机型,q1_sapodagun1_v0.1_20260701.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_sapodagun3_v0.1_20260701.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_seat_up_v1.0_20260811.onnx,0.874,228740,0.873,9,18,8,pytorch,obs,"[1, 119]",119,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t2d0,其他机型,q1_seat_v1.0_20260810.onnx,0.874,228740,0.873,9,18,8,pytorch,obs,"[1, 119]",119,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t2d0,其他机型,q1_seat_v1.1_20260820.onnx,0.874,228740,0.873,9,18,8,pytorch,obs,"[1, 119]",119,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t2d0,其他机型,q1_seat_v1.1_20260821.onnx,0.874,228740,0.873,9,18,8,pytorch,obs,"[1, 119]",119,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t2d0,其他机型,q1_sit_v1.0_20260516.onnx,0.88,230282,0.878,9,18,8,pytorch,obs,"[1, 122]",122,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t2d0,其他机型,q1_sit_v1.0_20260602.onnx,0.874,228740,0.873,9,18,8,pytorch,obs,"[1, 119]",119,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t2d0,其他机型,q1_sit_v1.1_20260714.onnx,0.874,228740,0.873,9,18,8,pytorch,obs,"[1, 119]",119,22,"[1, 22]",Gemm:4;Elu:3;Sub:1;Div:1,4,FLOAT:10
+q1_t2d0,其他机型,q1_standingSideFlip_v9.1_20260328.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_standingToLyingFaceDown_v1.0_20260305.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_standingToLyingFaceDown_v2.0_20260326.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_standingToLyingFaceDown_v3.0_20260403.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_standingToLyingFaceDown_v5.0_20260724.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_standingToLyingFaceUp_v1.0_20260303.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_standingToLyingFaceUp_v3.0_20260326.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_thomasFlair_v1.0_20260223.onnx,1.908,498697,1.902,49,11,6,pytorch,input,"[1, 1360]",1360,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_walkrun_neo.onnx,1.093,285065,1.087,34,11,6,pytorch,observations;observation_history,"[1, 77];[1, 385]",77,22,"[1, 22]",Gemm:11;Constant:10;Elu:6;Concat:2;Slice:2;Sigmoid:1,8,FLOAT:22
+q1_t2d0,其他机型,q1_walkRun_upperPosCtrl_v1.0_20260615.onnx,1.059,276444,1.055,19,11,6,pytorch,observations;observation_history,"[1, 71];[1, 355]",71,22,"[1, 22]",Gemm:10;Elu:6;Concat:2;Constant:1,4,FLOAT:20
+q1_t2d0,其他机型,q1_walkRun_upperPosCtrl_v1.1_20260622.onnx,1.059,276444,1.055,19,11,6,pytorch,observations;observation_history,"[1, 71];[1, 355]",71,22,"[1, 22]",Gemm:10;Elu:6;Concat:2;Constant:1,4,FLOAT:20
+q1_t2d0,其他机型,q1_walkRun_upperPosCtrl_v2.1_20260629.onnx,1.059,276444,1.055,19,11,6,pytorch,observations;observation_history,"[1, 71];[1, 355]",71,22,"[1, 22]",Gemm:10;Elu:6;Concat:2;Constant:1,4,FLOAT:20
+q1_t2d0,其他机型,q1_walkRun_upperPosCtrl_v3.1_20260809.onnx,1.059,276444,1.055,19,11,6,pytorch,observations;observation_history,"[1, 71];[1, 355]",71,22,"[1, 22]",Gemm:10;Elu:6;Concat:2;Constant:1,4,FLOAT:20
+q1_t2d0,其他机型,q1_walkRun_upperPosCtrl_v3.2_20260816.onnx,1.059,276444,1.055,19,11,6,pytorch,observations;observation_history,"[1, 71];[1, 355]",71,22,"[1, 22]",Gemm:10;Elu:6;Concat:2;Constant:1,4,FLOAT:20
+q1_t2d0,其他机型,q1_walkRun_upperPosCtrl_v3.3_20260818.onnx,1.059,276444,1.055,24,11,6,pytorch,observations;observation_history,"[1, 71];[1, 355]",71,24,"[1, 24]",Gemm:10;Elu:6;Constant:5;Concat:2;Slice:1,5,FLOAT:20
+q1_t2d0,其他机型,q1_walkRun_v2.3.10_20260420.onnx,1.712,446692,1.704,40,11,6,pytorch,observations;observation_history,"[1, 76];[1, 380]",76,22,"[1, 22];[1, 2]",Gemm:13;Constant:10;Elu:8;Concat:2;Slice:2;Gather:1,10,FLOAT:27
+q1_t2d0,其他机型,q1_walkRun_v2.3.10_liftv3.onnx,1.712,446692,1.704,40,11,6,pytorch,observations;observation_history,"[1, 76];[1, 380]",76,22,"[1, 22];[1, 2]",Gemm:13;Constant:10;Elu:8;Concat:2;Slice:2;Gather:1,10,FLOAT:27
+q1_t2d0,其他机型,q1_walkRun_v2.3.10_withVelxy.onnx,1.086,282849,1.079,37,11,6,pytorch,observations;observation_history,"[1, 76];[1, 380]",76,24,"[1, 24]",Constant:14;Gemm:10;Elu:6;Slice:3;Concat:2;Gather:1,7,FLOAT:20
+q1_t2d0,其他机型,q1_walkRun_v2.5.0_20260525.onnx,1.712,446692,1.704,40,11,6,pytorch,observations;observation_history,"[1, 76];[1, 380]",76,22,"[1, 22];[1, 2]",Gemm:13;Constant:10;Elu:8;Concat:2;Slice:2;Gather:1,10,FLOAT:27
+q1_t2d0,其他机型,q1_wbc_v11.0_20260916.onnx,1.297,339071,1.293,27,11,6,pytorch,input,"[1, 730]",730,12,"[1, 12]",Gemm:10;Constant:8;Elu:6;Slice:2;Concat:1,5,FLOAT:20
+q1_t2d0,其他机型,q1_wbc_v2.0_20260325.onnx,1.297,339071,1.293,27,11,6,pytorch,input,"[1, 730]",730,12,"[1, 12]",Gemm:10;Constant:8;Elu:6;Slice:2;Concat:1,5,FLOAT:20
+q1_t2d0,其他机型,q1_wbc_v5.5_20260522.onnx,1.297,339071,1.293,27,11,6,pytorch,input,"[1, 730]",730,12,"[1, 12]",Gemm:10;Constant:8;Elu:6;Slice:2;Concat:1,5,FLOAT:20
+q1_t2d0,其他机型,q1_xinbaodao_v2.0_20260906.onnx,1.922,502281,1.916,49,11,6,pytorch,input,"[1, 1380]",1380,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,q1_zhimemgfeiyang_v1.0_20260829.onnx,1.922,502281,1.916,46,11,6,pytorch,input,"[1, 1380]",1380,22,"[1, 22]",Constant:17;Gemm:14;Elu:9;Slice:4;Concat:1;Add:1,6,FLOAT:28
+q1_t2d0,其他机型,q_qzhiwu_v2.1_20260825.onnx,1.922,502281,1.916,49,11,6,pytorch,input,"[1, 1380]",1380,22,"[1, 22]",Constant:20;Gemm:14;Elu:9;Slice:5;Concat:1,5,FLOAT:28
+q1_t2d0,其他机型,zoo_3500.onnx,21.892,2886410,11.011,35,12,7,pytorch,obs;time_step,"[1, 122];[1, 1]",122,22,"[1, 22];[1, 22];[1, 22];[1, 12, 3];[1, 12, 4];[1, 12, 3];[1, 12, 3];[1, 2];[1, 22];[1, 22];[1, 22];[1, 22]",Constant:12;Gather:11;Gemm:4;Elu:3;Cast:1;Squeeze:1,9,FLOAT:10
+q1_t2d0,其他机型,q1_5mKeaihui_v2.0_20260818.detector.onnx,0.881,227549,0.868,9,18,10,pytorch,obs,"[1, 750]",750,1,"[1, 1]",Gemm:3;LayerNormalization:2;Relu:2;Sub:1;Div:1,5,FLOAT:12
+q1_t2d0,其他机型,q1_5mKeai_v2.0_20260818.detector.onnx,0.881,227549,0.868,9,18,10,pytorch,obs,"[1, 750]",750,1,"[1, 1]",Gemm:3;LayerNormalization:2;Relu:2;Sub:1;Div:1,5,FLOAT:12
+q1_t2d0,其他机型,q1_babyQ_v1.0_20260831.detector.onnx,0.881,227549,0.868,9,18,10,pytorch,obs,"[1, 750]",750,1,"[1, 1]",Gemm:3;LayerNormalization:2;Relu:2;Sub:1;Div:1,5,FLOAT:12
+q1_t2d0,其他机型,q1_backflipSquat_v8.2_20260721.detector.onnx,0.881,227549,0.868,9,18,10,pytorch,obs,"[1, 750]",750,1,"[1, 1]",Gemm:3;LayerNormalization:2;Relu:2;Sub:1;Div:1,5,FLOAT:12
+q1_t2d0,其他机型,q1_baozhaqianghuo-nan_v3.0_20260831.detector.onnx,0.881,227549,0.868,9,18,10,pytorch,obs,"[1, 750]",750,1,"[1, 1]",Gemm:3;LayerNormalization:2;Relu:2;Sub:1;Div:1,5,FLOAT:12
+q1_t2d0,其他机型,q1_boxing_v2.0_20260330.detector.onnx,0.881,227549,0.868,9,18,10,pytorch,obs,"[1, 750]",750,1,"[1, 1]",Gemm:3;LayerNormalization:2;Relu:2;Sub:1;Div:1,5,FLOAT:12
+q1_t2d0,其他机型,q1_chenshitaiji_v1.0_20260831.detector.onnx,0.881,227549,0.868,9,18,10,pytorch,obs,"[1, 750]",750,1,"[1, 1]",Gemm:3;LayerNormalization:2;Relu:2;Sub:1;Div:1,5,FLOAT:12
+q1_t2d0,其他机型,q1_cluoSiuZhuanShou_v1.0_20260618.detector.onnx,0.881,227549,0.868,9,18,10,pytorch,obs,"[1, 750]",750,1,"[1, 1]",Gemm:3;LayerNormalization:2;Relu:2;Sub:1;Div:1,5,FLOAT:12
+q1_t2d0,其他机型,q1_crawl2fold_v1.1_20260722.detector.onnx,1.265,325405,1.241,17,18,10,pytorch,obs,"[1, 750]",750,1,[1],Gemm:5;Reshape:3;LayerNormalization:3;Elu:3;Sub:1;Div:1,7,FLOAT:18;INT64:3
+q1_t2d0,其他机型,q1_crawl_to_fold.detector.onnx,1.264,325405,1.241,17,18,10,pytorch,obs,"[1, 750]",750,1,[1],Gemm:5;Reshape:3;LayerNormalization:3;Elu:3;Sub:1;Div:1,7,FLOAT:18;INT64:3
+q1_t2d0,其他机型,q1_danceGo_v2.0_20260817.detector.onnx,0.881,227549,0.868,9,18,10,pytorch,obs,"[1, 750]",750,1,"[1, 1]",Gemm:3;LayerNormalization:2;Relu:2;Sub:1;Div:1,5,FLOAT:12
+q1_t2d0,其他机型,q1_danceLocking_v1.0_20260401.detector.onnx,0.881,227549,0.868,9,18,10,pytorch,obs,"[1, 750]",750,1,"[1, 1]",Gemm:3;LayerNormalization:2;Relu:2;Sub:1;Div:1,5,FLOAT:12
+q1_t2d0,其他机型,q1_fly_0604.detector.onnx,1.266,325405,1.241,17,18,10,pytorch,obs,"[1, 750]",750,1,[1],Gemm:5;Reshape:3;LayerNormalization:3;Elu:3;Sub:1;Div:1,7,FLOAT:18;INT64:3
+q1_t2d0,其他机型,q1_getUp_v3.1_20260618.detector.onnx,1.266,325405,1.241,17,18,10,pytorch,obs,"[1, 750]",750,1,[1],Gemm:5;Reshape:3;LayerNormalization:3;Elu:3;Sub:1;Div:1,7,FLOAT:18;INT64:3
+q1_t2d0,其他机型,q1_getUp_v3.2_20260629.detector.onnx,1.266,325405,1.241,17,18,10,pytorch,obs,"[1, 750]",750,1,[1],Gemm:5;Reshape:3;LayerNormalization:3;Elu:3;Sub:1;Div:1,7,FLOAT:18;INT64:3
+q1_t2d0,其他机型,q1_getUp_v3.3_20260630.detector.onnx,1.266,325405,1.241,17,18,10,pytorch,obs,"[1, 750]",750,1,[1],Gemm:5;Reshape:3;LayerNormalization:3;Elu:3;Sub:1;Div:1,7,FLOAT:18;INT64:3
+q1_t2d0,其他机型,q1_getUp_v4.0_20260708.detector.onnx,1.266,325405,1.241,17,18,10,pytorch,obs,"[1, 750]",750,1,[1],Gemm:5;Reshape:3;LayerNormalization:3;Elu:3;Sub:1;Div:1,7,FLOAT:18;INT64:3
+q1_t2d0,其他机型,q1_introPose7_v4.0_20260422.detector.onnx,0.881,227549,0.868,9,18,10,pytorch,obs,"[1, 750]",750,1,"[1, 1]",Gemm:3;LayerNormalization:2;Relu:2;Sub:1;Div:1,5,FLOAT:12
+q1_t2d0,其他机型,q1_introPose7_v5.0_20260603.detector.onnx,0.881,227549,0.868,9,18,10,pytorch,obs,"[1, 750]",750,1,"[1, 1]",Gemm:3;LayerNormalization:2;Relu:2;Sub:1;Div:1,5,FLOAT:12
+q1_t2d0,其他机型,q1_kuaileshiqu2_v3.0_20260824.detector.onnx,0.881,227549,0.868,9,18,10,pytorch,obs,"[1, 750]",750,1,"[1, 1]",Gemm:3;LayerNormalization:2;Relu:2;Sub:1;Div:1,5,FLOAT:12
+q1_t2d0,其他机型,q1_lie_v1.0_20260706.detector.onnx,1.266,325405,1.241,17,18,10,pytorch,obs,"[1, 750]",750,1,[1],Gemm:5;Reshape:3;LayerNormalization:3;Elu:3;Sub:1;Div:1,7,FLOAT:18;INT64:3
+q1_t2d0,其他机型,q1_lie_v1.1_20260709.detector.onnx,1.265,325405,1.241,17,18,10,pytorch,obs,"[1, 750]",750,1,[1],Gemm:5;Reshape:3;LayerNormalization:3;Elu:3;Sub:1;Div:1,7,FLOAT:18;INT64:3
+q1_t2d0,其他机型,q1_lyingFaceDownToStanding_v3.0_20260404.detector.onnx,0.881,227549,0.868,9,18,10,pytorch,obs,"[1, 750]",750,1,"[1, 1]",Gemm:3;LayerNormalization:2;Relu:2;Sub:1;Div:1,5,FLOAT:12
+q1_t2d0,其他机型,q1_lying_to_fold.detector.onnx,1.265,325405,1.241,17,18,10,pytorch,obs,"[1, 750]",750,1,[1],Gemm:5;Reshape:3;LayerNormalization:3;Elu:3;Sub:1;Div:1,7,FLOAT:18;INT64:3
+q1_t2d0,其他机型,q1_mg_v1.0_20260820.detector.onnx,0.881,227549,0.868,9,18,10,pytorch,obs,"[1, 750]",750,1,"[1, 1]",Gemm:3;LayerNormalization:2;Relu:2;Sub:1;Div:1,5,FLOAT:12
+q1_t2d0,其他机型,q1_qzhiwu_v2.1_20260825.detector.onnx,0.881,227549,0.868,9,18,10,pytorch,obs,"[1, 750]",750,1,"[1, 1]",Gemm:3;LayerNormalization:2;Relu:2;Sub:1;Div:1,5,FLOAT:12
+q1_t2d0,其他机型,q1_run_jump_v1.1_20260728.detector.onnx,0.881,227549,0.868,9,18,10,pytorch,obs,"[1, 750]",750,1,"[1, 1]",Gemm:3;LayerNormalization:2;Relu:2;Sub:1;Div:1,5,FLOAT:12
+q1_t2d0,其他机型,q1_sit_v1.0_20260602.detector.onnx,1.264,325405,1.241,17,18,10,pytorch,obs,"[1, 750]",750,1,[1],Gemm:5;Reshape:3;LayerNormalization:3;Elu:3;Sub:1;Div:1,7,FLOAT:18;INT64:3
+q1_t2d0,其他机型,q1_sit_v1.1_20260714.detector.onnx,1.265,325405,1.241,17,18,10,pytorch,obs,"[1, 750]",750,1,[1],Gemm:5;Reshape:3;LayerNormalization:3;Elu:3;Sub:1;Div:1,7,FLOAT:18;INT64:3
+q1_t2d0,其他机型,q1_standingToLyingFaceDown_v3.0_20260403.detector.onnx,0.881,227549,0.868,9,18,10,pytorch,obs,"[1, 750]",750,1,"[1, 1]",Gemm:3;LayerNormalization:2;Relu:2;Sub:1;Div:1,5,FLOAT:12
+q1_t2d0,其他机型,q1_standingToLyingFaceDown_v5.0_20260724.detector.onnx,0.881,227549,0.868,9,18,10,pytorch,obs,"[1, 750]",750,1,"[1, 1]",Gemm:3;LayerNormalization:2;Relu:2;Sub:1;Div:1,5,FLOAT:12
+q1_t2d0,其他机型,q1_xinbaodao_v2.0_20260906.detector.onnx,0.881,227549,0.868,9,18,10,pytorch,obs,"[1, 750]",750,1,"[1, 1]",Gemm:3;LayerNormalization:2;Relu:2;Sub:1;Div:1,5,FLOAT:12
+q1_t2d0,其他机型,q1_zhimemgfeiyang_v1.0_20260829.detector.onnx,0.881,227549,0.868,9,18,10,pytorch,obs,"[1, 750]",750,1,"[1, 1]",Gemm:3;LayerNormalization:2;Relu:2;Sub:1;Div:1,5,FLOAT:12
+qd1_t0d0,其他机型,0-actor_critic.onnx,0.889,231949,0.885,17,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:10;Elu:6;Concat:1,3,FLOAT:20
+qd1_t0d0,其他机型,actor_critic.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d0,其他机型,actor_critic_20251103.onnx,0.87,227101,0.866,16,11,6,pytorch,observations;observation_history,"[1, 50];[1, 500]",50,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d0,其他机型,actor_critic_20251110.onnx,0.87,227101,0.866,16,11,6,pytorch,observations;observation_history,"[1, 50];[1, 500]",50,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d0,其他机型,actor_critic_88.onnx,0.911,237853,0.907,16,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d0,其他机型,actor_critic_b2q.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d0,其他机型,actor_critic_b2q_20.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d0,其他机型,actor_critic_bi2quadfrontfilp.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d0,其他机型,actor_critic_n.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d0,其他机型,actor_critic_quad2bibackflip.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d0,其他机型,actor_critic_quad2bifrontflip.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d0,其他机型,actor_critic_quad2quadbackfilp.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d0,其他机型,actor_critic_quad2quadfrontflip.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d0,其他机型,actor_critic_run_18.onnx,0.911,237853,0.907,16,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d0,其他机型,actor_critic_vel.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d0,其他机型,backflip_30_1.5_1.0.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d0,其他机型,backflip_open_hip.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d0,其他机型,biped2quad_t05.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d0,其他机型,biped_stand_2100.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d0,其他机型,bi_walk_run.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d0,其他机型,flip2quad_19.6k.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d0,其他机型,flipstand_15k_1112_dofs.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d0,其他机型,frontflip_30_1.5_1.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d0,其他机型,q2b_yaw22600.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d0,其他机型,quad_loco1015.onnx,0.911,237853,0.907,16,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d0,其他机型,quad_twist.onnx,0.87,227101,0.866,16,11,6,pytorch,observations;observation_history,"[1, 50];[1, 500]",50,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d0,其他机型,quad_walk_run.onnx,0.911,237853,0.907,16,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d0,其他机型,rec1021_4900.onnx,0.864,225565,0.86,16,11,6,pytorch,observations;observation_history,"[1, 49];[1, 490]",49,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d0,其他机型,wbc.onnx,0.911,237853,0.907,16,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d0,其他机型,wbc1120.onnx,0.911,237853,0.907,16,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,0-actor_critic.onnx,0.889,231949,0.885,17,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:10;Elu:6;Concat:1,3,FLOAT:20
+qd1_t0d5,其他机型,actor_critic.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,actor_critic_20251103.onnx,0.87,227101,0.866,16,11,6,pytorch,observations;observation_history,"[1, 50];[1, 500]",50,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,actor_critic_20251110.onnx,0.87,227101,0.866,16,11,6,pytorch,observations;observation_history,"[1, 50];[1, 500]",50,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,actor_critic_b2q_20.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,actor_critic_flip2quad_40k.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,actor_critic_flip2quad_head_10k.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,actor_critic_flip2quad_imu_delay_5k.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,actor_critic_flip2quad_TN_barrier_40k.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,actor_critic_flipstand_imu_delay_15k.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,actor_critic_flipstand_terrain_sqrt_25k.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,actor_critic_flipstand_TN_barrier_20k.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,actor_critic_fllipstand_single_frame_10k.onnx,0.569,148750,0.567,7,11,6,pytorch,observations,"[1, 52]",52,14,"[1, 14]",Gemm:4;Elu:3,2,FLOAT:8
+qd1_t0d5,其他机型,actor_critic_n.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,actor_critic_quad2bi_flipstand_ultra_55k_TN_barrier.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,actor_critic_quad2quadbackfilp.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,actor_critic_quad2quadfrontflip.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,bi2quad_ref_0101.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,bi2quad_ref_s035_w4_1230.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,bi2quad_run_s04_w4_1226.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,bi2quad_speed_0128.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,bi2quad_speed_new_obs.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,biped_t05.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,bi_fast.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,moonwalk1229.onnx,0.905,236317,0.901,16,11,6,pytorch,observations;observation_history,"[1, 56];[1, 560]",56,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,moonwalk1231.onnx,0.905,236317,0.901,16,11,6,pytorch,observations;observation_history,"[1, 56];[1, 560]",56,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,quad2bipe_t0.5_19k.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,quad2bi_0126.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,quad2bi_new_obs_7k.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,quad2bi_new_obs_s035_w1_1214.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,quad2bi_norm_new_obs_s04_w4.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,quad2bi_no_wheel_ref_0124.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,quad2bi_rotate_new_pos_s04_w5.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,quad2bi_rotate_run_new_pos.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,quad2bi_rotate_s04_w5.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,quad2bi_rotate_s04_w5_new_pos_1230.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,quad2bi_run_12k_s04_w4_1225.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,quad2bi_s04_w10_hip_50_new_pos.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,quad_handshake_9k.onnx,0.852,222493,0.849,16,11,6,pytorch,observations;observation_history,"[1, 47];[1, 470]",47,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,quad_handshake_height.onnx,0.852,222493,0.849,16,11,6,pytorch,observations;observation_history,"[1, 47];[1, 470]",47,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,quad_jump.onnx,0.852,222493,0.849,16,11,6,pytorch,observations;observation_history,"[1, 47];[1, 470]",47,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,quad_jump_0116.onnx,0.852,222493,0.849,16,11,6,pytorch,observations;observation_history,"[1, 47];[1, 470]",47,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,quad_jump_s04_w0_0108.onnx,0.852,222493,0.849,16,11,6,pytorch,observations;observation_history,"[1, 47];[1, 470]",47,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,quad_run_0.25_9k.onnx,0.911,237853,0.907,16,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,quad_run_run.onnx,0.911,237853,0.907,16,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,quad_run_s04_w025_tset_0.8_0116.onnx,0.911,237853,0.907,16,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,quad_run_s04_w025_vel3.onnx,0.911,237853,0.907,16,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,quad_terrain_0124_t07_s025_w0_06_03.onnx,0.911,237853,0.907,16,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,quad_terrain_0125_9k.onnx,0.911,237853,0.907,16,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,quad_terrain_s04_h05_t08.onnx,0.911,237853,0.907,16,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,quad_twist.onnx,0.87,227101,0.866,16,11,6,pytorch,observations;observation_history,"[1, 50];[1, 500]",50,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,quad_walk_lock_w_13k.onnx,0.911,237853,0.907,16,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,rec0113.onnx,0.852,222493,0.849,16,11,6,pytorch,observations;observation_history,"[1, 47];[1, 470]",47,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,rec0114.onnx,0.852,222493,0.849,16,11,6,pytorch,observations;observation_history,"[1, 47];[1, 470]",47,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,rec1021_4900.onnx,0.864,225565,0.86,16,11,6,pytorch,observations;observation_history,"[1, 49];[1, 490]",49,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,rec_bi0103.onnx,0.852,222493,0.849,16,11,6,pytorch,observations;observation_history,"[1, 47];[1, 470]",47,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,split_wheel15mm.onnx,0.87,227101,0.866,16,11,6,pytorch,observations;observation_history,"[1, 50];[1, 500]",50,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,wbc0103.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,wbc1206.onnx,0.911,237853,0.907,16,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,wbc1226.onnx,0.911,237853,0.907,16,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,wbc1228.onnx,0.911,237853,0.907,16,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,wbc1230.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,wbc_delay0101.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,wbc_delay0110.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,wbc_delay1231.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,wbc_kd0.5.onnx,0.911,237853,0.907,16,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,wbc_noref.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,yuzuru.onnx,0.905,236317,0.901,16,11,6,pytorch,observations;observation_history,"[1, 56];[1, 560]",56,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,yuzuru0112.onnx,0.87,227101,0.866,16,11,6,pytorch,observations;observation_history,"[1, 50];[1, 500]",50,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,yuzuru0113.onnx,0.87,227101,0.866,16,11,6,pytorch,observations;observation_history,"[1, 50];[1, 500]",50,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,yuzuru0121.onnx,0.905,236317,0.901,16,11,6,pytorch,observations;observation_history,"[1, 56];[1, 560]",56,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,yuzuru0123.onnx,0.905,236317,0.901,16,11,6,pytorch,observations;observation_history,"[1, 56];[1, 560]",56,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,yuzuru0126.onnx,0.905,236317,0.901,16,11,6,pytorch,observations;observation_history,"[1, 56];[1, 560]",56,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t0d5,其他机型,yuzuru1224.onnx,0.905,236317,0.901,16,11,6,pytorch,observations;observation_history,"[1, 56];[1, 560]",56,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,actor_critic.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,actor_critic_20251110.onnx,0.87,227101,0.866,16,11,6,pytorch,observations;observation_history,"[1, 50];[1, 500]",50,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,actor_critic_flip2quad_head_10k.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,actor_critic_flip2quad_imu_delay_5k.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,actor_critic_flip2quad_TN_barrier_40k.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,actor_critic_flipstand_terrain_sqrt_25k.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,actor_critic_flipstand_TN_barrier_20k.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,actor_critic_fllipstand_single_frame_10k.onnx,0.569,148750,0.567,7,11,6,pytorch,observations,"[1, 52]",52,14,"[1, 14]",Gemm:4;Elu:3,2,FLOAT:8
+qd1_t1d5,其他机型,actor_critic_n.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,actor_critic_quad2bi_flipstand_ultra_55k_TN_barrier.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,actor_critic_rightfirst_backflip.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,bi2quad_0126_13.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,bi2quad_ref_0101.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,bi2quad_ref_s035_w4_1230.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,bi2quad_speed_new_obs.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,bif0509.onnx,0.864,225565,0.86,16,11,6,pytorch,observations;observation_history,"[1, 49];[1, 490]",49,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,bi_cluo_model_16500.onnx,4.162,931614,3.554,35,12,7,pytorch,obs;time_step,"[1, 264];[1, 1]",264,14,"[1, 14];[1, 14];[1, 14];[1, 11, 3];[1, 11, 4];[1, 11, 3];[1, 11, 3];[1, 2];[1, 14];[1, 12];[1, 14];[1, 14]",Constant:12;Gather:11;Gemm:4;Elu:3;Cast:1;Squeeze:1,9,FLOAT:10
+qd1_t1d5,其他机型,bi_cluo_model_24500.onnx,13.275,3301150,12.593,37,12,7,pytorch,obs;time_step,"[1, 264];[1, 1]",264,14,"[1, 14];[1, 14];[1, 14];[1, 11, 3];[1, 11, 4];[1, 11, 3];[1, 11, 3];[1, 2];[1, 14];[1, 12];[1, 14];[1, 14]",Constant:12;Gather:11;Gemm:5;Elu:4;Cast:1;Squeeze:1,9,FLOAT:12
+qd1_t1d5,其他机型,bi_dance_liuxingwu_acc_1_model_12750.onnx,4.593,742830,2.834,34,12,7,pytorch,obs;time_step,"[1, 80];[1, 1]",80,14,"[1, 14];[1, 14];[1, 14];[1, 11, 3];[1, 11, 4];[1, 11, 3];[1, 11, 3];[1, 2];[1, 14];[1, 12];[1, 14];[1, 14]",Constant:11;Gather:11;Gemm:4;Elu:3;Cast:1;Squeeze:1,9,FLOAT:10
+qd1_t1d5,其他机型,bi_dance_liuxingwu_pd_30kp_model_19500.onnx,4.593,742830,2.834,34,12,7,pytorch,obs;time_step,"[1, 80];[1, 1]",80,14,"[1, 14];[1, 14];[1, 14];[1, 11, 3];[1, 11, 4];[1, 11, 3];[1, 11, 3];[1, 2];[1, 14];[1, 12];[1, 14];[1, 14]",Constant:11;Gather:11;Gemm:4;Elu:3;Cast:1;Squeeze:1,9,FLOAT:10
+qd1_t1d5,其他机型,bi_dance_liuxingwu_wheel_03kd_model_19000.onnx,5.428,931614,3.554,35,12,7,pytorch,obs;time_step,"[1, 264];[1, 1]",264,14,"[1, 14];[1, 14];[1, 14];[1, 11, 3];[1, 11, 4];[1, 11, 3];[1, 11, 3];[1, 2];[1, 14];[1, 12];[1, 14];[1, 14]",Constant:12;Gather:11;Gemm:4;Elu:3;Cast:1;Squeeze:1,9,FLOAT:10
+qd1_t1d5,其他机型,bi_fast0418.onnx,0.864,225565,0.86,16,11,6,pytorch,observations;observation_history,"[1, 49];[1, 490]",49,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,bi_fast0422_2.0.onnx,0.864,225565,0.86,16,11,6,pytorch,observations;observation_history,"[1, 49];[1, 490]",49,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,bi_haicao_model_10500.onnx,4.342,931614,3.554,35,12,7,pytorch,obs;time_step,"[1, 264];[1, 1]",264,14,"[1, 14];[1, 14];[1, 14];[1, 11, 3];[1, 11, 4];[1, 11, 3];[1, 11, 3];[1, 2];[1, 14];[1, 12];[1, 14];[1, 14]",Constant:12;Gather:11;Gemm:4;Elu:3;Cast:1;Squeeze:1,9,FLOAT:10
+qd1_t1d5,其他机型,bi_haicao_model_12500.onnx,5.119,931614,3.554,35,12,7,pytorch,obs;time_step,"[1, 264];[1, 1]",264,14,"[1, 14];[1, 14];[1, 14];[1, 11, 3];[1, 11, 4];[1, 11, 3];[1, 11, 3];[1, 2];[1, 14];[1, 12];[1, 14];[1, 14]",Constant:12;Gather:11;Gemm:4;Elu:3;Cast:1;Squeeze:1,9,FLOAT:10
+qd1_t1d5,其他机型,bi_haicao_model_14500.onnx,5.119,931614,3.554,35,12,7,pytorch,obs;time_step,"[1, 264];[1, 1]",264,14,"[1, 14];[1, 14];[1, 14];[1, 11, 3];[1, 11, 4];[1, 11, 3];[1, 11, 3];[1, 2];[1, 14];[1, 12];[1, 14];[1, 14]",Constant:12;Gather:11;Gemm:4;Elu:3;Cast:1;Squeeze:1,9,FLOAT:10
+qd1_t1d5,其他机型,bi_meixi_model_10500.onnx,4.137,931614,3.554,35,12,7,pytorch,obs;time_step,"[1, 264];[1, 1]",264,14,"[1, 14];[1, 14];[1, 14];[1, 11, 3];[1, 11, 4];[1, 11, 3];[1, 11, 3];[1, 2];[1, 14];[1, 12];[1, 14];[1, 14]",Constant:12;Gather:11;Gemm:4;Elu:3;Cast:1;Squeeze:1,9,FLOAT:10
+qd1_t1d5,其他机型,bi_qiumi_model_10500.onnx,3.846,931614,3.554,35,12,7,pytorch,obs;time_step,"[1, 264];[1, 1]",264,14,"[1, 14];[1, 14];[1, 14];[1, 11, 3];[1, 11, 4];[1, 11, 3];[1, 11, 3];[1, 2];[1, 14];[1, 12];[1, 14];[1, 14]",Constant:12;Gather:11;Gemm:4;Elu:3;Cast:1;Squeeze:1,9,FLOAT:10
+qd1_t1d5,其他机型,bi_qiumi_model_13000.onnx,4.132,931614,3.554,35,12,7,pytorch,obs;time_step,"[1, 264];[1, 1]",264,14,"[1, 14];[1, 14];[1, 14];[1, 11, 3];[1, 11, 4];[1, 11, 3];[1, 11, 3];[1, 2];[1, 14];[1, 12];[1, 14];[1, 14]",Constant:12;Gather:11;Gemm:4;Elu:3;Cast:1;Squeeze:1,9,FLOAT:10
+qd1_t1d5,其他机型,lift0514_swing.onnx,0.864,225565,0.86,16,11,6,pytorch,observations;observation_history,"[1, 49];[1, 490]",49,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,quad2bipe_t0.5_19k.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,quad2bi_rotate_run_new_pos.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,quad2bi_rotate_s04_w5.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,quad2bi_rotate_s04_w5_new_pos_1230.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,quad2bi_s04_w10_hip_50_new_pos.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,quad2bi_wheel_ref_0131.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,quad_handshake_9k.onnx,0.852,222493,0.849,16,11,6,pytorch,observations;observation_history,"[1, 47];[1, 470]",47,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,quad_handshake_height.onnx,0.852,222493,0.849,16,11,6,pytorch,observations;observation_history,"[1, 47];[1, 470]",47,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,quad_run_s04_w025_vel3.onnx,0.911,237853,0.907,16,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,quad_t15_terrain_.onnx,0.916,238957,0.912,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t1d5,其他机型,quad_terrain_0124_t07_s025_w0_06_03.onnx,0.911,237853,0.907,16,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,quad_terrain_0125_9k.onnx,0.911,237853,0.907,16,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,quad_terrain_bad_pos.onnx,0.916,238957,0.912,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t1d5,其他机型,quad_terrain_beta06_.onnx,0.916,238957,0.912,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t1d5,其他机型,quad_terrain_bezier.onnx,0.911,237853,0.907,16,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,quad_terrain_s04_h05_t08.onnx,0.911,237853,0.907,16,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,quad_terrain_t15_good_pos.onnx,0.916,238957,0.912,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t1d5,其他机型,quad_terrain_test_bezier.onnx,0.911,237853,0.907,16,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,quad_walk_lock_w_13k.onnx,0.911,237853,0.907,16,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,quad_walk_run_t15_lite_terrain.onnx,0.916,238957,0.912,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t1d5,其他机型,quad_walk_swing09_lite.onnx,0.916,238957,0.912,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t1d5,其他机型,quad_walk_t15_.onnx,0.916,238957,0.912,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t1d5,其他机型,quad_walk_t15_2k.onnx,0.916,238957,0.912,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t1d5,其他机型,quad_walk_terrain_0316.onnx,0.916,238957,0.912,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t1d5,其他机型,t15_bi2quad_norm_0524.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,t15_bi2quad_norm_v1.1_test.onnx,0.882,229779,0.877,29,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;ReduceMean:2;Constant:2;Add:2;Sub:1,12,FLOAT:22
+qd1_t1d5,其他机型,t15_bi2quad_norm_v1.3_test.onnx,0.882,229779,0.877,29,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;ReduceMean:2;Constant:2;Add:2;Sub:1,12,FLOAT:22
+qd1_t1d5,其他机型,t15_bi2quad_norm_v1.4.onnx,0.882,229779,0.877,29,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;ReduceMean:2;Constant:2;Add:2;Sub:1,12,FLOAT:22
+qd1_t1d5,其他机型,t15_bi2quad_norm_w25_test.onnx,0.88,229741,0.876,18,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t1d5,其他机型,t15_bi2quad_rotate_v1.1_terrain.onnx,0.899,234387,0.894,29,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;ReduceMean:2;Constant:2;Add:2;Sub:1,12,FLOAT:22
+qd1_t1d5,其他机型,t15_bi2quad_rotate_v1.3_test.onnx,0.899,234387,0.894,29,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;ReduceMean:2;Constant:2;Add:2;Sub:1,12,FLOAT:22
+qd1_t1d5,其他机型,t15_bi2quad_speed_0515.onnx,0.898,234349,0.894,18,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t1d5,其他机型,t15_bi2quad_yaw_0525.onnx,0.898,234349,0.894,18,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t1d5,其他机型,t15_bi_recovery_v1.0_test.onnx,0.852,222493,0.849,16,11,6,pytorch,observations;observation_history,"[1, 47];[1, 470]",47,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,t15_bi_recovery_v1.2_0402.onnx,0.852,222493,0.849,16,11,6,pytorch,observations;observation_history,"[1, 47];[1, 470]",47,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,t15_bi_walk_0413.onnx,0.864,225565,0.86,16,11,6,pytorch,observations;observation_history,"[1, 49];[1, 490]",49,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,t15_bi_walk_v1.0_0326.onnx,0.864,225565,0.86,16,11,6,pytorch,observations;observation_history,"[1, 49];[1, 490]",49,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,t15_bi_walk_v1.2_0322.onnx,0.864,225565,0.86,16,11,6,pytorch,observations;observation_history,"[1, 49];[1, 490]",49,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,t15_handshake_v1.3.onnx,0.857,223597,0.853,18,11,6,pytorch,observations;observation_history,"[1, 47];[1, 470]",47,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t1d5,其他机型,t15_q2b_norm_v1.3_27k_.onnx,0.882,229779,0.877,29,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;ReduceMean:2;Constant:2;Add:2;Sub:1,12,FLOAT:22
+qd1_t1d5,其他机型,t15_quad2bi_norm_test_0418.onnx,0.88,229741,0.876,18,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t1d5,其他机型,t15_quad2bi_norm_v1.2_test.onnx,0.882,229779,0.877,29,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;ReduceMean:2;Constant:2;Add:2;Sub:1,12,FLOAT:22
+qd1_t1d5,其他机型,t15_quad2bi_norm_v1.3_test.onnx,0.882,229779,0.877,29,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;ReduceMean:2;Constant:2;Add:2;Sub:1,12,FLOAT:22
+qd1_t1d5,其他机型,t15_quad2bi_rotate_v1.0_terrain.onnx,0.899,234387,0.894,29,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;ReduceMean:2;Constant:2;Add:2;Sub:1,12,FLOAT:22
+qd1_t1d5,其他机型,t15_quad2bi_rotate_v1.5_test.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,t15_quad2bi_v1.4_norm.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,t15_quad2bi_yaw_v1.2_test.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,t15_quad2bi_yaw_v1.6_0516.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,t15_quad_handshake_v1.2_.onnx,0.857,223597,0.853,18,11,6,pytorch,observations;observation_history,"[1, 47];[1, 470]",47,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t1d5,其他机型,t15_quad_jump_v1.2_0418.onnx,0.852,222493,0.849,16,11,6,pytorch,observations;observation_history,"[1, 47];[1, 470]",47,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,t15_quad_jump_v1.4_0516.onnx,0.852,222493,0.849,16,11,6,pytorch,observations;observation_history,"[1, 47];[1, 470]",47,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,t15_quad_jump_v1.5.onnx,0.852,222493,0.849,16,11,6,pytorch,observations;observation_history,"[1, 47];[1, 470]",47,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,t15_quad_loco_v1.7_0405.onnx,0.916,238957,0.912,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t1d5,其他机型,t15_quad_run_test_0428_new.onnx,0.911,237853,0.907,16,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,t15_quad_run_v1.2_0330.onnx,0.916,238957,0.912,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t1d5,其他机型,t15_quad_run_v1.3_test.onnx,0.916,238957,0.912,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t1d5,其他机型,t15_quad_run_walk_v1.9_no_wheel.onnx,0.916,238957,0.912,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t1d5,其他机型,t15_quad_terrain_0516.onnx,0.916,238957,0.912,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t1d5,其他机型,t15_quad_terrain_beta0.6_test2.onnx,0.916,238957,0.912,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t1d5,其他机型,t15_quad_terrain_v1.2_.onnx,0.916,238957,0.912,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t1d5,其他机型,t15_quad_terrain_v1.2_beta06_0411.onnx,0.916,238957,0.912,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t1d5,其他机型,t15_quad_terrain_v1.3_test.onnx,0.917,238995,0.912,29,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;ReduceMean:2;Constant:2;Add:2;Sub:1,12,FLOAT:22
+qd1_t1d5,其他机型,t15_quad_twist_v1.0_test.onnx,0.87,227101,0.866,16,11,6,pytorch,observations;observation_history,"[1, 50];[1, 500]",50,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,t15_quad_twist_xy_v1.0.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,t15_quad_walk_lite_v1.10_0524.onnx,0.916,238957,0.912,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t1d5,其他机型,t15_quad_walk_run_v1.9_0418.onnx,0.916,238957,0.912,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t1d5,其他机型,t1_bi2quad_rotate_v1.0_0307_speed.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,t1_bi2quad_v1.0_1226.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,t1_bi_fast_v1.0_0307.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,t1_bi_moonwalk_v1.0_1231.onnx,0.905,236317,0.901,16,11,6,pytorch,observations;observation_history,"[1, 56];[1, 560]",56,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,t1_bi_recovery_v1.0_0113.onnx,0.852,222493,0.849,16,11,6,pytorch,observations;observation_history,"[1, 47];[1, 470]",47,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,t1_bi_split_v1.0_0307_15mm.onnx,0.87,227101,0.866,16,11,6,pytorch,observations;observation_history,"[1, 50];[1, 500]",50,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,t1_bi_walkterrain_v1.0_0227_test.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,t1_bi_walk_v1.0_0307_t05.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,t1_bi_wbc_pitch0522.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,t1_bi_wbc_v1.0_0110_delay.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,t1_bi_wbc_v1.0_1228.onnx,0.911,237853,0.907,16,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,t1_bi_yuzuru_v1.0_0123.onnx,0.905,236317,0.901,16,11,6,pytorch,observations;observation_history,"[1, 56];[1, 560]",56,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,t1_flip2quad_v1.0_0307_40k.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,t1_flipstand_v1.0_0307.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,t1_quad2bi_rotate_v1.0_0307_t15.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,t1_quad2bi_v1.0_1225.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,t1_quad_backflip_v1.0_0307.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,t1_quad_frontflip_v1.0_0307.onnx,0.882,230173,0.878,16,11,6,pytorch,observations;observation_history,"[1, 52];[1, 520]",52,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,t1_quad_handshake_v1.0_0307.onnx,0.852,222493,0.849,16,11,6,pytorch,observations;observation_history,"[1, 47];[1, 470]",47,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,t1_quad_handshake_v1.1_0308_r.onnx,0.852,222493,0.849,16,11,6,pytorch,observations;observation_history,"[1, 47];[1, 470]",47,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,t1_quad_recovery_v1.0_1021.onnx,0.864,225565,0.86,16,11,6,pytorch,observations;observation_history,"[1, 49];[1, 490]",49,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,t1_quad_recovery_v1.5_0405.onnx,0.852,222493,0.849,16,11,6,pytorch,observations;observation_history,"[1, 47];[1, 470]",47,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,t1_quad_terrain_v1.1_0308.onnx,0.916,238957,0.912,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t1d5,其他机型,t1_quad_twist_v1.0_0307.onnx,0.87,227101,0.866,16,11,6,pytorch,observations;observation_history,"[1, 50];[1, 500]",50,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,t1_quad_walk_v1.0_swing09.onnx,0.916,238957,0.912,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t1d5,其他机型,t1_quad_walk_v1.1_test.onnx,0.916,238957,0.912,18,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t1d5,其他机型,t2_b2q_norm_v1.0_0601.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,t2_b2q_speed_0602_test.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,t2_b2q_speed_v1.0_0601.onnx,0.893,233245,0.89,16,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,t2_quad2bi_yaw_v1.0_0601.onnx,0.898,234349,0.894,18,11,6,pytorch,observations;observation_history,"[1, 54];[1, 540]",54,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t1d5,其他机型,t2_quad2b_norm_v1.0_0601.onnx,0.88,229741,0.876,18,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14];[1, 4]",Gemm:10;Elu:6;Sigmoid:1;Concat:1,4,FLOAT:20
+qd1_t1d5,其他机型,terrain0313.onnx,0.864,225565,0.86,16,11,6,pytorch,observations;observation_history,"[1, 49];[1, 490]",49,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,terrain0314.onnx,0.864,225565,0.86,16,11,6,pytorch,observations;observation_history,"[1, 49];[1, 490]",49,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,terrain0315.onnx,0.864,225565,0.86,16,11,6,pytorch,observations;observation_history,"[1, 49];[1, 490]",49,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,wbc0103.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,wbc0517.onnx,0.864,225565,0.86,16,11,6,pytorch,observations;observation_history,"[1, 49];[1, 490]",49,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,wbc1206.onnx,0.911,237853,0.907,16,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,wbc1226.onnx,0.911,237853,0.907,16,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,wbc1230.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,wbc_delay0101.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,wbc_delay1231.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,wbc_kd0.5.onnx,0.911,237853,0.907,16,11,6,pytorch,observations;observation_history,"[1, 57];[1, 570]",57,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,wbc_noref.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,wbc_roll_pitch_terrain0524.onnx,0.876,228637,0.872,16,11,6,pytorch,observations;observation_history,"[1, 51];[1, 510]",51,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,wbc_terrain_lift0515.onnx,0.864,225565,0.86,16,11,6,pytorch,observations;observation_history,"[1, 49];[1, 490]",49,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,yuzuru.onnx,0.905,236317,0.901,16,11,6,pytorch,observations;observation_history,"[1, 56];[1, 560]",56,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,yuzuru0112.onnx,0.87,227101,0.866,16,11,6,pytorch,observations;observation_history,"[1, 50];[1, 500]",50,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,yuzuru0113.onnx,0.87,227101,0.866,16,11,6,pytorch,observations;observation_history,"[1, 50];[1, 500]",50,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,yuzuru0121.onnx,0.905,236317,0.901,16,11,6,pytorch,observations;observation_history,"[1, 56];[1, 560]",56,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18
+qd1_t1d5,其他机型,yuzuru1224.onnx,0.905,236317,0.901,16,11,6,pytorch,observations;observation_history,"[1, 56];[1, 560]",56,14,"[1, 14]",Gemm:9;Elu:6;Concat:1,3,FLOAT:18

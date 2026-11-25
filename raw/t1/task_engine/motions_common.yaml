@@ -1,0 +1,141 @@
+# T1 动作公共黑名单定义（供参考，实际加载由各分类文件自包含）
+# 各分类文件在文件头部自行定义所需的锚点；本文件作为权威文档记录全部黑名单。
+
+action_black_lists:
+  # 状态切换类动作（坐下/趴下）不应从失稳、收纳或变形中间态触发。
+  t1_quadruped_posture: &t1_quadruped_posture_black_list
+    - PASSIVE_DEFAULT
+    - DAMPING_DEFAULT
+    - STORE_DEFAULT
+    - STAND_UP
+    - QUADRUPED_RECOVERY
+    - QUADRUPED_TO_BIPED
+    - QUADRUPED_TO_BIPED_ROTATE
+    - QUADRUPED_TO_BIPED_FRONTFLIP
+    - BIPED_TO_QUADRUPED
+    - BIPED_TO_QUADRUPED_ROTATE
+    - BIPED_TO_QUADRUPED_FRONTFLIP
+
+  # 四足表演/表情动作允许从零力矩/趴下/坐下经 transfer graph 先恢复站立再执行。
+  t1_quadruped_motion: &t1_quadruped_motion_black_list
+    - DAMPING_DEFAULT
+    - STORE_DEFAULT
+    - STAND_UP
+    - QUADRUPED_RECOVERY
+    - QUADRUPED_TO_BIPED
+    - QUADRUPED_TO_BIPED_ROTATE
+    - QUADRUPED_TO_BIPED_FRONTFLIP
+    - BIPED_TO_QUADRUPED
+    - BIPED_TO_QUADRUPED_ROTATE
+    - BIPED_TO_QUADRUPED_FRONTFLIP
+
+  # 四足跳舞允许从零力矩/趴下/坐下经 transfer graph 先恢复站立再执行。
+  t1_quadruped_dance: &t1_quadruped_dance_black_list
+    - DAMPING_DEFAULT
+    - STORE_DEFAULT
+    - STAND_UP
+    - QUADRUPED_RECOVERY
+    - QUADRUPED_TO_BIPED
+    - QUADRUPED_TO_BIPED_ROTATE
+    - QUADRUPED_TO_BIPED_FRONTFLIP
+    - BIPED_TO_QUADRUPED
+    - BIPED_TO_QUADRUPED_ROTATE
+    - BIPED_TO_QUADRUPED_FRONTFLIP
+
+  # 部分表情/互动动作允许从零力矩/四足坐下/趴下状态触发，由 transfer graph 先恢复到稳定姿态。
+  t1_quadruped_low_posture_recover_motion: &t1_quadruped_low_posture_recover_motion_black_list
+    - DAMPING_DEFAULT
+    - STORE_DEFAULT
+    - STAND_UP
+    - QUADRUPED_RECOVERY
+    - QUADRUPED_TO_BIPED
+    - QUADRUPED_TO_BIPED_ROTATE
+    - QUADRUPED_TO_BIPED_FRONTFLIP
+    - BIPED_TO_QUADRUPED
+    - BIPED_TO_QUADRUPED_ROTATE
+    - BIPED_TO_QUADRUPED_FRONTFLIP
+
+  # 变形动作只允许从稳定姿态触发，避免从失稳/恢复中间态叠加变形。
+  t1_transform: &t1_transform_black_list
+    - PASSIVE_DEFAULT
+    - DAMPING_DEFAULT
+    - STORE_DEFAULT
+    - STAND_UP
+    - QUADRUPED_RECOVERY
+    - QUADRUPED_GET_DOWN_DEFAULT
+    - QUADRUPED_SIT_DOWN_DEFAULT
+    - BIPED_RECOVERY
+    - LYING_DEFAULT
+    - LIE_FACE_DOWN
+    - LIE_FACE_UP
+    - BIPED_SIT_DOWN
+
+  # 普通旋转变形允许从四足趴下/坐下触发，由 transfer graph 先恢复到稳定姿态。
+  t1_rotate_transform: &t1_rotate_transform_black_list
+    - PASSIVE_DEFAULT
+    - DAMPING_DEFAULT
+    - STORE_DEFAULT
+    - STAND_UP
+    - QUADRUPED_RECOVERY
+    - BIPED_RECOVERY
+    - LYING_DEFAULT
+    - LIE_FACE_DOWN
+    - LIE_FACE_UP
+    - BIPED_SIT_DOWN
+
+  # 双足动作通用黑名单：不从失稳、躺倒、坐下、收纳或变形中间态触发。
+  t1_biped_motion: &t1_biped_motion_black_list
+    - PASSIVE_DEFAULT
+    - DAMPING_DEFAULT
+    - STORE_DEFAULT
+    - STAND_UP
+    - LYING_DEFAULT
+    - LIE_FACE_DOWN
+    - LIE_FACE_UP
+    - BIPED_SIT_DOWN
+    - BIPED_RECOVERY
+    - QUADRUPED_TO_BIPED
+    - QUADRUPED_TO_BIPED_ROTATE
+    - QUADRUPED_TO_BIPED_FRONTFLIP
+    - BIPED_TO_QUADRUPED
+    - BIPED_TO_QUADRUPED_ROTATE
+    - BIPED_TO_QUADRUPED_FRONTFLIP
+
+  # 双足上肢动作允许从太空步通过 transfer graph 切回 WBC 后执行。
+  t1_biped_upper_body: &t1_biped_upper_body_black_list
+    - PASSIVE_DEFAULT
+    - DAMPING_DEFAULT
+    - STORE_DEFAULT
+    - STAND_UP
+    - LYING_DEFAULT
+    - LIE_FACE_DOWN
+    - LIE_FACE_UP
+    - BIPED_SIT_DOWN
+    - BIPED_RECOVERY
+    - QUADRUPED_TO_BIPED
+    - QUADRUPED_TO_BIPED_ROTATE
+    - QUADRUPED_TO_BIPED_FRONTFLIP
+    - BIPED_TO_QUADRUPED
+    - BIPED_TO_QUADRUPED_ROTATE
+    - BIPED_TO_QUADRUPED_FRONTFLIP
+
+  # 模式切换只从稳定状态进入。
+  t1_mode_switch: &t1_mode_switch_black_list
+    - PASSIVE_DEFAULT
+    - DAMPING_DEFAULT
+    - STORE_DEFAULT
+    - STAND_UP
+    - QUADRUPED_RECOVERY
+    - QUADRUPED_GET_DOWN_DEFAULT
+    - QUADRUPED_SIT_DOWN_DEFAULT
+    - LYING_DEFAULT
+    - LIE_FACE_DOWN
+    - LIE_FACE_UP
+    - BIPED_SIT_DOWN
+    - BIPED_RECOVERY
+    - QUADRUPED_TO_BIPED
+    - QUADRUPED_TO_BIPED_ROTATE
+    - QUADRUPED_TO_BIPED_FRONTFLIP
+    - BIPED_TO_QUADRUPED
+    - BIPED_TO_QUADRUPED_ROTATE
+    - BIPED_TO_QUADRUPED_FRONTFLIP

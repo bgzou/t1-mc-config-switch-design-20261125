@@ -1,0 +1,214 @@
+BaseConfig:
+  model_type: "Walk"
+
+  use_debug: true
+  dt: 0.01  # 100Hz
+
+  # policy:
+  #   type: "rknn"
+  #   device: "rk3588"
+  #   path: "./rl_models/model_run.rknn"
+  policy:
+    type: "onnx"
+    device: "cpu"
+    # path: "./rl_models/t15_quad_run_v1.3_test.onnx"
+    # path: "./rl_models/t15_quad_walk_run_v1.9_0418.onnx"
+    path: "./rl_models/t2_quad_run_new_cpg.onnx"
+    
+  # obs-action nums will be obtained by urdf
+  obs_nums: 57
+  q_nums: 14
+  action_nums: 14
+
+  joints_name:
+    [
+      'FL_HIP_ROLL_Joint',
+      'FL_HIP_PITCH_Joint',
+      'FL_KNEE_Joint',
+      
+      'FR_HIP_ROLL_Joint',
+      'FR_HIP_PITCH_Joint',
+      'FR_KNEE_Joint',
+
+      'RL_HIP_ROLL_Joint',
+      'RL_HIP_PITCH_Joint',
+      'RL_KNEE_Joint',
+      'RL_FOOT_Joint',
+      
+      'RR_HIP_ROLL_Joint',
+      'RR_HIP_PITCH_Joint',
+      'RR_KNEE_Joint',
+      'RR_FOOT_Joint',
+    ]
+
+  #define the obs sequence
+  seq:
+    [
+      'FL_HIP_ROLL_Joint',
+      'FL_HIP_PITCH_Joint',
+      'FL_KNEE_Joint',
+      
+      'FR_HIP_ROLL_Joint',
+      'FR_HIP_PITCH_Joint',
+      'FR_KNEE_Joint',
+
+      'RL_HIP_ROLL_Joint',
+      'RL_HIP_PITCH_Joint',
+      'RL_KNEE_Joint',
+      'RL_FOOT_Joint',
+      
+      'RR_HIP_ROLL_Joint',
+      'RR_HIP_PITCH_Joint',
+      'RR_KNEE_Joint',
+      'RR_FOOT_Joint',
+    ]
+
+  # define the action sequence
+  action_seq:
+    [
+      'FL_HIP_ROLL_Joint',
+      'FL_HIP_PITCH_Joint',
+      'FL_KNEE_Joint',
+
+      'FR_HIP_ROLL_Joint',
+      'FR_HIP_PITCH_Joint',
+      'FR_KNEE_Joint',
+      
+      'RL_HIP_ROLL_Joint',
+      'RL_HIP_PITCH_Joint',
+      'RL_KNEE_Joint',
+      'RL_FOOT_Joint',
+      
+      'RR_HIP_ROLL_Joint',
+      'RR_HIP_PITCH_Joint',
+      'RR_KNEE_Joint',
+      'RR_FOOT_Joint',
+    ]
+
+  action_scale: [ 0.1, 0.25, 0.25, 
+                  0.1, 0.25, 0.25, 
+                  0.1, 0.25, 0.25, 0.0, 
+                  0.1, 0.25, 0.25, 0.0 ]
+  imu_pitch_offset: 0.0
+
+
+ACConfig:
+  infer:
+    frame_stack: 10
+
+  clips:
+    obs_clip: 50.0
+    action_clip: 50.0
+
+  reduction:   
+    wheel_reduction: 0.25
+    hip_reduction: 0.5
+  
+  action:
+    activation: [   1.0, 1.0, 1.0, 
+                    1.0, 1.0, 1.0, 
+                    1.0, 1.0, 1.0, 1.0, 
+                    1.0, 1.0, 1.0, 1.0 ]
+  # planner:
+  #   enable: false
+  #   velocity: 10
+  #   acceleration: 10
+  #   dt: 1   # ms
+
+  robot:
+    # seq same as action_seq
+    # real params
+    kps: [ 
+      30.0, 30.0, 30.0, 
+      30.0, 30.0, 30.0, 
+      30.0, 30.0, 30.0, 0.0, 
+      30.0, 30.0, 30.0, 0.0 ]
+    kds: [ 
+      0.5, 0.5, 0.5,
+      0.5, 0.5, 0.5, 
+      0.5, 0.5, 0.5, 1.0, 
+      0.5, 0.5, 0.5, 1.0 ]
+    default_dof_pos: [ 
+      0.0, 0.6781, -1.3533, 
+      0.0, 0.6781, -1.3533, 
+      0.0, 1.0624, -1.8321, 0.0, 
+      0.0, 1.0624, -1.8321, 0.0 ]
+    default_kp: 30
+    default_kd: 1.0
+
+
+WalkConfig:
+  max_cycle_time: 0.7 # t_set
+  min_cycle_time: 0.25
+  step_length: 0.6
+
+  # define obs index
+  obs_index:
+    imu_omega: 0
+    imu_euler: 3
+    pos: 6
+    vel: 18
+    action: 32
+    command: 46
+    cpg: 49
+
+  walk:
+    switch_stand_walk: false
+    walk_mode: true
+    stand_cmd_threshold: 0.05
+
+  obs_scales:
+    dof_pos: 1.0
+    dof_vel: 0.05
+    lin_vel: 2.0
+    ang_vel: 0.25
+
+  command_scales:
+    cmd_x_min: -1.0
+    cmd_x_max: 2.7
+    cmd_y_min: -0.4
+    cmd_y_max: 0.4
+    cmd_yaw_min: -0.78
+    cmd_yaw_max: 0.78
+
+    cpg_cmd_y: 2.0 # vel_all
+    cpg_cmd_yaw: 1.5 # vel_all
+    xlim_with_yaw: 1.0
+
+  odom:
+    enable: true
+    min_forward_cmd: 0.2         # m/s，水平合速度 hypot(cmd_x,cmd_y) 超过此值才启用
+    user_y_deadband: 0.05        # 已不参与门控(侧向运动不再关闭矫正), 保留以兼容 yaml/reflectcpp 结构
+    user_yaw_deadband: 0.05      # rad/s，|转向指令|低于此值才介入; 过小易频繁启停，过大会干扰用户小转向
+    kp_yaw: 1.0                  # 航向误差比例增益；调大纠偏更快但更易走弧线/蛇形
+    kd_yaw: 0.1                  # yaw 角速度阻尼；调大可抑制过冲，但会放大 IMU/步态角速度噪声
+    max_cmd_yaw: 0.25            # rad/s，自动 yaw 补偿上限(对齐 quad_loco/terrain)
+    max_yaw_comp_rate: 5.0       # rad/s^2，补偿每秒最大变化(对齐 quad_loco/terrain)
+    max_yaw_err: 0.5             # rad，参与计算的航向误差上限；主要用于异常保护
+    low_speed_thresh: 0.0        # 已在 C++ 移除 v_scale 逻辑, 此字段仅保留兼容; 0=不生效
+    low_speed_scale: 1.0         # 已失效, 保留兼容
+    yaw_comp_decimation: 2       # 每 N 个控制周期更新目标: 2=50Hz
+    log_decimation: 50           # 每 N 个控制周期打印日志：50约2Hz
+
+  filter:
+    imu_vel_cutoff_freq: 100
+    q_vel_cutoff_freq: [
+      100, 100, 100, 
+      100, 100, 100, 
+      100, 100, 100, 10, 
+      100, 100, 100, 10]
+
+  custom:
+    wheel_stiffness_increase_time: 5.0
+
+  stand_actions: [ 'QUADRUPED_STAND_DEFAULT']
+  acc_x: 1.2
+  acc_y: 2.0
+  acc_yaw: 2.0
+  acc_step_x: 2.0
+  acc_step_y: 1.0
+  acc_step_yaw: 1.0
+  dec_x: 4.0      
+  dec_y: 2.0
+  dec_yaw: 2.0
+  exit_step: 150

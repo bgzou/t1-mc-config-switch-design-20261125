@@ -1,0 +1,84 @@
+step_time: 0.001
+
+# 1) 起身到站立（过渡 + 保持）
+stand_transition_duration: 1.5
+stand_hold_duration: 1.0
+# 2) 站立到坐下（过渡 + 保持）
+sit_transition_duration: 1.0
+sit_hold_duration: 1.0
+# 3) 抬手到握手位 + 握手保持
+hand_raise_duration: 1.5
+handshake_hold_duration: 2.0
+# 4) 收手回坐姿（过渡 + 保持）
+hand_recover_to_sit_duration: 1.5
+recover_sit_hold_duration: 1.0
+# 5) 回到站立
+recover_to_stand_duration: 1.0
+
+# false: 完成后切到 QUADRUPED_LOCOMOTION_DEFAULT
+final_stand_infinite_hold: false
+
+# 目标关节顺序：
+# [FL_HIP_ROLL, FL_HIP_PITCH, FL_KNEE,
+#  FR_HIP_ROLL, FR_HIP_PITCH, FR_KNEE,
+#  RL_HIP_ROLL, RL_HIP_PITCH, RL_KNEE, RL_FOOT,
+#  RR_HIP_ROLL, RR_HIP_PITCH, RR_KNEE, RR_FOOT]
+target_stand: [0.0, 0.6781, -1.3533, 
+               0.0, 0.6781, -1.3533, 
+               0.0, 1.0624, -1.8321, 0.0, 
+               0.0, 1.0624, -1.8321, 0.0]
+
+target_sit: [0.04, 0.538, -0.855,
+             0.04, 0.116, -0.3, 
+             0.1, 1.2780, -2.35, 0.0, 
+             0.0, 1.1079, -2.163, 0.0]
+
+target_hand: [0.08, 0.5394, -0.75, 
+              -0.106, -0.17, -1.57, 
+              0.1, 1.2780, -2.35, 0.0, 
+             0.0, 1.1079, -2.163, 0.0]
+
+# 关节控制参数（位置控制）：kp 越大越“硬”，kd 越大阻尼越强
+joints:
+  - name: "FL_HIP_ROLL_Joint"
+    kp: 100.0
+    kd: 1.5
+  - name: "FL_HIP_PITCH_Joint"
+    kp: 150.0
+    kd: 1.5
+  - name: "FL_KNEE_Joint"
+    kp: 150.0
+    kd: 1.5
+  - name: "FR_HIP_ROLL_Joint"
+    kp: 100.0
+    kd: 1.5
+  - name: "FR_HIP_PITCH_Joint"
+    kp: 150.0
+    kd: 1.5
+  - name: "FR_KNEE_Joint"
+    kp: 150.0
+    kd: 1.5
+  - name: "RL_HIP_ROLL_Joint"
+    kp: 100.0
+    kd: 1.5
+  - name: "RL_HIP_PITCH_Joint"
+    kp: 250.0
+    kd: 1.5
+  - name: "RL_KNEE_Joint"
+    kp: 250.0
+    kd: 1.5
+  - name: "RL_FOOT_Joint"
+    kp: 0.0
+    kd: 1.0
+  - name: "RR_HIP_ROLL_Joint"
+    kp: 100.0
+    kd: 1.5
+  - name: "RR_HIP_PITCH_Joint"
+    kp: 250.0
+    kd: 1.5
+  - name: "RR_KNEE_Joint"
+    kp: 250.0
+    kd: 1.5
+  - name: "RR_FOOT_Joint"
+    kp: 0.0
+    kd: 1.0

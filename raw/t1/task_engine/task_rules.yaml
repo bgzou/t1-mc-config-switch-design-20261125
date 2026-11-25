@@ -1,0 +1,361 @@
+# TaskEngine 任务规则配置文件
+# allow_source: AmSourceType 白名单，直接填写协议枚举名；[] 表示不校验来源
+# allow_posture: McAction 白名单，直接填写枚举名；[] 表示不校验 McAction
+# block_posture: McAction 黑名单；非空时当前姿态命中则拒绝进入该任务
+# allow_velocity_source: 速度来源白名单(McLocomotionVelocity.source)；[] 表示不校验。
+#   当机器人正按速度移动(is_moving_by_velocity)且当前速度来源不在白名单内时拒绝该任务，
+#   用于防止与 APP 摇杆/遥控等外部控制器争抢运动控制。
+# velocity_source_block_robots: 上述速度来源排除仅对列表内机型生效(如 [Q1])；[] 表示对所有机型生效。
+# function_name_aliases: 可选，AmRequest.function_name 额外别名，均归一到 task_base.task_name。
+#   YAML task_list 节名（如 task_follow）若与 task_name 不同，加载时自动注册为别名。
+task_list:
+  # 1. 恢复出厂设置（APP 主触发，系统兜底）
+  # 真实操作会关机/重启，必须在零力矩、趴着、躺着等安全姿态触发；告警不拦截。
+  task_factory_reset:
+    task_base:
+      enable: true
+      task_name: factory_reset
+      task_type: short_task
+      real_task_type: ""           # 仅仲裁，无对应 WorkerManager 任务
+      priority: 90
+      permission_level: normal
+      allow_preempt: false
+      timing_cycle_ms: 0
+      need_confirm: false
+    allow_source:
+      - SOURCE_SYSTEM
+      - SOURCE_APP
+    precondition:
+      allow_posture: [PASSIVE_DEFAULT, DAMPING_DEFAULT, QUADRUPED_GET_DOWN_DEFAULT, LIE_FACE_DOWN, LIE_FACE_UP, LYING_DEFAULT, STORE_DEFAULT]
+      battery_min_percent: 20
+      allow_charging_state: true
+      check_app_conn: false
+      check_cloud_conn: false
+      check_network: true
+      check_log_sync: true
+    alarm_condition:
+      allow_mode: all
+      allow_levels: []
+      exclude_levels: []
+    motion_condition:
+      allow_motion_state: [idle, preemptable]
+      allow_preempt_running_task: false
+    mutex_block:
+      mutex_task_list: [follow]
+      block_op_list: [all]
+
+  # 2. APP 摇杆控制（实时速度信号）
+  # 摇杆为高频实时指令：仅校验电量，不记录运行态（track_running_state=false）。
+  # HDS 告警 1/2/3 级时拦截（1 最严重；fatal=level1, error=level2, warn=level3）；4/5 级放行。
+  task_app_joystick_ctrl:
+    task_base:
+      enable: true
+      task_name: app_joystick_ctrl
+      task_type: realtime_task
+      real_task_type: RcTask
+      priority: 50
+      permission_level: normal
+      allow_preempt: true
+      track_running_state: false
+      timing_cycle_ms: 0
+      need_confirm: false
+    allow_source:
+      - SOURCE_APP
+    precondition:
+      allow_posture: []
+      battery_min_percent: 1
+      allow_charging_state: false
+      check_app_conn: false
+      check_cloud_conn: false
+      check_network: false
+    alarm_condition:
+      allow_mode: exclude
+      allow_levels: []
+      exclude_levels: [fatal]
+    motion_condition:
+      allow_motion_state: []
+      allow_preempt_running_task: false
+    mutex_block:
+      mutex_task_list: []
+      block_op_list: []
+
+  # 3. APP 陀螺仪控制（长时运动任务）
+  # 电量>30%、不可充电中，MC Action 必须四足站立
+  task_app_gyro_ctrl:
+    task_base:
+      enable: true
+      task_name: app_gyro_ctrl
+      task_type: long_task
+      real_task_type: RcTask
+      priority: 50
+      permission_level: normal
+      allow_preempt: true
+      timing_cycle_ms: 0
+      need_confirm: false
+    allow_source:
+      - SOURCE_APP
+    precondition:
+      allow_posture: [QUADRUPED_STAND_DEFAULT, QUADRUPED_LOCOMOTION_DEFAULT, QUADRUPED_LOCOMOTION_BIONIC, QUADRUPED_LOCOMOTION_TERRAIN,QUADRUPED_LOCOMOTION_RUN]
+      battery_min_percent: 5
+      allow_charging_state: false
+      check_app_conn: true
+      check_cloud_conn: false
+      check_network: true
+    alarm_condition:
+      allow_mode: exclude
+      allow_levels: []
+      exclude_levels: [fatal, error]
+    motion_condition:
+      allow_motion_state: [idle, preemptable]
+      allow_preempt_running_task: false
+    mutex_block:
+      mutex_task_list: [app_joystick_ctrl, app_teach_demo, follow]
+      block_op_list: [all]
+
+  # 4. APP 动作录制（长时任务，由 RecordMotion Service 注册运行态）
+  task_motion_record:
+    task_base:
+      enable: true
+      task_name: motion_record
+      task_type: long_task
+      real_task_type: RecordTask
+      priority: 60
+      permission_level: normal
+      allow_preempt: false
+      timing_cycle_ms: 0
+      need_confirm: false
+    allow_source: []
+    precondition:
+      allow_posture: [BIPED_STAND_DEFAULT, BIPED_WHOLE_BODY_CTRL, BIPED_LOCOMOTION_WBC, BIPED_RECORD_UPPER]
+      battery_min_percent: 25
+      allow_charging_state: false
+      check_app_conn: false
+      check_cloud_conn: false
+      check_network: false
+    alarm_condition:
+      allow_mode: none
+      allow_levels: []
+      exclude_levels: []
+    motion_condition:
+      allow_motion_state: []
+      allow_preempt_running_task: false
+    mutex_block:
+      mutex_task_list: [follow]
+      block_op_list: [all]
+
+  # 5. APP 自定义动作回放（长时任务，由 PlayCustomMotion Service 注册运行态）
+  task_motion_playback:
+    task_base:
+      enable: true
+      task_name: motion_playback
+      task_type: long_task
+      real_task_type: PlayCustomMotionTask
+      priority: 60
+      permission_level: normal
+      allow_preempt: false
+      timing_cycle_ms: 0
+      need_confirm: false
+    allow_source: []
+    precondition:
+      allow_posture: [BIPED_STAND_DEFAULT, BIPED_WHOLE_BODY_CTRL, BIPED_LOCOMOTION_WBC]
+      battery_min_percent: 25
+      allow_charging_state: false
+      check_app_conn: false
+      check_cloud_conn: false
+      check_network: false
+    alarm_condition:
+      allow_mode: none
+      allow_levels: []
+      exclude_levels: []
+    motion_condition:
+      allow_motion_state: []
+      allow_preempt_running_task: false
+    mutex_block:
+      mutex_task_list: [follow]
+      block_op_list: [all]
+
+  # 6. APP 动作示教（独占任务）
+  # 动作示教/录制/回放要求双足站立或双足示教控制模式
+  task_app_teach_demo:
+    task_base:
+      enable: false
+      task_name: app_teach_demo
+      task_type: long_task
+      real_task_type: ArrangeTask
+      priority: 50
+      permission_level: normal
+      allow_preempt: true
+      timing_cycle_ms: 0
+      need_confirm: false
+    allow_source:
+      - SOURCE_APP
+    precondition:
+      allow_posture: [BIPED_STAND_DEFAULT, BIPED_WHOLE_BODY_CTRL, BIPED_LOCOMOTION_WBC, BIPED_RECORD_UPPER]
+      battery_min_percent: 25
+      allow_charging_state: false
+      check_app_conn: true
+      check_cloud_conn: false
+      check_network: true
+    alarm_condition:
+      allow_mode: none
+      allow_levels: []
+      exclude_levels: []
+    motion_condition:
+      allow_motion_state: []
+      allow_preempt_running_task: false
+    mutex_block:
+      mutex_task_list: [app_joystick_ctrl, app_gyro_ctrl, follow]
+      block_op_list: [all]
+
+  # 7. 通用移动任务（供 AmRequest function_name=move 使用）
+  # AmRequest 仅用于查询当前是否允许移动，不记录 Running 运行态；实际移动由 PlayMove 派发。
+  task_move:
+    task_base:
+      enable: true
+      task_name: move
+      task_type: short_task
+      real_task_type: MoveTask
+      priority: 70
+      permission_level: normal
+      allow_preempt: false
+      track_running_state: false
+      timing_cycle_ms: 0
+      need_confirm: false
+    allow_source: []
+    # 速度来源白名单：机器人正按速度移动且来源不在白名单内(如 APP 摇杆/遥控占用运控)时拒绝本任务；[] 表示不校验。
+    allow_velocity_source: [interaction, task_engine]
+    # 上述速度来源排除仅对列表内机型生效(如 [Q1] 拦截、T1 不拦截)；[] 表示对所有机型生效。
+    velocity_source_block_robots: [Q1]
+    precondition:
+      allow_posture: []
+      # 以下姿态不允许移动（PlayMove / AmRequest move 共用）
+      block_posture:
+        - DAMPING_DEFAULT
+        - LYING_DEFAULT
+        - LIE_FACE_UP
+        - LIE_FACE_DOWN
+        - STORE_DEFAULT
+      battery_min_percent: 1
+      allow_charging_state: false
+      check_app_conn: false
+      check_cloud_conn: false
+      check_network: false
+    alarm_condition:
+      allow_mode: exclude
+      allow_levels: []
+      exclude_levels: [fatal]
+    motion_condition:
+      allow_motion_state: [idle, preemptable, running]
+      allow_preempt_running_task: false
+    mutex_block:
+      mutex_task_list: [app_joystick_ctrl, app_gyro_ctrl, app_teach_demo, motion_record, motion_playback, app_canvas]
+      block_op_list: []
+
+  # 8. 跟随任务（AmRequest 仅前置检查；运行态由 FollowTaskCtrl / ControlTask / FollowTask 注册）
+  task_follow:
+    function_name_aliases: [follow_task]
+    task_base:
+      enable: true
+      task_name: follow
+      task_type: long_task
+      real_task_type: FollowTask
+      priority: 50
+      permission_level: normal
+      allow_preempt: false
+      track_running_state: false
+      timing_cycle_ms: 0
+      need_confirm: false
+    allow_source: []
+    precondition:
+      allow_posture: []
+      battery_min_percent: 5
+      allow_charging_state: false
+      check_app_conn: false
+      check_cloud_conn: false
+      check_network: false
+    alarm_condition:
+      allow_mode: none
+      allow_levels: []
+      exclude_levels: []
+    motion_condition:
+      allow_motion_state: []
+      allow_preempt_running_task: false
+    mutex_block:
+      mutex_task_list: [app_gyro_ctrl, motion_record, motion_playback]
+      block_op_list: []
+  
+  # 9. 图形化编程任务
+  # AmRequest 仅前置仲裁，不记录运行态；运行态由 AgentFlowTaskCtrl 启停时注册。
+  # 阻尼状态 / 运动中禁止进入；运行中与 move 等任务互斥（block_op_list=all）
+  task_app_canvas:
+    task_base:
+      enable: true
+      task_name: app_canvas
+      task_type: long_task
+      real_task_type: AgentFlowTask
+      priority: 50
+      permission_level: normal
+      allow_preempt: true
+      track_running_state: false
+      timing_cycle_ms: 0
+      need_confirm: false
+    allow_source:
+      - SOURCE_APP
+    precondition:
+      allow_posture: []
+      block_posture: [DAMPING_DEFAULT]
+      battery_min_percent: 30
+      allow_charging_state: false
+      check_app_conn: true
+      check_cloud_conn: false
+      check_network: true
+    alarm_condition:
+      allow_mode: exclude
+      allow_levels: []
+      exclude_levels: [fatal]
+    motion_condition:
+      allow_motion_state: [idle, preemptable]
+      allow_preempt_running_task: false
+    mutex_block:
+      mutex_task_list: [follow]
+      block_op_list: [all]
+
+  # 10. APP 设置专座任务（长时搜索 + 保存导航点）
+  # 启动前复用 TaskRule 前置校验；运行态由 ChargePointTaskServicePlugin 控制。
+  task_charge_point_setup:
+    task_base:
+      enable: true
+      task_name: charge_point_setup
+      task_type: long_task
+      real_task_type: ""
+      priority: 50
+      permission_level: normal
+      allow_preempt: false
+      track_running_state: true
+      timing_cycle_ms: 0
+      need_confirm: false
+    allow_source:
+      - SOURCE_APP
+    precondition:
+      allow_posture: []
+      block_posture:
+        - DAMPING_DEFAULT
+        - LYING_DEFAULT
+        - LIE_FACE_UP
+        - LIE_FACE_DOWN
+        - STORE_DEFAULT
+      battery_min_percent: 5
+      allow_charging_state: false
+      check_app_conn: true
+      check_cloud_conn: false
+      check_network: false
+    alarm_condition:
+      allow_mode: exclude
+      allow_levels: []
+      exclude_levels: [fatal, error]
+    motion_condition:
+      allow_motion_state: [idle, preemptable]
+      allow_preempt_running_task: false
+    mutex_block:
+      mutex_task_list: [app_joystick_ctrl, app_gyro_ctrl, follow, motion_record, motion_playback, app_canvas]
+      block_op_list: []

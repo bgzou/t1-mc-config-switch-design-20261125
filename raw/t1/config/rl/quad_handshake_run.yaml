@@ -1,0 +1,170 @@
+BaseConfig:
+  model_type: "Walk"
+
+  use_debug: true
+  dt: 0.01  # 100Hz
+
+  # policy:
+  #   type: "rknn"
+  #   device: "rk3588"
+  #   path: "./rl_models/model_run.rknn"
+  policy:
+    type: "onnx"
+    device: "cpu"
+    path: "./rl_models/t15_handshake_v1.3.onnx"
+    # path: "./rl_models/t15_quad_handshake_v1.2_.onnx"
+
+  # obs-action nums will be obtained by urdf
+  obs_nums: 47
+  q_nums: 14
+  action_nums: 14
+
+  joints_name:
+    [
+      'FL_HIP_ROLL_Joint',
+      'FL_HIP_PITCH_Joint',
+      'FL_KNEE_Joint',
+      
+      'FR_HIP_ROLL_Joint',
+      'FR_HIP_PITCH_Joint',
+      'FR_KNEE_Joint',
+
+      'RL_HIP_ROLL_Joint',
+      'RL_HIP_PITCH_Joint',
+      'RL_KNEE_Joint',
+      'RL_FOOT_Joint',
+      
+      'RR_HIP_ROLL_Joint',
+      'RR_HIP_PITCH_Joint',
+      'RR_KNEE_Joint',
+      'RR_FOOT_Joint',
+    ]
+
+  #define the obs sequence
+  seq:
+    [
+      'FL_HIP_ROLL_Joint',
+      'FL_HIP_PITCH_Joint',
+      'FL_KNEE_Joint',
+
+      'FR_HIP_ROLL_Joint',
+      'FR_HIP_PITCH_Joint',
+      'FR_KNEE_Joint',
+
+      'RL_HIP_ROLL_Joint',
+      'RL_HIP_PITCH_Joint',
+      'RL_KNEE_Joint',
+      'RL_FOOT_Joint',
+
+      'RR_HIP_ROLL_Joint',
+      'RR_HIP_PITCH_Joint',
+      'RR_KNEE_Joint',
+      'RR_FOOT_Joint',
+    ]
+
+  # define the action sequence
+  action_seq:
+    [
+      'FL_HIP_ROLL_Joint',
+      'FL_HIP_PITCH_Joint',
+      'FL_KNEE_Joint',
+
+      'FR_HIP_ROLL_Joint',
+      'FR_HIP_PITCH_Joint',
+      'FR_KNEE_Joint',
+      
+      'RL_HIP_ROLL_Joint',
+      'RL_HIP_PITCH_Joint',
+      'RL_KNEE_Joint',
+      'RL_FOOT_Joint',
+      
+      'RR_HIP_ROLL_Joint',
+      'RR_HIP_PITCH_Joint',
+      'RR_KNEE_Joint',
+      'RR_FOOT_Joint',
+    ]
+
+  action_scale: [ 0.2, 0.2, 0.2, 
+                  0.2, 0.2, 0.2, 
+                  0.2, 0.2, 0.2, 0.2, 
+                  0.2, 0.2, 0.2, 0.2 ]
+  imu_pitch_offset: 0.0
+
+
+ACConfig:
+  infer:
+    frame_stack: 10
+
+  clips:
+    obs_clip: 200.0
+    action_clip: 200.0
+
+  reduction:   
+    wheel_reduction: 0.0
+    hip_reduction: 1.0
+
+
+  robot:
+    # seq same as action_seq
+    # real params
+    kps: [ 
+      30.0, 30.0, 30.0, 
+      30.0, 30.0, 30.0, 
+      30.0, 30.0, 30.0, 0.0, 
+      30.0, 30.0, 30.0, 0.0 ]
+    kds: [ 
+      1.0, 1.0, 1.0,
+      1.0, 1.0, 1.0, 
+      1.0, 1.0, 1.0, 1.5, 
+      1.0, 1.0, 1.0, 1.5 ]
+    default_dof_pos: [ 
+      0.0, 0.705, -1.3825, 
+      0.0, 0.705, -1.3825, 
+      0.0, 1.1554, -1.8314, 0.0, 
+      0.0, 1.1554, -1.8314, 0.0]
+    default_kp: 30
+    default_kd: 1.0
+
+
+WalkConfig:
+  max_cycle_time: 0.9
+
+  # define obs index
+  obs_index:
+    imu_omega: 0
+    imu_euler: 3
+    pos: 6
+    vel: 18
+    action: 32
+    phase: 46
+
+
+  walk:
+    switch_stand_walk: false
+    walk_mode: true
+    stand_cmd_threshold: 0.05
+
+  obs_scales:
+    dof_pos: 1.0
+    dof_vel: 0.05
+    lin_vel: 2.0
+    ang_vel: 0.25
+
+  filter:
+    imu_vel_cutoff_freq: 100
+    q_vel_cutoff_freq: [
+      100, 100, 100, 
+      100, 100, 100, 
+      100, 100, 100, 10, 
+      100, 100, 100, 10]
+  
+  custom:
+    start_time: 0.8
+    handshake_time: 10.5
+    diff: 0.1
+    stance_width_r: 0.278
+    foot_rad_r: 0.08
+
+  exit_timeout: 1
+  stand_actions: [ 'QUADRUPED_LOCOMOTION_HANDSHAKE']
+

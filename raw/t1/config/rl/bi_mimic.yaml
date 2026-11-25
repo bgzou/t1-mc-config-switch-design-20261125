@@ -1,0 +1,241 @@
+# t1::BiMimicRLController：MotionManager + animation_player WBC 参考；policy.path 为空时由 motion_list 下发
+BaseConfig:
+  model_type: "Walk"
+
+  use_debug: true
+  dt: 0.01  # 100Hz
+
+  policy:
+    type: "onnx"
+    device: "cpu"
+    path: "./rl_models/t1_bi_wbc_pitch0522.onnx"
+
+  obs_nums: 51
+  q_nums: 14
+  action_nums: 14
+
+  joints_name:
+    [
+      'FL_HIP_ROLL_Joint',
+      'FL_HIP_PITCH_Joint',
+      'FL_KNEE_Joint',
+
+      'FR_HIP_ROLL_Joint',
+      'FR_HIP_PITCH_Joint',
+      'FR_KNEE_Joint',
+
+      'RL_HIP_ROLL_Joint',
+      'RL_HIP_PITCH_Joint',
+      'RL_KNEE_Joint',
+      'RL_FOOT_Joint',
+
+      'RR_HIP_ROLL_Joint',
+      'RR_HIP_PITCH_Joint',
+      'RR_KNEE_Joint',
+      'RR_FOOT_Joint',
+    ]
+
+  seq:
+    [
+      'FL_HIP_ROLL_Joint',
+      'FL_HIP_PITCH_Joint',
+      'FL_KNEE_Joint',
+
+      'FR_HIP_ROLL_Joint',
+      'FR_HIP_PITCH_Joint',
+      'FR_KNEE_Joint',
+
+      'RL_HIP_ROLL_Joint',
+      'RL_HIP_PITCH_Joint',
+      'RL_KNEE_Joint',
+      'RL_FOOT_Joint',
+
+      'RR_HIP_ROLL_Joint',
+      'RR_HIP_PITCH_Joint',
+      'RR_KNEE_Joint',
+      'RR_FOOT_Joint',
+    ]
+
+  action_seq:
+    [
+      'FL_HIP_ROLL_Joint',
+      'FL_HIP_PITCH_Joint',
+      'FL_KNEE_Joint',
+
+      'FR_HIP_ROLL_Joint',
+      'FR_HIP_PITCH_Joint',
+      'FR_KNEE_Joint',
+
+      'RL_HIP_ROLL_Joint',
+      'RL_HIP_PITCH_Joint',
+      'RL_KNEE_Joint',
+      'RL_FOOT_Joint',
+
+      'RR_HIP_ROLL_Joint',
+      'RR_HIP_PITCH_Joint',
+      'RR_KNEE_Joint',
+      'RR_FOOT_Joint',
+    ]
+
+  action_scale: [ 0.1, 0.1, 0.1,
+                  0.1, 0.1, 0.1,
+                  0.1, 0.2, 0.2, 2.0,
+                  0.1, 0.2, 0.2, 2.0 ]
+
+  imu_pitch_offset: 0.0
+
+
+ACConfig:
+  infer:
+    frame_stack: 10
+
+  clips:
+    obs_clip: 20.0
+    action_clip: 20.0
+
+  reduction:
+    wheel_reduction: 1.0
+    hip_reduction: 0.0
+
+  robot:
+    kps: [
+      30.0, 30.0, 30.0,
+      30.0, 30.0, 30.0,
+      100.0, 30.0, 30.0, 0.0,
+      100.0, 30.0, 30.0, 0.0 ]
+    kds: [
+      1.0, 1.0, 1.0,
+      1.0, 1.0, 1.0,
+      1.5, 1.0, 1.0, 0.5,
+      1.5, 1.0, 1.0, 0.5 ]
+
+    default_dof_pos: [
+      0.0, 1.57080, 0.6302,
+      0.0, 1.57080, 0.6302,
+      0.0, 1.91986, -0.6579, 0.0,
+      0.0, 1.91986, -0.6579, 0.0 ]
+
+    default_kp: 30
+    default_kd: 1.0
+
+
+WalkConfig:
+  obs_index:
+    imu_omega: 0
+    imu_euler: 3
+    pos: 6
+    vel: 18
+    action: 32
+    command: 46
+    z: 47
+    yaw: 48
+    roll: 49
+    pitch: 50
+
+  obs_scales:
+    dof_pos: 1.0
+    dof_vel: 0.05
+    lin_vel: 2.0
+    ang_vel: 0.25
+
+  command_scales:
+    vx: 1.5
+    height: 0.0
+    dyaw: 1.0
+
+  filter:
+    imu_vel_cutoff_freq: 100
+    q_vel_cutoff_freq: [
+      100, 100, 100,
+      100, 100, 100,
+      100, 100, 100, 50,
+      100, 100, 100, 50]
+
+  odom:
+    wheel_radius: 0.07
+    odom_enable_x: 0.3
+    odom_kp_x: 0.5
+    odom_kd_x: 0.02
+    max_vel_x: 0.3
+    max_vel_yaw: 0.5
+    odom_enable_yaw: 0.2
+    odom_kp_yaw: 0.1
+    max_delta_yaw: 20.0
+    odom_log_decimation: 1
+    # x方向累计位置误差限幅
+    max_delta_x: 10
+    # x方向补偿降采样：
+    # 1 = 每步更新补偿
+    # 2 = 每2步更新一次补偿
+    # 5 = 每5步更新一次补偿
+    # 注意：CalculateDelta() 仍然每步执行
+    odom_comp_decimation: 1
+    # 从其它模式/action切换过来后，前多少秒不启用里程计补偿
+    odom_disable_after_switch_s: 1
+
+  bias_vx: 0.0
+  bias_h: 0.0
+  bias_dyaw: 0.0
+  default_z: 0.0
+
+  auto_next_actions: true
+  default_next_action: BIPED_LOCOMOTION_WBC
+
+  # 前肢轨迹跟踪 PD（与 animation_player animation 段一致；低刚度需重力补偿）
+  arm_default_kp: 4.0
+  arm_default_kd: 0.2
+  arm_joints:
+    - name: "FL_HIP_ROLL_Joint"
+      kp: 4.0
+      kd: 0.2
+      gravity_scale: 1.0
+      friction: 0.0001
+    - name: "FL_HIP_PITCH_Joint"
+      kp: 2.0
+      kd: 0.2
+      gravity_scale: 1.0
+      friction: 0.0001
+    - name: "FL_KNEE_Joint"
+      kp: 4.0
+      kd: 0.2
+      gravity_scale: 1.0
+      friction: 0.2
+    - name: "FR_HIP_ROLL_Joint"
+      kp: 4.0
+      kd: 0.2
+      gravity_scale: 1.0
+      friction: 0.0001
+    - name: "FR_HIP_PITCH_Joint"
+      kp: 2.0
+      kd: 0.2
+      gravity_scale: 1.0
+      friction: 0.0001
+    - name: "FR_KNEE_Joint"
+      kp: 4.0
+      kd: 0.2
+      gravity_scale: 1.0
+      friction: 0.2
+
+  gravity_comp_enable: true
+  gravity_comp_scale: 1.0
+
+  # --- 打断退出（ExitCheck → ReadObservations 内非阻塞 StepExitHomingOnce）---
+  # 手臂 smoothstep 回 default_dof_pos；Z/RPY 每拍写入 obs 供 RL 腿继续跑
+  # T = clamp(T_min + (T_max-T_min)*|Δz|/z_abs_max, T_min, T_max)；N = ceil(T / (dt_ms/1000))
+  # z_abs_max=0.203：animation 2029 (T1_bi_skating_30s) 相对 default_z 最大 |Δz|≈0.203m
+  homing:
+    duration: 0.4        # T_min 退场最短 (s)
+    duration_max: 3.0    # T_max，|Δz| 达到 z_abs_max 时 (s)
+    z_abs_max: 0.203     # 标定最大 |Δz| (m)
+    dt_ms: 10            # 每拍间隔 (ms)，与 BaseConfig.dt=0.01 一致即 100Hz
+
+  # tau = clip(kp·(q*-q) − kd·dq, ±clip_tau) + tau_g；clip_tau 仅约束 PD 项
+  # 只限制跟踪误差产生的纠偏力矩 (N·m)；重力前馈 tau_g 不受此限、始终全额叠加
+  clip_tau:
+    FL_HIP_ROLL_Joint: 1.0
+    FL_HIP_PITCH_Joint: 1.0
+    FL_KNEE_Joint: 0.5
+    FR_HIP_ROLL_Joint: 1.0
+    FR_HIP_PITCH_Joint: 1.0
+    FR_KNEE_Joint: 0.5
+    default: 1.0

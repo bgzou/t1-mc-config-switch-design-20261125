@@ -1,0 +1,172 @@
+BaseConfig:
+  model_type: "Walk"
+
+  use_debug: true
+  dt: 0.01  # 100Hz
+
+  # policy:
+  #   type: "rknn"
+  #   device: "rk3588"
+  #   path: "./rl_models/model_run.rknn"
+  policy:
+    type: "onnx"
+    device: "cpu"
+    path: "./rl_models/0-actor_critic.onnx"
+
+  # obs-action nums will be obtained by urdf
+  obs_nums: 51
+  q_nums: 14
+  action_nums: 14
+
+  joints_name:
+    [
+      'FL_HIP_ROLL_Joint',
+      'FL_HIP_PITCH_Joint',
+      'FL_KNEE_Joint',
+      
+      'FR_HIP_ROLL_Joint',
+      'FR_HIP_PITCH_Joint',
+      'FR_KNEE_Joint',
+
+      'RL_HIP_ROLL_Joint',
+      'RL_HIP_PITCH_Joint',
+      'RL_KNEE_Joint',
+      'RL_FOOT_Joint',
+      
+      'RR_HIP_ROLL_Joint',
+      'RR_HIP_PITCH_Joint',
+      'RR_KNEE_Joint',
+      'RR_FOOT_Joint',
+    ]
+
+  #define the obs sequence
+  seq:
+    [
+      'FL_HIP_ROLL_Joint',
+      'FL_HIP_PITCH_Joint',
+      'FL_KNEE_Joint',
+
+      'FR_HIP_ROLL_Joint',
+      'FR_HIP_PITCH_Joint',
+      'FR_KNEE_Joint',
+
+      'RL_HIP_ROLL_Joint',
+      'RL_HIP_PITCH_Joint',
+      'RL_KNEE_Joint',
+      'RL_FOOT_Joint',
+
+      'RR_HIP_ROLL_Joint',
+      'RR_HIP_PITCH_Joint',
+      'RR_KNEE_Joint',
+      'RR_FOOT_Joint',
+    ]
+
+  # define the action sequence
+  action_seq:
+    [
+      'FL_HIP_ROLL_Joint',
+      'FL_HIP_PITCH_Joint',
+      'FL_KNEE_Joint',
+
+      'FR_HIP_ROLL_Joint',
+      'FR_HIP_PITCH_Joint',
+      'FR_KNEE_Joint',
+      
+      'RL_HIP_ROLL_Joint',
+      'RL_HIP_PITCH_Joint',
+      'RL_KNEE_Joint',
+      'RL_FOOT_Joint',
+      
+      'RR_HIP_ROLL_Joint',
+      'RR_HIP_PITCH_Joint',
+      'RR_KNEE_Joint',
+      'RR_FOOT_Joint',
+    ]
+
+  action_scale: [ 0.1, 0.1, 0.1,
+                  0.1, 0.1, 0.1, 
+                  0.1, 0.1, 0.1, 0.1, 
+                  0.1, 0.1, 0.1, 0.1 ]
+                  
+  imu_pitch_offset: 0.0
+
+
+ACConfig:
+  infer:
+    frame_stack: 10
+
+  clips:
+    obs_clip: 100.0
+    action_clip: 100.0
+
+  reduction:   
+    wheel_reduction: 4.0
+    hip_reduction: 0.5
+
+  # planner:
+  #   enable: false
+  #   velocity: 10
+  #   acceleration: 10
+  #   dt: 1   # ms
+
+  robot:
+    # seq same as action_seq
+    # real params
+    kps: [ 
+      50.0, 50.0, 50.0, 
+      50.0, 50.0, 50.0, 
+      50.0, 50.0, 50.0, 0.0, 
+      50.0, 50.0, 50.0, 0.0 ]
+    kds: [ 
+      0.8, 0.8, 0.8,
+      0.8, 0.8, 0.8, 
+      0.8, 0.8, 0.8, 1.0, 
+      0.8, 0.8, 0.8, 1.0 ]
+    default_dof_pos: [ 
+      0.0, 1.57080, 0.52360, 
+      0.0, 1.57080, 0.52360, 
+      0.0, 1.91986, -0.66323, 0.0, 
+      0.0, 1.91986, -0.66323, 0.0 ]
+    
+    default_kp: 50
+    default_kd: 0.5
+
+
+WalkConfig:
+  max_cycle_time: 0.9
+  stance_width_r: 0.2674
+  foot_rad_r: 0.07125
+  desired_contact: [1, 1]
+  # define obs index
+  obs_index:
+    imu_omega: 0
+    imu_euler: 3
+    command: 6
+    pos: 9
+    vel: 21
+    action: 35
+    contact: 49
+
+  walk:
+    switch_stand_walk: false
+    walk_mode: true
+    stand_cmd_threshold: 0.05
+
+  obs_scales:
+    dof_pos: 1.0
+    dof_vel: 0.05
+    lin_vel: 2.0
+    ang_vel: 0.25
+
+  filter:
+    imu_vel_cutoff_freq: 100
+    q_vel_cutoff_freq: [
+      100, 100, 100, 
+      100, 100, 100, 
+      100, 100, 100, 10, 
+      100, 100, 100, 10]
+
+  stand_actions: [ 'BIPEDAL_STAND_DEFAULT']
+  acc: 2.0
+  hip_pitch_reduction: 2.5
+

@@ -1,0 +1,183 @@
+# t1::QuadMimicRLController：MotionManager + QuadMotionRLController；policy.path 为空时由 motion_list 下发模型与 CSV
+BaseConfig:
+  model_type: "Walk"
+
+  use_debug: true
+  dt: 0.01  # 100Hz
+
+  policy:
+    type: "onnx"
+    device: "cpu"
+    path: "./rl_models/t2_quad_twist_xy_0725.onnx"
+
+  obs_nums: 52
+  q_nums: 14
+  action_nums: 14
+
+  joints_name:
+    [
+      'FL_HIP_ROLL_Joint',
+      'FL_HIP_PITCH_Joint',
+      'FL_KNEE_Joint',
+
+      'FR_HIP_ROLL_Joint',
+      'FR_HIP_PITCH_Joint',
+      'FR_KNEE_Joint',
+
+      'RL_HIP_ROLL_Joint',
+      'RL_HIP_PITCH_Joint',
+      'RL_KNEE_Joint',
+      'RL_FOOT_Joint',
+
+      'RR_HIP_ROLL_Joint',
+      'RR_HIP_PITCH_Joint',
+      'RR_KNEE_Joint',
+      'RR_FOOT_Joint',
+    ]
+
+  seq:
+    [
+      'FL_HIP_ROLL_Joint',
+      'FL_HIP_PITCH_Joint',
+      'FL_KNEE_Joint',
+
+      'FR_HIP_ROLL_Joint',
+      'FR_HIP_PITCH_Joint',
+      'FR_KNEE_Joint',
+
+      'RL_HIP_ROLL_Joint',
+      'RL_HIP_PITCH_Joint',
+      'RL_KNEE_Joint',
+      'RL_FOOT_Joint',
+
+      'RR_HIP_ROLL_Joint',
+      'RR_HIP_PITCH_Joint',
+      'RR_KNEE_Joint',
+      'RR_FOOT_Joint',
+    ]
+
+  action_seq:
+    [
+      'FL_HIP_ROLL_Joint',
+      'FL_HIP_PITCH_Joint',
+      'FL_KNEE_Joint',
+
+      'FR_HIP_ROLL_Joint',
+      'FR_HIP_PITCH_Joint',
+      'FR_KNEE_Joint',
+
+      'RL_HIP_ROLL_Joint',
+      'RL_HIP_PITCH_Joint',
+      'RL_KNEE_Joint',
+      'RL_FOOT_Joint',
+
+      'RR_HIP_ROLL_Joint',
+      'RR_HIP_PITCH_Joint',
+      'RR_KNEE_Joint',
+      'RR_FOOT_Joint',
+    ]
+  action_scale: [ 0.25, 0.25, 0.25, 
+                  0.25, 0.25, 0.25, 
+                  0.25, 0.25, 0.25, 0.0, 
+                  0.25, 0.25, 0.25, 0.0 ]
+  imu_pitch_offset: 0.0
+
+
+ACConfig:
+  infer:
+    frame_stack: 10
+
+  clips:
+    obs_clip: 100.0
+    action_clip: 100.0
+
+  reduction:
+    wheel_reduction: 0.0
+    hip_reduction: 1.0
+
+  action:
+    activation: [   1.0, 1.0, 1.0, 
+                    1.0, 1.0, 1.0, 
+                    1.0, 1.0, 1.0, 0.0, 
+                    1.0, 1.0, 1.0, 0.0 ]
+
+  robot:
+    kps: [
+      30.0, 30.0, 30.0,
+      30.0, 30.0, 30.0,
+      30.0, 30.0, 30.0, 0.0,
+      30.0, 30.0, 30.0, 0.0 ]
+    kds: [
+      1.0, 1.0, 1.0,
+      1.0, 1.0, 1.0,
+      1.0, 1.0, 1.0, 1.0,
+      1.0, 1.0, 1.0, 1.0 ]
+
+    default_dof_pos: [
+      0.0, 0.6781, -1.3533, 
+      0.0, 0.6781, -1.3533, 
+      0.0, 1.0624, -1.8321, 0.0, 
+      0.0, 1.0624, -1.8321, 0.0  ]
+    default_kp: 30
+    default_kd: 1.0
+
+
+WalkConfig:
+  csv_path: './res/qd1_quad_test_100fps_10s.csv'
+  max_cycle_time: 0.9
+
+  mimic_csv_cols:
+    time: 0
+    body_x: 16
+    body_y: 17
+    body_z: 18
+    roll: 19
+    pitch: 20
+    yaw: 21
+  mimic_csv_names_cols:
+    time: "timeCNT"
+    body_x: "base_pos_body_x"
+    body_y: "base_pos_body_y"
+    body_z: "base_pos_body_z"
+    roll: "base_roll"
+    pitch: "base_pitch"
+    yaw: "base_yaw"
+
+  obs_index:
+    imu_omega: 0
+    imu_euler: 3
+    pos: 6
+    vel: 18
+    action: 32
+    command: 46
+
+  obs_scales:
+    dof_pos: 1.0
+    dof_vel: 0.05
+    lin_vel: 2.0
+    ang_vel: 0.25
+    roll: 1.5
+    pitch: 1.5
+    yaw: 1.5
+    height: 1.5
+    x: 1.5
+    y: 1.5
+
+  command_scales:
+    rpy: 0.24
+    height_min: -0.12
+    height_max: 0.06
+
+  filter:
+    imu_vel_cutoff_freq: 100
+    q_vel_cutoff_freq: [
+      100, 100, 100,
+      100, 100, 100,
+      100, 100, 100, 100,
+      100, 100, 100, 100]
+
+  transition_window_duration: 0.8
+  auto_next_actions: true
+  default_next_action: QUADRUPED_LOCOMOTION_DEFAULT
+  acc: 5.0
+  acc_z_cmd: 0.5

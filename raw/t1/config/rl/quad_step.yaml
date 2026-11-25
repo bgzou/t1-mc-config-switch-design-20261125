@@ -1,0 +1,204 @@
+BaseConfig:
+  model_type: "Walk"
+
+  use_debug: true
+  dt: 0.01  # 100Hz
+
+  # policy:
+  #   type: "rknn"
+  #   device: "rk3588"
+  #   path: "./rl_models/model_run.rknn"
+  policy:
+    type: "onnx"
+    device: "cpu"
+    path: "./rl_models/t2_quad_walk_lite_0713.onnx" 
+    
+  # obs-action nums will be obtained by urdf
+  obs_nums: 57
+  q_nums: 14
+  action_nums: 14
+
+  joints_name:
+    [
+      'FL_HIP_ROLL_Joint',
+      'FL_HIP_PITCH_Joint',
+      'FL_KNEE_Joint',
+      
+      'FR_HIP_ROLL_Joint',
+      'FR_HIP_PITCH_Joint',
+      'FR_KNEE_Joint',
+
+      'RL_HIP_ROLL_Joint',
+      'RL_HIP_PITCH_Joint',
+      'RL_KNEE_Joint',
+      'RL_FOOT_Joint',
+      
+      'RR_HIP_ROLL_Joint',
+      'RR_HIP_PITCH_Joint',
+      'RR_KNEE_Joint',
+      'RR_FOOT_Joint',
+    ]
+
+  #define the obs sequence
+  seq:
+    [
+      'FL_HIP_ROLL_Joint',
+      'FL_HIP_PITCH_Joint',
+      'FL_KNEE_Joint',
+      
+      'FR_HIP_ROLL_Joint',
+      'FR_HIP_PITCH_Joint',
+      'FR_KNEE_Joint',
+
+      'RL_HIP_ROLL_Joint',
+      'RL_HIP_PITCH_Joint',
+      'RL_KNEE_Joint',
+      'RL_FOOT_Joint',
+      
+      'RR_HIP_ROLL_Joint',
+      'RR_HIP_PITCH_Joint',
+      'RR_KNEE_Joint',
+      'RR_FOOT_Joint',
+    ]
+
+  # define the action sequence
+  action_seq:
+    [
+      'FL_HIP_ROLL_Joint',
+      'FL_HIP_PITCH_Joint',
+      'FL_KNEE_Joint',
+
+      'FR_HIP_ROLL_Joint',
+      'FR_HIP_PITCH_Joint',
+      'FR_KNEE_Joint',
+      
+      'RL_HIP_ROLL_Joint',
+      'RL_HIP_PITCH_Joint',
+      'RL_KNEE_Joint',
+      'RL_FOOT_Joint',
+      
+      'RR_HIP_ROLL_Joint',
+      'RR_HIP_PITCH_Joint',
+      'RR_KNEE_Joint',
+      'RR_FOOT_Joint',
+    ]
+
+  action_scale: [ 0.1, 0.25, 0.25, 
+                  0.1, 0.25, 0.25, 
+                  0.1, 0.25, 0.25, 0.0, 
+                  0.1, 0.25, 0.25, 0.0 ]
+  imu_pitch_offset: 0.0
+
+
+ACConfig:
+  infer:
+    frame_stack: 10
+
+  clips:
+    obs_clip: 50.0
+    action_clip: 50.0
+
+  reduction:   
+    wheel_reduction: 0.25
+    hip_reduction: 0.5
+  
+  action:
+    activation: [   1.0, 1.0, 1.0, 
+                    1.0, 1.0, 1.0, 
+                    1.0, 1.0, 1.0, 0.0, 
+                    1.0, 1.0, 1.0, 0.0 ]
+  # planner:
+  #   enable: false
+  #   velocity: 10
+  #   acceleration: 10
+  #   dt: 1   # ms
+
+  robot:
+    # seq same as action_seq
+    # real params
+    kps: [ 
+      30.0, 30.0, 30.0, 
+      30.0, 30.0, 30.0, 
+      30.0, 30.0, 30.0, 0.0, 
+      30.0, 30.0, 30.0, 0.0 ]
+    kds: [ 
+      0.5, 0.5, 0.5,
+      0.5, 0.5, 0.5, 
+      0.5, 0.5, 0.5, 1.0, 
+      0.5, 0.5, 0.5, 1.0 ]
+    default_dof_pos: [ 
+      0.0, 0.6781, -1.3533, 
+      0.0, 0.6781, -1.3533, 
+      0.0, 1.0624, -1.8321, 0.0, 
+      0.0, 1.0624, -1.8321, 0.0 ]
+    default_kp: 30
+    default_kd: 1.0
+
+
+WalkConfig:
+  max_cycle_time: 0.9 # t_set
+  min_cycle_time: 0.25
+  step_length: 0.5
+  
+
+  # define obs index
+  obs_index:
+    imu_omega: 0
+    imu_euler: 3
+    pos: 6
+    vel: 18
+    action: 32
+    command: 46
+    cpg: 49
+
+  walk:
+    switch_stand_walk: false
+    walk_mode: true
+    stand_cmd_threshold: 0.05
+
+  obs_scales:
+    dof_pos: 1.0
+    dof_vel: 0.05
+    lin_vel: 2.0
+    ang_vel: 0.25
+
+  command_scales:
+    map_y: 0.3
+    map_yaw: 0.6
+    cmd_x_min: -1.0
+    cmd_x_max: 1.0
+
+  filter:
+    imu_vel_cutoff_freq: 100
+    q_vel_cutoff_freq: [
+      100, 100, 100, 
+      100, 100, 100, 
+      100, 100, 100, 10, 
+      100, 100, 100, 10]
+
+  custom:
+    wheel_stiffness_increase_time: 5.0
+    transition_duration: 0.3   # 进入时起点姿态平滑时长(秒)
+
+  step_gate:
+    omega_thr:    0.3 
+    # cmd_thr:      0.05
+    # min_steps:    50
+    front_diff_thr: 0.05   # 左前/右前足端 z 差值
+    back_diff_thr:  0.05   # 左后/右后足端 z 差值
+    pos_diff_thr:   0.05   # 足端 vs 默认足位的 xy 水平偏差阈值(不含 z, z 受坡度/地形适应影响)
+    pos_diff_thr_quad_stand:   0.08   # 四足站立，特殊设置，避免开箱踏步
+    min_stable_hold: 0.1
+    settle_timeout:  5.0
+    min_step_time:  0.9   # 最小踏步时间硬下限(秒); = 一个 TROT 周期(cmd=0 时 cpg_.t_=0.9), 防止踏步不足一个步态周期就退出
+
+  # STEP 本身也加入 stand_actions：作为闸门时强制原地踏步、忽略速度指令
+  stand_actions: [ 'QUADRUPED_STAND_DEFAULT', 'QUADRUPED_LOCOMOTION_STEP']
+  acc_x: 0.5
+  acc_y: 2.0
+  acc_yaw: 2.0
+  # 力矩限幅(N·m)
+  tau_limit: [15, 30, 30,
+              15, 30, 30,
+              30, 30, 30, 15,
+              30, 30, 30, 15]

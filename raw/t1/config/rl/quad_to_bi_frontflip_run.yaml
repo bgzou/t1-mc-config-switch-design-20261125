@@ -1,0 +1,191 @@
+BaseConfig:
+  model_type: "Walk"
+
+  use_debug: true
+  dt: 0.01  # 100Hz
+
+  # policy:
+  #   type: "rknn"
+  #   device: "rk3588"
+  #   path: "./rl_models/model_run.rknn"
+  policy:
+    type: "onnx"
+    device: "cpu"
+    # path: "./rl_models/actor_critic_flipstand_imu_delay_15k.onnx"
+    path: "./rl_models/t2_q2b_flip_0720.onnx"
+    
+
+  # obs-action nums will be obtained by urdf
+  obs_nums: 47
+  q_nums: 14
+  action_nums: 14
+
+  joints_name:
+    [
+      'FL_HIP_ROLL_Joint',
+      'FL_HIP_PITCH_Joint',
+      'FL_KNEE_Joint',
+      
+      'FR_HIP_ROLL_Joint',
+      'FR_HIP_PITCH_Joint',
+      'FR_KNEE_Joint',
+
+      'RL_HIP_ROLL_Joint',
+      'RL_HIP_PITCH_Joint',
+      'RL_KNEE_Joint',
+      'RL_FOOT_Joint',
+      
+      'RR_HIP_ROLL_Joint',
+      'RR_HIP_PITCH_Joint',
+      'RR_KNEE_Joint',
+      'RR_FOOT_Joint',
+    ]
+
+  #define the obs sequence
+  seq:
+    [
+      'FL_HIP_ROLL_Joint',
+      'FL_HIP_PITCH_Joint',
+      'FL_KNEE_Joint',
+
+      'FR_HIP_ROLL_Joint',
+      'FR_HIP_PITCH_Joint',
+      'FR_KNEE_Joint',
+
+      'RL_HIP_ROLL_Joint',
+      'RL_HIP_PITCH_Joint',
+      'RL_KNEE_Joint',
+      'RL_FOOT_Joint',
+
+      'RR_HIP_ROLL_Joint',
+      'RR_HIP_PITCH_Joint',
+      'RR_KNEE_Joint',
+      'RR_FOOT_Joint',
+    ]
+
+  # define the action sequence
+  action_seq:
+    [
+      'FL_HIP_ROLL_Joint',
+      'FL_HIP_PITCH_Joint',
+      'FL_KNEE_Joint',
+
+      'FR_HIP_ROLL_Joint',
+      'FR_HIP_PITCH_Joint',
+      'FR_KNEE_Joint',
+      
+      'RL_HIP_ROLL_Joint',
+      'RL_HIP_PITCH_Joint',
+      'RL_KNEE_Joint',
+      'RL_FOOT_Joint',
+      
+      'RR_HIP_ROLL_Joint',
+      'RR_HIP_PITCH_Joint',
+      'RR_KNEE_Joint',
+      'RR_FOOT_Joint',
+    ]
+
+  action_scale: [ 0.0, 0.25, 0.25, 
+                  0.0, 0.25, 0.25, 
+                  0.0, 0.25, 0.25, 1.0, 
+                  0.0, 0.25, 0.25, 1.0 ]
+
+  imu_pitch_offset: 0.0
+
+
+ACConfig:
+  infer:
+    frame_stack: 10
+
+  clips:
+    obs_clip: 20.0
+    action_clip: 20.0
+
+  action:
+      activation: [   0.0, 1.0, 1.0, 
+                      0.0, 1.0, 1.0, 
+                      0.0, 1.0, 1.0, 1.0, 
+                      0.0, 1.0, 1.0, 1.0 ]
+
+  # planner:
+  #   enable: false
+  #   velocity: 10
+  #   acceleration: 10
+  #   dt: 1   # ms
+
+  robot:
+    # seq same as action_seq
+    # real params
+    kps: [ 
+      30.0, 30.0, 30.0, 
+      30.0, 30.0, 30.0, 
+      30.0, 30.0, 30.0, 0.0, 
+      30.0, 30.0, 30.0, 0.0 ]
+    kds: [ 
+      1.0, 1.0, 1.0,
+      1.0, 1.0, 1.0, 
+      1.0, 1.0, 1.0, 0.5, 
+      1.0, 1.0, 1.0, 0.5 ]
+    default_dof_pos: [ 
+      0.0, 0.678, -1.353, 
+      0.0, 0.678, -1.353, 
+      0.0, 1.062, -1.832, 0.0, 
+      0.0, 1.062, -1.832, 0.0 ]
+    default_kp: 30
+    default_kd: 1.0
+
+
+WalkConfig:
+  gravity_guard:
+    enable: true
+    path: "./res/transition_gravity_record/qd1_t2d0_QUADRUPED_TO_BIPED_FRONTFLIP_20260910_212922.csv"
+    threshold_deg: 40.0
+    count_threshold: 2
+  gravity_record:
+    enable: false
+    output_dir: "./transition_gravity_record"
+
+  max_cycle_time: 0.9
+
+  # define obs index
+  obs_index:
+    imu_omega: 0
+    imu_euler: 3
+    pos: 6
+    vel: 18
+    action: 32
+    phase: 46
+
+  walk:
+    switch_stand_walk: false
+    walk_mode: true
+    stand_cmd_threshold: 0.05
+
+  obs_scales:
+    dof_pos: 1.0
+    dof_vel: 0.05
+    lin_vel: 2.0
+    ang_vel: 0.25
+
+  filter:
+    imu_vel_cutoff_freq: 100
+    q_vel_cutoff_freq: [
+      100, 100, 100, 
+      100, 100, 100, 
+      100, 100, 100, 10, 
+      100, 100, 100, 10]
+  
+  custom:
+    wheel_stiffness_increase_time: 5.0
+    transition_duration: 0.2  # 动作切换平滑时长(秒)
+    joint_pos_clip: true
+
+  stand_actions: [ 'QUADRUPED_STAND_DEFAULT']
+  acc: 5.0
+  record_log: false
+  export_path: "/robot/logs"
+
+  auto_switch_timeout: 3.0
+  flip_time: 2.0
+  auto_next_actions: true
+  default_next_action: BIPED_LOCOMOTION_WBC

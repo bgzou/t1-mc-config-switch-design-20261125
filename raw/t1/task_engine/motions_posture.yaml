@@ -1,0 +1,726 @@
+# T1 姿态变换动作列表（四足/双足变形机）
+# 包含坐下/趴下/站起、四足⇔双足变形、模式切换等姿态/状态切换动作。
+# 字段说明参见 cfg/t1/motions.yaml 文件头注释。
+
+# ─── 本文件使用的黑名单锚点 ─────────────────────────────────────────────────
+
+action_black_lists:
+  t1_quadruped_posture: &t1_quadruped_posture_black_list
+    - PASSIVE_DEFAULT
+    - DAMPING_DEFAULT
+    - STORE_DEFAULT
+    - STAND_UP
+    - QUADRUPED_RECOVERY
+    - QUADRUPED_TO_BIPED
+    - QUADRUPED_TO_BIPED_ROTATE
+    - QUADRUPED_TO_BIPED_FRONTFLIP
+    - BIPED_TO_QUADRUPED
+    - BIPED_TO_QUADRUPED_ROTATE
+    - BIPED_TO_QUADRUPED_FRONTFLIP
+
+  t1_quadruped_motion: &t1_quadruped_motion_black_list
+    - PASSIVE_DEFAULT
+    - DAMPING_DEFAULT
+    - STORE_DEFAULT
+    - STAND_UP
+    - QUADRUPED_RECOVERY
+    - QUADRUPED_GET_DOWN_DEFAULT
+    - QUADRUPED_SIT_DOWN_DEFAULT
+    - QUADRUPED_TO_BIPED
+    - QUADRUPED_TO_BIPED_ROTATE
+    - QUADRUPED_TO_BIPED_FRONTFLIP
+    - BIPED_TO_QUADRUPED
+    - BIPED_TO_QUADRUPED_ROTATE
+    - BIPED_TO_QUADRUPED_FRONTFLIP
+
+  t1_transform: &t1_transform_black_list
+    - PASSIVE_DEFAULT
+    - DAMPING_DEFAULT
+    - STORE_DEFAULT
+    - STAND_UP
+    - QUADRUPED_RECOVERY
+    - QUADRUPED_GET_DOWN_DEFAULT
+    - QUADRUPED_SIT_DOWN_DEFAULT
+    - BIPED_RECOVERY
+    - LYING_DEFAULT
+    - LIE_FACE_DOWN
+    - LIE_FACE_UP
+    - BIPED_SIT_DOWN
+
+  t1_rotate_transform: &t1_rotate_transform_black_list
+    - PASSIVE_DEFAULT
+    - DAMPING_DEFAULT
+    - STORE_DEFAULT
+    - STAND_UP
+    - QUADRUPED_RECOVERY
+    - BIPED_RECOVERY
+    - LYING_DEFAULT
+    - LIE_FACE_DOWN
+    - LIE_FACE_UP
+    - BIPED_SIT_DOWN
+
+  t1_biped_upper_body: &t1_biped_upper_body_black_list
+    - PASSIVE_DEFAULT
+    - DAMPING_DEFAULT
+    - STORE_DEFAULT
+    - STAND_UP
+    - LYING_DEFAULT
+    - LIE_FACE_DOWN
+    - LIE_FACE_UP
+    - BIPED_SIT_DOWN
+    - BIPED_RECOVERY
+    - QUADRUPED_TO_BIPED
+    - QUADRUPED_TO_BIPED_ROTATE
+    - QUADRUPED_TO_BIPED_FRONTFLIP
+    - BIPED_TO_QUADRUPED
+    - BIPED_TO_QUADRUPED_ROTATE
+    - BIPED_TO_QUADRUPED_FRONTFLIP
+
+  t1_mode_switch: &t1_mode_switch_black_list
+    - PASSIVE_DEFAULT
+    - DAMPING_DEFAULT
+    - STORE_DEFAULT
+    - STAND_UP
+    - QUADRUPED_RECOVERY
+    - QUADRUPED_GET_DOWN_DEFAULT
+    - QUADRUPED_SIT_DOWN_DEFAULT
+    - LYING_DEFAULT
+    - LIE_FACE_DOWN
+    - LIE_FACE_UP
+    - BIPED_SIT_DOWN
+    - BIPED_RECOVERY
+    - QUADRUPED_TO_BIPED
+    - QUADRUPED_TO_BIPED_ROTATE
+    - QUADRUPED_TO_BIPED_FRONTFLIP
+    - BIPED_TO_QUADRUPED
+    - BIPED_TO_QUADRUPED_ROTATE
+    - BIPED_TO_QUADRUPED_FRONTFLIP
+
+# ─── 姿态变换动作列表 ───────────────────────────────────────────────────────
+# 该类动作的电量要求因动作不同差异较大，不设统一默认值；各 skill 均显式配置。
+motions:
+  - animation_id: 3     # kSitDown  坐下（四足）
+    min_post_process_signal: 100
+    animation_name: "sit_down"
+    animation_name_zh: "坐下"
+    sort_order: 47
+    audio_delay_ms: 0
+    motion_name_code: 1227
+    motion_type: "app"
+    motion_list_type: ["quadrupedal"]
+    action_type: 4
+    interrupt: false
+    skill_list:
+      - action_name: "QUADRUPED_LOCOMOTION_DEFAULT"
+        motion_part: "posture"
+        current_action_list:
+          - PASSIVE_DEFAULT
+        motion_action_name: "QUADRUPED_SIT_DOWN_DEFAULT"
+        support_app: true
+        lowest_battery: 1
+        brightness_enable: false
+        action_black_list: [""]
+      - action_name: "QUADRUPED_SIT_DOWN_DEFAULT"
+        motion_part: "posture"
+        current_action_list:
+          - QUADRUPED_GET_DOWN_DEFAULT
+          - QUADRUPED_SIT_DOWN_DEFAULT
+        interrupt: true
+        obstacle_check: true
+        safety_check_param:
+          height: 1.0
+          obstacle_range: 0.5
+          radius: 0.3
+          quad_directions: [15]
+          quad_servo_angle: [0]
+          timeout_ms: 1000
+        support_app: true
+        lowest_battery: 0
+        action_black_list: []
+      - action_name: "QUADRUPED_LOCOMOTION_DEFAULT"
+        motion_part: "posture"
+        motion_action_name: "QUADRUPED_SIT_DOWN_DEFAULT"
+        support_app: true
+        lowest_battery: 0
+        brightness_enable: false
+        action_black_list: *t1_quadruped_posture_black_list
+      - action_name: "BIPED_LOCOMOTION_WBC"
+        motion_part: "posture"
+        motion_action_name: "BIPED_TO_QUADRUPED_ROTATE"
+        motion_action_delay_ms: 5000
+        goal_action: "QUADRUPED_SIT_DOWN_DEFAULT"
+        obstacle_check: true
+        safety_check_param:
+          height: 1.0
+          obstacle_range: 0.5
+          radius: 0.3
+          biped_direction: 15
+          timeout_ms: 1000
+        post_action_audio:
+          audio_file: "/robot/data/system/hal_audio/audio/"
+          quadruped: "transform4to2.wav"
+          biped: "transform2to4.wav"
+        pre_motor: "quad"
+        support_app: true
+        lowest_battery: 0
+        brightness_enable: false
+        action_black_list: *t1_transform_black_list
+      - action_name: "BIPED_STAND_DEFAULT"
+        motion_part: "posture"
+        motion_action_name: "BIPED_TO_QUADRUPED_ROTATE"
+        motion_action_delay_ms: 5000
+        goal_action: "QUADRUPED_SIT_DOWN_DEFAULT"
+        obstacle_check: true
+        safety_check_param:
+          height: 1.0
+          obstacle_range: 0.5
+          radius: 0.3
+          biped_direction: 15
+          timeout_ms: 1000
+        post_action_audio:
+          audio_file: "/robot/data/system/hal_audio/audio/"
+          quadruped: "transform4to2.wav"
+          biped: "transform2to4.wav"
+        pre_motor: "quad"
+        post_emoticon: 240
+        support_app: true
+        lowest_battery: 0
+        brightness_enable: false
+        action_black_list: *t1_transform_black_list
+
+
+  - animation_id: 4     # kLieDown  趴下（四足）
+    min_post_process_signal: 53
+    animation_name: "lie_down"
+    animation_name_zh: "趴下"
+    sort_order: 48
+    audio_delay_ms: 0
+    motion_name_code: 1574
+    motion_type: "app"
+    motion_list_type: ["quadrupedal"]
+    action_type: 4
+    interrupt: false
+    skill_list:
+      - action_name: "QUADRUPED_LOCOMOTION_DEFAULT"
+        motion_part: "posture"
+        current_action_list:
+          - PASSIVE_DEFAULT
+        motion_action_name: "QUADRUPED_GET_DOWN_DEFAULT"
+        support_app: true
+        lowest_battery: 1
+        brightness_enable: false
+        action_black_list: [""]
+      - action_name: "QUADRUPED_GET_DOWN_DEFAULT"
+        motion_part: "posture"
+        current_action_list:
+          - DAMPING_DEFAULT
+          - QUADRUPED_GET_DOWN_DEFAULT
+        interrupt: true
+        support_app: true
+        lowest_battery: 0
+        action_black_list: []
+      - action_name: "QUADRUPED_SIT_DOWN_DEFAULT"
+        motion_part: "posture"
+        motion_action_name: "QUADRUPED_GET_DOWN_DEFAULT"
+        current_action_list:
+          - QUADRUPED_SIT_DOWN_DEFAULT
+        support_app: true
+        lowest_battery: 0
+        brightness_enable: false
+        action_black_list: *t1_quadruped_posture_black_list
+      - action_name: "QUADRUPED_LOCOMOTION_DEFAULT"
+        motion_part: "posture"
+        motion_action_name: "QUADRUPED_GET_DOWN_DEFAULT"
+        support_app: true
+        lowest_battery: 0
+        brightness_enable: false
+        action_black_list:
+          - DAMPING_DEFAULT
+          - STORE_DEFAULT
+          - STAND_UP
+          - QUADRUPED_RECOVERY
+          - QUADRUPED_TO_BIPED
+          - QUADRUPED_TO_BIPED_ROTATE
+          - QUADRUPED_TO_BIPED_FRONTFLIP
+          - BIPED_TO_QUADRUPED
+          - BIPED_TO_QUADRUPED_ROTATE
+          - BIPED_TO_QUADRUPED_FRONTFLIP
+      - action_name: "BIPED_LOCOMOTION_WBC"
+        motion_part: "posture"
+        motion_action_name: "BIPED_TO_QUADRUPED_ROTATE"
+        motion_action_delay_ms: 5000
+        goal_action: "QUADRUPED_GET_DOWN_DEFAULT"
+        obstacle_check: true
+        safety_check_param:
+          height: 1.2
+          obstacle_range: 0.5
+          radius: 0.3
+          biped_direction: 15
+          timeout_ms: 1000
+        post_action_audio:
+          audio_file: "/robot/data/system/hal_audio/audio/"
+          quadruped: "transform4to2.wav"
+          biped: "transform2to4.wav"
+        mid_motor: "quad"
+        post_emoticon: 240
+        support_app: true
+        lowest_battery: 0
+        brightness_enable: false
+        action_black_list: *t1_transform_black_list
+
+  - animation_id: 5     # kStandUp  站起（四足）
+    min_post_process_signal: 100
+    animation_name: "stand_up"
+    animation_name_zh: "站起"
+    sort_order: 49
+    audio_delay_ms: 0
+    motion_name_code: 1229
+    motion_type: "app"
+    motion_list_type: ["quadrupedal"]
+    action_type: 4
+    interrupt: false
+    obstacle_check: true
+    skill_list:
+      - action_name: "QUADRUPED_LOCOMOTION_DEFAULT"
+        motion_part: "posture"
+        motion_action_name: "QUADRUPED_TO_BIPED_ROTATE"
+        obstacle_check: true   # 从四足稳定站立态变形，需要做安全检测
+        current_action_list:
+          - QUADRUPED_STAND_DEFAULT
+          - QUADRUPED_LOCOMOTION_DEFAULT
+          - QUADRUPED_LOCOMOTION_RUN
+          - QUADRUPED_LOCOMOTION_TERRAIN
+        pre_audio:
+          audio_file: "/robot/data/system/hal_audio/audio/"
+          quadruped: "transform4to2.wav"
+          biped: "transform2to4.wav"
+        pre_motor: "biped"
+        support_app: true
+        lowest_battery: 6
+        brightness_enable: true
+        action_black_list: *t1_transform_black_list
+        safety_check_param:
+          height: 1.2
+          obstacle_range: 0.4
+          radius: 0.3
+          quad_directions: [15, 30]
+          quad_servo_angle: [0, 90]
+          biped_direction: 15
+          timeout_ms: 1000
+      - action_name: "QUADRUPED_LOCOMOTION_DEFAULT"
+        motion_part: "posture"
+        current_action_list:
+          - DAMPING_DEFAULT
+          - PASSIVE_DEFAULT
+        pre_audio:
+          nlg_scene_id: stand_up_before_zero_torque
+          delay_time: 4000
+        support_app: true
+        lowest_battery: 1
+        brightness_enable: true
+        action_black_list: [""]
+        obstacle_check: false
+      - action_name: "QUADRUPED_LOCOMOTION_DEFAULT"
+        motion_part: "posture"
+        current_action_list:
+          - STORE_DEFAULT
+          - STAND_UP
+          - QUADRUPED_GET_DOWN_DEFAULT
+          - QUADRUPED_SIT_DOWN_DEFAULT
+        support_app: true
+        lowest_battery: 1
+        brightness_enable: true
+        action_black_list: [""]
+        obstacle_check: false
+
+  - animation_id: 8     # kTransformateRotate  旋转变形
+    min_post_process_signal: 100
+    animation_name: "transforimate_rotate"
+    animation_name_zh: "旋转变形"
+    sort_order: 23
+    motion_name_code: 1232
+    motion_type: "app"
+    motion_list_type: ["bipedal", "quadrupedal"]
+    action_type: 4
+    interrupt: false
+    skill_list:
+      - action_name: "QUADRUPED_LOCOMOTION_DEFAULT"
+        motion_part: "posture"
+        current_action_list:
+          - PASSIVE_DEFAULT
+        motion_action_name: "QUADRUPED_TO_BIPED_ROTATE"
+        pre_audio:
+          nlg_scene_id: stand_up_before_zero_torque
+        pre_motor: "biped"
+        audio:
+          audio_file: "/robot/data/system/hal_audio/audio/"
+          quadruped: "transform4to2.wav"
+          biped: "transform2to4.wav"
+        post_emoticon: 240
+        support_app: true
+        lowest_battery: 5
+        brightness_enable: true
+        action_black_list: [""]
+      - action_name: "QUADRUPED_LOCOMOTION_DEFAULT"
+        motion_part: "posture"
+        motion_action_name: "QUADRUPED_TO_BIPED_ROTATE"
+        motion_action_abort_task_on_failure: true
+        audio:
+          - audio_file: "/robot/data/system/hal_audio/audio/"
+            quadruped: "transform4to2.wav"
+            biped: "transform2to4.wav"
+          - nlg_scene_id: app_transfer
+        post_motor: "biped"
+        post_emoticon: 240
+        support_app: true
+        lowest_battery: 5
+        brightness_enable: true
+        action_black_list: *t1_rotate_transform_black_list
+      - action_name: "BIPED_LOCOMOTION_WBC"
+        motion_part: "posture"
+        motion_action_name: "BIPED_TO_QUADRUPED_ROTATE"
+        audio:
+          - audio_file: "/robot/data/system/hal_audio/audio/"
+            quadruped: "transform4to2.wav"
+            biped: "transform2to4.wav"
+          - nlg_scene_id: app_transfer
+        motor: "quad"
+        post_emoticon: 240
+        support_app: true
+        lowest_battery: 1
+        brightness_enable: true
+        action_black_list: *t1_transform_black_list
+    obstacle_check: true
+    safety_check_param:
+      height: 1.2
+      obstacle_range: 0.4
+      radius: 0.3
+      quad_directions: [15, 30]
+      quad_servo_angle: [0, 90]
+      biped_direction: 15
+      timeout_ms: 1000
+
+  - animation_id: 9     # kEasyTransformate  简易变形
+    min_post_process_signal: 100
+    animation_name: "easy_transforimate"
+    animation_name_zh: "简易变形"
+    sort_order: 24
+    motion_name_code: 1776
+    motion_type: "app"
+    motion_list_type: ["bipedal", "quadrupedal"]
+    action_type: 2
+    interrupt: false
+    skill_list:
+      - action_name: "QUADRUPED_LOCOMOTION_DEFAULT"
+        motion_part: "posture"
+        motion_action_name: "QUADRUPED_TO_BIPED"
+        audio:
+          audio_file: "/robot/data/system/hal_audio/audio/"
+          quadruped: "transform4to2.wav"
+          biped: "transform2to4.wav"
+        motor: "biped"
+        support_app: false
+        lowest_battery: 5
+        brightness_enable: true
+        action_black_list: *t1_transform_black_list
+      - action_name: "BIPED_LOCOMOTION_WBC"
+        motion_part: "posture"
+        motion_action_name: "BIPED_TO_QUADRUPED"
+        audio:
+          audio_file: "/robot/data/system/hal_audio/audio/"
+          quadruped: "transform4to2.wav"
+          biped: "transform2to4.wav"
+        motor: "quad"
+        support_app: false
+        lowest_battery: 1
+        brightness_enable: true
+        action_black_list: *t1_transform_black_list
+    obstacle_check: true
+    safety_check_param:
+      height: 1.2
+      obstacle_range: 0.4
+      radius: 0.3
+      quad_directions: [15, 30]
+      quad_servo_angle: [0, 90]
+      biped_direction: 15
+      timeout_ms: 1000
+
+  # - animation_id: 39    # kLockPosture  锁定姿态（四足）
+  #   min_post_process_signal: 100
+  #   animation_name: "lock_posture"
+  #   animation_name_zh: "锁定姿态"
+  #   sort_order: 70
+  #   motion_name_code: 1787
+  #   motion_list_type: ["quadrupedal"]
+  #   skill_list:
+  #     - action_name: "QUADRUPED_LOCOMOTION_DEFAULT"
+  #       motion_part: "posture"
+  #       motion_action_name: "QUADRUPED_STAND_DEFAULT"
+  #       support_app: false
+  #       lowest_battery: 1
+  #       action_black_list: *t1_quadruped_motion_black_list
+
+  - animation_id: 46    # kRecoverPosture  任意姿态恢复（四足）
+    min_post_process_signal: 100
+    animation_name: "recover_posture"
+    animation_name_zh: "任意姿态恢复"
+    sort_order: 71
+    motion_name_code: 1794
+    motion_list_type: ["quadrupedal"]
+    obstacle_check: true
+    safety_check_param:
+      height: 1.2
+      obstacle_range: 0.5
+      radius: 0.3
+      quad_directions: [15]
+      quad_servo_angle: [0]
+      biped_direction: 15
+      timeout_ms: 1000
+    skill_list:
+      - action_name: "QUADRUPED_RECOVERY"
+        motion_part: "posture"
+        support_app: false
+        lowest_battery: 1
+        action_black_list: [""]
+
+  - animation_id: 55    # kFrontFlipTransform  前空翻变形
+    min_post_process_signal: 100
+    animation_name: "front_flip_transform"
+    animation_name_zh: "前空翻变形"
+    sort_order: 25
+    motion_name_code: 1869
+    motion_list_type: ["bipedal", "quadrupedal"]
+    interrupt: false
+    extreme_motion: true
+    skill_list:
+      - action_name: "QUADRUPED_LOCOMOTION_DEFAULT"
+        motion_part: "posture"
+        motion_action_name: "QUADRUPED_TO_BIPED_FRONTFLIP"
+        pre_motor: "biped"
+        support_app: false
+        lowest_battery: 30
+        brightness_enable: true
+        action_black_list: *t1_transform_black_list
+      - action_name: "BIPED_LOCOMOTION_WBC"
+        motion_part: "posture"
+        motion_action_name: "BIPED_TO_QUADRUPED_FRONTFLIP"
+        motor: "quad"
+        support_app: false
+        lowest_battery: 30
+        brightness_enable: true
+        action_black_list: *t1_biped_upper_body_black_list
+    obstacle_check: true
+    safety_check_param:
+      height: 1.5
+      obstacle_range: 2
+      radius: 2
+      quad_directions: [15, 30]
+      quad_servo_angle: [0, 90]
+      biped_direction: 15
+      timeout_ms: 1000
+
+  - animation_id: 56    # kFrontFlip  前空翻（四足）TODO: 动作参数待确认
+    min_post_process_signal: 100
+    animation_name: "front_flip"
+    animation_name_zh: "前空翻"
+    sort_order: 26
+    motion_name_code: 1279
+    motion_list_type: ["quadrupedal"]
+    interrupt: false
+    extreme_motion: true
+    obstacle_check: true
+    safety_check_param:
+      height: 1.2
+      obstacle_range: 2
+      radius: 0.3
+      quad_directions: [15]
+      quad_servo_angle: [0]
+      biped_direction: 15
+      timeout_ms: 1000
+    skill_list:
+      - action_name: "QUADRUPED_LOCOMOTION_DEFAULT"
+        motion_part: "posture"
+        motion_action_name: "QUADRUPED_LOCOMOTION_FRONTFLIP"
+        support_app: false
+        lowest_battery: 30
+        action_black_list: *t1_transform_black_list
+
+  - animation_id: 100   # kBipedDefaultPos  双足默认姿态
+    min_post_process_signal: 53
+    animation_name: "biped_default_pos"
+    animation_name_zh: "双足默认姿态"
+    motion_name_code: 1244
+    motion_type: "app"
+    motion_list_type: ["bipedal", "quadrupedal"]
+    action_type: 2
+    skill_list:
+      - action_name: "BIPED_LOCOMOTION_WBC"
+        motion_part: "posture"
+        support_app: false
+        lowest_battery: 0
+        action_black_list: [""]
+        last_mc_interface: ["action", "motion"]
+      - action_name: "BIPED_LOCOMOTION_WBC"
+        motion_part: "posture"
+        motion_id: 100
+        support_app: false
+        lowest_battery: 0
+        action_black_list: [""]
+      - action_name: "QUADRUPED_LOCOMOTION_DEFAULT"
+        motion_part: "posture"
+        motion_action_name: "QUADRUPED_LOCOMOTION_DEFAULT"
+        current_action_list:
+          - QUADRUPED_LOCOMOTION_DEFAULT
+        support_app: false
+        lowest_battery: 0
+        action_black_list: [""]
+      - action_name: "QUADRUPED_STAND_DEFAULT"
+        motion_part: "posture"
+        motion_action_name: "QUADRUPED_LOCOMOTION_DEFAULT"
+        current_action_list:
+          - QUADRUPED_STAND_DEFAULT
+          - QUADRUPED_LOCOMOTION_DEFAULT
+          - QUADRUPED_LOCOMOTION_RUN
+          - QUADRUPED_LOCOMOTION_TERRAIN
+        support_app: false
+        lowest_battery: 0
+        action_black_list: [""]
+      - action_name: "QUADRUPED_LOCOMOTION_PLEASURE"
+        motion_part: "posture"
+        motion_action_name: "QUADRUPED_LOCOMOTION_DEFAULT"
+        current_action_list:
+          - QUADRUPED_LOCOMOTION_PLEASURE
+        support_app: false
+        lowest_battery: 0
+        action_black_list: [""]
+      - action_name: "QUADRUPED_LOCOMOTION_STRETCH"
+        motion_part: "posture"
+        motion_action_name: "QUADRUPED_LOCOMOTION_DEFAULT"
+        current_action_list:
+          - QUADRUPED_LOCOMOTION_STRETCH
+        support_app: false
+        lowest_battery: 0
+        action_black_list: [""]
+      - action_name: "QUADRUPED_LOCOMOTION_DEFAULT"
+        motion_part: "posture"
+        motion_action_name: "QUADRUPED_LOCOMOTION_DEFAULT"
+        support_app: false
+        lowest_battery: 0
+        action_black_list: *t1_quadruped_motion_black_list
+      - action_name: "QUADRUPED_LOCOMOTION_RUN"
+        motion_part: "posture"
+        motion_action_name: "QUADRUPED_LOCOMOTION_RUN"
+        support_app: false
+        lowest_battery: 0
+        action_black_list: *t1_quadruped_motion_black_list
+      - action_name: "QUADRUPED_LOCOMOTION_TERRAIN"
+        motion_part: "posture"
+        motion_action_name: "QUADRUPED_LOCOMOTION_TERRAIN"
+        support_app: false
+        lowest_battery: 0
+        action_black_list: *t1_quadruped_motion_black_list
+
+  - animation_id: 4001  # MODE_INDOORS  室内模式
+    min_post_process_signal: 53
+    animation_name: "mode_indoors"
+    animation_name_zh: "室内模式"
+    motion_name_code: 1895
+    motion_list_type: ["bipedal", "quadrupedal"]
+    skill_list:
+      - action_name: "QUADRUPED_LOCOMOTION_DEFAULT"
+        motion_part: "posture"
+        motion_action_name: "QUADRUPED_LOCOMOTION_DEFAULT"
+        support_app: false
+        lowest_battery: 1
+        action_black_list: *t1_mode_switch_black_list
+      - action_name: "BIPED_LOCOMOTION_WBC"
+        motion_part: "posture"
+        motion_action_name: "BIPED_LOCOMOTION_WBC"
+        support_app: false
+        lowest_battery: 1
+        action_black_list: *t1_mode_switch_black_list
+
+  - animation_id: 4002  # MODE_OUTDOORS  户外模式
+    min_post_process_signal: 100
+    animation_name: "mode_outdoors"
+    animation_name_zh: "户外模式"
+    motion_name_code: 1896
+    motion_list_type: ["bipedal", "quadrupedal"]
+    skill_list:
+      - action_name: "QUADRUPED_LOCOMOTION_TERRAIN"
+        motion_part: "posture"
+        motion_action_name: "QUADRUPED_LOCOMOTION_TERRAIN"
+        support_app: false
+        lowest_battery: 5
+        action_black_list: *t1_mode_switch_black_list
+      - action_name: "BIPED_LOCOMOTION_DEFAULT"
+        motion_part: "posture"
+        motion_action_name: "BIPED_LOCOMOTION_RUN"
+        support_app: false
+        lowest_battery: 5
+        action_black_list: *t1_mode_switch_black_list
+      - action_name: "BIPED_LOCOMOTION_RUN"
+        motion_part: "posture"
+        motion_action_name: "BIPED_LOCOMOTION_RUN"
+        support_app: false
+        lowest_battery: 5
+        action_black_list: *t1_mode_switch_black_list
+
+  - animation_id: 4003  # MODE_SUPERPOWER  超能力模式
+    min_post_process_signal: 100
+    animation_name: "mode_superpower"
+    animation_name_zh: "超能力模式"
+    motion_name_code: 1897
+    motion_list_type: ["bipedal", "quadrupedal"]
+    skill_list:
+      - action_name: "QUADRUPED_LOCOMOTION_RUN"
+        motion_part: "posture"
+        motion_action_name: "QUADRUPED_LOCOMOTION_RUN"
+        support_app: false
+        lowest_battery: 30
+        action_black_list: *t1_mode_switch_black_list
+      - action_name: "BIPED_LOCOMOTION_RUN"
+        motion_part: "posture"
+        motion_action_name: "BIPED_LOCOMOTION_RUN"
+        support_app: false
+        lowest_battery: 30
+        action_black_list: *t1_mode_switch_black_list
+
+  - animation_id: 4004  # MODE_CARRY  搬运模式
+    min_post_process_signal: 100
+    animation_name: "mode_carry"
+    animation_name_zh: "搬运模式"
+    motion_name_code: 1898
+    audio_delay_ms: 1000
+    motion_list_type: ["bipedal", "quadrupedal"]
+    skill_list:
+      - action_name: "QUADRUPED_LOCOMOTION_DEFAULT"
+        motion_part: "posture"
+        motion_action_name: "STORE_DEFAULT"
+        support_app: false
+        lowest_battery: 1
+        action_black_list: *t1_mode_switch_black_list
+      - action_name: "BIPED_LOCOMOTION_WBC"
+        motion_part: "posture"
+        motion_action_name: "BIPED_TO_QUADRUPED_ROTATE"
+        audio:
+          audio_file: "/robot/data/system/hal_audio/audio/"
+          quadruped: "transform4to2.wav"
+          biped: "transform2to4.wav"
+        motor: "quad"
+        goal_action: "STORE_DEFAULT"
+        support_app: false
+        lowest_battery: 1
+        action_black_list: *t1_mode_switch_black_list
+
+  - animation_id: 9999
+    animation_name: "mock_animation"
+    animation_name_zh: "模拟动画"
+    motion_name_code: 1898
+    audio_delay_ms: 1000
+    safety_check_param:
+      height: 0.5
+      obstacle_range: 0.5
+      radius: 0.5
+      direction: 0
+      timeout_ms: 1000

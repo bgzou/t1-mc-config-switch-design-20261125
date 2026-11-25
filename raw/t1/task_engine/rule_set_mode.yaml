@@ -1,0 +1,81 @@
+# 模式切换（SetMode / SetModeTask）
+# 跟随中允许室内/户外切模并行（含跟随行走导致的 is_moving）；超能/搬运/录制未列入 modes，默认 reject。
+task_base:
+  enable: true
+  task_name: set_mode
+  task_type: short_task
+  real_task_type: SetModeTask
+  priority: 50
+  permission_level: normal
+  allow_preempt: true
+  track_running_state: false
+  timing_cycle_ms: 0
+  need_confirm: false
+allow_source: []
+allow_velocity_source: []
+velocity_source_block_robots: []
+precondition:
+  allow_posture: []
+  block_posture: []
+  battery_min_percent: 6
+  allow_charging_state: false
+  check_app_conn: false
+  check_cloud_conn: false
+  check_network: false
+  check_log_sync: false
+alarm_condition:
+  allow_mode: exclude
+  allow_levels: []
+  exclude_levels: [fatal]
+motion_condition:
+  allow_motion_state: []
+  allow_preempt_running_task: true
+arbitration_policy:
+  - task_name: follow
+    action: parallel
+    modes: [indoor, outdoor]
+  - task_name: move
+    action: parallel
+    modes: [indoor, outdoor]
+  - task_name: idle
+    action: override
+  - task_name: set_mode
+    action: override
+  - task_name: interaction
+    action: parallel
+  - task_name: navigation
+    action: parallel
+  - task_name: mapping
+    action: parallel
+  - task_name: localization
+    action: parallel
+  - task_name: motion_playback
+    action: parallel
+  - task_name: motion_record
+    action: parallel
+  - task_name: camera_move
+    action: parallel
+  - task_name: posture
+    action: parallel
+  - task_name: upper_body
+    action: parallel
+  - task_name: whole_body
+    action: parallel
+  - task_name: wake_turn
+    action: parallel
+  - task_name: touch
+    action: parallel
+  - task_name: openbox
+    action: parallel
+  - task_name: app_canvas
+    action: parallel
+  - task_name: app_gyro_ctrl
+    action: parallel
+  - task_name: app_joystick_ctrl
+    action: parallel
+  - task_name: app_teach_demo
+    action: parallel
+  - task_name: factory_reset
+    action: parallel
+  - task_name: shutdown
+    action: parallel

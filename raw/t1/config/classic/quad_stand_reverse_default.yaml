@@ -1,0 +1,68 @@
+# 前肢手臂反轴站立(QuadStandRe)
+# 目标关节位姿: 前肢(FL/FR)手臂反轴撑起; 后肢(RL/RR)维持正常站立高度。
+# 注意: 前肢手臂反轴的真实目标角度需按实机标定, 这里前肢(FL/FR)的 HIP_ROLL 标 TODO
+#       暂沿用 quad_stand_default 的站立角度作占位, 由具身同学标定后替换。
+step_time: 0.001
+phase_duration_time: 2.0
+exit_timeout: 2.0
+exit_position_threshold: 0.2
+transition_duration: 0.5
+action_nums: 14
+
+joints:
+  - name: "FL_HIP_ROLL_Joint"      # TODO(arm-reverse): 前肢反轴角度, 实机标定后填入
+    kp: 200.0
+    kd: 1.5
+    position: 0.0
+  - name: "FL_HIP_PITCH_Joint"
+    kp: 250.0
+    kd: 1.5
+    position: -0.6855
+  - name: "FL_KNEE_Joint"
+    kp: 250.0
+    kd: 1.5
+    position: 1.3786
+  - name: "FR_HIP_ROLL_Joint"      # TODO(arm-reverse): 前肢反轴角度(与 FL 对称取负), 实机标定后填入
+    kp: 200.0
+    kd: 1.5
+    position: 0.0
+  - name: "FR_HIP_PITCH_Joint"
+    kp: 250.0
+    kd: 1.5
+    position: -0.6855
+  - name: "FR_KNEE_Joint"
+    kp: 250.0
+    kd: 1.5
+    position: 1.3786
+  - name: "RL_HIP_ROLL_Joint"
+    kp: 200.0
+    kd: 1.5
+    position: 0.0
+  - name: "RL_HIP_PITCH_Joint"
+    kp: 250.0
+    kd: 1.5
+    position: 1.1212
+  - name: "RL_KNEE_Joint"
+    kp: 250.0
+    kd: 1.5
+    position: -1.9050
+  - name: "RL_FOOT_Joint"
+    kp: 0.0
+    kd: 2.0
+    position: 0.0
+  - name: "RR_HIP_ROLL_Joint"
+    kp: 200.0
+    kd: 1.5
+    position: 0.0
+  - name: "RR_HIP_PITCH_Joint"
+    kp: 250.0
+    kd: 1.5
+    position: 1.1212
+  - name: "RR_KNEE_Joint"
+    kp: 250.0
+    kd: 1.5
+    position: -1.9050
+  - name: "RR_FOOT_Joint"
+    kp: 0.0
+    kd: 2.0
+    position: 0.0

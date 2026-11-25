@@ -1,0 +1,431 @@
+worker_info:
+  aima_req_worker:
+    thread_num: 2
+    listen_ip: ${HTTP_LISTEN_IP}
+    listen_port: 50080
+
+  node_control_worker:
+    thread_num: 1
+    master_node: true
+    listen_ip: ${HTTP_LISTEN_IP}
+    listen_port: 56999
+
+process_manager:
+  work_dir: "/robot/sys/proc"
+  env_file: "/robot/software/process_manager/bin/cfg/env"
+  agi_user_uid: 1000
+  agi_user_gid: 1000
+  sudo_preserve_env: "PYTHONPATH"
+  startup_stages:
+    - apps: [
+        "sys_guard",
+        # 传感器
+        # "device_manager",
+        # "hal_audio",
+        "hal_rgbd",
+        "hal_camera",
+        "hal_sensor",
+
+        # 系统状态监控
+        # "sm",
+        # "hds",
+
+        # 用户感知应用
+        # "display_ui",
+      ]
+      delay_after_ms: 1500
+    - apps: [
+        # 用户感知应用
+        # "task_engine",
+        # "housekeeper",
+        # "mc",
+        # "app_proxy",
+        # "rc",
+
+        # 云端代理
+        # "cloud_proxy",
+        # 数据导出
+        "data_exporter",
+
+        # 交互应用
+        # "agent",
+        # "rtsp_server",
+
+        # 数据录制
+        # "drp",
+
+        # ota
+        "ota",
+
+        # 跟随算法节点
+        "coreon_fusion",
+        # "odom",
+        # "move_camera",
+        "follow",
+        # "face",
+        "path_follow",
+        "tracking",
+        # "yolov8",
+
+        # 亮度检测模块
+        "brightness_detection",
+
+        # "insta360",
+        # "resource_manager",
+        # "conduit_router"
+
+        # 导航算法模块
+        "navigation",
+        # "recharge",
+
+        # slam算法节点
+        # "slam",
+
+        # "aprilgrid_loc",
+
+        # 地图管理节点
+        # "map_manager",
+
+        # 感知独立模块
+        "percep"
+      ]
+      delay_after_ms: 8000
+    # - apps: [
+    #     "hal_rgbd",
+    #     "hal_camera",
+    #     "hal_sensor",
+    #   ]
+    #   delay_after_ms: 18000
+
+  apps:
+    "hal_camera":
+      path: "/robot/software/hal_camera/bin/em_run.sh"
+      sudo: false
+      # stdout: "/tmp/hal_camera.log"
+      stderr: "/tmp/hal_camera.err"
+      env:
+        LOG_PATH: /robot/persist/log/hal_camera
+        FASTRTPS_DEFAULT_PROFILES_FILE: /robot/software/entry/cfg/standard/ros_dds_configuration_all.xml
+    "hal_rgbd":
+      path: "/robot/software/hal_rgbd/bin/em_run.sh"
+      sudo: false
+      # stdout: "/tmp/hal_rgbd.log"
+      stderr: "/tmp/hal_rgbd.err"
+      env:
+        LOG_PATH: /robot/persist/log/hal_rgbd
+        FASTRTPS_DEFAULT_PROFILES_FILE: ${DDS_CFG_PREFIX}/ros_dds_configuration_all.xml
+    "coreon_fusion":
+      path: "/robot/software/coreon_fusion/bin/em_run.sh"
+      sudo: false
+      # stdout: "/tmp/core.log"
+      stderr: "/tmp/coreon_fusion.err"
+      env:
+        LOG_PATH: /robot/persist/log/coreon_fusion
+        FASTRTPS_DEFAULT_PROFILES_FILE: ${DDS_CFG_PREFIX}/ros_dds_configuration_all.xml
+
+    "face": # 人脸识别节点
+      path: "/robot/software/algorithm/face/bin/start_face"
+      sudo: false # run the app with sudo, otherwise run with agi_user and agi_group configured in process_manager
+      # stdout: "/tmp/face.log"
+      stderr: "/tmp/face.err"
+      env:
+        LOG_PATH: /robot/persist/log/face
+
+    "tracking":
+      path: "/robot/software/algorithm/target_follow_perception/bin/start_target_follow_perception_T"
+      sudo: false # run the app with sudo, otherwise run with agi_user and agi_group configured in process_manager
+      # stdout: "/tmp/track.log"
+      stderr: "/tmp/track.err"
+      env:
+        LOG_PATH: /robot/persist/log/tracking
+
+    "yolov8":
+      path: "/robot/software/algorithm/yolov8_detection/bin/start_yolov8"
+      sudo: false # run the app with sudo, otherwise run with agi_user and agi_group configured in process_manager
+      # stdout: "/tmp/yolo.log"
+      stderr: "/tmp/yolo.err"
+      env:
+        LOG_PATH: /robot/persist/log/yolo
+
+    "follow":
+      path: "/robot/software/algorithm/follow/bin/start_follow.sh"
+      sudo: false # run the app with sudo, otherwise run with agi_user and agi_group configured in process_manager
+      # stdout: "/tmp/follow.log"
+      stderr: "/tmp/follow.err"
+      env:
+        LOG_PATH: /robot/persist/log/follow
+  
+    "brightness_detection":
+      path: "/robot/software/algorithm/brightness_detection/bin/start_brightness_status_T"
+      sudo: false # run the app with sudo, otherwise run with agi_user and agi_group configured in process_manager
+      # stdout: "/tmp/brightness_detection.log"
+      stderr: "/tmp/brightness_detection.err"
+      env:
+        LOG_PATH: /robot/persist/log/brightness_detection
+
+    "navigation":
+      path: "/robot/software/algorithm/nav2_bringup/bin/start_nav"
+      sudo: false
+      stderr: "/tmp/navigation.err"
+      env:
+        LOG_PATH: /robot/persist/log/navigation
+
+    "recharge":
+      path: "/robot/software/algorithm/nav2_recharge/share/nav2_recharge/scripts/em_run.sh"
+      sudo: false
+      stderr: "/tmp/recharge.err"
+      env:
+        LOG_PATH: /robot/persist/log/recharge
+    
+    "slam":
+      path: "/robot/software/aimrt_slam/bin/em_run.sh"
+      sudo: false
+      # stdout: "/tmp/slam.log"
+      stderr: "/tmp/slam.err"
+      env:
+        LOG_PATH: /robot/persist/log/slam
+        
+    "aprilgrid_loc":
+      path: "/robot/software/aprilgrid_loc/bin/em_run.sh"
+      sudo: false
+      # stdout: "/tmp/aprilgrid_loc.log"
+      stderr: "/tmp/aprilgrid_loc.err"
+      env:
+        LOG_PATH: /robot/persist/log/aprilgrid_loc
+
+    
+
+    "percep":
+      path: "/robot/software/algorithm/perception/bin/start_percep.sh"
+      sudo: false
+      stderr: ""
+      env:
+          LOG_PATH: /robot/persist/log/percep
+
+    "path_follow":
+      path: "/robot/software/algorithm/path_follow_node/bin/em_run.sh"
+      sudo: false # run the app with sudo, otherwise run with agi_user and agi_group configured in process_manager
+      # stdout: "/tmp/path_follow.log"
+      stderr: "/tmp/path_follow.err"
+      env:
+        LOG_PATH: /robot/persist/log/path_follow
+
+    "odom":
+      path: "/robot/software/algorithm/odom/bin/start_odom"
+      sudo: false # run the app with sudo, otherwise run with agi_user and agi_group configured in process_manager
+      # stdout: "/tmp/odom.log"
+      stderr: "/tmp/odom.err"
+      env:
+        LOG_PATH: /robot/persist/log/odom
+
+    "move_camera":
+      path: "/robot/software/algorithm/move_camera/bin/start_move_camera"
+      sudo: false # run the app with sudo, otherwise run with agi_user and agi_group configured in process_manager
+      # stdout: "/tmp/move_camera.log"
+      stderr: "/tmp/move_camera.err"
+      env:
+        LOG_PATH: /robot/persist/log/move_camera
+
+    "hal_sensor":
+      path: "/robot/software/hal_sensor/bin/em_run.sh"
+      sudo: false # run the app with sudo, otherwise run with agi_user and agi_group configured in process_manager
+      # stdout: "/tmp/hal_sensor.log"
+      stderr: "/tmp/hal_sensor.err"
+      env:
+        LOG_PATH: /robot/persist/log/hal_sensor
+
+    "device_manager":
+      path: "/robot/software/device_manager/bin/em_run.sh"
+      sudo: false # run the app with sudo, otherwise run with agi_user and agi_group configured in process_manager
+      # stdout: "/tmp/device_manager.log"
+      stderr: "/tmp/device_manager.err"
+      env:
+        LOG_PATH: /robot/persist/log/device_manager
+
+    "hal_imu":
+      path: "/robot/software/hal_imu/bin/em_run.sh"
+      sudo: false
+      # stdout: "/tmp/hal_imu.log"
+      stderr: "/tmp/hal_imu.err"
+      env:
+        LOG_PATH: /robot/persist/log/hal_imu
+
+    "drp":
+      path: "/robot/software/drp/bin/em_run.sh"
+      sudo: false
+      # stdout: "/tmp/drp.log"
+      stderr: "/tmp/drp.err"
+      env:
+        LOG_PATH: /robot/persist/log/drp
+
+    "rc":
+      path: "/robot/software/rc/bin/em_run.sh"
+      sudo: false
+      # stdout: "/tmp/rc.log"
+      stderr: "/tmp/rc.err"
+      env:
+        LOG_PATH: /robot/persist/log/rc
+
+    "mc":
+      path: "/robot/software/mc/bin/em_run.sh"
+      sudo: false
+      # stdout: "/tmp/mc.log"
+      stderr: "/tmp/mc.err"
+      env:
+        LOG_PATH: /robot/persist/log/mc
+
+    "agent":
+      path: "/robot/software/aimrt_agent/bin/em_run.sh"
+      sudo: false
+      # stdout: "/tmp/agent.log"
+      stderr: "/tmp/agent.err"
+      restart:
+        max_retries: 500
+      env:
+        LOG_PATH: /robot/persist/log/agent
+        FASTRTPS_DEFAULT_PROFILES_FILE: ${DDS_CFG_PREFIX}/ros_dds_configuration_all.xml
+
+    "hal_audio":
+      path: "/robot/software/hal_audio/bin/em_run.sh"
+      sudo: false
+      #  stdout: "/tmp/hal_audio.log"
+      stderr: "/tmp/hal_audio.err"
+      env:
+        LOG_PATH: /robot/persist/log/hal_audio
+
+    "rtsp_server":
+      path: "/robot/software/rtsp_server/em_run.sh"
+      sudo: false
+      # stdout: "/tmp/rtsp_server.log"
+      stderr: "/tmp/rtsp_server.err"
+      env:
+        LOG_PATH: /robot/persist/log/rtsp_server
+
+    "app_proxy":
+      path: "/robot/software/app_proxy/bin/em_run.sh"
+      sudo: false
+      # stdout: "/tmp/app_proxy.log"
+      stderr: "/tmp/app_proxy.err"
+      env:
+        LOG_PATH: /robot/persist/log/app_proxy
+
+    "housekeeper":
+      path: "/robot/software/housekeeper/bin/em_run.sh"
+      sudo: false
+      # stdout: "/tmp/housekeeper.log"
+      stderr: "/tmp/housekeeper.err"
+      env:
+        LOG_PATH: /robot/persist/log/housekeeper
+
+    "task_engine":
+      path: "/robot/software/task_engine/bin/em_run.sh"
+      sudo: false
+      # stdout: "/tmp/task_engine.log"
+      stderr: "/tmp/task_engine.err"
+      env:
+        LOG_PATH: /robot/persist/log/task_engine
+
+    "display_ui":
+      path: "/robot/software/display_ui/em_run.sh"
+      sudo: false
+      # stdout: "/tmp/display_ui.log"
+      stderr: "/tmp/display_ui.err"
+      restart:
+        max_retries: 500
+      env:
+        LOG_PATH: /robot/persist/log/display_ui
+
+    "sm":
+      path: "/robot/software/sm/bin/em_run.sh"
+      sudo: false
+      # stdout: "/tmp/sm.log"
+      stderr: "/tmp/sm.err"
+      restart:
+        max_retries: 5
+      env:
+        LOG_PATH: /robot/persist/log/sm
+
+    "hds":
+      path: "/robot/software/hds/bin/em_run.sh"
+      sudo: false
+      args: ["hds"] #
+      # stdout: "/tmp/hds.log"
+      stderr: "/tmp/hds.err"
+      env:
+        LOG_PATH: /robot/persist/log/hds
+
+    "sys_guard":
+      path: "/robot/software/sys_guard/bin/start_sys_guard.sh"
+      sudo: true
+      # stdout: "/tmp/sys_guard.log"
+      stderr: "/tmp/sys_guard.err"
+      env:
+        LOG_PATH: /robot/persist/log/sys_guard
+
+    "cloud_proxy":
+      path: "/robot/software/cloud_proxy/bin/em_run.sh"
+      sudo: false
+      # stdout: "/tmp/cloud_proxy.log"
+      stderr: "/tmp/cloud_proxy.err"
+      env:
+        LOG_PATH: /robot/persist/log/cloud_proxy
+
+    "data_exporter":
+      path: "/robot/software/data_exporter/bin/em_run.sh"
+      sudo: true
+      # stdout: "/tmp/data_exporter.log"
+      stderr: "/tmp/data_exporter.err"
+      env:
+        LOG_PATH: /robot/persist/log/data_exporter
+
+
+    "ota":
+      path: "/robot/software/ota/bin/em_run.sh"
+      sudo: true
+      # stdout: "/tmp/ota.log"
+      stderr: "/tmp/ota.err"
+      env:
+        LOG_PATH: /robot/persist/log/ota
+
+
+    "poweroff":
+      oneshot: true
+      path: "/robot/software/entry/cfg/pm/poweroff.sh"
+      sudo: true
+      # stdout: "/tmp/poweroff.log"
+      stderr: "/tmp/poweroff.err"
+      env:
+        LOG_PATH: /robot/persist/log/poweroff
+
+    "insta360":
+      path: "/robot/software/insta360/bin/em_run.sh"
+      sudo: false
+      # stdout: "/tmp/insta360.log"
+      stderr: "/tmp/insta360.err"
+      env:
+        LOG_PATH: /robot/persist/log/insta360
+
+    "resource_manager":
+      path: "/robot/software/resource_manager/bin/em_run.sh"
+      sudo: false
+      # stdout: "/tmp/resource_manager.log"
+      stderr: "/tmp/resource_manager.err"
+      env:
+        LOG_PATH: /robot/persist/log/resource_manager
+
+    "conduit_router":
+      path: "/robot/software/conduit_router/bin/em_run.sh"
+      sudo: true
+      # stdout: "/tmp/conduit_router.log"
+      stderr: "/tmp/conduit_router.err"
+      env:
+        LOG_PATH: /robot/persist/log/conduit_router
+
+    "map_manager":
+      path: "/robot/software/map_manager/bin/em_run.sh"
+      sudo: false
+      # stdout: "/tmp/map_manager.log"
+      stderr: "/tmp/map_manager.err"
+      env:
+        LOG_PATH: /robot/persist/log/map_manager
+

@@ -1,0 +1,165 @@
+aimrt:
+  log:
+    core_lvl: Info # 内核日志等级，可选项：Trace/Debug/Info/Warn/Error/Fatal/Off，不区分大小写
+    default_module_lvl: Info # 模块默认日志等级
+    backends:
+      - type: rotate_file # 文件日志
+        options:
+          path: ${LOG_PATH} # 日志文件路径
+          filename: sm.log # 日志文件名称
+          max_file_size_m: 10 # 日志文件最大尺寸，单位m
+          max_file_num: 5 # 最大日志文件数量，0代表无限
+
+# 模块的相关配置
+SystemManagerModule:
+  project: "T1"    # 项目名
+  version: "2.2.1"  # 版本号
+  # 连续回滚最大次数，达到后停止自动重试
+  max_rollback_count: 10
+
+  # 底层运控二开模式下不由 SM 拉起或看护的模块
+  low_level_dev_excluded_modules: [mc]
+
+  # 关机时等待 Orin 下电的最大时长(ms)与轮询间隔(ms)
+  shutdown_wait_ms: 3000
+  shutdown_poll_interval_ms: 500
+
+  # BMS 异常下电：收到 power_request=5 后发送 MCU 下电信号
+  enable_bms_power_down: true
+  bms_power_down_debounce_ms: 5000
+
+  # 启用 HAL 资源功耗控制（tof/鱼眼/关节）；非本机型请保持 false 或不配置。
+  enable_resource_power: true
+
+  # 关节电源设置/查询失败后的重试次数（不含首次）；间隔单位 ms。
+  joint_power_set_retry_count: 2
+  joint_power_set_retry_interval_ms: 1500
+  joint_power_get_retry_count: 2
+  joint_power_get_retry_interval_ms: 1500
+  # 上电设置成功后等待，再查询确认状态；单位 ms，0 表示不等待。
+  joint_power_on_wait_ms: 5000
+
+  # TOF/相机起停流失败后的重试次数（不含首次）；间隔单位 ms。
+  stream_retry_count: 2
+  stream_retry_interval_ms: 1500
+  # 静默忽略 TOF/相机流 SET 重试耗尽及后续查询确认失败；false 恢复原失败处理，修改后需重启 SM。
+  ignore_stream_set_failure: true
+  # 鱼眼起停流 SET 成功后查询切换完成的超时上限；单位 ms，0 表示仅接受 SET 返回已完成。
+  fisheye_stream_off_wait_ms: 30000
+
+  # SM 低功耗自测：开启后按下方列表分流；修改后需重启 SM。
+  enable_resource_power_mock: false
+  # 仅列出的 key 走 mock（true 成功 / false 失败）；未列出的设备走真实 HAL / 关节 RPC。
+  # 例：只 mock tof/鱼眼、电机真机时，删掉 joint/power/* 两项即可。
+  # 如需测试流失败回退，先关闭 ignore_stream_set_failure，再将对应 off 设为 false、on 设为 true。
+  resource_power_mock_results:
+    tof/stream/off: true
+    tof/stream/on: true
+    fisheye/stream/off: true
+    fisheye/stream/on: true
+    joint/power/off: true
+    joint/power/on: true
+
+  # 模块分组
+  em_modules:
+    master: # soc0 / RK3576 主控板 (T1-2X, T1_v2d1)
+      group: [hds, mc, task_engine, hal_camera, audio_manager]
+      url: "http://${QY_MASTER_IP}:50081"
+    slave0: # soc1 从控板 (Orin-Nano)
+      group: [hal_rgbd, coreon_fusion]
+      url: "http://${QY_SLAVE0_IP}:50081"
+
+  # 功能组
+  function_groups:
+    "Diagnosis":
+      [ "hds" ]
+    "OTA":
+      [ ]
+    "HAL":
+      [ "audio_manager" ]
+    "EStop":
+      []
+    "Motion":
+      [ "mc" ]
+    "Business":
+      [ "task_engine" ]
+    "Perception":
+      []
+    "ProductionTest":
+      []
+    "Gateway":
+      []
+    "Poweroff":
+      []
+  # 模块依赖关系
+  module_depends:
+  #   "mc": [ "hal_ethercat" ]
+
+  # 系统状态
+  system_modes:
+    "Startup":
+      next_mode_list: [ "Ready", "OpenBox" ]
+      active_FG_list: [ "HAL", "Business", "Diagnosis", "Motion", "OTA"]
+      action_list:
+        - [ DIFF ]
+
+    # 开箱状态仅标记当前阶段，保留 Startup 的活跃模块，不执行应用操作
+    "OpenBox":
+      next_mode_list: [ "Ready", "Shutdown", "Business", "EStop" ]
+      active_FG_list: [ "HAL", "Business", "Diagnosis", "Motion", "OTA"]
+      action_list: []
+
+    # 系统的就绪状态，会启动业务管理模块以及HAL
+    "Ready":
+      next_mode_list: [ "Business", "EStop", "OTA", "Shutdown", "StandbyPowerSave", "IdlePowerSave", "OpenBox" ]
+      active_FG_list: [ "HAL", "Business", "Diagnosis", "Motion", "OTA"]
+      action_list:
+        # PowerSave 匹配待机/闲时退出，以及资源操作失败后的 Ready 恢复。
+        - [ "resource_stream_on tof PowerSave" ]
+        - [ DIFF ]
+
+    # 业务运行状态，与 Ready 保持相同的活跃模块集，状态切换时 DiffAction 为空操作
+    "Business":
+      next_mode_list: [ "Ready", "EStop", "OTA", "Shutdown"]
+      active_FG_list: [ "HAL", "Business", "Diagnosis", "Motion", "OTA", "Perception" ]
+      action_list:
+        - [ DIFF ]
+
+    # 待机低功耗：四路侧向 TOF 停流，关节保持上电。
+    "StandbyPowerSave":
+      next_mode_list: [ "Ready", "IdlePowerSave", "Shutdown", "OTA" ]
+      active_FG_list: [ "HAL", "Business", "Diagnosis", "Motion", "OTA"]
+      action_list:
+        - [ "resource_stream_off tof" ]
+        - [ DIFF ]
+
+    "IdlePowerSave":
+      next_mode_list: [ "Ready", "StandbyPowerSave", "Shutdown", "OTA" ]
+      active_FG_list: [ "HAL", "Business", "Diagnosis", "Motion", "OTA"]
+      action_list:
+        - [ "resource_stream_off tof" ]
+        - [ DIFF ]
+
+    # OTA状态，会启动OTA功能组，完成OTA相关功能
+    "OTA":
+      next_mode_list: [ "Ready", "EStop", "Shutdown"]
+      active_FG_list: [ "OTA" ]
+      action_list:
+        - [ DIFF ]
+
+    # 紧急停止状态，用于紧急停止
+    "EStop":
+      next_mode_list: [ "Ready", "OTA" ]
+      active_FG_list: [ "HAL", "Diagnosis" ]
+      action_list:
+        - [ DIFF ]
+
+    "Shutdown":
+      next_mode_list: [ ]
+      active_FG_list: [ "HAL", "Business", "Poweroff" ]
+      action_list:
+        - [ DIFF ]
+
+  decision: # 系统决策层
+    Auto_transToReady: false # 如果为false需要在一定时机下调用一键激活脚本
+    Auto_transToManual: false

@@ -1,0 +1,165 @@
+BaseConfig:
+  model_type: "Walk"
+
+  use_debug: true
+  # t1: simulation_dt * control_decimation = 0.005 * 4 -> 50Hz 策略
+  # t1_qy: simulation_dt * control_decimation = 0.002 * 5 -> 100Hz 策略
+  # dt: 0.02
+  dt: 0.01
+
+  policy:
+    type: "onnx"
+    device: "cpu"
+    # path: "./rl_models/bi_dance_liuxingwu_model_3500.onnx"
+    # path: "./rl_models/bi_dance_liuxingwu_velocity_model_8250.onnx"
+    # path: "./rl_models/bi_dance_liuxingwu_model_9750.onnx"
+    # path: "./rl_models/bi_dance_liuxingwu_qy_model_15500.onnx"
+    # path: "./rl_models/bi_dance_liuxingwu_model_4500.onnx"
+    # path: "./rl_models/bi_dance_liuxingwu_model_18250.onnx"
+    # path: "./rl_models/bi_dance_liuxingwu_pd_model_17500.onnx"
+    # path: "./rl_models/bi_dance_liuxingwu_pd_model_19250.onnx"
+    # path: "./rl_models/bi_dance_liuxingwu_pd_larger_acc_penalty_model_15750.onnx"
+    path: "./rl_models/bi_dance_liuxingwu_acc_1_model_12750.onnx"
+
+  #   14(ref_q)+14(ref_dq)+6(anchor rot6d)+3(gravity)+3(omega)+12(关节位置误差去双轮)+14(dq)+14(action)
+  obs_nums: 80
+  q_nums: 14
+  action_nums: 14
+
+  joints_name:
+    [
+      'FL_HIP_ROLL_Joint',
+      'FL_HIP_PITCH_Joint',
+      'FL_KNEE_Joint',
+
+      'FR_HIP_ROLL_Joint',
+      'FR_HIP_PITCH_Joint',
+      'FR_KNEE_Joint',
+
+      'RL_HIP_ROLL_Joint',
+      'RL_HIP_PITCH_Joint',
+      'RL_KNEE_Joint',
+      'RL_FOOT_Joint',
+
+      'RR_HIP_ROLL_Joint',
+      'RR_HIP_PITCH_Joint',
+      'RR_KNEE_Joint',
+      'RR_FOOT_Joint',
+    ]
+
+  seq:
+    [
+      'FL_HIP_ROLL_Joint', 'FR_HIP_ROLL_Joint', 'RL_HIP_ROLL_Joint', 'RR_HIP_ROLL_Joint',
+      'FL_HIP_PITCH_Joint', 'FR_HIP_PITCH_Joint', 'RL_HIP_PITCH_Joint', 'RR_HIP_PITCH_Joint',
+      'FL_KNEE_Joint', 'FR_KNEE_Joint', 'RL_KNEE_Joint', 'RR_KNEE_Joint',
+      'RL_FOOT_Joint', 'RR_FOOT_Joint'
+    ]
+
+  action_seq:
+    [
+      'FL_HIP_ROLL_Joint', 'FR_HIP_ROLL_Joint', 'RL_HIP_ROLL_Joint', 'RR_HIP_ROLL_Joint',
+      'FL_HIP_PITCH_Joint', 'FR_HIP_PITCH_Joint', 'RL_HIP_PITCH_Joint', 'RR_HIP_PITCH_Joint',
+      'FL_KNEE_Joint', 'FR_KNEE_Joint', 'RL_KNEE_Joint', 'RR_KNEE_Joint',
+      'RL_FOOT_Joint', 'RR_FOOT_Joint'
+    ]
+
+  action_scale: [
+        0.2,  0.2,  0.2,  0.2,
+        0.2,  0.2,  0.2,  0.2,
+        0.2,  0.2,  0.2,  0.2,
+        2.5,  2.5
+  ]
+
+  imu_pitch_offset: 0.0
+
+ACConfig:
+  # 单帧 80 维 obs
+  infer:
+    frame_stack: 1
+
+  clips:
+    obs_clip: 100.0
+    action_clip: 100.0
+
+  robot:
+    kps: [
+          30.0, 30.0, 30.0, 30.0,
+          30.0, 30.0, 30.0, 30.0,
+          30.0, 30.0, 30.0, 30.0,
+          0.0,   0.0
+    ]
+
+    kds: [
+          1.0,  1.0,  1.0,  1.0,
+          1.0,  1.0,  1.0,  1.0,
+          1.0,  1.0,  1.0,  1.0,
+          0.1671, 0.1671
+    ]
+    default_dof_pos: [
+          0.0,     0.0,     0.0,      0.0,
+          1.57080, 1.57080, 1.91986,  1.91986,
+          0.63023, 0.63023, -0.65799, -0.65799,
+          0.0,     0.0
+    ]
+
+    default_kp: 30.0
+    default_kd: 1.0
+
+WalkConfig:
+  obs_index:
+    ref_qj: 0
+    ref_dqj: 14
+    anchor_rot6d: 28
+    gravity: 34
+    omega: 37
+    qj_err_no_wheels: 40
+    dqj: 52
+    last_action: 66
+    obs_dim: 80
+
+  obs_scales:
+    dof_pos: 1.0
+    dof_vel: 0.05
+    ang_vel: 0.25
+
+  custom:
+    # root_pos: [0.0, 0.0, 0.71]
+    # root_quat: [0.70710678, 0.0, -0.70710678, 0.0]
+    # init_from_first_inference: false
+    # IMPORTANT: 默认必须为 true 才与 obs_nums=80 / 当前 ONNX 模型输入维度匹配（anchor_rot6d 会占 6 维）。
+    use_motion_anchor_ori_b: true
+    motion_anchor_body_name: "BASELINK"
+    # motion_anchor_idx 在 Python 侧是运行时通过 body_names_for_eval.index(motion_anchor_body_name) 得到。
+    # 该模型的常见情况 BASELINK 位于对齐列表第 0 个，因此这里固定写 0
+    motion_anchor_idx: 0
+    need_time_step: true
+
+    action_clip: 16
+    cmd_scale: [2.0, 2.0, 0.25]
+    cmd_init: [0.0, 0.0, -0.0]
+    num_actor_history: 6
+    history_length: 6
+    default_velocities: [
+      0.0, 0.0, 0.0, 0.0,
+      0.0, 0.0, 0.0, 0.0,
+      0.0, 0.0, 0.0, 0.0,
+      0.0, 0.0
+    ]
+
+    pos_mask: [
+          1, 1, 1, 1,
+          1, 1, 1, 1,
+          1, 1, 1, 1,
+          0, 0
+    ]
+  auto_next_actions: true
+  next_actions: "BIPED_LOCOMOTION_WBC"
+
+  filter:
+    # ACRLController::PreRunOnce() 会按 q_nums(14) 逐项读取 q_vel_cutoff_freq[i] 初始化低通滤波器；
+    imu_vel_cutoff_freq: 100
+    q_vel_cutoff_freq: [
+      100, 100, 100, 100,    # rolls   (FL, FR, RL, RR)
+      100, 100, 100, 100,    # pitches (FL, FR, RL, RR)
+      100, 100, 100, 100,    # knees   (FL, FR, RL, RR)
+      50, 50]                # feet    (RL, RR)

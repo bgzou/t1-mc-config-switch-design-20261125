@@ -1,0 +1,150 @@
+# t1::BiLingchuangMimicRLController：MotionManager 下发策略（轨迹内嵌 onnx）；policy.path 为空时由 motion_list 下发
+BaseConfig:
+  model_type: "Walk"
+  use_debug: true
+  dt: 0.01
+
+  policy:
+    type: "onnx"
+    device: "cpu"
+    path: ""
+
+  # Hist5: num_obs = command(28) + motion_anchor_ori_b(6) + (pg3+ang3+joint_pos12+limb_vel12+wheel_vel2+actions14)*5 = 264
+  obs_nums: 264
+  q_nums: 14
+  action_nums: 14
+
+  joints_name:
+    [
+      'FL_HIP_ROLL_Joint',
+      'FL_HIP_PITCH_Joint',
+      'FL_KNEE_Joint',
+
+      'FR_HIP_ROLL_Joint',
+      'FR_HIP_PITCH_Joint',
+      'FR_KNEE_Joint',
+
+      'RL_HIP_ROLL_Joint',
+      'RL_HIP_PITCH_Joint',
+      'RL_KNEE_Joint',
+      'RL_FOOT_Joint',
+
+      'RR_HIP_ROLL_Joint',
+      'RR_HIP_PITCH_Joint',
+      'RR_KNEE_Joint',
+      'RR_FOOT_Joint',
+    ]
+
+  seq:
+    [
+      'FL_HIP_ROLL_Joint', 'FR_HIP_ROLL_Joint', 'RL_HIP_ROLL_Joint', 'RR_HIP_ROLL_Joint',
+      'FL_HIP_PITCH_Joint', 'FR_HIP_PITCH_Joint', 'RL_HIP_PITCH_Joint', 'RR_HIP_PITCH_Joint',
+      'FL_KNEE_Joint', 'FR_KNEE_Joint', 'RL_KNEE_Joint', 'RR_KNEE_Joint',
+      'RL_FOOT_Joint', 'RR_FOOT_Joint'
+    ]
+
+  action_seq:
+    [
+      'FL_HIP_ROLL_Joint', 'FR_HIP_ROLL_Joint', 'RL_HIP_ROLL_Joint', 'RR_HIP_ROLL_Joint',
+      'FL_HIP_PITCH_Joint', 'FR_HIP_PITCH_Joint', 'RL_HIP_PITCH_Joint', 'RR_HIP_PITCH_Joint',
+      'FL_KNEE_Joint', 'FR_KNEE_Joint', 'RL_KNEE_Joint', 'RR_KNEE_Joint',
+      'RL_FOOT_Joint', 'RR_FOOT_Joint'
+    ]
+
+  action_scale: [
+        0.2,  0.2,  0.2,  0.2,
+        0.2,  0.2,  0.2,  0.2,
+        0.2,  0.2,  0.2,  0.2,
+        2.5,  2.5
+  ]
+
+  imu_pitch_offset: 0.0
+
+ACConfig:
+  infer:
+    frame_stack: 1
+
+  clips:
+    obs_clip: 100.0
+    action_clip: 100.0
+
+  robot:
+    kps: [
+          30.0, 30.0, 30.0, 30.0,
+          30.0, 30.0, 30.0, 30.0,
+          30.0, 30.0, 30.0, 30.0,
+          0.0, 0.0
+    ]
+
+    kds: [
+          1.008,  1.008,  1.008,  1.008,
+          1.008,  1.008,  1.008,  1.008,
+          1.008,  1.008,  1.008,  1.008,
+          0.3,    0.3
+    ]
+
+    default_dof_pos: [
+          0.0,     0.0,     0.0,      0.0,
+          1.57080, 1.57080, 1.91986,  1.91986,
+          0.63023, 0.63023, -0.65799, -0.65799,
+          0.0,     0.0
+    ]
+
+    default_kp: 30.0
+    default_kd: 1.0
+
+WalkConfig:
+  obs_index:
+    ref_qj: 0
+    ref_dqj: 14
+    anchor_rot6d: 28
+    obs_dim: 264
+
+  obs_scales:
+    dof_pos: 1.0
+    dof_vel: 0.05
+    ang_vel: 0.25
+
+  custom:
+    use_motion_anchor_ori_b: true
+    motion_anchor_body_name: "BASELINK"
+    motion_anchor_idx: 0
+    need_time_step: true
+
+    action_clip: 16
+    cmd_scale: [2.0, 2.0, 0.25]
+    cmd_init: [0.0, 0.0, -0.0]
+
+    obs_history_length: 5
+
+    default_angles: [
+          0.0,     0.0,     0.0,      0.0,
+          1.57080, 1.57080, 1.91986,  1.91986,
+          0.63023, 0.63023, -0.65799, -0.65799,
+          0.0,     0.0
+    ]
+
+    default_velocities: [
+      0.0, 0.0, 0.0, 0.0,
+      0.0, 0.0, 0.0, 0.0,
+      0.0, 0.0, 0.0, 0.0,
+      0.0, 0.0
+    ]
+
+    pos_mask: [
+          1, 1, 1, 1,
+          1, 1, 1, 1,
+          1, 1, 1, 1,
+          0, 0
+    ]
+
+  auto_next_actions: true
+  default_next_action: "BIPED_LOCOMOTION_WBC"
+
+  filter:
+    imu_vel_cutoff_freq: 100
+    q_vel_cutoff_freq: [
+      100, 100, 100, 100,
+      100, 100, 100, 100,
+      100, 100, 100, 100,
+      50, 50]
