@@ -74,7 +74,7 @@
 
 ### Part 4 完整示例（Collie 假设拓扑）
 
-- 明确声明假设：16 关节（12 腿 + 4 轮）仅示例；所有数值 `[假设]`。
+- 明确声明假设拓扑：可用 16 关节（12 腿 + 4 轮）作示例，也可声明你选择的其它拓扑；所有数值 `[假设]`，不得写成 Collie 事实。
 - 一套最小可运行集合：robot profile + hardware/calibration + 1 个 RL 行走 manifest + obs/action spec + 1 个经典站立 manifest + 1 个 Q2B 过渡 manifest + ActionBundle + graph 片段 + 3 条 transition 边 + safety + inputs + runtime。
 - 每个文件给完整 YAML（不是片段）或明确"省略部分"。
 - **新增策略/动作/过渡 checklist**：改哪些文件、跑哪些校验、谁签收。

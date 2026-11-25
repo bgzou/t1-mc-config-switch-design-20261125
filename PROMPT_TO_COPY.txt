@@ -146,7 +146,7 @@
 
 ### 3.4 必须给出的示例
 
-- 一套完整示例（Collie 假设拓扑，16 关节仅演示）：robot profile + hardware/calibration + 1 个 RL 行走 manifest + obs/action spec + 1 个经典站立 manifest + 1 个 Q2B 过渡 manifest + ActionBundle + graph 片段 + 3 条 transition 边 + safety + inputs + runtime。
+- 一套完整示例（Collie 假设拓扑；可用 16 关节 = 12 腿 + 4 轮 作为演示，也可声明你选择的其它拓扑，但必须标 `[假设]`）：robot profile + hardware/calibration + 1 个 RL 行走 manifest + obs/action spec + 1 个经典站立 manifest + 1 个 Q2B 过渡 manifest + ActionBundle + graph 片段 + 3 条 transition 边 + safety + inputs + runtime。
 - "新增策略/动作/过渡"checklist（改哪些文件、跑哪些校验、谁签收）。
 - 至少 8 个坏配置（缺关节、tensor 维度不匹配、所有权冲突、非法边、缺 SHA、周期不整除、未知枚举、安全字段默认值）与预期错误。
 - 把 `roboparty_deploy` 的 `default.yaml` + `robot.yaml` 映射到新文件的示例。
@@ -248,7 +248,7 @@
 | Part 1 范围、证据、假设 | 范围/非目标；T1 证据摘要；roboparty 基线/缺口；Collie 约束/未冻结项；实际阅读清单 |
 | Part 2 配置体系总览 | 10–12 条原则；分层/依赖图；文件地图（owner/生命周期/消费者）；加载顺序+失败语义；所有权矩阵；版本/兼容/灰度/回滚；迁移路径 |
 | Part 3 逐文件 Schema | 15 类概念，每类：目的/owner/字段表（字段/类型/必填/单位/默认/语义/校验/消费者）/完整示例/反模式/失败模式 |
-| Part 4 完整示例 | 16 关节假设的完整 YAML 集；新增策略/动作/过渡 checklist；8 个坏配置+预期错误；roboparty 迁移示例 |
+| Part 4 完整示例 | 你声明的假设拓扑（可用 16 关节示例）的完整 YAML 集；新增策略/动作/过渡 checklist；8 个坏配置+预期错误；roboparty 迁移示例 |
 | Part 5 切换/过渡架构 | 类型表；决策树；状态机图+状态表；TransitionSpec；≥9 策略库+矩阵；所有权/epoch 图；50/200 Hz 时序；观测/历史/命令表；失败/回退矩阵；状态/事件/switch_ready；12–14 案例表；≥5 条 transition YAML；反模式 |
 | Part 6 与框架协同 | 框架必须提供的 hook/API；映射到 roboparty 模块/文件；最小改动 vs 原生扩展；线程/周期/预算；IDL 草图；迁移阶段 M0–M5；工作量/风险 |
 | Part 7 测试/验收/运维 | 测试矩阵（schema/图、单元、回放、SIL、HIL、真机）；golden trace；故障注入；指标/门槛；日志/黑匣子；发布门 |
