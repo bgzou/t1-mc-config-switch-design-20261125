@@ -19,7 +19,7 @@
 ## 从这里开始
 
 1. **[00_READ_ME_FIRST.md](00_READ_ME_FIRST.md)** — 阅读顺序、证据规则、两套候选抽象的张力。
-2. **[01_PROMPT_FOR_GPT.md](01_PROMPT_FOR_GPT.md)** — **可直接复制给网页版 GPT 的任务书**（含仓库链接、必读清单、交付物、HTML 结构、评分、输出协议）。只想复制正文用 **[PROMPT_TO_COPY.md](PROMPT_TO_COPY.md)**；想先发一句短消息用 **[LAUNCH_PROMPT.md](LAUNCH_PROMPT.md)**。
+2. **[01_PROMPT_FOR_GPT.md](01_PROMPT_FOR_GPT.md)** — **可直接复制给网页版 GPT 的任务书**（含仓库链接、必读清单、交付物、HTML 结构、评分、输出协议）。只想复制正文用 **[PROMPT_TO_COPY.md](PROMPT_TO_COPY.md)** 或纯文本 **[PROMPT_TO_COPY.txt](PROMPT_TO_COPY.txt)**；想先发一句短消息用 **[LAUNCH_PROMPT.md](LAUNCH_PROMPT.md)**。
 3. **[02_CONTEXT_BRIEF.md](02_CONTEXT_BRIEF.md)** — 15 分钟背景：T1 事实、roboparty 能力/缺口、Collie 约束。
 4. **[03_YAML_DESIGN_REQUIREMENTS.md](03_YAML_DESIGN_REQUIREMENTS.md)** — YAML 必须满足的 R1–R15、至少覆盖的 15 类概念。
 5. **[04_SWITCHING_DESIGN_REQUIREMENTS.md](04_SWITCHING_DESIGN_REQUIREMENTS.md)** — 切换类型、统一状态机、TransitionSpec、策略库、12+ 案例。

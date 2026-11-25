@@ -7,7 +7,8 @@
 | `04_真机与模型数据/运控模型库/真机/qd1_t2d0/模型/*.onnx` | 约 926 MB（183 份） | 二进制、体积大、网页 GPT 不能读 | 用 `raw/t1/model_lists/model-network-stats.csv`、`rl-runner-weights.csv`、`obs-layout.csv` 核对 I/O、参数量、obs 维度 |
 | `03_参考库/roboto_origin-main` 全树 | 约 2.1 GB | 含第三方、子模块、二进制 | 本包 `raw/roboparty/` 已含 `roboparty_deploy` 的 README/配置/推理源码/脚本；完整树在本地 |
 | 真机二进制（`libmc_common_runner.so` 等） | 约 1.5 GB | 二进制 | 结论来自文档/符号分析；不要把二进制行为当运行验证 |
-| `res/` 下全部 motion CSV（132 份）与 NPZ | 数十 MB | 数量大、二进制 | `motion_list.yaml` 有全量清单；本包仅放 4 份代表性 CSV |
+| `res/` 下全部 motion CSV（132 份）与 NPZ | 27 MB + 27 MB | 数量大、二进制 | `motion_list.yaml` 有全量清单；本包仅放 4 份代表性 CSV |
+| T1 `task_engine/cfg` 全量（101 份，约 1 MB） | 约 1 MB | 与本轮 YAML/切换设计相关性低于 MC 配置 | 本包选 13 份与动作/变形/姿态/编排相关的 T1 配置；全量在本地 |
 | SDK 示例源码树 / OpenCV 第三方 | 数百 MB | 与本轮设计无关 | 需要时看 `raw/docs/t1_mc_decomposition.md` 的接口摘录 |
 | 历史站点报告 / 重复文件 / 旧快照 | 数百 MB | 已被当前文档取代 | 见 `99_归档/`（本地） |
 
