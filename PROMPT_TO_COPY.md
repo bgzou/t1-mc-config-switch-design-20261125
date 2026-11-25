@@ -36,7 +36,7 @@
 | P0 | `packs/03_T1_SWITCHING_EVIDENCE.md` | 变身全流程、6 条过渡策略、相位表、重力包络、落位、退出判据、T1 踩坑 |
 | P0 | `packs/05_ROBOPARTY_DEPLOY.md` | `robot.yaml`、7 份策略配置、`inference_node`/`ros_interface`/`obs_manager`/`robot_interface` 源码、`motion_player.py`、launch/start |
 | P0 | `packs/01_T1_SYSTEM_CONFIGS.md` | `mc_T1`、`action_setting`、`action_state`、`action_ruler`、`security_guard`、`robot_model`、`motion_list`、设备/系统模式/进程配置 |
-| P1 | `packs/02_T1_POLICY_CONFIGS.md` | 48 份 RL 配置 + 13 份经典配置；重点看 `quad_walk`、`quad_step`、`bi_wbc_run`、`quad_to_bi_run`、`bi_to_quad_run`、`classic/quad_stand_default`、`classic/damping_default` |
+| P1 | `packs/02_T1_POLICY_CONFIGS.md` | 代表性 RL/经典配置（**raw 有全量 48 份 RL + 13 份 classic**）；重点看 `quad_walk`、`quad_step`、`bi_wbc_run`、`quad_to_bi_run`、`bi_to_quad_run`、`classic/quad_stand_default`、`classic/damping_default` |
 | P1 | `packs/04_T1_SAFETY_AND_INPUTS.md` | 安全八层、三通道跌倒、速度源仲裁、超时族、恢复 |
 | P1 | `packs/06_MODELS_AND_OBS.md` | 42 个 RL 条目、34 份权重、obs 布局、网络统计、动作→执行组→runner |
 | P1 | `packs/07_INTERFACES_AND_UPSTREAM.md` | MC 接口目录、任务引擎配置、需求原文 |

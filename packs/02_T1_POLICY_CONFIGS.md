@@ -1,8 +1,10 @@
-# 02_T1_POLICY_CONFIGS · T1 全部 RL/经典策略配置
+# 02_T1_POLICY_CONFIGS · T1 代表性 RL/经典策略配置（raw 有全量 48+13）
 
 > 自动生成的阅读包：把多个原始文件按主题拼接，便于一次读多份。
 > 引用行号/上下文时请回到 `raw/` 下的同名文件；`FILE:` 行给出原始路径。
 > 文件数：29
+
+> 注：本包是代表性节选；全量 48 份 RL + 13 份 classic 配置在 `raw/t1/config/rl/` 与 `raw/t1/config/classic/`。
 
 ---
 

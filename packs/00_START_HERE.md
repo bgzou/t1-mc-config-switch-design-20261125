@@ -5,7 +5,7 @@
 | 包 | 主题 | 文件数 | 字节 |
 |---|---|---:|---:|
 | `packs/01_T1_SYSTEM_CONFIGS.md` | T1 系统/动作/图/安全/设备配置 | 13 | 135,345 |
-| `packs/02_T1_POLICY_CONFIGS.md` | T1 全部 RL/经典策略配置 | 29 | 121,022 |
+| `packs/02_T1_POLICY_CONFIGS.md` | T1 代表性 RL/经典策略配置（raw 有全量 48+13） | 29 | 121,184 |
 | `packs/03_T1_SWITCHING_EVIDENCE.md` | T1 变身/切换/过渡证据 | 16 | 156,021 |
 | `packs/04_T1_SAFETY_AND_INPUTS.md` | T1 安全/速度源/超时 | 5 | 90,183 |
 | `packs/05_ROBOPARTY_DEPLOY.md` | roboparty_deploy 基线（配置+源码） | 20 | 166,327 |
