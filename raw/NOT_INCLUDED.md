@@ -9,6 +9,7 @@
 | 真机二进制（`libmc_common_runner.so` 等） | 约 1.5 GB | 二进制 | 结论来自文档/符号分析；不要把二进制行为当运行验证 |
 | `res/` 下全部 motion CSV（132 份）与 NPZ | 27 MB + 27 MB | 数量大、二进制 | `motion_list.yaml` 有全量清单；本包仅放 4 份代表性 CSV |
 | T1 `task_engine/cfg` 全量（101 份，约 1 MB） | 约 1 MB | 与本轮 YAML/切换设计相关性低于 MC 配置 | 本包选 13 份与动作/变形/姿态/编排相关的 T1 配置；全量在本地 |
+| T1 厂商原始章节 / SDK 说明（`qiliang_T1Pro报告库`，约 1 MB） | 约 1 MB | 第三方独立仓库，未在本包再发布 | 用本包的 `raw/docs/t1_architecture_deep_dive.md`、`t1_morphing_and_switch.md`、`t1_safety_design.md` 等综合文档；需要原文时在本地 `03_参考库/qiliang_T1Pro报告库/docs/` 查 |
 | SDK 示例源码树 / OpenCV 第三方 | 数百 MB | 与本轮设计无关 | 需要时看 `raw/docs/t1_mc_decomposition.md` 的接口摘录 |
 | 历史站点报告 / 重复文件 / 旧快照 | 数百 MB | 已被当前文档取代 | 见 `99_归档/`（本地） |
 
