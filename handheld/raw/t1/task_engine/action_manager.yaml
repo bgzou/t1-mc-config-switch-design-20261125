@@ -1,0 +1,147 @@
+version: 1
+
+# policies[running_category][incoming_category]: parallel | override | reject
+# 技能类别仲裁：按 running / incoming 的 TaskCategory 匹配。
+#
+# policies.<group>.task_types[incoming_task_type]: parallel | override | reject
+# TaskType 细粒度仲裁：running 任务类型由 group 决定
+#   - follow：FollowTask 运行中
+#   - SelfCheckTask：低电保护 / 摔倒阻尼 / 关机等运行中
+
+default: parallel
+
+all_parallel: &all_parallel
+  motion: parallel
+  audio: parallel
+  emoticon: parallel
+  light: parallel
+
+all_reject: &all_reject
+  motion: reject
+  audio: reject
+  emoticon: reject
+  light: reject
+
+# define in: https://primebot.feishu.cn/wiki/BoaYwCRG8ihSsgksnTmcSlfvnNd
+policies:
+  touch:
+    motion: override
+    follow: override
+    touch: reject
+    idle: reject
+
+  motion:
+    motion: override
+    follow: override
+    touch: reject
+    idle: reject
+
+  follow:
+    motion: reject
+    follow: override
+    touch: reject
+    idle: reject
+    audio: parallel
+    task_types:
+      AnimationTask: reject  # 允许的动作见 follow_context_gate（模式并行 / 姿态取消跟随）
+      PlayCustomMotionTask: reject
+      RecordTask: reject
+      ArrangeTask: reject
+      AgentFlowTask: reject
+      TouchTask: reject
+      IdleTask: reject
+      InteractionTask: reject
+      RcTask: override
+      MoveTask: parallel
+      SelfCheckTask: override
+      PostProcessTask: override
+      SpeechTask: parallel
+
+  SelfCheckTask:
+    task_types:
+      FollowTask: reject
+      NavigationTask: reject
+      ChargePointSitTask: reject
+      TouchTask: reject
+      IdleTask: reject
+      SelfCheckTask: reject  # 同类任务正在执行时拒绝新来的，由上层重试
+      AgentFlowTask: reject
+
+  PostProcessTask:
+    task_types:
+      AnimationTask: reject
+
+  RecordTask:
+    task_types:
+      FollowTask: reject
+      NavigationTask: reject
+      ChargePointSitTask: reject
+      AgentFlowTask: reject
+
+  PlayCustomMotionTask:
+    task_types:
+      FollowTask: reject
+      NavigationTask: reject
+      ChargePointSitTask: reject
+      AgentFlowTask: reject
+
+  ArrangeTask:
+    task_types:
+      AgentFlowTask: reject
+
+  RcTask:
+    task_types:
+      AgentFlowTask: reject
+
+  SceneTask:
+    task_types:
+      FollowTask: reject
+      NavigationTask: reject
+      ChargePointSitTask: reject
+      RcTask: reject
+      RecordTask: reject
+      PlayCustomMotionTask: reject
+      ArrangeTask: reject
+      AgentFlowTask: reject
+      MoveTask: reject
+      AnimationTask: reject
+      TouchTask: reject
+      IdleTask: reject
+      InteractionTask: reject
+      SpeechTask: reject
+      SetModeTask: reject
+      GyroCtrlTask: reject
+      PostProcessTask: reject
+      McCommonTask: reject
+      OrbitShotTask: reject
+      HitchcockTask: reject
+      GroupPhotoTask: reject
+      MapLocalizationTask: reject
+      ChargePointSetupTask: reject
+      TextTask: reject
+      PhotoTask: reject
+      LowBatteryTask: reject
+      PowerSaveTask: reject
+      EmotionTask: reject
+      LightTask: reject
+      TimeTask: reject
+
+  AgentFlowTask:
+    task_types:
+      FollowTask: reject
+      NavigationTask: reject
+      ChargePointSitTask: reject
+      RcTask: reject
+      RecordTask: reject
+      PlayCustomMotionTask: reject
+      ArrangeTask: reject
+      SelfCheckTask: override
+      MoveTask: override
+      AnimationTask: override
+      AgentFlowTask: reject
+
+  idle:
+    motion: override
+    follow: override
+    touch: override
+    idle: override

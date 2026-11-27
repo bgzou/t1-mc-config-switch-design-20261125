@@ -1,0 +1,29 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from aimdk_msgs/mc/motion/McMotionType.msg
+// generated code does not contain a copyright notice
+
+
+module aimdk_msgs {
+  module msg {
+    module McMotionType_Constants {
+      @verbatim (language="comment", text=
+        "NONE")
+      const int32 NONE = 0;
+      @verbatim (language="comment", text=
+        "动画，上肢动作")
+      const int32 ANIMATION = 1;
+      @verbatim (language="comment", text=
+        "模仿")
+      const int32 MIMIC = 2;
+      @verbatim (language="comment", text=
+        "基座")
+      const int32 FOUNDATION = 3;
+      @verbatim (language="comment", text=
+        "运动跟踪")
+      const int32 MIMIC_OPENSOURCE = 4;
+    };
+    struct McMotionType {
+      int32 value;
+    };
+  };
+};

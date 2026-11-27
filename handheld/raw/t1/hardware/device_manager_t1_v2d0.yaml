@@ -1,0 +1,262 @@
+aimrt:
+  main_thread:
+    name: device_manager
+    # thread_sched_policy: SCHED_RR:80 # SCHED_OTHER | SCHED_FIFO:xx | SCHED_RR:xx ver = 0.2.2
+    # thread_bind_cpu: [ 6 ]
+  guard_thread:
+    name: guard_thread
+    thread_sched_policy: SCHED_OTHER
+    thread_bind_cpu: []
+
+  log:
+    core_lvl: Error           # 内核日志等级 可选项:Trace/Debug/Info/Warn/Error/Fatal/Off (不区分大小写)
+    default_module_lvl: Info  # 模块日志等级 可选项:Trace/Debug/Info/Warn/Error/Fatal/Off (不区分大小写)
+    backends:
+    - type: console # 控制台日志配置
+      options:
+        color: true
+        pattern: "[%c.%f][%l][%t][%G:%R] %v"
+        module_filter: "(.*)"
+    - type: rotate_file # 文件日志
+      options:
+        path: ${LOG_PATH}  # 日志文件路径
+        filename: device_manager.log   # 日志文件名称
+        max_file_size_m: 10 # 日志文件最大尺寸，单位m
+        max_file_num: 10    # 最大日志文件数量，0代表无限
+        pattern: "[%c.%f][%l][%t][%G:%R] %v"
+
+  plugin:
+    plugins:
+    - name: nsm_plugin
+      path: libaimrt_nsm_plugin.so
+      options:
+        node_name: ${EM_APP_NAME}
+        state_reporting_executor: nsm_state_reporting_executor
+        state_reporting_period:
+          value: 1
+          unit: sec
+        modules_processing_executor: nsm_modules_processing_executor
+    - name: ros2_plugin
+      path: ../lib/libaimrt_ros2_plugin.so
+      options:
+        node_name: device_manager_node
+        executor_name: rt_topic_sub
+        executor_type: StaticSingleThreaded # SingleThreaded/StaticSingleThreaded/MultiThreaded
+        # TODO(caojin): AimRT v1.2.0 不支持当前字段配置
+        # executor_sched_policy: SCHED_OTHER # SCHED_OTHER | SCHED_FIFO:xx | SCHED_RR:xx ver = 0.2.2
+        # executor_bind_cpus: []
+    - name: iceoryx_plugin
+      path: ../lib/libaimrt_iceoryx_plugin.so
+      options:
+        runtime_id: device_manager_node
+        shm_init_size: 4096
+
+  executor:
+    executors:
+    - type: asio_thread
+      name: nsm_state_reporting_executor
+    - type: asio_thread
+      name: nsm_modules_processing_executor
+    - name: rt_dev_ioctl
+      type: asio_thread
+      options:
+        thread_num: 2
+        thread_bind_cpu: [ 2 ]
+        thread_sched_policy: SCHED_RR:80 # SCHED_OTHER | SCHED_FIFO:xx | SCHED_RR:xx ver = 0.2.2
+    - name: rt_dev_poll
+      type: asio_thread
+      options:
+        thread_num: 1
+        thread_bind_cpu: [ 2 ]
+        thread_sched_policy: SCHED_RR:80 # SCHED_OTHER | SCHED_FIFO:xx | SCHED_RR:xx ver = 0.2.2
+    - name: rt_topic_pub
+      type: asio_thread
+      options:
+        thread_num: 1
+        thread_sched_policy: SCHED_RR:80 # SCHED_OTHER | SCHED_FIFO:xx | SCHED_RR:xx ver = 0.2.2
+        thread_bind_cpu: [ 2 ]
+    - name: st_topic_pub
+      type: asio_thread
+      options:
+        thread_num: 1
+        thread_bind_cpu: [  ]
+        thread_sched_policy: SCHED_OTHER # SCHED_OTHER | SCHED_FIFO:xx | SCHED_RR:xx ver = 0.2.2
+    - name: rpc_executor
+      type: asio_thread
+      options:
+        thread_num: 1
+        thread_bind_cpu: [  ]
+        thread_sched_policy: SCHED_OTHER
+    - name: rpc_handle
+      type: time_wheel
+      options:
+        bind_executor: rpc_executor
+
+  channel:
+    backends:
+    - type: local
+    - type: ros2
+      options:
+        pub_topics_options:
+        - topic_name: "/aima/hal/joint/info"
+          qos:
+            history: keep_last
+            depth: 1
+            reliability: reliable
+            durability: transient_local        
+        - topic_name: "(.*)"
+          qos:
+            reliability: best_effort
+        sub_topics_options:
+        - topic_name: "(.*)"
+          qos:
+            reliability: best_effort
+    - type: iceoryx
+      options:
+        listener_thread_name: "rt_iceoryx_sub"
+        listener_thread_sched_policy: SCHED_RR:85 # SCHED_OTHER | SCHED_FIFO:xx | SCHED_RR:xx ver = 0.2.2
+        listener_thread_bind_cpu: [ 2 ]
+
+    sub_topics_options:
+    # ros2数据类型 aimdk_msgs::msg::JointCommandArray
+    - topic_name: /aima/hal/joint/command
+      enable_backends: 
+      - ${TOPIC_ENABLE_BACKENDS}
+    # ros2数据类型 aimdk_msgs::msg::SmSystemState
+    - topic_name: /aima/sm/system_state
+      enable_backends:
+      - ros2
+    pub_topics_options:
+    - topic_name: /aima/hal/imu/torso/state
+      enable_backends:
+      - ${TOPIC_ENABLE_BACKENDS}
+    # ros2数据类型 aimdk_msgs::msg::JointInfoArray
+    - topic_name: /aima/hal/joint/info
+      enable_backends:
+      - ros2
+    # ros2数据类型 aimdk_msgs::msg::JointCommandArray
+    - topic_name: /aima/hal/joint/mujoco/command
+      enable_backends:
+      - ros2
+    # ros2数据类型 aimdk_msgs::msg::DiagnosticInfoArray
+    - topic_name: /aima/hds/diagnostic_list
+      enable_backends:
+      - ros2
+    # ros2数据类型 aimdk_msgs::msg::JointStateArray
+    - topic_name: /aima/hal/joint/state
+      enable_backends: 
+      - ${TOPIC_ENABLE_BACKENDS}
+
+  rpc:
+    backends:
+    - type: ros2
+      options:
+        timeout_executor: rpc_handle
+    clients_options:
+    - func_name: "(.*)"
+      enable_backends: [ ros2 ]
+
+  module:
+    pkgs:
+    - path: ../lib/libdevice_manager_pkg.so
+      enable_modules: [ MotorModule ]
+
+# CANFDModule模块自定义配置
+MotorModule:
+  manager:
+    publish_interval_ms: 2
+    upper_node:
+      name: "upper_node"
+      device:
+        name: "can0"
+        bitrate: 1000000
+        sample_point: 80
+        data_bitrate: 5000000
+        data_sample_point: 75
+      config:
+        name: [ "(J1)左臂关节1", "(J2)左臂关节2", "(J3)左臂关节3", "(J1)右臂关节1", "(J2)右臂关节2", "(J3)右臂关节3" ]
+        urdf_name: [ "FL_HIP_ROLL_Joint", "FL_HIP_PITCH_Joint", "FL_KNEE_Joint", "FR_HIP_ROLL_Joint", "FR_HIP_PITCH_Joint", "FR_KNEE_Joint" ]
+        module_id: [ 0x34, 0x34, 0x34, 0x34, 0x34, 0x34 ]
+        submodule_id: [ 0x11, 0x12, 0x13, 0x21, 0x22, 0x23 ]
+        offset: [ -0.4712, -1.2217, -2.618, 0.4712, -1.2217, -2.618 ]
+        direction: [ 1, 1, 1, 1, -1, -1 ]
+        min_limits: [ -0.4712, -1.2217, -2.618, -0.4712, -1.2217, -2.618 ]
+        max_limits: [ 0.4712, 4.3633, 2.6180, 0.4712, 4.3633, 2.6180 ]
+        mit_params:
+          [
+            # pMin | pMax | vMin | vMax | tMin | tMax | kpMin | kpMax | kdMin | kdMax
+            [ -10, 10.0, -60, 60.0, -60, 60.0, 0.0, 500.0, 0.0, 10.0 ], # FL_HIP_ROLL_Joint
+            [ -10, 10.0, -60, 60.0, -60, 60.0, 0.0, 500.0, 0.0, 10.0 ], # FL_HIP_PITCH_Joint
+            [ -10, 10.0, -60, 60.0, -60, 60.0, 0.0, 500.0, 0.0, 10.0 ], # FL_KNEE_Joint
+            [ -10, 10.0, -60, 60.0, -60, 60.0, 0.0, 500.0, 0.0, 10.0 ], # FR_HIP_ROLL_Joint
+            [ -10, 10.0, -60, 60.0, -60, 60.0, 0.0, 500.0, 0.0, 10.0 ], # FR_HIP_PITCH_Joint
+            [ -10, 10.0, -60, 60.0, -60, 60.0, 0.0, 500.0, 0.0, 10.0 ] # FR_KNEE_Joint
+          ]
+    lower_node:
+      name: "lower_node"
+      device:
+        name: "can1"
+        bitrate: 1000000
+        sample_point: 80
+        data_bitrate: 5000000
+        data_sample_point: 75
+      config:
+        name: [ "(J1)左腿关节1", "(J2)左腿关节2", "(J3)左腿关节3", "(J4)左腿关节4", "(J1)右腿关节1", "(J2)右腿关节2", "(J3)右腿关节3", "(J4)右腿关节4" ]
+        urdf_name: [ "RL_HIP_ROLL_Joint", "RL_HIP_PITCH_Joint", "RL_KNEE_Joint", "RL_FOOT_Joint", "RR_HIP_ROLL_Joint", "RR_HIP_PITCH_Joint", "RR_KNEE_Joint", "RR_FOOT_Joint" ]
+        module_id: [ 0x34, 0x34, 0x34, 0x34, 0x34, 0x34, 0x34, 0x34 ]
+        submodule_id: [ 0x41, 0x42, 0x43, 0x44, 0x51, 0x52, 0x53, 0x54 ]
+        offset: [ -1.5708, 3.1416, -2.5307, 0, 1.5708, 3.1416, -2.5307, 0 ]
+        direction: [ -1, 1, 1, 1, -1, -1, -1, -1 ]
+        min_limits: [ -1.5708, 0, -2.5307, -10, -1.5708, 0, -2.5307, -10 ]
+        max_limits: [ 1.5708, 3.1416, -0.1745, 10.0, 1.5708, 3.1416, -0.1745, 10.0 ]
+        mit_params:
+          [
+            # pMin | pMax | vMin | vMax | tMin | tMax | kpMin | kpMax | kdMin | kdMax
+            [ -10, 10.0, -60, 60.0, -60, 60.0, 0.0, 500.0, 0.0, 10.0 ], # RL_HIP_ROLL_Joint
+            [ -10, 10.0, -60, 60.0, -60, 60.0, 0.0, 500.0, 0.0, 10.0 ], # RL_HIP_PITCH_Joint
+            [ -10, 10.0, -60, 60.0, -60, 60.0, 0.0, 500.0, 0.0, 10.0 ], # RL_KNEE_Joint
+            [ -10, 10.0, -60, 60.0, -60, 60.0, 0.0, 500.0, 0.0, 10.0 ], # RL_FOOT_Joint
+            [ -10, 10.0, -60, 60.0, -60, 60.0, 0.0, 500.0, 0.0, 10.0 ], # RR_HIP_PITCH_Joint
+            [ -10, 10.0, -60, 60.0, -60, 60.0, 0.0, 500.0, 0.0, 10.0 ], # RR_HIP_ROLL_Joint
+            [ -10, 10.0, -60, 60.0, -60, 60.0, 0.0, 500.0, 0.0, 10.0 ], # RR_KNEE_Joint
+            [ -10, 10.0, -60, 60.0, -60, 60.0, 0.0, 500.0, 0.0, 10.0 ] # RR_FOOT_Joint
+          ]
+
+  # Standard Topic Manager Configuration
+  st_topic_manager:
+    enable: true
+    executor: st_topic_pub
+    basic_interval_ms: 2
+    joint_info_node:
+      enable: false
+      topic: "/aima/hal/joint/info"
+      tick_interval: 5000
+    joint_mujoco_node:
+      enable: false
+      topic: "/aima/hal/joint/mujoco/command"
+      tick_interval: 500
+    hds_diagnostic_node:
+      enable: true
+      topic: "/aima/hds/diagnostic_list"
+      tick_interval: 500
+
+  # Read-Time Topic Manager Configuration
+  rt_imu_topic_manager:
+    enable: true
+    executor: rt_topic_pub
+    topic: "/aima/hal/imu/torso/state"
+    publish_interval_ms: 2
+
+  rt_joint_topic_manager:
+    enable: true
+    executor: rt_topic_pub
+    topic: "/aima/hal/joint/state"
+    publish_interval_ms: 1
+
+  sub_topic_manager:
+    joint_command_node:
+      enable: true
+      topic: "/aima/hal/joint/command"
+    system_state_node:
+      enable: false
+      topic: "/aima/sm/system_state"

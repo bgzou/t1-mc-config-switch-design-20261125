@@ -1,0 +1,74 @@
+# 主动交互 / 定时任务（主动发起的对话、情感表达、定时提醒等）
+task_base:
+  enable: true
+  task_name: interaction
+  task_type: long_task
+  real_task_type: InteractionTask
+  priority: 30
+  permission_level: normal
+  allow_preempt: true
+  track_running_state: true
+  timing_cycle_ms: 0
+  need_confirm: false
+allow_source: []
+allow_velocity_source: []
+velocity_source_block_robots: []
+precondition:
+  allow_posture: []
+  block_posture: []
+  battery_min_percent: 0
+  allow_charging_state: true
+  check_app_conn: false
+  check_cloud_conn: false
+  check_network: false
+  check_log_sync: false
+alarm_condition:
+  allow_mode: exclude
+  allow_levels: []
+  exclude_levels: [fatal]
+motion_condition:
+  allow_motion_state: []
+  allow_preempt_running_task: false
+arbitration_policy:
+  - task_name: interaction
+    action: reject     # 主动交互运行中拒绝
+  - task_name: move
+    action: reject       # 碰撞规避运行中拒绝
+  - task_name: app_joystick_ctrl
+    action: override     # T1: 覆盖基础运动操控
+  - task_name: upper_body
+    action: reject       # 上肢动作运行中拒绝
+  - task_name: whole_body
+    action: reject       # 全身动作运行中拒绝（T1）
+  - task_name: posture
+    action: override     # 姿态变换运行中拒绝
+  - task_name: follow
+    action: parallel     # 与智能跟随并行
+  - task_name: navigation
+    action: parallel     # 与室内导航并行
+  - task_name: camera_move
+    action: reject       # 跟拍运镜运行中拒绝
+  - task_name: idle
+    action: parallel     # 与闲时行为并行
+  - task_name: wake_turn
+    action: reject       # 唤醒反馈运行中拒绝
+  - task_name: touch
+    action: parallel     # 与抚摸响应并行
+  - task_name: app_gyro_ctrl
+    action: parallel     # 与远程遥控并行
+  - task_name: app_canvas
+    action: reject   # 画图模式运行中拒绝
+  - task_name: app_teach_demo
+    action: reject   # 动作示教运行中拒绝
+  - task_name: factory_reset
+    action: reject   # 出厂重置运行中拒绝
+  - task_name: localization
+    action: parallel # 与定位并行
+  - task_name: mapping
+    action: parallel # 与建图并行
+  - task_name: motion_playback
+    action: reject   # 动作回放运行中拒绝
+  - task_name: motion_record
+    action: reject   # 动作录制运行中拒绝
+  - task_name: shutdown
+    action: reject   # 关机运行中拒绝

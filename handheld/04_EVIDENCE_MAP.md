@@ -36,6 +36,12 @@
 | E26 | 视觉失败时身体接管（现象） | `t1-pro-orin-rk-analysis.md` UC3 时间线（二手） | W |
 | E27 | 牵手时仍在跌倒监控名单里 | `security_guard.yaml` · `monitored_actions_biped` 含 `BIPED_LOCOMOTION_WBC`、`BIPED_GIMBAL` | S |
 | E28 | 跌倒兜底目标是阻尼（实测 11 ms） | 同 E6 + 安全文档实测记录 | S（配置）/ W（11 ms 为文档实测） |
+| E29 | 真机进 300 的路径：14:35:13.982 11 → 14:35:18.822 300 | `raw/logs/uc3_state_timeline.csv` / `uc3_enter_biped.log` | S（实测） |
+| E30 | held 首次 true 在 14:37:24.205，动作仍为 300 | 同上 | S（实测） |
+| E31 | held 在 300 内多次 on/off（24.4/15.2/38.5 s…），动作始终不变 | 同上 | S（实测） |
+| E32 | 牵手期间 `hand_held=3`（RIGHT_HELD_ONLY）、`form=2` | 同上 | S（实测） |
+| E33 | `[FLW] state` 在 held 置位时从 0→1（目标丢失） | `raw/logs/uc3_follow_window.log` | S（实测） |
+| E34 | Q2B/变身 runner 有重力包络、`max_cycle_time`、`stand_actions` | `raw/t1/qd1_t2d0/rl/quad_to_bi_rotate_run.yaml`、`bi_to_quad_run.yaml` | S |
 
 ---
 

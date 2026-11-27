@@ -1,0 +1,86 @@
+# 移动（仅做前置仲裁，不记录运行态；实际移动由 PlayMove 派发）
+task_base:
+  enable: true
+  task_name: move
+  task_type: short_task
+  real_task_type: MoveTask
+  priority: 70
+  permission_level: normal
+  allow_preempt: false
+  track_running_state: false
+  timing_cycle_ms: 0
+  need_confirm: false
+allow_source: []
+allow_velocity_source: [interaction, task_engine]
+velocity_source_block_robots: [Q1]
+odom_condition:
+  require_trusted: true
+  allow_untrusted:
+    - name: rest_posture_move_recovery
+      odom_status: [ANY]
+      mc_action: [PASSIVE_DEFAULT, QUADRUPED_GET_DOWN_DEFAULT, QUADRUPED_SIT_DOWN_DEFAULT]
+precondition:
+  allow_posture: []
+  block_posture:
+    - DAMPING_DEFAULT
+    - LYING_DEFAULT
+    - LIE_FACE_UP
+    - LIE_FACE_DOWN
+    - STORE_DEFAULT
+  battery_min_percent: 1
+  allow_charging_state: false
+  check_app_conn: false
+  check_cloud_conn: false
+  check_network: false
+  check_log_sync: false
+alarm_condition:
+  allow_mode: exclude
+  allow_levels: []
+  exclude_levels: [fatal]
+motion_condition:
+  allow_motion_state: [idle, preemptable, running]
+  allow_preempt_running_task: false
+arbitration_policy:
+  - task_name: move
+    action: reject     # 碰撞规避运行中拒绝
+    ignore_if_running: [follow]  # 跟随中的 is_moving 不阻断室内/户外切模预检查
+  - task_name: posture
+    action: override     # 覆盖姿态变换动作
+  - task_name: app_joystick_ctrl
+    action: override     # 覆盖基础运动操控
+  - task_name: upper_body
+    action: override     # 覆盖上肢动作
+  - task_name: whole_body
+    action: override     # 覆盖全身动作
+  - task_name: follow
+    action: override     # 覆盖智能跟随
+  - task_name: navigation
+    action: override     # 覆盖室内导航
+  - task_name: camera_move
+    action: override     # 覆盖跟拍运镜
+  - task_name: idle
+    action: override     # 覆盖闲时行为
+  - task_name: wake_turn
+    action: override     # 覆盖唤醒反馈
+  - task_name: interaction
+    action: parallel     # 与主动交互并行
+  - task_name: touch
+    action: override     # 覆盖抚摸响应
+  - task_name: app_gyro_ctrl
+    action: reject       # 陀螺仪玩法运行中拒绝移动
+  - task_name: app_canvas
+    action: reject   # 画图模式运行中拒绝
+  - task_name: app_teach_demo
+    action: reject   # 动作示教运行中拒绝
+  - task_name: factory_reset
+    action: reject   # 出厂重置运行中拒绝
+  - task_name: localization
+    action: override # 覆盖定位
+  - task_name: mapping
+    action: override # 覆盖建图
+  - task_name: motion_playback
+    action: reject   # 动作回放运行中拒绝
+  - task_name: motion_record
+    action: reject   # 动作录制运行中拒绝
+  - task_name: shutdown
+    action: reject   # 关机运行中拒绝

@@ -1,0 +1,309 @@
+aimrt:
+  configurator:
+    temp_cfg_path: /tmp/robot-run/proc/mc/cfg
+  log:
+    core_lvl: Info
+    default_module_lvl: Info
+    backends:
+      - type: console
+        options:
+          pattern: "[%c.%f][%l][%t][%G:%R] %v"
+      - type: rotate_file
+        options:
+          path: /robot/persist/log/mc
+          filename: mc.log
+          pattern: "[%c.%f][%l][%t][%G:%R] %v"
+          max_file_size_m: 50
+          max_file_num: 6
+          enable_sync: true
+          sync_interval_ms: 1000
+          sync_executor_name: default_log_sync_executor
+  plugin:
+    plugins:
+      - name: iceoryx_plugin
+        path: libaimrt_iceoryx_plugin.so
+        options:
+          shm_init_size: 4096
+      - name: sm_plugin
+        path: libaimrt_sm_plugin.so
+      - name: ros2_plugin
+        path: libaimrt_ros2_plugin.so
+        options:
+          node_name: mc_ros2_node
+          executor_type: MultiThreaded
+          executor_thread_num: 2
+          executor_name: ros2_executor
+          executor_bind_cpus:
+            - 3
+      - name: nsm_plugin
+        path: libaimrt_nsm_plugin.so
+        options:
+          node_name: mc
+          state_reporting_executor: nsm_state_reporting_executor
+          state_reporting_period:
+            value: 1
+            unit: sec
+          modules_processing_executor: nsm_modules_processing_executor
+  channel:
+    backends:
+      - type: iceoryx
+        options:
+          listener_thread_name: rt_iceoryx_sub
+          listener_thread_sched_policy: SCHED_RR:85
+          listener_thread_bind_cpu: [3]
+      - type: sm
+        options:
+          sub_default_executor: mc_sm_thread
+          sub_topic_options:
+            - topic_name: (.*)
+      - type: ros2
+        options:
+          pub_topics_options:
+            - topic_name: (.*)
+              use_serialized: false
+              qos:
+                history: keep_last
+                depth: 10
+                reliability: best_effort
+                durability: volatile
+                liveliness: automatic
+                liveliness_lease_duration: -1
+          sub_topics_options:
+            - topic_name: (.*)
+              use_serialized: false
+              qos:
+                history: keep_last
+                depth: 10
+                reliability: best_effort
+                durability: volatile
+                liveliness: automatic
+                liveliness_lease_duration: -1
+      - type: local
+    pub_topics_options:
+      - topic_name: /aimrte/sm/node_state
+        enable_backends:
+          - ros2
+      - topic_name: /aima/hal/joint/command
+        enable_backends:
+          - iceoryx
+      - topic_name: /aima/mc/action/info
+        enable_backends:
+          - ros2
+      - topic_name: /aima/mc/common/state
+        enable_backends:
+          - ros2
+      - topic_name: /robot/trace/events
+        enable_backends:
+          - ros2
+      - topic_name: /aima/hds/diagnostic_list
+        enable_backends:
+          - ros2
+    sub_topics_options:
+      - topic_name: /aima/hal/joint/state
+        enable_backends:
+          - iceoryx
+      - topic_name: /aima/hal/imu/torso/state
+        enable_backends:
+          - iceoryx
+      - topic_name: /aima/mc/locomotion/velocity
+        enable_backends:
+          - ros2
+      - topic_name: /aima/mc/body_pose
+        enable_backends:
+          - ros2
+      - topic_name: /aima/mc/custom/joint/command
+        enable_backends:
+          - ros2
+      - topic_name: /aima/teleop_bridge/vr_data
+        enable_backends:
+          - ros2
+  rpc:
+    backends:
+      - type: ros2
+      - type: local
+    clients_options:
+      - func_name: (pb:/_/aimrte/sm/rpc/module_fallback/.*)
+        enable_backends:
+          - local
+      - func_name: (pb:/_/aimrte/sm/rpc/module_state_switch/.*)
+        enable_backends:
+          - local
+      - func_name: (.*)
+        enable_backends:
+          - ros2
+    servers_options:
+      - func_name: (pb:/_/aimrte/sm/rpc/module_fallback/.*)
+        enable_backends:
+          - local
+      - func_name: (pb:/_/aimrte/sm/rpc/module_state_switch/.*)
+        enable_backends:
+          - local
+      - func_name: (pb:/aimdk\.protocol\.SmNodeService/.*)
+        enable_backends:
+          - ros2
+      - func_name: (.*)
+        enable_backends:
+          - ros2
+  main_thread:
+    name: mc_main
+  guard_thread: {}
+  executor:
+    executors:
+      - type: asio_thread
+        name: rt_joint_pub
+        options:
+          thread_num: 1
+          thread_sched_policy: SCHED_RR:80
+          thread_bind_cpu:
+            - 3
+      - type: asio_thread
+        name: mc_sm_thread
+        options:
+          thread_num: 1
+          thread_sched_policy: SCHED_OTHER
+          thread_bind_cpu:
+            - 3
+      - type: asio_thread
+        name: com_data_pub
+        options:
+          thread_bind_cpu:
+            - 3
+      - type: asio_thread
+        name: event_trace_pub
+        options:
+          thread_num: 1
+      - type: asio_thread
+        name: hds_pub
+        options:
+          thread_num: 1
+      - type: asio_thread
+        name: main_executor
+      - type: asio_thread
+        name: common_server
+        options:
+          thread_num: 2
+      - type: asio_thread
+        name: MotionControlModule/hds_executor
+      - type: asio_thread
+        name: MotionControlModule/event_executor
+      - type: asio_thread
+        name: default_timeout_executor
+      - type: time_wheel
+        name: default_timeout_time_wheel
+        options:
+          bind_executor: default_timeout_executor
+          dt_us: 50000
+      - type: asio_thread
+        name: nsm_state_reporting_executor
+      - type: asio_thread
+        name: nsm_modules_processing_executor
+        options:
+          thread_num: 1
+      - type: asio_thread
+        name: default_log_sync_executor
+  module:
+    pkgs: []
+    modules:
+      - name: MotionControlModule
+MotionControlModule:
+  env_path: /robot/software/mc/bin
+  config_path: ./cfg/robot
+  resource_path: ../res
+  robot_name: qd1_t2d0
+  main_executor_name: main_executor
+  PublisherManager:
+    publisher_cfg_list:
+      - name: joint_command
+        topic: /aima/hal/joint/command
+        enable: true
+        frequency: 200
+        executor: rt_joint_pub
+        print_interval: 0
+      - name: mc_common_state
+        topic: /aima/mc/common/state
+        enable: true
+        frequency: 50
+        executor: com_data_pub
+        print_interval: 0
+      - name: event_trace
+        topic: /robot/trace/events
+        enable: true
+        frequency: 1
+        executor: event_trace_pub
+        print_interval: 0
+      - name: hds
+        topic: /aima/hds/diagnostic_list
+        enable: true
+        frequency: 1
+        executor: hds_pub
+        print_interval: 0
+  SubscriberManager:
+    subscriber_cfg_list:
+      - name: joint_state
+        topic: /aima/hal/joint/state
+        executor: rt_joint_sub
+        enable: true
+        wait_ready: true
+        print_interval: 0
+        pub_inter_frame_interval_ns: 10000000
+        recv_inter_frame_interval_ns: 10000000
+        pub_to_recv_delay_ns: 10000000
+      - name: imu_state
+        topic: /aima/hal/imu/torso/state
+        executor: rt_imu_sub
+        enable: true
+        wait_ready: true
+        print_interval: 0
+        pub_inter_frame_interval_ns: 10000000
+        recv_inter_frame_interval_ns: 10000000
+        pub_to_recv_delay_ns: 10000000
+      - name: locomotion_velocity
+        topic: /aima/mc/locomotion/velocity
+        enable: true
+        wait_ready: false
+        print_interval: 0
+      - name: custom_joint_command
+        topic: /aima/mc/custom/joint/command
+        enable: true
+        wait_ready: false
+        print_interval: 0
+  ServiceManager:
+    service_cfg_list:
+      - names:
+          - mc_get_action_service
+          - mc_set_action_service
+          - mc_set_preset_motion_service
+          - mc_get_preset_motion_state_service
+          - mc_set_robot_runtime_model_service
+          - mc_get_robot_runtime_model_service
+          - mc_set_input_source_service
+          - mc_get_current_input_source_service
+          - mc_set_motion_service
+          - mc_get_motion_service
+          - mc_motion_record_service
+        enable: true
+        executor: common_server
+        debug_print: false
+  InputManager:
+    input_sources:
+      - name: rc
+        priority: 80
+        timeout: 1000
+      - name: vr
+        priority: 70
+        timeout: 1000
+      - name: app_proxy
+        priority: 90
+        timeout: 1000
+      - name: interaction
+        priority: 80
+        timeout: 1000
+      - name: pnc
+        priority: 80
+        timeout: 1000
+      - name: app_proxy_t_mode
+        priority: 90
+        timeout: 1000
+      - name: insta360
+        priority: 90
+        timeout: 1000

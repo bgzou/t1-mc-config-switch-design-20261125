@@ -136,11 +136,33 @@ OUT action              [1, 14]
 - 9 份任务规则 `allow_held_state: false`：`posture`、`whole_body`、`upper_body`、`rc_joystick`、`rc_gyro`、`motion_teach`、`motion_record`、`motion_playback`、`factory_reset`。
 - `follow.yaml` **没有** `allow_held_state`，所以"跟随任务"可以与"被牵"共存——这是牵手跟随能成立的制度前提。
 
-## 2.8 真机观察（二手证据，仅作背景）
+## 2.8 真机日志实证（UC3，`c2_events.log`）
 
-`t1-pro-orin-rk-analysis.md` 的 UC3（326 s）记录：14:35:13 `QUADRUPED_TO_BIPED_ROTATE(11)` → 14:35:18 `BIPED_LOCOMOTION_WBC(300)` → 14:36:11 跟随任务启动但 `follow/state=1 未发现目标`（全程未锁定）→ 实际为"牵手带步"（用户握手、MC 力导引 WBC 步态随行）→ 14:40 结束。
+> 这是**实测**，不是二手转述；原始日志 10.8 MB 未打包，摘录见 `raw/logs/`。
 
-这段只说明"视觉失败但身体接管"的现象，不构成对算法的证明；引用时标 `[二手]`。
+设备端 2026-10-28 会话，UC3「牵手跟随」：
+
+| 时刻 | 事件 | 证据 |
+|---|---|---|
+| 14:35:13.982 | `QUADRUPED_TO_BIPED_ROTATE`(11) | `[MCA] action_desc` |
+| 14:35:18.822 | `BIPED_LOCOMOTION_WBC`(300) | 同上 |
+| 14:35:24.716 | `hand_held` 首次变为 1（BOTH_NOT_HELD），`form=2` | `[IST]` |
+| **14:37:24.205** | **`is_held: true`，`hand_held: 3`（RIGHT_HELD_ONLY）** | `[IST]` |
+| 14:37:48.634 | `is_held: false` | `[IST]` |
+| 14:39:30.427 | 再次 `true`（hand=3） | `[IST]` |
+| 14:39:45.661 | `false` | `[IST]` |
+| 14:40:02.221 | 再次 `true` | `[IST]` |
+| 14:40:40.760 | `false` | `[IST]` |
+| 14:40:46.385 | 再次 `true` | `[IST]` |
+
+**四个必须注意的实测事实**：
+
+1. **动作没变**：整个过程 `action_desc` 始终是 `BIPED_LOCOMOTION_WBC`。held 的 on/off 是动作内部状态，不是 Action 切换。
+2. **held 是多次 on/off**：24.4 s → 15.2 s → 38.5 s → …，不是"一牵就一直 true"。松手/换手会立刻反映到 `held_state`。
+3. **单右手**：`hand_held` 恒为 3（RIGHT_HELD_ONLY）；进入 300 后约 2 分 5 秒才首次 held，说明是外力触发，不是进入动作即置位。
+4. **视觉通路同时丢失**：`[FLW] state` 在 14:37:24 从 0 变 1（"未发现目标"），与"牵手遮挡相机"一致。
+
+**日志不能证明**：vx/yaw 的数值、关节角、`arm_drag` 中间量（日志只有 IST/MCA/FLW，没有 `McCommonState` 的速度/关节字段）。所以"解算公式"仍需靠配置推断 + 实验。
 
 ## 2.9 我们的当前假设（**不是证据**）
 

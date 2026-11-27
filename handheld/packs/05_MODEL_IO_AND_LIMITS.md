@@ -1,6 +1,6 @@
 # Pack 05 · 模型 IO、观测布局、关节限位、URDF
 
-重点：策略只有 49 维观测 + 10 帧历史，输出 14 维；没有力的输入。
+重点：策略只有 49 维观测 + 10 帧历史，输出 14 维；没有力的输入。`obs_layout.csv` 是全部 runner 的观测构成（含 WBC/GIMBAL 的 command(3)）。
 
 
 ===== FILE: raw/model_io.txt  (source: D:/Projects/Athena/运动控制/Collie/T1运控架构分析/05_GPT架构评审/20261127_handheld/input_bundle/raw/model_io.txt) =====
@@ -18,6 +18,124 @@ OUT action                   [1, 14]
 
 note: 49 = obs_nums in bi_wbc_run.yaml; 490 = 10-frame history; 14 = q_nums/action_nums.
 note: there is NO force/torque/hand-held input in the policy interface.
+
+
+===== FILE: raw/model_list/obs_layout.csv  (source: D:/Projects/Athena/运动控制/Collie/T1运控架构分析/05_GPT架构评审/20261127_handheld/input_bundle/raw/model_list/obs_layout.csv) =====
+
+配置,obs维度,dt,frame_stack,输入构成
+bi_backbend_run.yaml,50,0.01,10,imu_omega(3) + imu_euler(3) + pos(12) + vel(14) + action(14) + command(3) + phase(1)
+bi_dance.yaml,80,0.01,1,ref_qj(14) + ref_dqj(14) + anchor_rot6d(6) + gravity(3) + omega(3) + qj_err_no_wheels(12) + dqj(14) + last_action(14)
+bi_dance_30kp.yaml,80,0.01,1,ref_qj(14) + ref_dqj(14) + anchor_rot6d(6) + gravity(3) + omega(3) + qj_err_no_wheels(12) + dqj(14) + last_action(14)
+bi_gimbal.yaml,49,0.01,10,imu_omega(3) + imu_euler(3) + pos(12) + vel(14) + action(14) + command(3)
+bi_lingchuang_mimic.yaml,264,0.01,1,ref_qj(14) + ref_dqj(14) + anchor_rot6d(6) + hist5x46(230)
+bi_loco_animation.yaml,51,0.01,10,imu_omega(3) + imu_euler(3) + pos(12) + vel(14) + action(14) + command(1) + z(1) + yaw(1) + roll(1) + pitch(1)
+bi_mimic.yaml,51,0.01,10,imu_omega(3) + imu_euler(3) + pos(12) + vel(14) + action(14) + command(1) + z(1) + yaw(1) + roll(1) + pitch(1)
+bi_moonwalk.yaml,51,0.01,10,imu_omega(3) + imu_euler(3) + pos(12) + vel(14) + action(14) + command(4) + phase(1)
+bi_npz_mimic.yaml,83,0.02,1,command(31) + motion_anchor_ori_b(6) + projected_gravity(3) + base_ang_vel(3) + joint_pos(12) + joint_vel(14) + actions(14)
+bi_recovery.yaml,47,0.01,10,imu_omega(3) + imu_euler(3) + pos(12) + vel(14) + action(14) + phase(1)
+bi_rotate_local.yaml,57,0.01,10,imu_omega(3) + imu_euler(3) + pos(12) + vel(14) + action(14) + command(3) + contact(2) + q_ref(6)
+bi_run.yaml,49,0.01,10,imu_omega(3) + imu_euler(3) + pos(12) + vel(14) + action(14) + command(3)
+bi_split.yaml,50,0.01,10,imu_omega(3) + imu_euler(3) + pos(12) + vel(14) + action(14) + command(3) + phase(1)
+bi_to_quad_frontflip_run.yaml,52,0.01,10,imu_omega(3) + imu_euler(3) + pos(12) + vel(14) + action(14) + phase(6)
+bi_to_quad_rotate_run.yaml,54,0.01,10,imu_omega(3) + imu_euler(3) + pos(12) + vel(14) + action(14) + imu_yaw_diff(2) + phase(1) + rotate_phase(1) + q_ref(4)
+bi_to_quad_run.yaml,51,0.01,10,imu_omega(3) + imu_euler(3) + pos(12) + vel(14) + action(14) + phase(1) + q_ref(4)
+bi_walk.yaml,49,0.01,10,imu_omega(3) + imu_euler(3) + pos(12) + vel(14) + action(14) + command(3)
+bi_walk_height_run.yaml,52,0.01,10,imu_omega(3) + imu_euler(3) + pos(12) + vel(14) + action(14) + contact(2) + command(4)
+bi_walk_terrain.yaml,49,0.01,10,imu_omega(3) + imu_euler(3) + pos(12) + vel(14) + action(14) + command(3)
+bi_walk_terrain_old.yaml,51,0.01,10,imu_omega(3) + imu_euler(3) + command(3) + pos(12) + vel(14) + action(14) + contact(2)
+bi_wbc_dance.yaml,49,0.01,10,imu_omega(3) + imu_euler(3) + pos(12) + vel(14) + action(14) + command(3)
+bi_wbc_run.yaml,49,0.01,10,imu_omega(3) + imu_euler(3) + pos(12) + vel(14) + action(14) + command(3)
+bi_yuzuru.yaml,56,0.01,10,imu_omega(3) + imu_euler(3) + pos(12) + vel(14) + action(14) + command(3) + phase(1) + q_ref(6)
+bi_yuzuru0121.yaml,56,0.01,10,imu_omega(3) + imu_euler(3) + pos(12) + vel(14) + action(14) + command(3) + phase(1) + q_ref(6)
+bi_yuzuru1224.yaml,56,0.01,10,imu_omega(3) + imu_euler(3) + pos(12) + vel(14) + action(14) + command(3) + phase(1) + q_ref(6)
+quad_backflip_run.yaml,52,0.01,10,imu_omega(3) + imu_euler(3) + pos(12) + vel(14) + action(14) + phase(6)
+quad_body_adjust.yaml,52,0.01,10,imu_omega(3) + imu_euler(3) + pos(12) + vel(14) + action(14) + command(6)
+quad_frontflip_run.yaml,52,0.01,10,imu_omega(3) + imu_euler(3) + pos(12) + vel(14) + action(14) + phase(6)
+quad_handshake_run.yaml,47,0.01,10,imu_omega(3) + imu_euler(3) + pos(12) + vel(14) + action(14) + phase(1)
+quad_jump_run.yaml,47,0.01,10,imu_omega(3) + imu_euler(3) + pos(12) + vel(14) + action(14) + phase(1)
+quad_mimic.yaml,52,0.01,10,imu_omega(3) + imu_euler(3) + pos(12) + vel(14) + action(14) + command(6)
+quad_pushup.yaml,52,0.01,10,imu_omega(3) + imu_euler(3) + pos(12) + vel(14) + action(14) + command(6)
+quad_recovery.yaml,47,0.01,10,imu_omega(3) + imu_euler(3) + pos(12) + vel(14) + action(14) + phase(1)
+quad_run.yaml,57,0.01,10,imu_omega(3) + imu_euler(3) + pos(12) + vel(14) + action(14) + command(3) + cpg(8)
+quad_step.yaml,57,0.01,10,imu_omega(3) + imu_euler(3) + pos(12) + vel(14) + action(14) + command(3) + cpg(8)
+quad_to_bi_frontflip_run.yaml,47,0.01,10,imu_omega(3) + imu_euler(3) + pos(12) + vel(14) + action(14) + phase(1)
+quad_to_bi_rotate_run.yaml,54,0.01,10,imu_omega(3) + imu_euler(3) + pos(12) + vel(14) + action(14) + imu_yaw_diff(2) + phase(1) + rotate_phase(1) + q_ref(4)
+quad_to_bi_run.yaml,51,0.01,10,imu_omega(3) + imu_euler(3) + pos(12) + vel(14) + action(14) + phase(1) + q_ref(4)
+quad_walk.yaml,57,0.01,10,imu_omega(3) + imu_euler(3) + pos(12) + vel(14) + action(14) + command(3) + cpg(8)
+quad_walk_dance.yaml,52,0.01,10,imu_omega(3) + imu_euler(3) + pos(12) + vel(14) + action(14) + command(6)
+quad_walk_pleasure.yaml,50,0.01,10,imu_omega(3) + imu_euler(3) + pos(12) + vel(14) + action(14) + command(4)
+quad_walk_pride.yaml,50,0.01,10,imu_omega(3) + imu_euler(3) + pos(12) + vel(14) + action(14) + command(4)
+quad_walk_reverse.yaml,57,0.01,10,imu_omega(3) + imu_euler(3) + pos(12) + vel(14) + action(14) + command(3) + cpg(8)
+quad_walk_stretch.yaml,52,0.01,10,imu_omega(3) + imu_euler(3) + pos(12) + vel(14) + action(14) + command(6)
+quad_walk_terrain.yaml,57,0.01,10,imu_omega(3) + imu_euler(3) + pos(12) + vel(14) + action(14) + command(3) + cpg(8)
+quad_walk_twist.yaml,50,0.01,10,imu_omega(3) + imu_euler(3) + pos(12) + vel(14) + action(14) + command(4)
+
+
+===== FILE: raw/model_list/action_execution_runner.csv  (source: D:/Projects/Athena/运动控制/Collie/T1运控架构分析/05_GPT架构评审/20261127_handheld/input_bundle/raw/model_list/action_execution_runner.csv) =====
+
+action,kind,group,runner,cfg,type,period_ms,priority,onnx,onnx_ok,obs,act_dim,dt,stack
+security_guard,resident,0,security_guard_t1,,内置,50,0,,,,,,
+PASSIVE_DEFAULT,transition,0,passive_default,,内置,10,80,,,,,,
+DAMPING_DEFAULT,transition,0,damping_default_t1,./classic/damping_default.yaml,经典控制,2,80,,,,,,
+QUAD_LIE_DOWN,transition,0,quad_lie_down,./classic/quad_lie_down.yaml,经典控制,2,80,,,,,,
+QUADRUPED_CROUCH_DEFAULT,transition,0,quad_crouch,./classic/quad_crouch.yaml,经典控制,1,80,,,,,,
+QUADRUPED_GET_DOWN_DEFAULT,transition,0,quad_get_down,./classic/quad_get_down_default.yaml,经典控制,1,80,,,,,,
+STORE_DEFAULT,transition,0,quad_get_down,./classic/quad_get_down_default.yaml,经典控制,1,80,,,,,,
+QUADRUPED_SIT_DOWN_DEFAULT,transition,0,quad_sit_down,./classic/quad_sit_down_default.yaml,经典控制,1,80,,,,,,
+QUADRUPED_READY_STAND_DEFAULT,transition,0,ready_quad_stand,./classic/ready_stand_default.yaml,经典控制,1,80,,,,,,
+QUADRUPED_STAND_DEFAULT,transition,0,quad_stand,./classic/quad_stand_default.yaml,经典控制,1,80,,,,,,
+QUADRUPED_STAND_REVERSE_DEFAULT,transition,0,quad_stand_reverse,./classic/quad_stand_reverse_default.yaml,经典控制,1,80,,,,,,
+QUADRUPED_LOCOMOTION_DEFAULT,transition,0,rl_quad_loco,./rl/quad_walk.yaml,RL策略,10,80,t2_quad_walk_0902.onnx,是,57,14,0.01,10
+QUADRUPED_LOCOMOTION_REVERSE_DEFAULT,transition,0,rl_quad_loco_reverse,./rl/quad_walk_reverse.yaml,RL策略,10,0,t2_quad_walk_re_0907.onnx,是,57,14,0.01,10
+QUADRUPED_LOCOMOTION_STEP,transition,0,rl_quad_step,./rl/quad_step.yaml,RL策略,10,80,t2_quad_walk_lite_0713.onnx,是,57,14,0.01,10
+QUADRUPED_LOCOMOTION_RUN,transition,0,rl_quad_loco_run,./rl/quad_run.yaml,RL策略,10,80,t2_quad_run_new_cpg.onnx,是,57,14,0.01,10
+QUADRUPED_LOCOMOTION_TERRAIN,transition,0,rl_quad_loco_terrain,./rl/quad_walk_terrain.yaml,RL策略,10,80,t2_quad_terrain_push_0926.onnx,是,57,14,0.01,10
+QUADRUPED_LOCOMOTION_JUMP,transition,0,rl_quad_jump,./rl/quad_jump_run.yaml,RL策略,10,80,t15_quad_jump_platform.onnx,是,47,14,0.01,10
+QUADRUPED_LOCOMOTION_HANDSHAKE,transition,0,quad_handshake,./classic/quad_handshake_default.yaml,经典控制,1,80,,,,,,
+QUADRUPED_LOCOMOTION_FRONTFLIP,transition,0,rl_quad_frontflip,./rl/quad_frontflip_run.yaml,RL策略,10,80,t2_quad_frontflip_0703.onnx,是,52,14,0.01,10
+QUADRUPED_LOCOMOTION_BACKFLIP,transition,0,rl_quad_backflip,./rl/quad_backflip_run.yaml,RL策略,10,80,actor_critic_rightfirst_backflip.onnx,是,52,14,0.01,10
+QUADRUPED_RECOVERY,transition,0,rl_quad_recovery,./rl/quad_recovery.yaml,RL策略,10,80,t1_quad_recovery_v2.0_0814.onnx,是,47,14,0.01,10
+QUADRUPED_LOCOMOTION_STRETCH,transition,0,rl_quad_stretch,./rl/quad_walk_stretch.yaml,RL策略,10,80,t2_quad_stretch_fix_hip_0911.onnx,是,52,14,0.01,10
+QUADRUPED_BODY_ADJUST_DEFAULT,transition,0,rl_quad_body_adjust,./rl/quad_body_adjust.yaml,RL策略,10,80,t2_quad_twist_charge_pos_kp40.onnx,是,52,14,0.01,10
+QUADRUPED_LOCOMOTION_DANCE,transition,0,rl_quad_dance,./rl/quad_walk_dance.yaml,RL策略,10,80,t2_quad_twist_xy_v1.0_0708.onnx,是,52,14,0.01,10
+QUADRUPED_PUSH_UP,transition,0,rl_quad_pushup,./rl/quad_pushup.yaml,RL策略,10,80,t2_quad_twist_xy_v1.0_0708.onnx,是,52,14,0.01,10
+BIPED_RECOVERY,transition,0,rl_bi_recovery,./rl/bi_recovery.yaml,RL策略,10,80,t15_bi_recovery_v1.2_0402.onnx,是,47,14,0.01,10
+BIPED_STAND_DEFAULT,transition,0,biped_stand,./classic/biped_stand_default.yaml,经典控制,1,80,,,,,,
+BIPED_LOCOMOTION_DEFAULT,transition,0,rl_bi_loco,./rl/bi_walk.yaml,RL策略,10,80,lift0514_swing.onnx,是,49,14,0.01,10
+BIPED_LOCOMOTION_RUN,transition,0,rl_bi_loco_run,./rl/bi_run.yaml,RL策略,10,80,t2_bifast_0730.onnx,是,49,14,0.01,10
+BIPED_LOCOMOTION_TERRAIN,transition,0,rl_bi_terrain,./rl/bi_walk_terrain.yaml,RL策略,10,80,terrain0313.onnx,是,49,14,0.01,10
+BIPED_LOCOMOTION_WBC,transition,0,rl_bi_loco_wbc,./rl/bi_wbc_run.yaml,RL策略,10,80,wbcterrain2026092602.onnx,是,49,14,0.01,10
+BIPED_LOCOMOTION_WBC,transition,1,animation_player,./classic/animation_player.yaml,经典控制,4,80,,,,,,
+BIPED_LOCOMOTION_ANIMATION,transition,0,rl_bi_loco_animation,./rl/bi_loco_animation.yaml,RL策略,10,80,t1_bi_wbc_pitch0522.onnx,是,51,14,0.01,10
+BIPED_LOCOMOTION_ANIMATION,transition,1,animation_player,./classic/animation_player.yaml,经典控制,2,80,,,,,,
+BIPED_LOCOMOTION_WBCDANCE,transition,0,rl_bi_loco_wbcdance,./rl/bi_wbc_dance.yaml,RL策略,10,80,biped_rotation0711.onnx,是,49,14,0.01,10
+BIPED_MIMIC,transition,0,rl_bi_mimic,./rl/bi_mimic.yaml,RL策略,10,80,t1_bi_wbc_pitch0522.onnx,是,51,14,0.01,10
+BIPED_LINGCHUANG_MIMIC,transition,0,rl_bi_lingchuang_mimic,./rl/bi_lingchuang_mimic.yaml,RL策略,10,80,,,264,14,0.01,1
+BIPED_GIMBAL,transition,0,rl_bi_gimbal,./rl/bi_gimbal.yaml,RL策略,10,,wbc2026071201.onnx,是,49,14,0.01,10
+BIPED_NPZ_MIMIC,transition,0,rl_bi_npz_mimic,./rl/bi_npz_mimic.yaml,RL策略,20,80,,,83,14,0.02,1
+QUADRUPED_TO_BIPED,transition,0,rl_quad_to_bi,./rl/quad_to_bi_run.yaml,RL策略,10,80,t2.2_quad2bi_norm_0708.onnx,是,51,14,0.01,10
+QUADRUPED_TO_BIPED_ROTATE,transition,0,rl_quad_to_bi_rotate,./rl/quad_to_bi_rotate_run.yaml,RL策略,10,80,t2_quad2bi_yaw_6837.onnx,是,54,14,0.01,10
+QUADRUPED_TO_BIPED_FRONTFLIP,transition,0,rl_quad_to_bi_frontflip,./rl/quad_to_bi_frontflip_run.yaml,RL策略,10,80,t2_q2b_flip_0720.onnx,是,47,14,0.01,10
+QUADRUPED_LOCOMOTION_BIONIC,transition,0,rl_quad_twist,./rl/quad_walk_twist.yaml,RL策略,10,80,t2_quad_twist_0803.onnx,是,50,14,0.01,10
+QUADRUPED_LOCOMOTION_PRIDE,transition,0,rl_quad_pride,./rl/quad_walk_pride.yaml,RL策略,10,80,t2_quad_twist_0803.onnx,是,50,14,0.01,10
+QUADRUPED_MIMIC,transition,0,rl_quad_mimic,./rl/quad_mimic.yaml,RL策略,10,80,t2_quad_twist_xy_0725.onnx,是,52,14,0.01,10
+QUADRUPED_LOCOMOTION_PLEASURE,transition,0,rl_quad_pleasure,./rl/quad_walk_pleasure.yaml,RL策略,10,80,t2_quad_twist_0803.onnx,是,50,14,0.01,10
+BIPED_TO_QUADRUPED,transition,0,rl_bi_to_quad,./rl/bi_to_quad_run.yaml,RL策略,10,80,t2_b2q_norm_v1.0_0601.onnx,是,51,14,0.01,10
+BIPED_YUZURU,transition,0,rl_bi_yuzuru,./rl/bi_yuzuru.yaml,RL策略,10,80,t1_bi_yuzuru_v1.0_0123.onnx,是,56,14,0.01,10
+BIPED_SPLIT,transition,0,rl_bi_split,./rl/bi_split.yaml,RL策略,10,80,t1_bi_split_v1.0_0307_15mm.onnx,是,50,14,0.01,10
+BIPED_TO_QUADRUPED_FRONTFLIP,transition,0,rl_bi_to_quad_frontflip,./rl/bi_to_quad_frontflip_run.yaml,RL策略,10,80,t1_flip2quad_v1.0_0307_40k.onnx,是,52,14,0.01,10
+BIPED_TO_QUADRUPED_ROTATE,transition,0,rl_bi_to_quad_rotate,./rl/bi_to_quad_rotate_run.yaml,RL策略,10,80,t15_bi2quad_rotate_v1.1_terrain.onnx,是,54,14,0.01,10
+BIPED_LOCOMOTION_ROTATE_LOCAL,transition,0,rl_bi_rotate_local,./rl/bi_rotate_local.yaml,RL策略,10,80,t1_bi_wbc_v1.0_1228.onnx,是,57,14,0.01,10
+BIPED_LOCOMOTION_BACKBEND,transition,0,rl_bi_backbend,./rl/bi_backbend_run.yaml,RL策略,10,80,actor_critic_20251110.onnx,是,50,14,0.01,10
+BIPED_LOCOMOTION_MOONWALK,transition,0,rl_bi_moonwalk,./rl/bi_moonwalk.yaml,RL策略,10,80,t1_bi_moonwalk_v2_0807.onnx,是,51,14,0.01,10
+BIPED_LOCOMOTION_DANCE,transition,0,rl_bi_dance,./rl/bi_dance.yaml,RL策略,10,80,bi_dance_liuxingwu_acc_1_model_12750.onnx,是,80,14,0.01,1
+BIPED_RECORD_UPPER,transition,0,rl_bi_loco_wbc,./rl/bi_wbc_run.yaml,RL策略,10,80,wbcterrain2026092602.onnx,是,49,14,0.01,10
+BIPED_RECORD_UPPER,transition,1,biped_record,./classic/biped_record_upper.yaml,经典控制,10,80,,,,,,
+BIPED_CUSTOM_UPPER,transition,0,rl_bi_loco_wbc,./rl/bi_wbc_run.yaml,RL策略,10,80,wbcterrain2026092602.onnx,是,49,14,0.01,10
+BIPED_CUSTOM_UPPER,transition,1,custom_upper,./classic/custom_upper.yaml,经典控制,10,80,,,,,,
+TEST_PLATFORM,transition,0,passive_default,,内置,10,80,,,,,,
+TRAJECTORY_GENERATOR,transition,0,passive_default,,内置,10,80,,,,,,
+TEST_FOURIER,transition,0,passive_default,,内置,10,80,,,,,,
 
 
 ===== FILE: raw/t1/qd1_t2d0/robot_model.yaml  (source: D:/Projects/Athena/运动控制/Collie/T1运控架构分析/05_GPT架构评审/20261127_handheld/input_bundle/raw/t1/qd1_t2d0/robot_model.yaml) =====

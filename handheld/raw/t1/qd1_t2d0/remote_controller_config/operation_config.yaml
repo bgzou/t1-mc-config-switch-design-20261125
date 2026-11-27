@@ -1,0 +1,51 @@
+# 基础操控参数
+deviceConfig:
+  # 左侧手的类型：0：没有 1：灵巧手 2：夹爪
+  left_hand_type: 1
+  # 右侧手的类型：0：没有 1：灵巧手 2：夹爪
+  right_hand_type: 1
+  # 遥操作设备类型：0：picoVR 1:动捕服 2：  
+  remote_device_type: 0
+  # VR录入数据的坐标系类型：0:右手系 1：左手系
+  input_msg_axis_type: 1
+
+basicConfig:
+  # 0:遥操作模式 1：关节单独测试模式 2：replay 3:力矩补偿状态 
+  running_mode: 0
+  # 等待时间，单位ms，等待系统准备完毕之后再进行运行,1000对应1s
+  wait_time: 100
+  # 关节测试时，单位ms，等待时间结束之后，用于进行位置初始化,1000对应1s
+  initial_time: 2000
+  # 关节单独测试时，测试的关节的ID
+  jointTestConfig:
+    test_joint: 0
+    # 关节测试时关节活动范围的比例系数，避免转动过大角度或者碰撞限位
+    maxAngle_index: 0.95
+    minAngle_index: 0.95
+    # 关节测试时的关节运转速度，0.002表示1弧度1s的角速度
+    vel_dAngle: 0.001
+
+# 打印信息配置
+printBasicInfo:
+  # 打印间隔，单位ms，1000对应1s钟，如果设置成0就是不打印，如果设置的间隔小于线程运行周期，则按照线程运行周期打印
+  print_interval: 1000
+  # VR输入数据打印
+  vr_input: 1
+  # 关节范围打印
+  joint_range: 1
+  # 关节规划角度打印
+  joint_planning: 1
+  # 关节当前角度打印
+  joint_current: 1
+  # 夹爪信息打印
+  hand_info: 1
+  # 奇异信息打印
+  sigma_cond: 1
+  # 位置跟踪信息打印
+  position_track: 1
+
+# ros2 topic debug out:
+debugTopicSwitch: 0
+
+vr_input_filter_length: 1
+vr_filter_threshold: 0.2

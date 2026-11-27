@@ -1,0 +1,1389 @@
+##################################################################
+#
+# 配置说明:
+# name:            动作名称
+# type:            动作类型
+# motion_area:     动作执行的区域
+# interrupt_type:  打断类型
+# policy_path:     模型文件路径
+# custom:          扩展的配置
+#  start_count       动作开始帧
+#  end_count         动作结束帧
+#  trajectory_path   额外的依赖文件路径
+#  interrupt_frames   打断帧
+#  animation_type     动画类型，T项目需要依赖该值区分柔性动作、刚性动作、保持末帧等
+#
+##################################################################
+
+motion_types:
+  QUADRUPED_MIMIC:        {body: whole, action: QUADRUPED_MIMIC}
+  BIPED_MIMIC:            {body: whole, action: BIPED_MIMIC}
+  ANIMATION:              {body: upper, action: BIPED_LOCOMOTION_WBC}
+  BIPED_LINGCHUANG_MIMIC: {body: whole, action: BIPED_LINGCHUANG_MIMIC}
+  BIPED_NPZ_MIMIC: {body: whole, action: BIPED_NPZ_MIMIC}
+
+
+# Session Pool 配置
+session_pool:
+  max_dynamic_sessions: 10      # DYNAMIC 类型最大缓存Session数
+
+motion_configs:
+
+  #############################################################################
+  #
+  # 双足全身动作
+  #
+  #############################################################################
+  ###################### 双足灵创 mimic（轨迹内嵌 onnx，与 rl/bi_lingchuang_mimic.yaml 中 policy.path 对应）######################
+  # SetMcMotion: type=BIPED_LINGCHUANG_MIMIC, motion=<name>, interrupt=true
+  # 需 action BIPED_LINGCHUANG_MIMIC + runner policy.path 为空，策略由本表下发
+  # 历史跳舞
+  # - name: BIPED_LINGCHUANG_MIMIC_DANCE_HISTORY
+  #   type: BIPED_LINGCHUANG_MIMIC
+  #   motion_area: 0
+  #   interrupt_type: 0
+  #   policy_path: "./rl_models/bi_dance_liuxingwu_wheel_03kd_model_19000.onnx"
+  #   custom:
+  #     start_count: 0
+  #     end_count: 0
+  #     trajectory_path: ""
+  #     gravity_guard_path: ""
+
+  # 海草舞
+  # - name: BIPED_LINGCHUANG_MIMIC_HAICAO
+  #   type: BIPED_LINGCHUANG_MIMIC
+  #   motion_area: 0
+  #   interrupt_type: 0
+  #   policy_path: "./rl_models/bi_haicao_model_10500.onnx"
+  #   custom:
+  #     start_count: 0
+  #     end_count: 0
+  #     trajectory_path: ""
+  #     gravity_guard_path: ""
+
+  # 梅西动作
+  # - name: BIPED_LINGCHUANG_MIMIC_MEIXI
+  #   type: BIPED_LINGCHUANG_MIMIC
+  #   motion_area: 0
+  #   interrupt_type: 0
+  #   policy_path: "./rl_models/bi_meixi_model_10500.onnx"
+  #   custom:
+  #     start_count: 0
+  #     end_count: 0
+  #     trajectory_path: ""
+  #     gravity_guard_path: ""
+
+  # 球迷舞
+  # - name: BIPED_LINGCHUANG_MIMIC_QIUMI
+  #   type: BIPED_LINGCHUANG_MIMIC
+  #   motion_area: 0
+  #   interrupt_type: 0
+  #   policy_path: "./rl_models/bi_qiumi_model_10500.onnx"
+  #   custom:
+  #     start_count: 0
+  #     end_count: 0
+  #     trajectory_path: ""
+  #     gravity_guard_path: ""
+
+  # C罗动作 只有上肢而已
+  # - name: BIPED_LINGCHUANG_MIMIC_CLUO
+  #   type: BIPED_LINGCHUANG_MIMIC
+  #   motion_area: 0
+  #   interrupt_type: 0
+  #   policy_path: "./rl_models/bi_cluo_model_16500.onnx"
+  #   custom:
+  #     start_count: 0
+  #     end_count: 0
+  #     trajectory_path: ""
+  #     gravity_guard_path: ""
+      
+  # C罗动作跳起来 PASS
+  # - name: BIPED_LINGCHUANG_MIMIC_CLUO_JUMP
+  #   type: BIPED_LINGCHUANG_MIMIC
+  #   motion_area: 0
+  #   interrupt_type: 0
+  #   policy_path: "./rl_models/bi_cluo_model_24500.onnx"
+  #   custom:
+  #     start_count: 0
+  #     end_count: 0
+  #     trajectory_path: ""
+  #     gravity_guard_path: ""
+
+  ###################### 双足 npz mimic 83obs（onnx 策略 + npz 参考轨迹）######################
+  - name: BIPED_NPZ_MIMIC_JOYOUS
+    type: BIPED_NPZ_MIMIC
+    motion_area: 0
+    interrupt_type: 0
+    policy_path: "./rl_models/bi_npz_mimic_joyous_260827.onnx"
+    custom:
+      start_count: 0
+      end_count: 0
+      trajectory_path: "./res/biped_npz_mimic/bi_npz_mimic_joyous_260827_10s.npz"
+      gravity_guard_path: ""
+
+  - name: BIPED_NPZ_MIMIC_JOYOUS2
+    type: BIPED_NPZ_MIMIC
+    motion_area: 0
+    interrupt_type: 0
+    policy_path: "./rl_models/bi_npz_mimic_joyous2_260908.onnx"
+    custom:
+      start_count: 0
+      end_count: 0
+      trajectory_path: "./res/biped_npz_mimic/bi_npz_mimic_joyous2_260908.npz"
+      gravity_guard_path: ""
+
+  - name: BIPED_NPZ_MIMIC_JOYOUS3
+    type: BIPED_NPZ_MIMIC
+    motion_area: 0
+    interrupt_type: 0
+    policy_path: "./rl_models/bi_npz_mimic_joyous3_260828.onnx"
+    custom:
+      start_count: 0
+      end_count: 0
+      trajectory_path: "./res/biped_npz_mimic/bi_npz_mimic_joyous3_260828_10s.npz"
+      gravity_guard_path: ""
+
+  # - name: BIPED_NPZ_MIMIC_FIGURE_SKATING
+  #   type: BIPED_NPZ_MIMIC
+  #   motion_area: 0
+  #   interrupt_type: 0
+  #   policy_path: "./rl_models/bi_npz_mimic_figure_skating_260923.onnx"
+  #   custom:
+  #     start_count: 0
+  #     end_count: 0
+  #     trajectory_path: "./res/biped_npz_mimic/bi_npz_mimic_figure_skating_260923_40s.npz"
+  #     gravity_guard_path: ""
+
+  # - name: BIPED_NPZ_MIMIC_AABATTERY
+  #   type: BIPED_NPZ_MIMIC
+  #   motion_area: 0
+  #   interrupt_type: 0
+  #   policy_path: "./rl_models/bi_npz_mimic_aabattery_jy_260917.onnx"
+  #   custom:
+  #     start_count: 0
+  #     end_count: 0
+  #     trajectory_path: "./res/biped_npz_mimic/pin_2609017.npz"
+  #     gravity_guard_path: ""
+
+  # - name: BIPED_NPZ_MIMIC_IWILLBETHERE
+  #   type: BIPED_NPZ_MIMIC
+  #   motion_area: 0
+  #   interrupt_type: 0
+  #   policy_path: "./rl_models/bi_npz_mimic_iwllbethere_wuqitiao_260915.onnx"
+  #   custom:
+  #     start_count: 0
+  #     end_count: 0
+  #     trajectory_path: "./res/biped_npz_mimic/I_will_be_there_260915.npz"
+  #     gravity_guard_path: ""
+
+  # - name: BIPED_NPZ_MIMIC_101
+  #   type: BIPED_NPZ_MIMIC
+  #   motion_area: 0
+  #   interrupt_type: 0
+  #   policy_path: "./rl_models/bi_npz_mimic_101_61_260919.onnx"
+  #   custom:
+  #     start_count: 0
+  #     end_count: 0
+  #     trajectory_path: "./res/biped_npz_mimic/101_61_260910.npz"
+  #     gravity_guard_path: ""
+
+  # - name: BIPED_NPZ_APRIL_LIE
+  #   type: BIPED_NPZ_MIMIC
+  #   motion_area: 0
+  #   interrupt_type: 0
+  #   policy_path: "./rl_models/bi_npz_mimic_april_lie_260923.onnx"
+  #   custom:
+  #     start_count: 0
+  #     end_count: 0
+  #     trajectory_path: "./res/biped_npz_mimic/april_lie_260923_100s.npz"
+  #     gravity_guard_path: ""
+
+  ###################### 双足 mimic ######################
+  # 策略模型在 rl/bi_mimic.yaml 的 BaseConfig.policy.path 写死（Init 时加载，EnterCheck 不读本表 policy_path）
+  # 以下动作共用同一模型：./rl_models/t1_bi_wbc_pitch0522.onnx；本表 policy_path 仅作记录
+  # 各动作差异在 custom.trajectory_path（WBC 参考轨迹 CSV）
+  - name: BIPED_MIMIC_SKATING
+    type: BIPED_MIMIC
+    motion_area: 0
+    interrupt_type: 1
+    policy_path: "./rl_models/t1_bi_wbc_pitch0522.onnx"
+    custom:
+      start_count: 0
+      end_count: 0
+      trajectory_path: "./res/biped_mimic_motion/T1_bi_skating_30s.csv"  # ani_table id=2029
+      gravity_guard_path: ""
+
+  - name: BIPED_MIMIC_SHOW
+    type: BIPED_MIMIC
+    motion_area: 0
+    interrupt_type: 1
+    policy_path: "./rl_models/t1_bi_wbc_pitch0522.onnx"
+    custom:
+      start_count: 0
+      end_count: 0
+      trajectory_path: "./res/biped_mimic_motion/T1_bi_show.csv"  # ani_table id=2027
+      gravity_guard_path: ""
+
+  # 3061 全身跳舞2 by Leah 20260612
+  - name: BIPED_MIMIC_DANCE_WORLDCUP_ONE
+    type: BIPED_MIMIC
+    motion_area: 0
+    interrupt_type: 1
+    policy_path: "./rl_models/t1_bi_wbc_pitch0522.onnx"
+    custom:
+      start_count: 0
+      end_count: 0
+      trajectory_path: "./res/biped_mimic_motion/3061.csv"  # ani_table id=3061
+      gravity_guard_path: ""
+
+  # 双足摇篮舞
+  - name: BIPED_MIMIC_YAOLAWU
+    type: BIPED_MIMIC
+    motion_area: 0
+    interrupt_type: 1
+    policy_path: "./rl_models/t1_bi_wbc_pitch0522.onnx"
+    custom:
+      start_count: 0
+      end_count: 0
+      trajectory_path: "./res/biped_mimic_motion/3069.csv"  # ani_table id=3069
+      gravity_guard_path: ""
+  # 双足球迷舞蹈
+  - name: BIPED_MIMIC_QIUMI
+    type: BIPED_MIMIC
+    motion_area: 0
+    interrupt_type: 1
+    policy_path: "./rl_models/t1_bi_wbc_pitch0522.onnx"
+    custom:
+      start_count: 0
+      end_count: 0
+      trajectory_path: "./res/biped_mimic_motion/3070.csv"  # ani_table id=3070
+      gravity_guard_path: ""
+  # 双足挠痒痒
+  - name: BIPED_MIMIC_NAOYANGYANG
+    type: BIPED_MIMIC
+    motion_area: 0
+    interrupt_type: 1
+    policy_path: "./rl_models/t1_bi_wbc_pitch0522.onnx"
+    custom:
+      start_count: 0
+      end_count: 0
+      trajectory_path: "./res/biped_mimic_motion/T1_bi_dance_two_three.csv"
+      gravity_guard_path: ""
+   # 双足泼水舞
+  - name: BIPED_MIMIC_POSHUIWU
+    type: BIPED_MIMIC
+    motion_area: 0
+    interrupt_type: 1
+    policy_path: "./rl_models/t1_bi_wbc_pitch0522.onnx"
+    custom:
+      start_count: 0
+      end_count: 0
+      trajectory_path: "./res/biped_mimic_motion/dance_part2.csv"
+      gravity_guard_path: ""
+  # 双足POPPING舞
+  - name: BIPED_MIMIC_POPPING
+    type: BIPED_MIMIC
+    motion_area: 0
+    interrupt_type: 1
+    policy_path: "./rl_models/t1_bi_wbc_pitch0522.onnx"
+    custom:
+      start_count: 0
+      end_count: 0
+      trajectory_path: "./res/biped_mimic_motion/Double_hand_dance_update.csv"
+      gravity_guard_path: ""
+  ###################### 四足 mimic ######################
+  # 策略模型在 rl/quad_mimic.yaml 的 BaseConfig.policy.path 写死（Init 时加载，EnterCheck 不读本表 policy_path）
+  # 以下动作共用同一模型：./rl_models/t15_quad_twist_xy_v1.0.onnx；本表 policy_path 仅作记录
+  # 各动作差异在 custom.trajectory_path（参考轨迹 CSV）
+  # SetMcMotion: type=MIMIC_QY(1), motion=<name>, interrupt=true
+
+  #############################################################################
+  #
+  # 四足动作
+  #
+  #############################################################################
+
+  # 四足扭腰
+  - name: QUAD_MIMIC
+    type: QUADRUPED_MIMIC
+    motion_area: 0
+    policy_path: "./rl_models/t15_quad_twist_xy_v1.0.onnx"
+    interrupt_type: 1
+    custom:
+      start_count: 0
+      end_count: 10
+      trajectory_path: "./res/quad_mimic_motion/qd1_quad_test_100fps_10s.csv"
+      gravity_guard_path: ""
+  # 四足骄傲
+  - name: QUAD_MIMIC_PRIDE
+    type: QUADRUPED_MIMIC
+    motion_area: 0
+    interrupt_type: 1
+    policy_path: "./rl_models/t15_quad_twist_xy_v1.0.onnx"
+    custom:
+      start_count: 0
+      end_count: 10
+      trajectory_path: "./res/quad_mimic_motion/qd1_quad_pride.csv"
+      gravity_guard_path: ""
+  # 四足思考
+  - name: QUAD_MIMIC_PONDER
+    type: QUADRUPED_MIMIC
+    motion_area: 0
+    interrupt_type: 1
+    policy_path: "./rl_models/t15_quad_twist_xy_v1.0.onnx"
+    custom:
+      start_count: 0
+      end_count: 10
+      trajectory_path: "./res/quad_mimic_motion/qd1_quad_ponder.csv"
+      gravity_guard_path: ""
+  # 四足聆听
+  - name: QUAD_MIMIC_HEED
+    type: QUADRUPED_MIMIC
+    motion_area: 0
+    interrupt_type: 1
+    policy_path: "./rl_models/t15_quad_twist_xy_v1.0.onnx"
+    custom:
+      start_count: 0
+      end_count: 10
+      trajectory_path: "./res/quad_mimic_motion/qd1_quad_heed.csv"
+      gravity_guard_path: ""
+  # 四足四处看 用于亮相动作展示
+  - name: QUAD_MIMIC_GLANCE
+    type: QUADRUPED_MIMIC
+    motion_area: 0
+    policy_path: "./rl_models/t15_quad_twist_xy_v1.0.onnx"
+    interrupt_type: 1
+    custom:
+      start_count: 0
+      end_count: 10
+      trajectory_path: "./res/quad_mimic_motion/qd1_quad_glance.csv"
+      gravity_guard_path: ""
+  # 四足跳舞动作2
+  - name: QUAD_MIMIC_DANCE_TWO
+    type: QUADRUPED_MIMIC
+    motion_area: 0
+    interrupt_type: 1
+    policy_path: "./rl_models/t15_quad_twist_xy_v1.0.onnx"
+    custom:
+      start_count: 0
+      end_count: 10
+      trajectory_path: "./res/quad_mimic_motion/qd1_quad_dance_two.csv"
+      gravity_guard_path: ""
+  # 四足跳舞动作3
+  - name: QUAD_MIMIC_DANCE_THREE
+    type: QUADRUPED_MIMIC
+    motion_area: 0
+    interrupt_type: 1
+    policy_path: "./rl_models/t15_quad_twist_xy_v1.0.onnx"
+    custom:
+      start_count: 0
+      end_count: 10
+      trajectory_path: "./res/quad_mimic_motion/qd1_quad_dance_three.csv"
+      gravity_guard_path: ""
+  # 四足讲话1 动作幅度小
+  - name: QUAD_MIMIC_TALK_ONE
+    type: QUADRUPED_MIMIC
+    motion_area: 0
+    interrupt_type: 1
+    policy_path: "./rl_models/t15_quad_twist_xy_v1.0.onnx"
+    custom:
+      start_count: 0
+      end_count: 10
+      trajectory_path: "./res/quad_mimic_motion/qd1_quad_talk_one.csv"
+      gravity_guard_path: ""
+  # 四足讲话2 幅度同样小
+  - name: QUAD_MIMIC_TALK_TWO
+    type: QUADRUPED_MIMIC
+    motion_area: 0
+    interrupt_type: 1
+    policy_path: "./rl_models/t15_quad_twist_xy_v1.0.onnx"
+    custom:
+      start_count: 0
+      end_count: 10
+      trajectory_path: "./res/quad_mimic_motion/qd1_quad_talk_two.csv"
+      gravity_guard_path: ""
+  # 四足讲话3
+  - name: QUAD_MIMIC_TALK_THREE
+    type: QUADRUPED_MIMIC
+    motion_area: 0
+    interrupt_type: 1
+    policy_path: "./rl_models/t15_quad_twist_xy_v1.0.onnx"
+    custom:
+      start_count: 0
+      end_count: 10
+      trajectory_path: "./res/quad_mimic_motion/qd1_quad_talk_three.csv"
+      gravity_guard_path: ""
+  # 四足讲话4
+  - name: QUAD_MIMIC_TALK_FOUR
+    type: QUADRUPED_MIMIC
+    motion_area: 0
+    interrupt_type: 1
+    policy_path: "./rl_models/t15_quad_twist_xy_v1.0.onnx"
+    custom:
+      start_count: 0
+      end_count: 10
+      trajectory_path: "./res/quad_mimic_motion/qd1_quad_talk_four.csv"
+      gravity_guard_path: ""
+  # 四足动作5 基于四足动作2放大得来
+  - name: QUAD_MIMIC_TALK_FIVE
+    type: QUADRUPED_MIMIC
+    motion_area: 0
+    interrupt_type: 1
+    policy_path: "./rl_models/t15_quad_twist_xy_v1.0.onnx"
+    custom:
+      start_count: 0
+      end_count: 10
+      trajectory_path: "./res/quad_mimic_motion/qd1_quad_talk_five.csv"
+      gravity_guard_path: ""
+  # 四足害怕
+  - name: QUAD_MIMIC_SCARED
+    type: QUADRUPED_MIMIC
+    motion_area: 0
+    interrupt_type: 1
+    policy_path: "./rl_models/t15_quad_twist_xy_v1.0.onnx"
+    custom:
+      start_count: 0
+      end_count: 10
+      trajectory_path: "./res/quad_mimic_motion/qd1_quad_scared.csv"
+      gravity_guard_path: ""
+  # 四足律动2
+  - name: QUAD_MIMIC_RHYTHM_TWO
+    type: QUADRUPED_MIMIC
+    motion_area: 0
+    interrupt_type: 1
+    policy_path: "./rl_models/t15_quad_twist_xy_v1.0.onnx"
+    custom:
+      start_count: 0
+      end_count: 10
+      trajectory_path: "./res/quad_mimic_motion/qd1_quad_rhythm_two.csv"
+      gravity_guard_path: ""
+  # 四足律动
+  - name: QUAD_MIMIC_RHYTHM
+    type: QUADRUPED_MIMIC
+    motion_area: 0
+    interrupt_type: 1
+    policy_path: "./rl_models/t15_quad_twist_xy_v1.0.onnx"
+    custom:
+      start_count: 0
+      end_count: 10
+      trajectory_path: "./res/quad_mimic_motion/qd1_quad_rhythm_eleven.csv"
+      gravity_guard_path: ""
+  # 四足难过
+  - name: QUAD_MIMIC_SAD
+    type: QUADRUPED_MIMIC
+    motion_area: 0
+    interrupt_type: 1
+    policy_path: "./rl_models/t15_quad_twist_xy_v1.0.onnx"
+    custom:
+      start_count: 0
+      end_count: 10
+      trajectory_path: "./res/quad_mimic_motion/qd1_quad_sad.csv"
+      gravity_guard_path: ""
+  # 四足握手
+  - name: QUAD_MIMIC_HANDSHAKE
+    type: QUADRUPED_MIMIC
+    motion_area: 0
+    interrupt_type: 1
+    policy_path: "./rl_models/t15_quad_twist_xy_v1.0.onnx"
+    custom:
+      start_count: 0
+      end_count: 10
+      trajectory_path: "./res/quad_mimic_motion/qd1_quad_handshake.csv"
+      gravity_guard_path: ""
+  # 四足打招呼
+  - name: QUAD_MIMIC_GREET
+    type: QUADRUPED_MIMIC
+    motion_area: 0
+    interrupt_type: 1
+    policy_path: "./rl_models/t15_quad_twist_xy_v1.0.onnx"
+    custom:
+      start_count: 0
+      end_count: 10
+      trajectory_path: "./res/quad_mimic_motion/qd1_quad_greet.csv"
+      gravity_guard_path: ""
+  # 四足呼吸
+  - name: QUAD_MIMIC_BREATH
+    type: QUADRUPED_MIMIC
+    motion_area: 0
+    interrupt_type: 1
+    policy_path: "./rl_models/t15_quad_twist_xy_v1.0.onnx"
+    custom:
+      start_count: 0
+      end_count: 10
+      trajectory_path: "./res/quad_mimic_motion/qd1_quad_breath.csv"
+      gravity_guard_path: ""
+  
+  #############################################################################
+  #
+  # 上肢动作
+  #
+  #############################################################################
+
+  ###################### 恢复到初始姿态 ######################
+  # - name: 100
+  #   type: ANIMATION
+  #   motion_area: 1
+  #   interrupt_type: 1
+  #   policy_path: ""
+  #   custom:
+  #     fps: 60
+  #     animation_type: animation
+  #     trajectory_path: "./res/biped_upper_motion/Double_hand_default_pos.csv"
+
+  ###################### 右手挥手 ######################
+  - name: 1001
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 60
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/Single_hand_right_waving_v2.csv"
+
+  ###################### 右手握手 ######################
+  - name: 1002
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 60
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/Single_hand_right_handshake.csv"
+
+  ###################### 右手挥手，面对1.5m以上观众时 ######################
+  - name: 1003
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 60
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/Single_hand_right_waving_for_1d5m_people.csv"
+
+  ###################### 右手碰拳 ######################
+  - name: 1004
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 60
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/Single_hand_right_fist_bump.csv"
+
+  ###################### 右手加油欢呼 ######################
+  - name: 1005
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 60
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/Single_hand_right_cherring.csv"
+
+  ###################### 右手抬起(持摄像杆) ######################
+  - name: 1006
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 60
+      animation_type: hold
+      trajectory_path: "./res/biped_upper_motion/Single_hand_holding_camera_1.csv"
+
+  ###################### 右手拍照抬起 ######################
+  - name: 1007
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 60
+      animation_type: hold
+      trajectory_path: "./res/biped_upper_motion/Single_hand_holding_camera_2.csv"
+
+  ###################### 左手挥手 ######################
+  - name: 1011
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 60
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/Single_hand_left_waving_v2.csv"
+
+  ###################### 左手握手 ######################
+  - name: 1012
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 60
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/Single_hand_left_handshake.csv"
+
+  ###################### 左手挥手，面对1.5m以上观众时 ######################
+  - name: 1013
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 60
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/Single_hand_left_waving_for_1d5m_people.csv"
+
+  ###################### 左手碰拳 ######################
+  - name: 1014
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 60
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/Single_hand_left_fist_bump.csv"
+
+  ###################### 左手加油欢呼 ######################
+  - name: 1015
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 60
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/Single_hand_left_cherring.csv"
+
+  ###################### 左手抬起 ######################
+  - name: 1016
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 60
+      animation_type: hold
+      trajectory_path: "./res/biped_upper_motion/Single_hand_left_holding_camera_1.csv"
+
+  ###################### 双手比心 ######################
+  - name: 2001
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/Double_hand_making_heart_update_1.csv"
+
+  ###################### 喜悦时双手挥动 ######################
+  - name: 2002
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 60
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/Double_hand_happy.csv"
+
+  ###################### 说话动作 ######################
+  - name: 2003
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/Double_hand_talking.csv"
+
+  ###################### 说话动作1 ######################
+  - name: 2004
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/T1_talk1.csv"
+
+  ###################### 说话动作2 ######################
+  - name: 2005
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/T1_talk2.csv"
+
+  ###################### 说话动作3 ######################
+  - name: 2006
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/T1_talk3.csv"
+
+  ###################### 说话动作4 ######################
+  - name: 2007
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/T1_talk4.csv"
+
+  ###################### 说话动作5 ######################
+  - name: 2008
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/T1_talk5.csv"
+
+  ###################### 说话动作6 ######################
+  - name: 2009
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/T1_talk6.csv"
+
+  ###################### 拍照动作1 ######################
+  - name: 2011
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/Double_hand_Pose01_planner.csv"
+
+  ###################### 拍照动作2 ######################
+  - name: 2012
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/Double_hand_Pose02_planner.csv"
+
+  ###################### 拍照动作3 ######################
+  - name: 2013
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/Double_hand_Pose03_planner.csv"
+
+  ###################### 拍照动作4 ######################
+  - name: 2014
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/Double_hand_Pose04_planner.csv"
+
+  ###################### 双手抬起 ######################
+  - name: 2015
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: hold
+      trajectory_path: "./res/biped_upper_motion/Double_hand_raise_holding.csv"
+
+  ###################### 双手加油欢呼 用刘开源设计的舞蹈动作1替换 ######################
+  - name: 2016
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/T1_bi_dance_one.csv"
+
+  ###################### 骄傲 ######################
+  - name: 2017
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/Double_hand_proud_update.csv"
+
+  ###################### 三连拍 ######################
+  - name: 2020
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/Double_hand_three_shot_1.csv"
+
+  ###################### 跳舞动作 ######################
+  - name: 2021
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/T1_bi_dance_one.csv"
+
+  ###################### 蛇形舞动1 ######################
+  - name: 2022
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/T1_bi_dance_two.csv"
+
+  ###################### 使用刘开源设计的舞蹈动作2和3拼接 大概20s ######################
+  - name: 2023
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 130
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/T1_bi_dance_two_three.csv"
+
+  ###################### 小幅度说话动作 ######################
+  - name: 2024
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/T1_bi_talk_weak.csv"
+
+  ###################### 人形炫耀动作 只有上肢版本 ######################
+  - name: 2025
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/T1_bi_show_justarm.csv"
+
+  ###################### 人形拥抱 ######################
+  - name: 2026
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/T1_bi_hug.csv"
+
+  ###################### 人形炫耀 带腰部 ######################
+  - name: 2027
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/T1_bi_show.csv"
+
+  ###################### 人形炫耀 腰部更明显 ######################
+  - name: 2028
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/T1_bi_show_smallz.csv"
+
+  ###################### 人形滑冰 30s 会下腰 ######################
+  - name: 2029
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 110
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/T1_bi_skating_30s.csv"
+
+  ###################### 人形滑冰 ######################
+  - name: 2030
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/T1_bi_skating_backup_neg.csv"
+
+  ###################### 人形律动 ######################
+  - name: 2031
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/T1_bi_rhythm.csv"
+
+  ###################### 人形喜悦 ######################
+  - name: 2032
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/T1_bi_happy.csv"
+
+  ###################### 人形难过 ######################
+  - name: 2033
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/T1_bi_sad.csv"
+
+  ###################### 人形害怕 ######################
+  - name: 2034
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/T1_bi_scared.csv"
+
+  ###################### 人形思考1 ######################
+  - name: 2035
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/T1_bi_ponder_one.csv"
+
+  ###################### 人形思考2 ######################
+  - name: 2036
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/T1_bi_ponder_two.csv"
+
+  ###################### 人形思考3 ######################
+  - name: 2037
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/T1_bi_ponder_three.csv"
+
+  ###################### 人形思考4 ######################
+  - name: 2038
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/T1_bi_ponder_four.csv"
+
+  ###################### 人形惯性转圈90度 ######################
+  - name: 2039
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/T1_bi_spin_90.csv"
+
+  ###################### 人形惯性转圈360度 ######################
+  - name: 2040
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/T1_bi_spin_360.csv"
+
+  ###################### 人形聆听 ######################
+  - name: 2041
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/T1_bi_heed.csv"
+
+  ###################### 人形31s配合讲话的动作 ######################
+  - name: 2042
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/T1_bi_ice_breaking_dance.csv"
+
+  ###################### 蛇形舞动2 重新修改后的导演剪辑版本 ######################
+  - name: 2043
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 150
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/dance_part2.csv"
+
+  ###################### 跳舞动作 ######################
+  - name: 2044
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 60
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/Double_hand_dance_update.csv"
+
+  ###################### 左手高举起不放下 ######################
+  - name: 2045
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: hold
+      trajectory_path: "./res/biped_upper_motion/Single_hand_left_lift.csv"
+
+  ###################### 右手高举起不放下 ######################
+  - name: 2046
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: hold
+      trajectory_path: "./res/biped_upper_motion/Single_hand_right_lift.csv"
+
+  ###################### 单臂击掌 ######################
+  - name: 3038
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/3038.csv"
+
+  ###################### 双手欢呼 ######################
+  - name: 3040
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/3040.csv"
+
+  ###################### 双手挥舞 ######################
+  - name: 3043
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/3043.csv"
+
+  ###################### 双手挥舞2 ######################
+  - name: 3045
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/3045.csv"
+
+  ###################### 双手挥舞3 ######################
+  - name: 3046
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/3046.csv"
+
+  ###################### 左右手挥舞 ######################
+  - name: 3047
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/3047.csv"
+
+  ###################### 双手欢呼1 ######################
+  - name: 3048
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/3048.csv"
+
+  ###################### 打招呼 ######################
+  - name: 3052
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/3052.csv"
+
+  ###################### 双手欢呼2 ######################
+  - name: 3054
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/3054.csv"
+
+  ###################### 双手欢呼3 ######################
+  - name: 3055
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/3055.csv"
+
+  ###################### 打招呼2 ######################
+  - name: 3056
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/3056.csv"
+
+  ###################### 全身跳舞2 by Leah 20260612 ######################
+  - name: 3061
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 120
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/3061.csv"
+
+  ###################### 保持手臂动作1供点云采集 by Leah 20260616 ######################
+  - name: 3062
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: hold
+      trajectory_path: "./res/biped_upper_motion/3062.csv"
+
+  ###################### 保持手臂动作2供点云采集 by Leah 20260616 ######################
+  - name: 3064
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: hold
+      trajectory_path: "./res/biped_upper_motion/3064.csv"
+
+  ###################### 保持手臂动作3供点云采集 by Leah 20260616 ######################
+  - name: 3065
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: hold
+      trajectory_path: "./res/biped_upper_motion/3065.csv"
+
+  ###################### 双足摇篮舞 ######################
+  - name: 3069
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/3069.csv"
+
+  ###################### 双足球迷舞蹈 ######################
+  - name: 3070
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: animation
+      trajectory_path: "./res/biped_upper_motion/3070.csv"
+
+  ###################### 放电脑用 ######################
+  - name: 5001
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: hold
+      trajectory_path: "./res/biped_upper_motion/arm_holdpc2.csv"
+
+  ###################### 右手平举 ######################
+  - name: 5002
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: hold
+      trajectory_path: "./res/biped_upper_motion/photo.csv"
+
+  ###################### 左手平举 ######################
+  - name: 5003
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: hold
+      trajectory_path: "./res/biped_upper_motion/photo2.csv"
+
+  ###################### 右手高举 ######################
+  - name: 5004
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: hold
+      trajectory_path: "./res/biped_upper_motion/photo3.csv"
+
+  ###################### 左手高举 ######################
+  - name: 5005
+    type: ANIMATION
+    motion_area: 1
+    interrupt_type: 1
+    policy_path: ""
+    custom:
+      fps: 100
+      animation_type: hold
+      trajectory_path: "./res/biped_upper_motion/photo4.csv"

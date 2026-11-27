@@ -1,0 +1,1446 @@
+#以低电量为例，以下是全部的字段，用到哪个字段就写哪个字段，不需要的字段不写
+# - name: LOWBATTERY
+#   id: 11
+#   type: "meta"
+#   emotion_ids: [230]
+#   emotion_mod: 1 # 单次
+#   led_strip_mode : 12
+#   preset_motion_id: 0
+#   motion_mod: 0 # 无
+#   priority: 61 # 优先级
+#   text: "电量低于25%了，我快关机了，快给我充电吧！"
+#   text: ""
+#   speak_mode: 0 # 播一次
+#   speak_gap: 300 # 播报间隔, 仅循环播报时有效
+#   description: "机器人25%低电量"
+
+# 未定义状态
+- name: UNDEFINED
+  id: 1
+  type: "meta"
+  emotion_ids: [10]
+  emotion_mod: 1 # 循环
+  preset_motion_id: 0
+  motion_mod: 0 # 无
+  priority: 0 # 优先级
+  text: ""
+  speak_mode: 0 # 不讲话
+  speak_gap: 0
+  description: "机器人未定义状态"
+
+# 四足抚摸提示音
+- name: QUAD_TOUCHPROMPT
+  id: 191
+  type: "meta"
+  emotion_ids: [90]  # 快乐
+  emotion_mod: 1 # 单次
+  # preset_motion_id: 0
+  # motion_mod: 0 # 无
+  priority: 60 # 优先级
+  # text: ""
+  # speak_mode: 0 # 不讲话
+  # speak_gap: 0
+  description: "四足抚摸提示"
+  audio_file_path: "/robot/software/task_engine/resource/resource_audios/"
+  audio_file_name_quadruped: "撒娇.wav"
+  audio_file_name_biped: "撒娇.wav"
+
+# 双足抚摸提示音（只说话/音频，不触发表情）
+- name: BIPE_TOUCHPROMPT
+  id: 192
+  type: "meta"
+  emotion_ids: [90]  # 快乐
+  emotion_mod: 1 # 单次
+  # preset_motion_id: 0
+  # motion_mod: 0 # 无
+  priority: 60 # 优先级
+  text: "不要摸我，我怕痒"
+  speak_mode: 0 # 不讲话
+  speak_gap: 0
+  description: "双足抚摸提示"
+
+
+#   # 普通变形加音效
+# - name: TRANSFORMATION_NORMAL
+#   id: 300
+#   type: "meta"
+#   # emotion_ids: [270]
+#   # emotion_mod: 1 # 单次
+#   # preset_motion_id: 0
+#   # motion_mod: 2 # kOnce
+#   priority: 60 # 优先级
+#   # text: ""
+#   # speak_mode: 0 # 不讲话
+#   # speak_gap: 0
+#   audio_file_path: "/robot/data/system/hal_audio/audio/"
+#   audio_file_name_quadruped: "transform4to2.wav"
+#   audio_file_name_biped: "transform2to4.wav"
+#   mc_action_id: 300
+#   description: "普通变形加音效"
+
+#   # 旋转变形加音效
+# - name: TRANSFORMATION_ROTATE
+#   id: 301
+#   type: "meta"
+#   # emotion_ids: [270]
+#   # emotion_mod: 1 # 单次
+#   # preset_motion_id: 0
+#   # motion_mod: 2 # kOnce
+#   priority: 60 # 优先级
+#   # text: ""
+#   # speak_mode: 0 # 不讲话
+#   # speak_gap: 0
+#   audio_file_path: "/robot/data/system/hal_audio/audio/"
+#   audio_file_name_quadruped: "transform4to2.wav"
+#   audio_file_name_biped: "transform2to4.wav"
+#   mc_action_id: 301
+#   description: "旋转变形加音效"
+
+#   # 空翻变形加音效
+# - name: TRANSFORMATION_FRONTFLIP
+#   id: 302
+#   type: "meta"
+#   # emotion_ids: [270]
+#   # emotion_mod: 1 # 单次
+#   # preset_motion_id: 0
+#   # motion_mod: 2 # kOnce
+#   priority: 60 # 优先级
+#   # text: ""
+#   # speak_mode: 0 # 不讲话
+#   # speak_gap: 0
+#   audio_file_path: "/robot/data/system/hal_audio/audio/"
+#   audio_file_name_quadruped: "transform4to2.wav"
+#   audio_file_name_biped: "transform2to4.wav"
+#   mc_action_id: 302
+#   description: "空翻变形加音效"
+
+#   # 跳舞➕播音乐
+# - name: DANCE_AND_MUSIC
+#   id: 400
+#   type: "meta"
+#   # emotion_ids: [270]
+#   # emotion_mod: 1 # 单次
+#   # preset_motion_id: 0
+#   # motion_mod: 2 # kOnce
+#   priority: 60 # 优先级
+#   # text: ""
+#   # speak_mode: 0 # 不讲话
+#   # speak_gap: 0
+#   audio_file_path: "/robot/data/system/hal_audio/audio/"
+#   audio_file_name_quadruped: "dance.wav"
+#   audio_file_name_biped: "dance.wav"
+#   mc_action_id: 400
+#   description: "跳舞➕播音乐"
+
+- name: TRANS_TO_T1_BIPED_WBC
+  id: 610
+  type: "meta"
+  preset_motion_id: 300
+  motion_mod: 0
+  description: "T1双足状态下切换到WBC"
+
+# T1Animation 动作组
+- name: QUADRUPED_LOCOMOTION_HANDSHAKE
+  id: 1
+  type: "meta"
+  preset_motion_id: 1
+  motion_mod: 2
+  emotion_ids: [17, 102, 240, 18]
+  emotion_mod: 2
+  emotion_random_pick: true
+  priority: 50
+  scene_id: "app_wave_hands"
+  speak_mode: 0
+  description: "打招呼"
+
+- name: QUADRUPED_LOCOMOTION_HANDSHAKE
+  id: 2
+  type: "meta"
+  preset_motion_id: 2
+  motion_mod: 2
+  emotion_ids: [10, 11, 12]
+  emotion_mod: 1
+  emotion_random_pick: true
+  priority: 50
+  scene_id: "app_shake_hands_right"
+  speak_mode: 0
+  description: "握手"
+
+- name: QUADRUPED_SIT_DOWN_DEFAULT
+  id: 3
+  type: "meta"
+  preset_motion_id: 3
+  motion_mod: 2
+  emotion_ids: [10, 11, 12]
+  emotion_mod: 1
+  priority: 50
+  speak_mode: 0
+  description: "坐下"
+  pre_audio_before_action: true
+  pre_scene_id: "app_sit_down"
+
+- name: QUADRUPED_GET_DOWN_DEFAULT
+  id: 4
+  type: "meta"
+  preset_motion_id: 4
+  motion_mod: 2
+  emotion_ids: [10, 11, 12]
+  emotion_mod: 1
+  priority: 50
+  speak_mode: 0
+  description: "趴下"
+  pre_audio_before_action: true
+  pre_scene_id: "app_lie_down"
+  pre_scene_id_delay_ms: 3000
+
+- name: QUADRUPED_LOCOMOTION_DEFAULT
+  id: 5
+  type: "meta"
+  preset_motion_id: 5
+  motion_mod: 2
+  emotion_ids: [10, 11, 12]
+  emotion_mod: 1
+  priority: 50
+  scene_id: "app_stand_up"
+  speak_mode: 0
+  description: "站起"
+  pre_audio_before_action: true
+
+- name: BOTH_HANDS_MAKE_HEART
+  id: 6
+  type: "meta"
+  preset_motion_id: 6
+  motion_mod: 2
+  emotion_ids: [18]
+  emotion_mod: 2
+  priority: 50
+  scene_id: "app_hand_heart_both"
+  speak_mode: 0
+  description: "双手比心"
+
+- name: QUADRUPED_LOCOMOTION_DANCE
+  id: 7
+  type: "meta"
+  preset_motion_id: 7
+  motion_mod: 2
+  emotion_ids: [90, 16, 17, 102, 18]
+  emotion_mod: 5
+  emotion_random_pick: true
+  priority: 50
+  speak_mode: 0
+  description: "跳舞（人形小彩蝶旋转舞蹈）"
+
+- name: BIPED_LOCOMOTION_WBC
+  id: 8
+  type: "meta"
+  preset_motion_id: 8
+  motion_mod: 2
+  emotion_ids: [240, 19]
+  emotion_mod: 1
+  priority: 50
+  pre_audio_before_action: true
+  speak_mode: 0
+  description: "旋转变形"
+
+- name: PHOTO_POSE_1
+  id: 20
+  type: "meta"
+  preset_motion_id: 20
+  motion_mod: 2
+  emotion_ids: [90, 16, 17, 102]
+  emotion_mod: 2
+  emotion_random_pick: true
+  priority: 50
+  scene_id: "app_pose_A"
+  speak_mode: 0
+  description: "拍照姿势1"
+
+- name: PHOTO_POSE_2
+  id: 21
+  type: "meta"
+  preset_motion_id: 21
+  motion_mod: 2
+  emotion_ids: [90, 16, 17, 102]
+  emotion_mod: 2
+  emotion_random_pick: true
+  priority: 50
+  scene_id: "app_pose_B"
+  speak_mode: 0
+  description: "拍照姿势2"
+
+- name: PHOTO_POSE_3
+  id: 22
+  type: "meta"
+  preset_motion_id: 22
+  motion_mod: 2
+  emotion_ids: [90, 16, 17, 102]
+  emotion_mod: 2
+  emotion_random_pick: true
+  priority: 50
+  scene_id: "app_pose_C"
+  speak_mode: 0
+  description: "拍照姿势3"
+
+- name: QUADRUPED_LOCOMOTION_STRETCH
+  id: 27
+  type: "meta"
+  preset_motion_id: 27
+  motion_mod: 2
+  emotion_ids: [15]
+  emotion_mod: 1
+  priority: 50
+  scene_id: "app_stretch_quadruped"
+  speak_mode: 0
+  description: "伸懒腰"
+
+- name: RIGHT_HAND_PUNCH
+  id: 28
+  type: "meta"
+  preset_motion_id: 28
+  motion_mod: 2
+  emotion_ids: [90, 16, 17, 102]
+  emotion_mod: 2
+  emotion_random_pick: true
+  priority: 50
+  scene_id: "app_fist_bump_hand_right"
+  speak_mode: 0
+  description: "右手碰拳"
+
+- name: LEFT_HAND_PUNCH
+  id: 29
+  type: "meta"
+  preset_motion_id: 29
+  motion_mod: 2
+  emotion_ids: [90, 16, 17, 102]
+  emotion_mod: 2
+  emotion_random_pick: true
+  priority: 50
+  scene_id: "app_fist_bump_hand_left"
+  speak_mode: 0
+  description: "左手碰拳"
+
+- name: TALKING
+  id: 60
+  type: "meta"
+  preset_motion_id: 60
+  motion_mod: 2
+  emotion_ids: [27, 32]
+  emotion_mod: 1
+  priority: 50
+  scene_id: "app_talk"
+  speak_mode: 0
+  description: "说话姿态"
+
+# ─── 新增动作组（基于 0610 动作表）───────────────────────────────────────────
+
+- name: EASY_TRANSFORIMATE
+  id: 9
+  type: "meta"
+  preset_motion_id: 9
+  motion_mod: 2
+  emotion_ids: [240]
+  emotion_mod: 1
+  priority: 50
+  random_scene_ids:
+    - "t1_easy_transform_1"
+    - "t1_easy_transform_2"
+    - "t1_easy_transform_3"
+  speak_mode: 0
+  description: "简易变形"
+
+- name: DANCE_B
+  id: 10
+  type: "meta"
+  preset_motion_id: 10
+  motion_mod: 2
+  emotion_ids: [90, 16, 17, 102, 240, 18, 19]
+  emotion_mod: 3
+  emotion_random_pick: true
+  priority: 50
+  speak_mode: 0
+  description: "跳舞B"
+
+- name: DANCE_C
+  id: 11
+  type: "meta"
+  preset_motion_id: 11
+  motion_mod: 2
+  emotion_ids: [17, 102, 240, 18, 19]
+  emotion_mod: 3
+  emotion_random_pick: true
+  priority: 50
+  speak_mode: 0
+  description: "跳舞C"
+
+- name: PROUD
+  id: 25
+  type: "meta"
+  preset_motion_id: 25
+  motion_mod: 2
+  emotion_ids: [240]
+  emotion_mod: 1
+  priority: 50
+  scene_id: "app_proud"
+  speak_mode: 0
+  description: "骄傲"
+
+- name: JOY
+  id: 26
+  type: "meta"
+  preset_motion_id: 26
+  motion_mod: 2
+  emotion_ids: [90, 16, 17, 102]
+  emotion_mod: 2
+  emotion_random_pick: true
+  priority: 50
+  scene_id: "app_laughing"
+  speak_mode: 0
+  description: "喜悦"
+
+- name: LEFT_HANDSHAKE
+  id: 30
+  type: "meta"
+  preset_motion_id: 30
+  motion_mod: 2
+  emotion_ids: [10, 11, 12]
+  emotion_mod: 1
+  emotion_random_pick: true
+  priority: 50
+  scene_id: "app_shake_hands_left"
+  speak_mode: 0
+  description: "左手握手"
+
+- name: BOTH_HANDS_CELEBRATE
+  id: 31
+  type: "meta"
+  preset_motion_id: 31
+  motion_mod: 2
+  emotion_ids: [18]
+  emotion_mod: 2
+  priority: 50
+  scene_id: "app_cheer_up"
+  speak_mode: 0
+  description: "加油欢呼"
+
+- name: LEFT_HAND_UP
+  id: 32
+  type: "meta"
+  preset_motion_id: 32
+  motion_mod: 2
+  emotion_ids: [10, 11, 12, 90, 28]
+  emotion_mod: 1
+  emotion_random_pick: true
+  priority: 50
+  scene_id: "app_raise_left_hand"
+  speak_mode: 0
+  description: "左手抬起"
+
+- name: RIGHT_HAND_UP
+  id: 33
+  type: "meta"
+  preset_motion_id: 33
+  motion_mod: 2
+  emotion_ids: [10, 11, 12, 90, 28]
+  emotion_mod: 1
+  emotion_random_pick: true
+  priority: 50
+  scene_id: "app_raise_right_hand"
+  speak_mode: 0
+  description: "右手抬起"
+
+- name: BOTH_HANDS_UP
+  id: 34
+  type: "meta"
+  preset_motion_id: 34
+  motion_mod: 2
+  emotion_ids: [10, 11, 12, 28]
+  emotion_mod: 2
+  emotion_random_pick: true
+  priority: 50
+  scene_id: "app_raise_both_hands"
+  speak_mode: 0
+  description: "双手抬起"
+
+- name: LEFT_HAND_DOWN
+  id: 35
+  type: "meta"
+  preset_motion_id: 35
+  motion_mod: 2
+  emotion_ids: [10, 11, 12]
+  emotion_mod: 1
+  priority: 50
+  speak_mode: 0
+  random_scene_ids:
+    - "t1_left_hand_down_1"
+    - "t1_left_hand_down_2"
+    - "t1_left_hand_down_3"
+  description: "左手放下"
+
+- name: RIGHT_HAND_DOWN
+  id: 36
+  type: "meta"
+  preset_motion_id: 36
+  motion_mod: 2
+  emotion_ids: [10, 11, 12]
+  emotion_mod: 1
+  priority: 50
+  speak_mode: 0
+  random_scene_ids:
+    - "t1_right_hand_down_1"
+    - "t1_right_hand_down_2"
+    - "t1_right_hand_down_3"
+  description: "右手放下"
+
+- name: BOTH_HANDS_DOWN
+  id: 37
+  type: "meta"
+  preset_motion_id: 37
+  motion_mod: 2
+  emotion_ids: [10, 11, 12]
+  emotion_mod: 1
+  priority: 50
+  speak_mode: 0
+  random_scene_ids:
+    - "t1_both_hands_down_1"
+    - "t1_both_hands_down_2"
+    - "t1_both_hands_down_3"
+  description: "双手放下"
+
+- name: POSING
+  id: 38
+  type: "meta"
+  preset_motion_id: 38
+  motion_mod: 2
+  emotion_ids: [90, 16, 17, 102]
+  emotion_mod: 1
+  priority: 50
+  speak_mode: 0
+  random_scene_ids:
+    - "t1_posing_1"
+    - "t1_posing_2"
+    - "t1_posing_3"
+  description: "摆姿势"
+
+- name: LOCK_POSTURE
+  id: 39
+  type: "meta"
+  preset_motion_id: 39
+  motion_mod: 2
+  emotion_ids: [10, 11, 12]
+  emotion_mod: 1
+  priority: 50
+  speak_mode: 0
+  random_scene_ids:
+    - "t1_lock_posture_1"
+    - "t1_lock_posture_2"
+    - "t1_lock_posture_3"
+  description: "锁定姿态"
+
+- name: PUSH_UP
+  id: 40
+  type: "meta"
+  preset_motion_id: 40
+  motion_mod: 2
+  emotion_ids: [240]
+  emotion_mod: 1
+  priority: 50
+  scene_id: "app_push_up_quadruped"
+  speak_mode: 0
+  description: "俯卧撑"
+
+- name: CIRCLE
+  id: 42
+  type: "meta"
+  preset_motion_id: 42
+  motion_mod: 2
+  emotion_ids: [10, 11, 12]
+  emotion_mod: 1
+  priority: 50
+  speak_mode: 0
+  random_scene_ids:
+    - "t1_circle_1"
+    - "t1_circle_2"
+    - "t1_circle_3"
+  description: "转圈"
+
+- name: RHYTHM
+  id: 43
+  type: "meta"
+  preset_motion_id: 43
+  motion_mod: 2
+  emotion_ids: [90, 16, 17, 102]
+  emotion_mod: 2
+  emotion_random_pick: true
+  priority: 50
+  speak_mode: 0
+  description: "律动"
+
+- name: FEAR
+  id: 44
+  type: "meta"
+  preset_motion_id: 44
+  motion_mod: 2
+  emotion_ids: [20]
+  emotion_mod: 2
+  priority: 50
+  scene_id: "app_scary"
+  speak_mode: 0
+  description: "害怕"
+
+- name: SAD
+  id: 45
+  type: "meta"
+  preset_motion_id: 45
+  motion_mod: 2
+  emotion_ids: [21]
+  emotion_mod: 2
+  priority: 50
+  scene_id: "app_sad"
+  speak_mode: 0
+  description: "难过"
+
+- name: RECOVER_POSTURE
+  id: 46
+  type: "meta"
+  preset_motion_id: 46
+  motion_mod: 2
+  emotion_ids: [10, 11, 12]
+  emotion_mod: 1
+  priority: 50
+  speak_mode: 0
+  random_scene_ids:
+    - "t1_recover_1"
+    - "t1_recover_2"
+    - "t1_recover_3"
+  description: "任意姿态恢复"
+
+- name: LISTEN_POSTURE
+  id: 49
+  type: "meta"
+  preset_motion_id: 49
+  motion_mod: 2
+  emotion_ids: [250]
+  emotion_mod: 2
+  priority: 50
+  speak_mode: 0
+  random_scene_ids:
+    - "t1_listen_1"
+    - "t1_listen_2"
+    - "t1_listen_3"
+  description: "聆听姿态"
+
+- name: TALK_POSTURE
+  id: 50
+  type: "meta"
+  preset_motion_id: 50
+  motion_mod: 2
+  emotion_ids: [270]
+  emotion_mod: 1
+  priority: 50
+  speak_mode: 0
+  random_scene_ids:
+    - "t1_talk_1"
+    - "t1_talk_2"
+    - "t1_talk_3"
+  description: "说话姿态"
+
+- name: THINK_POSTURE
+  id: 51
+  type: "meta"
+  preset_motion_id: 51
+  motion_mod: 2
+  emotion_ids: [260]
+  emotion_mod: 1
+  priority: 50
+  speak_mode: 0
+  random_scene_ids:
+    - "t1_think_1"
+    - "t1_think_2"
+    - "t1_think_3"
+  description: "思考姿态"
+
+- name: MOONWALK
+  id: 52
+  type: "meta"
+  preset_motion_id: 52
+  motion_mod: 2
+  emotion_ids: [90, 16, 17, 102, 18]
+  emotion_mod: 4
+  emotion_random_pick: true
+  priority: 50
+  scene_id: "app_moonwalk"
+  speak_mode: 0
+  description: "太空步"
+
+- name: QUADRUPED_MIMIC_GLANCE
+  id: 54
+  type: "meta"
+  preset_motion_id: 54
+  motion_mod: 2
+  emotion_ids: [22]
+  emotion_mod: 1
+  priority: 50
+  scene_id: "app_look_around_quadruped"
+  speak_mode: 0
+  description: "四处看"
+
+- name: FRONT_FLIP_TRANSFORM
+  id: 55
+  type: "meta"
+  preset_motion_id: 55
+  motion_mod: 2
+  priority: 50
+  speak_mode: 0
+  random_scene_ids:
+    - "t1_front_flip_transform_1"
+    - "t1_front_flip_transform_2"
+    - "t1_front_flip_transform_3"
+  description: "前空翻变形"
+
+- name: FRONT_FLIP
+  id: 56
+  type: "meta"
+  preset_motion_id: 56
+  motion_mod: 2
+  priority: 50
+  speak_mode: 0
+  random_scene_ids:
+    - "t1_front_flip_1"
+    - "t1_front_flip_2"
+    - "t1_front_flip_3"
+  description: "前空翻"
+
+- name: RHYTHM_2
+  id: 57
+  type: "meta"
+  preset_motion_id: 57
+  motion_mod: 2
+  emotion_ids: [18]
+  emotion_mod: 1
+  priority: 50
+  speak_mode: 0
+  random_scene_ids:
+    - "t1_rhythm_2_a"
+    - "t1_rhythm_2_b"
+    - "t1_rhythm_2_c"
+  description: "律动2"
+
+- name: BIPED_TALK_SMALL_1
+  id: 58
+  type: "meta"
+  preset_motion_id: 58
+  motion_mod: 2
+  emotion_ids: [10, 11, 12]
+  emotion_mod: 1
+  priority: 50
+  speak_mode: 0
+  random_scene_ids:
+    - "t1_talk_small_1_a"
+    - "t1_talk_small_1_b"
+    - "t1_talk_small_1_c"
+  description: "小幅度人形讲话动作1"
+
+- name: BIPED_TALK_SMALL_2
+  id: 59
+  type: "meta"
+  preset_motion_id: 59
+  motion_mod: 2
+  emotion_ids: [10, 11, 12]
+  emotion_mod: 1
+  priority: 50
+  speak_mode: 0
+  random_scene_ids:
+    - "t1_talk_small_2_a"
+    - "t1_talk_small_2_b"
+    - "t1_talk_small_2_c"
+  description: "小幅度人形讲话动作2"
+
+- name: BIPED_TALK_SMALL_3
+  id: 61
+  type: "meta"
+  preset_motion_id: 61
+  motion_mod: 2
+  emotion_ids: [10, 11, 12]
+  emotion_mod: 1
+  priority: 50
+  speak_mode: 0
+  random_scene_ids:
+    - "t1_talk_small_3_a"
+    - "t1_talk_small_3_b"
+    - "t1_talk_small_3_c"
+  description: "小幅度人形讲话动作3"
+
+- name: QUADRUPED_TALK_1
+  id: 62
+  type: "meta"
+  preset_motion_id: 62
+  motion_mod: 2
+  emotion_ids: [10, 11, 12]
+  emotion_mod: 2
+  priority: 50
+  speak_mode: 0
+  random_scene_ids:
+    - "t1_quad_talk_1_a"
+    - "t1_quad_talk_1_b"
+    - "t1_quad_talk_1_c"
+  description: "四足讲话动作1"
+
+- name: QUADRUPED_TALK_2
+  id: 63
+  type: "meta"
+  preset_motion_id: 63
+  motion_mod: 2
+  emotion_ids: [10, 11, 12]
+  emotion_mod: 2
+  priority: 50
+  speak_mode: 0
+  random_scene_ids:
+    - "t1_quad_talk_2_a"
+    - "t1_quad_talk_2_b"
+    - "t1_quad_talk_2_c"
+  description: "四足讲话动作2"
+
+- name: QUADRUPED_TALK_3
+  id: 64
+  type: "meta"
+  preset_motion_id: 64
+  motion_mod: 2
+  emotion_ids: [10, 11, 12]
+  emotion_mod: 2
+  priority: 50
+  speak_mode: 0
+  random_scene_ids:
+    - "t1_quad_talk_3_a"
+    - "t1_quad_talk_3_b"
+    - "t1_quad_talk_3_c"
+  description: "四足讲话动作3"
+
+- name: QUADRUPED_TALK_4
+  id: 65
+  type: "meta"
+  preset_motion_id: 65
+  motion_mod: 2
+  emotion_ids: [10, 11, 12]
+  emotion_mod: 2
+  priority: 50
+  speak_mode: 0
+  random_scene_ids:
+    - "t1_quad_talk_4_a"
+    - "t1_quad_talk_4_b"
+    - "t1_quad_talk_4_c"
+  description: "四足讲话动作4"
+
+- name: HIP_POSE
+  id: 66
+  type: "meta"
+  preset_motion_id: 66
+  motion_mod: 2
+  emotion_ids: [10, 11, 12]
+  emotion_mod: 1
+  priority: 50
+  speak_mode: 0
+  random_scene_ids:
+    - "t1_hip_pose_1"
+    - "t1_hip_pose_2"
+    - "t1_hip_pose_3"
+  description: "掐腰（人形思考动作3）"
+
+- name: BIPED_TALK_SMALL_4
+  id: 67
+  type: "meta"
+  preset_motion_id: 67
+  motion_mod: 2
+  emotion_ids: [10, 11, 12]
+  emotion_mod: 1
+  priority: 50
+  speak_mode: 0
+  random_scene_ids:
+    - "t1_talk_small_4_a"
+    - "t1_talk_small_4_b"
+    - "t1_talk_small_4_c"
+  description: "小幅度人形讲话动作4"
+
+- name: QUADRUPED_TALK_5
+  id: 68
+  type: "meta"
+  preset_motion_id: 68
+  motion_mod: 2
+  emotion_ids: [10, 11, 12]
+  emotion_mod: 2
+  priority: 50
+  speak_mode: 0
+  random_scene_ids:
+    - "t1_quad_talk_5_a"
+    - "t1_quad_talk_5_b"
+    - "t1_quad_talk_5_c"
+  description: "四足讲话动作5"
+
+- name: BIPED_THINK_1
+  id: 69
+  type: "meta"
+  preset_motion_id: 69
+  motion_mod: 2
+  emotion_ids: [10, 11, 12]
+  emotion_mod: 1
+  priority: 50
+  speak_mode: 0
+  random_scene_ids:
+    - "t1_think_1_a"
+    - "t1_think_1_b"
+    - "t1_think_1_c"
+  description: "人形思考动作1"
+
+- name: BIPED_THINK_2
+  id: 70
+  type: "meta"
+  preset_motion_id: 70
+  motion_mod: 2
+  emotion_ids: [10, 11, 12]
+  emotion_mod: 1
+  priority: 50
+  speak_mode: 0
+  random_scene_ids:
+    - "t1_think_2_a"
+    - "t1_think_2_b"
+    - "t1_think_2_c"
+  description: "人形思考动作2"
+
+- name: BIPED_THINK_4
+  id: 71
+  type: "meta"
+  preset_motion_id: 71
+  motion_mod: 2
+  emotion_ids: [10, 11, 12]
+  emotion_mod: 1
+  priority: 50
+  speak_mode: 0
+  random_scene_ids:
+    - "t1_think_4_a"
+    - "t1_think_4_b"
+    - "t1_think_4_c"
+  description: "人形思考动作4"
+
+- name: BIPED_ROTATE_90
+  id: 72
+  type: "meta"
+  preset_motion_id: 72
+  motion_mod: 2
+  emotion_ids: [90, 16, 17, 102]
+  emotion_mod: 1
+  priority: 50
+  speak_mode: 0
+  random_scene_ids:
+    - "t1_rotate_90_1"
+    - "t1_rotate_90_2"
+    - "t1_rotate_90_3"
+  description: "人形惯性转圈90度"
+
+- name: BIPED_ROTATE_360
+  id: 73
+  type: "meta"
+  preset_motion_id: 73
+  motion_mod: 2
+  emotion_ids: [90, 16, 17, 102]
+  emotion_mod: 1
+  priority: 50
+  speak_mode: 0
+  random_scene_ids:
+    - "t1_rotate_360_1"
+    - "t1_rotate_360_2"
+    - "t1_rotate_360_3"
+  description: "人形惯性转圈360度"
+
+- name: BIPED_HUG_OPENBOX
+  id: 74
+  type: "meta"
+  preset_motion_id: 74
+  motion_mod: 2
+  emotion_ids: [18]
+  emotion_mod: 2
+  priority: 50
+  scene_id: "app_hug"
+  speak_mode: 0
+  description: "人形拥抱（开箱）"
+
+- name: BIPED_DANCE_OPENBOX
+  id: 75
+  type: "meta"
+  preset_motion_id: 75
+  motion_mod: 2
+  emotion_ids: [10, 11, 12]
+  emotion_mod: 1
+  priority: 50
+  speak_mode: 0
+  random_scene_ids:
+    - "t1_dance_openbox_1"
+    - "t1_dance_openbox_2"
+    - "t1_dance_openbox_3"
+  description: "人形舞蹈（开箱）"
+
+- name: BIPED_SHOWCASE
+  id: 76
+  type: "meta"
+  preset_motion_id: 76
+  motion_mod: 2
+  emotion_ids: [90, 16, 17, 102]
+  emotion_mod: 1
+  priority: 50
+  speak_mode: 0
+  random_scene_ids:
+    - "t1_showcase_1"
+    - "t1_showcase_2"
+    - "t1_showcase_3"
+  description: "人形展示动作"
+
+- name: BREATH
+  id: 77
+  type: "meta"
+  preset_motion_id: 77
+  motion_mod: 2
+  emotion_ids: [10, 11, 12]
+  emotion_mod: 1
+  priority: 50
+  speak_mode: 0
+  random_scene_ids:
+    - "t1_breath_1"
+    - "t1_breath_2"
+    - "t1_breath_3"
+  description: "呼吸动作"
+
+- name: BIPED_DEFAULT_POS
+  id: 100
+  type: "meta"
+  preset_motion_id: 100
+  motion_mod: 2
+  emotion_ids: [10, 11, 12]
+  emotion_mod: 1
+  priority: 50
+  speak_mode: 0
+  random_scene_ids:
+    - "t1_default_pos_1"
+    - "t1_default_pos_2"
+    - "t1_default_pos_3"
+  description: "动作复位"
+
+# ─── 世界杯动作组 ───────────────────────────────────────────────────────────
+
+- name: GREET_NEW
+  id: 3052
+  type: "meta"
+  preset_motion_id: 3052
+  motion_mod: 2
+  priority: 50
+  speak_mode: 0
+  random_scene_ids:
+    - "t1_greet_new_1"
+    - "t1_greet_new_2"
+    - "t1_greet_new_3"
+  description: "打招呼新"
+
+- name: BOTH_HANDS_CHEER_1
+  id: 3048
+  type: "meta"
+  preset_motion_id: 3048
+  motion_mod: 2
+  emotion_ids: [90]
+  emotion_mod: 2
+  priority: 50
+  speak_mode: 0
+  random_scene_ids:
+    - "t1_cheer_1_a"
+    - "t1_cheer_1_b"
+    - "t1_cheer_1_c"
+  description: "双手欢呼1"
+
+- name: BOTH_HANDS_CHEER_2
+  id: 3054
+  type: "meta"
+  preset_motion_id: 3054
+  motion_mod: 2
+  emotion_ids: [16]
+  emotion_mod: 2
+  priority: 50
+  random_scene_ids:
+    - "t1_cheer_2_a"
+    - "t1_cheer_2_b"
+    - "t1_cheer_2_c"
+  speak_mode: 0
+  description: "双手欢呼2"
+
+- name: BOTH_HANDS_CHEER_3
+  id: 3055
+  type: "meta"
+  preset_motion_id: 3055
+  motion_mod: 2
+  emotion_ids: [102]
+  emotion_mod: 2
+  priority: 50
+  random_scene_ids:
+    - "t1_cheer_3_a"
+    - "t1_cheer_3_b"
+    - "t1_cheer_3_c"
+  speak_mode: 0
+  description: "双手欢呼3"
+
+- name: DANCE_30S
+  id: 3061
+  type: "meta"
+  preset_motion_id: 3061
+  motion_mod: 2
+  emotion_ids: [90, 16, 240, 18, 19]
+  emotion_mod: 3
+  emotion_random_pick: true
+  priority: 50
+  speak_mode: 0
+  description: "双手欢呼3"
+
+- name: BOTH_HANDS_WAVE_LR
+  id: 3047
+  type: "meta"
+  preset_motion_id: 3047
+  motion_mod: 2
+  emotion_ids: [17]
+  emotion_mod: 2
+  priority: 50
+  random_scene_ids:
+    - "t1_wave_lr_1"
+    - "t1_wave_lr_2"
+    - "t1_wave_lr_3"
+  speak_mode: 0
+  description: "左右手挥舞"
+
+- name: BOTH_HANDS_WAVE
+  id: 3043
+  type: "meta"
+  preset_motion_id: 3043
+  motion_mod: 2
+  emotion_ids: [240]
+  emotion_mod: 1
+  priority: 50
+  random_scene_ids:
+    - "t1_wave_both_1"
+    - "t1_wave_both_2"
+    - "t1_wave_both_3"
+  speak_mode: 0
+  description: "双手挥舞"
+
+- name: BOTH_HANDS_WAVE_2
+  id: 3045
+  type: "meta"
+  preset_motion_id: 3045
+  motion_mod: 2
+  emotion_ids: [19]
+  emotion_mod: 2
+  priority: 50
+  random_scene_ids:
+    - "t1_wave_both_2_a"
+    - "t1_wave_both_2_b"
+    - "t1_wave_both_2_c"
+  speak_mode: 0
+  description: "双手挥舞2"
+
+- name: BOTH_HANDS_WAVE_3
+  id: 3046
+  type: "meta"
+  preset_motion_id: 3046
+  motion_mod: 2
+  emotion_ids: [16]
+  emotion_mod: 2
+  priority: 50
+  random_scene_ids:
+    - "t1_wave_both_3_a"
+    - "t1_wave_both_3_b"
+    - "t1_wave_both_3_c"
+  speak_mode: 0
+  description: "双手挥舞3"
+
+- name: BOTH_HANDS_CHEER
+  id: 3040
+  type: "meta"
+  preset_motion_id: 3040
+  motion_mod: 2
+  emotion_ids: [18]
+  emotion_mod: 2
+  priority: 50
+  random_scene_ids:
+    - "t1_cheer_both_1"
+    - "t1_cheer_both_2"
+    - "t1_cheer_both_3"
+  speak_mode: 0
+  description: "双手欢呼"
+
+- name: SINGLE_ARM_CLAP
+  id: 3038
+  type: "meta"
+  preset_motion_id: 3038
+  motion_mod: 2
+  emotion_ids: [10, 240]
+  emotion_mod: 2
+  priority: 50
+  random_scene_ids:
+    - "t1_single_clap_1"
+    - "t1_single_clap_2"
+    - "t1_single_clap_3"
+  speak_mode: 0
+  description: "单臂击掌"
+
+- name: BIPED_RECOVERY
+  id: 1101
+  type: "meta"
+  preset_motion_id: 1101 
+  emotion_ids: [10,13,13,13]
+  emotion_mod: 0  # 循环播放
+  emotion_priority: -1000
+  priority: 50
+  random_scene_ids:
+    - "t1_recovery_1"
+    - "t1_recovery_2"
+    - "t1_recovery_3"
+  description: "双足自恢复"
+
+- name: QUADRUPED_LOCOMOTION_BACKFLIP
+  id: 1102
+  type: "meta"
+  preset_motion_id: 1102
+  emotion_ids: [10,13,13,13]
+  emotion_mod: 0  # 循环播放
+  emotion_priority: -1000
+  priority: 50
+  random_scene_ids:
+    - "t1_backflip_1"
+    - "t1_backflip_2"
+    - "t1_backflip_3"
+  description: "四足后空翻"
+
+- name: QUADRUPED_LOCOMOTION_FRONTFLIP
+  id: 1103
+  type: "meta"
+  preset_motion_id: 1103
+  emotion_ids: [10,13,13,13]
+  emotion_mod: 0  # 循环播放
+  emotion_priority: -1000
+  priority: 50
+  random_scene_ids:
+    - "t1_frontflip_1"
+    - "t1_frontflip_2"
+    - "t1_frontflip_3"
+  description: "四足前空翻"
+
+- name: QUADRUPED_TO_BIPED_FRONTFLIP
+  id: 1104
+  type: "meta"
+  preset_motion_id: 1104
+  emotion_ids: [10,13,13,13]
+  emotion_mod: 0  # 循环播放
+  emotion_priority: -1000
+  priority: 50
+  random_scene_ids:
+    - "t1_frontflip_transform_1"
+    - "t1_frontflip_transform_2"
+    - "t1_frontflip_transform_3"
+  description: "四足空翻变双足"
+
+- name: BIPED_LOCOMOTION_MOONWALK
+  id: 1105
+  type: "meta"
+  preset_motion_id: 1105
+  emotion_ids: [10,13,13,13]
+  emotion_mod: 0  # 循环播放
+  emotion_priority: -1000
+  priority: 50
+  random_scene_ids:
+    - "t1_moonwalk_biped_1"
+    - "t1_moonwalk_biped_2"
+    - "t1_moonwalk_biped_3"
+  description: "双足太空步"
+  audio_file_path: "/robot/software/task_engine/resource/resource_audios/"
+  audio_file_name_quadruped: "Billiejean_cut_15sec.wav"
+  audio_file_name_biped: "Billiejean_cut_15sec.wav"
+
+# ─── 补全 cfg/motions/t1 中所有动作 ──────────────────────────────────────────
+
+# 向前跳
+- name: FORWARD_JUMP
+  id: 41
+  type: "meta"
+  preset_motion_id: 41
+  motion_mod: 2
+  emotion_ids: [90, 16, 17, 102]
+  emotion_mod: 2
+  priority: 50
+  speak_mode: 0
+  description: "向前跳"
+
+# 退出太空步
+- name: EXIT_MOONWALK
+  id: 53
+  type: "meta"
+  preset_motion_id: 53
+  motion_mod: 2
+  emotion_ids: [10, 11, 12]
+  emotion_mod: 2
+  priority: 50
+  random_scene_ids:
+    - "t1_exit_moonwalk_1"
+    - "t1_exit_moonwalk_2"
+    - "t1_exit_moonwalk_3"
+  speak_mode: 0
+  description: "退出太空步"
+
+# 左手举过头顶
+- name: LEFT_HAND_OVERHEAD
+  id: 78
+  type: "meta"
+  preset_motion_id: 78
+  motion_mod: 2
+  emotion_ids: [10, 11, 12]
+  emotion_mod: 1
+  priority: 50
+  scene_id: "app_raise_hand_top_left"
+  speak_mode: 0
+  description: "左手举过头顶"
+
+# 右手举过头顶
+- name: RIGHT_HAND_OVERHEAD
+  id: 79
+  type: "meta"
+  preset_motion_id: 79
+  motion_mod: 2
+  emotion_ids: [10, 11, 12]
+  emotion_mod: 1
+  priority: 50
+  scene_id: "app_raise_hand_top_right"
+  speak_mode: 0
+  description: "右手举过头顶"
+
+# 随机跳舞
+- name: RANDOM_DANCE
+  id: 80
+  type: "meta"
+  preset_motion_id: 80
+  motion_mod: 2
+  emotion_ids: [90, 16, 17, 102]
+  emotion_mod: 2
+  priority: 50
+  random_scene_ids:
+    - "t1_random_dance_1"
+    - "t1_random_dance_2"
+    - "t1_random_dance_3"
+  speak_mode: 0
+  description: "随机跳舞"
+
+# 冰上旋舞
+- name: ICE_SPIN_DANCE
+  id: 3098
+  type: "meta"
+  preset_motion_id: 3098
+  motion_mod: 2
+  emotion_ids: [10, 90, 11, 18, 12, 16, 19, 240, 33, 33, 10, 102, 17]
+  emotion_mod: 1
+  priority: 50
+  speak_mode: 0
+  description: "冰上旋舞"
+
+# 极光冰舞
+- name: AURORA_ICE_DANCE
+  id: 3099
+  type: "meta"
+  preset_motion_id: 3099
+  motion_mod: 2
+  emotion_ids: [90, 11, 18, 12, 16, 19, 240, 33, 33, 10, 102, 17, 240, 33, 33, 10, 102, 17, 18, 10, 16, 90]
+  emotion_mod: 1
+  priority: 50
+  speak_mode: 0
+  description: "极光冰舞"
+
+# 滑行登场
+- name: SLIDING_ENTRANCE
+  id: 3100
+  type: "meta"
+  preset_motion_id: 3100
+  motion_mod: 2
+  emotion_ids: [16, 102, 18]
+  emotion_mod: 1
+  priority: 50
+  speak_mode: 0
+  description: "滑行登场"
+
+# 室内模式
+- name: MODE_INDOORS
+  id: 4001
+  type: "meta"
+  preset_motion_id: 4001
+  motion_mod: 2
+  emotion_ids: [10, 11, 12]
+  emotion_mod: 2
+  priority: 50
+  random_scene_ids:
+    - "t1_mode_indoor_1"
+    - "t1_mode_indoor_2"
+    - "t1_mode_indoor_3"
+  speak_mode: 0
+  description: "室内模式"
+
+# 户外模式
+- name: MODE_OUTDOORS
+  id: 4002
+  type: "meta"
+  preset_motion_id: 4002
+  motion_mod: 2
+  emotion_ids: [10, 11, 12]
+  emotion_mod: 2
+  priority: 50
+  random_scene_ids:
+    - "t1_mode_outdoor_1"
+    - "t1_mode_outdoor_2"
+    - "t1_mode_outdoor_3"
+  speak_mode: 0
+  description: "户外模式"
+
+# 超能力模式
+- name: MODE_SUPERPOWER
+  id: 4003
+  type: "meta"
+  preset_motion_id: 4003
+  motion_mod: 2
+  emotion_ids: [90, 16, 17, 102]
+  emotion_mod: 2
+  priority: 50
+  random_scene_ids:
+    - "t1_mode_super_1"
+    - "t1_mode_super_2"
+    - "t1_mode_super_3"
+  speak_mode: 0
+  description: "超能力模式"
+
+# 搬运模式
+- name: MODE_CARRY
+  id: 4004
+  type: "meta"
+  preset_motion_id: 4004
+  motion_mod: 2
+  emotion_ids: [10, 11, 12]
+  emotion_mod: 2
+  priority: 50
+  random_scene_ids:
+    - "t1_mode_carry_1"
+    - "t1_mode_carry_2"
+    - "t1_mode_carry_3"
+  speak_mode: 0
+  description: "搬运模式"
+
+# 模拟动画
+- name: SIMULATE_ANIMATION
+  id: 9999
+  type: "meta"
+  preset_motion_id: 9999
+  motion_mod: 2
+  emotion_ids: [10, 11, 12]
+  emotion_mod: 2
+  priority: 50
+  random_scene_ids:
+    - "t1_simulate_1"
+    - "t1_simulate_2"
+    - "t1_simulate_3"
+  speak_mode: 0
+  description: "模拟动画"

@@ -1,0 +1,127 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from aimdk_msgs/mc/motion/McPresetMotion.msg
+// generated code does not contain a copyright notice
+
+
+module aimdk_msgs {
+  module msg {
+    module McPresetMotion_Constants {
+      @verbatim (language="comment", text=
+        "恢复默认姿态")
+      const int32 DEFAULT_POS = 0;
+      @verbatim (language="comment", text=
+        "右手挥手")
+      const int32 RIGHT_ARM_WAVE = 1001;
+      @verbatim (language="comment", text=
+        "右手握手")
+      const int32 RIGHT_ARM_HANDSHAKE = 1002;
+      @verbatim (language="comment", text=
+        "左手握手1.5m上对象")
+      const int32 RIGHT_ARM_HANDSHAKE_FOR_1D5METER = 1003;
+      @verbatim (language="comment", text=
+        "左手挥手")
+      const int32 LEFT_ARM_WAVE = 1011;
+      @verbatim (language="comment", text=
+        "左手握手")
+      const int32 LEFT_ARM_HANDSHAKE = 1012;
+      @verbatim (language="comment", text=
+        "左手握手1.5m上对象")
+      const int32 LEFT_ARM_HANDSHAKE_FOR_1D5METER = 1013;
+      @verbatim (language="comment", text=
+        "双手比心")
+      const int32 BOTH_HANDS_MAKE_HEART = 2001;
+      @verbatim (language="comment", text=
+        "双手摆动，表达喜悦")
+      const int32 BOTH_HANDS_ACTION_HAPPY = 2002;
+      @verbatim (language="comment", text=
+        "双手动作，说话动作")
+      const int32 BOTH_HANDS_ACTION_TALKING = 2003;
+      @verbatim (language="comment", text=
+        "说话动作1")
+      const int32 T1_TALK1 = 2004;
+      @verbatim (language="comment", text=
+        "说话动作2")
+      const int32 T1_TALK2 = 2005;
+      @verbatim (language="comment", text=
+        "说话动作3")
+      const int32 T1_TALK3 = 2006;
+      @verbatim (language="comment", text=
+        "说话动作4")
+      const int32 T1_TALK4 = 2007;
+      @verbatim (language="comment", text=
+        "说话动作5")
+      const int32 T1_TALK5 = 2008;
+      @verbatim (language="comment", text=
+        "说话动作6")
+      const int32 T1_TALK6 = 2009;
+      @verbatim (language="comment", text=
+        "拍照动作1")
+      const int32 PHOTO_POSE_1 = 2011;
+      @verbatim (language="comment", text=
+        "拍照动作2")
+      const int32 PHOTO_POSE_2 = 2012;
+      @verbatim (language="comment", text=
+        "拍照动作3")
+      const int32 PHOTO_POSE_3 = 2013;
+      @verbatim (language="comment", text=
+        "拍照动作4")
+      const int32 PHOTO_POSE_4 = 2014;
+      @verbatim (language="comment", text=
+        "三连拍姿势")
+      const int32 PHOTO_THREE_SHOT = 2020;
+      @verbatim (language="comment", text=
+        "-----------------------------------------------------------------------------------" "\n"        "Q 预置的上肢动作" "\n"        "-----------------------------------------------------------------------------------" "\n"        "招手")
+      const int32 Q_BECKON = 3001;
+      @verbatim (language="comment", text=
+        "握手")
+      const int32 Q_SHAKE_HANDS = 3002;
+      @verbatim (language="comment", text=
+        "碰拳")
+      const int32 Q_BUMP_FISTS = 3003;
+      @verbatim (language="comment", text=
+        "挥手")
+      const int32 Q_WAVE_HAND = 3004;
+      @verbatim (language="comment", text=
+        "情绪动作 - 开心")
+      const int32 Q_SHOW_HAPPINESS = 3005;
+      @verbatim (language="comment", text=
+        "双手比心")
+      const int32 Q_MAKE_HEART = 3007;
+      @verbatim (language="comment", text=
+        "加油")
+      const int32 Q_CHEER_ON = 3008;
+      @verbatim (language="comment", text=
+        "伸懒腰")
+      const int32 Q_STRETCH = 3010;
+      @verbatim (language="comment", text=
+        "讲话动作A")
+      const int32 Q_SPEAK_A = 3012;
+      @verbatim (language="comment", text=
+        "讲话动作B")
+      const int32 Q_SPEAK_B = 3013;
+      @verbatim (language="comment", text=
+        "讲话动作C")
+      const int32 Q_SPEAK_C = 3014;
+      @verbatim (language="comment", text=
+        "拥抱")
+      const int32 Q_HUG = 3018;
+      @verbatim (language="comment", text=
+        "拒绝")
+      const int32 Q_REFUSE = 3021;
+      @verbatim (language="comment", text=
+        "跳舞动作A")
+      const int32 Q_DANCE_A = 3046;
+      @verbatim (language="comment", text=
+        "跳舞动作B")
+      const int32 Q_DANCE_B = 3047;
+      @verbatim (language="comment", text=
+        "跳舞动作C")
+      const int32 Q_DANCE_C = 3048;
+    };
+    @verbatim (language="comment", text=
+      "预设动作")
+    struct McPresetMotion {
+      int32 value;
+    };
+  };
+};

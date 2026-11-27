@@ -54,6 +54,9 @@
 | F8 | 102（四足行走）**不能**直接到 300；必须先 `QUADRUPED_TO_BIPED(_ROTATE)`(10/11)，再由 10/11 到 300 | `action_ruler.yaml` |
 | F9 | 300 的出口不含 `BIPED_STAND_DEFAULT`（被注释），只能去其它动作/变形/安全态 | `action_ruler.yaml` |
 | F10 | 手臂柔顺是**分档配置**：`idle/animation/planner` 开重力补偿 + 低 kp；`hold/rigid` 关补偿 + 高 kp | `animation_player.yaml` |
+| F11 | 真机日志：14:35:13.982 `QUADRUPED_TO_BIPED_ROTATE`(11) → 14:35:18.822 `BIPED_LOCOMOTION_WBC`(300) → 14:37:24.205 首次 `is_held:true`；之后 14:37:48.6 / 14:39:30.4 / 14:39:45.7 / 14:40:02.2 / 14:40:40.8 / 14:40:46.4 多次 on/off，**`action_desc` 始终是 300** | `raw/logs/uc3_state_timeline.csv` |
+| F12 | 牵手期间 `hand_held` 恒为 **3（RIGHT_HELD_ONLY）**，`form=2`（双足） | 同上 |
+| F13 | `[FLW] state` 在 held 首次置位时从 0 变 1（目标丢失），与"牵手挡相机"一致 | `raw/logs/uc3_follow_window.log` |
 
 ## 0.5 关键未知（不要编）
 
@@ -65,6 +68,7 @@
 | U4 | `held_state` 与内部 `drag_active` 是否同一个判据 | 注释说"计数大于该值才上报"，但上报链路在 runner 还是 MC 未证实 |
 | U5 | `wheel_*` 回路是"轮角积分"还是"轮力矩" | 字段名像位置，阈值又像力矩 |
 | U6 | 左手/右手同时牵时 roll 取谁、是否相加 | 5 态合并，但没有合并算法证据 |
+| U7 | 拖拽解算的**数值**（vx/yaw 中间量） | 真机日志只有 IST/MCA/FLW，没有 `McCommonState` 的速度/关节字段 |
 
 ## 0.6 怎么读（顺序很重要）
 
@@ -74,29 +78,33 @@
 2. `03_THREE_QUESTIONS.md`
 3. `packs/01_HANDHELD_CONFIGS.md`（重点：`arm_drag` 段、`command_scales`、`animation_player` 的 idle/animation/hold）
 4. `packs/02_ACTION_SAFETY_AND_GATING.md`（重点：`action_ruler` 的 102→10/11→300、300 的出口、`DAMPING` 的出口）
-5. `packs/05_MODEL_IO_AND_LIMITS.md`（重点：ONNX 只有 49+490 输入、14 输出；关节限位）
+5. `packs/05_MODEL_IO_AND_LIMITS.md`（重点：ONNX 只有 49+490 输入、14 输出；关节限位；obs 布局）
+6. `packs/07_REAL_MACHINE_LOG.md`（重点：held 在 300 内多次 on/off、动作不变、`hand_held=3`）
 
-### 第二遍（补接口与门控）
+### 第二遍（补接口、门控、变身）
 
-6. `packs/03_INTERFACES_AND_RULES.md`（`held_state`、`AmRequest`、9 条 `allow_held_state`、`follow.yaml`）
+7. `packs/03_INTERFACES_AND_RULES.md`（`McAction` 全枚举、`held_state`、`SetMcInputSource`、14 条规则）
+8. `packs/06_TRANSITIONS_DEVICE_AND_LISTS.md`（Q2B runner、重力包络、device_manager、动作/模型清单）
 
 ### 第三遍（再对照我们的假设）
 
-7. `packs/04_ANALYSIS_HYPOTHESIS.md`：**先自己写结论，再读它**；逐条标"同意/修正/反驳/证据不足"。
+9. `packs/04_ANALYSIS_HYPOTHESIS.md`：**先自己写结论，再读它**；逐条标"同意/修正/反驳/证据不足"。
 
 ### 需要原始上下文时
 
 - `raw/t1/qd1_t2d0/rl/bi_wbc_run.yaml`、`raw/t1/qd1_t2d0/rl/bi_gimbal.yaml`、`raw/t1/qd1_t1d5/rl/*`（版本对比）
 - `raw/t1/qd1_t2d0/classic/animation_player.yaml`、`damping_default.yaml`
 - `raw/t1/qd1_t2d0/action_ruler.yaml`、`action_setting.yaml`、`action_state.yaml`、`security_guard.yaml`
-- `raw/t1/interfaces/*`
-- `raw/t1/task_engine/rule/*`
+- `raw/t1/interfaces/*`、`raw/t1/task_engine/**`、`raw/t1/qd1_t2d0/rl/quad_to_bi_rotate_run.yaml`
 - `raw/t1/qd1_t2d0/model_io.txt`、`robot_model.yaml`、`urdf/qd1.urdf`
+- `raw/model_list/*.csv|md`（派生的动作/权重/规则图统计）
+- `raw/docs_full/*.md`（完整内部文档，二手；只在需要查上下文时看，冲突时以配置为准）
+- `raw/INDEX.md`（每个文件干什么）、`raw/NOT_INCLUDED.md`（没放什么、为什么）
 
 ## 0.7 交付时最低要求
 
 - 每个结论后面给 `文件 + 字段`；推断标 `[推断]`，未知标 `[未知]`。
 - 三个问题各自先给"一句话结论"，再展开；不要先铺垫后回答。
-- 至少画三张图：**判定/计数时序图**、**准入准出状态机**、**速度解算信号流图**。
-- 对 U1–U6 每个未知：给出**两种可能解释 + 判别实验**，不要二选一硬猜。
+- 至少画三张图：**判定/计数时序图**、**准入准出状态机**、**速度解算信号流图**；再加一张 **UC3 真机 held 时间线**。
+- 对 U1–U7 每个未知：给出**两种可能解释 + 判别实验**，不要二选一硬猜。
 - 最后给"如果要在 Collie 复刻，最小实现集是什么"。

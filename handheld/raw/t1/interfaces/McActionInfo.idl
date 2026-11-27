@@ -1,0 +1,32 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from aimdk_msgs/mc/action/McActionInfo.msg
+// generated code does not contain a copyright notice
+
+#include "aimdk_msgs/msg/McAction.idl"
+#include "aimdk_msgs/msg/McActionStatus.idl"
+
+module aimdk_msgs {
+  module msg {
+    @verbatim (language="comment", text=
+      "当前运行的Action")
+    struct McActionInfo {
+      aimdk_msgs::msg::McAction current_action;
+
+      @verbatim (language="comment", text=
+        "当前action的触发源")
+      string source;
+
+      @verbatim (language="comment", text=
+        "描述")
+      string action_desc;
+
+      @verbatim (language="comment", text=
+        "Action状态")
+      aimdk_msgs::msg::McActionStatus status;
+
+      @verbatim (language="comment", text=
+        "action 切换是否就绪, false 未准备就绪, true 切换就绪")
+      boolean switch_ready;
+    };
+  };
+};

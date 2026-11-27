@@ -21,7 +21,7 @@
 ## 从这里开始
 
 1. **[00_READ_ME_FIRST.md](00_READ_ME_FIRST.md)** — 阅读顺序、证据规则、三层框架（Action / Runner 内部 / Command）。
-2. **[02_CONTEXT_BRIEF.md](02_CONTEXT_BRIEF.md)** — 15 分钟背景：T1 构型、300 WBC、配置地图、已确认事实与未知。
+2. **[02_CONTEXT_BRIEF.md](02_CONTEXT_BRIEF.md)** — 15 分钟背景：T1 构型、300 WBC、配置地图、已确认事实与未知、**UC3 真机日志实证**。
 3. **[03_THREE_QUESTIONS.md](03_THREE_QUESTIONS.md)** — 三个问题的展开与验收标准（GPT 必须逐条回答）。
 4. **[01_PROMPT_FOR_GPT.md](01_PROMPT_FOR_GPT.md)** — **可直接复制给网页版 GPT 的任务书**；纯文本版 [PROMPT_TO_COPY.txt](PROMPT_TO_COPY.txt)。
 5. **[04_EVIDENCE_MAP.md](04_EVIDENCE_MAP.md)** — 论断 → 文件/字段 → 强度。
@@ -48,10 +48,19 @@ LAUNCH_PROMPT.md                一句短消息（先让 GPT 打开仓库）
 packs/                          按主题拼接的阅读包（每个文件带 FILE 头）
   01_HANDHELD_CONFIGS.md        牵手相关全部配置：WBC/GIMBAL/动画/WBC 对比
   02_ACTION_SAFETY_AND_GATING.md 动作图、执行组、安全、状态、任务门控
-  03_INTERFACES_AND_RULES.md    held_state/velocity/AmRequest + 10 条任务规则
+  03_INTERFACES_AND_RULES.md    McAction 全枚举、held_state、SetMcInputSource、14 条规则
   04_ANALYSIS_HYPOTHESIS.md     我们的假设稿 + T1 架构/接口文档摘录
-  05_MODEL_IO_AND_LIMITS.md     ONNX IO、关节限位、URDF、观测布局
+  05_MODEL_IO_AND_LIMITS.md     ONNX IO、obs 布局、关节限位、URDF
+  06_TRANSITIONS_DEVICE_AND_LISTS.md 变身 runner、device_manager、动作/模型清单
+  07_REAL_MACHINE_LOG.md        UC3 真机日志：held 时间线 + 4 个原始窗口
 raw/                            原始证据（UTF-8 副本、去除 BOM，见 raw/ENCODING.md）
+  t1/                           配置、接口、任务规则、变身/设备
+  model_list/                   派生的动作/权重/规则图/观测清单
+  logs/                         UC3 日志摘录（全量 10.8 MB 未打包）
+  docs/                         文档摘录
+  docs_full/                    完整内部文档（二手；冲突时以配置为准）
+  INDEX.md                      每个文件干什么、按问题查
+  NOT_INCLUDED.md               没放什么、为什么
 MANIFEST.csv                    文件清单 + SHA256 + 原始路径 + 编码
 SHA256SUMS.txt                  校验和
 ```

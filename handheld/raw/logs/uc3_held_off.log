@@ -1,0 +1,414 @@
+# window 52667.8..52669.2 (seconds of day), raw lines from c2_events.log
+14:37:47.802 [MCA] current_action:
+14:37:47.804 [IST]   action_desc: BIPED_LOCOMOTION_WBC
+14:37:47.810 [IST]   status:
+14:37:47.810 [MCA]   value: 300
+14:37:47.816 [MCA] source: task_engine
+14:37:47.817 [IST]     value: 100
+14:37:47.821 [MCA] action_desc: BIPED_LOCOMOTION_WBC
+14:37:47.822 [IST]   switch_ready: true
+14:37:47.826 [MCA] status:
+14:37:47.828 [IST] held_state:
+14:37:47.832 [MCA]   value: 100
+14:37:47.834 [IST]   is_held: true
+14:37:47.839 [MCA] switch_ready: true
+14:37:47.840 [IST]   hand_held: 3
+14:37:47.847 [IST] mode: 1
+14:37:47.849 [MCA] ---
+14:37:47.857 [IST] mode_speed: 0.5
+14:37:47.859 [MCA] current_action:
+14:37:47.864 [IST] prohibition_broadcast_net: false
+14:37:47.869 [MCA]   value: 300
+14:37:47.869 [IST] task_state:
+14:37:47.874 [MCA] source: task_engine
+14:37:47.876 [IST]   task_type: 0
+14:37:47.880 [MCA] action_desc: BIPED_LOCOMOTION_WBC
+14:37:47.882 [IST]   task_stage: 0
+14:37:47.884 [MCA] status:
+14:37:47.889 [IST]   token:
+14:37:47.892 [MCA]   value: 100
+14:37:47.897 [IST]     source: ''
+14:37:47.899 [MCA] switch_ready: true
+14:37:47.903 [IST]     token: ''
+14:37:47.905 [MCA] ---
+14:37:47.910 [MCA] current_action:
+14:37:47.913 [IST] motion: ''
+14:37:47.916 [MCA]   value: 300
+14:37:47.917 [IST] percep_env_state: 0
+14:37:47.921 [MCA] source: task_engine
+14:37:47.922 [IST] ---
+14:37:47.925 [MCA] action_desc: BIPED_LOCOMOTION_WBC
+14:37:47.927 [IST] header:
+14:37:47.930 [MCA] status:
+14:37:47.934 [IST]   stamp:
+14:37:47.935 [MCA]   value: 100
+14:37:47.939 [IST]     sec: 0
+14:37:47.941 [MCA] switch_ready: true
+14:37:47.944 [IST]     nanosec: 0
+14:37:47.947 [MCA] ---
+14:37:47.951 [IST]   frame_id: ''
+14:37:47.953 [MCA] current_action:
+14:37:47.959 [IST]   sequence: 0
+14:37:47.960 [MCA]   value: 300
+14:37:47.966 [IST]   meas_stamp:
+14:37:47.967 [MCA] source: task_engine
+14:37:47.973 [IST]     sec: 0
+14:37:47.973 [MCA] action_desc: BIPED_LOCOMOTION_WBC
+14:37:47.979 [MCA] status:
+14:37:47.986 [MCA]   value: 100
+14:37:47.988 [IST]     nanosec: 0
+14:37:47.992 [MCA] switch_ready: true
+14:37:48.000 [IST] interaction_id: 0
+14:37:48.000 [MCA] ---
+14:37:48.004 [IST] mp_state:
+14:37:48.005 [MCA] current_action:
+14:37:48.011 [IST]   value: 0
+14:37:48.016 [MCA]   value: 300
+14:37:48.018 [IST] form_state:
+14:37:48.021 [MCA] source: task_engine
+14:37:48.026 [IST]   current_form: 2
+14:37:48.029 [MCA] action_desc: BIPED_LOCOMOTION_WBC
+14:37:48.031 [IST] action_info:
+14:37:48.034 [MCA] status:
+14:37:48.036 [IST]   current_action:
+14:37:48.039 [MCA]   value: 100
+14:37:48.041 [IST]     value: 300
+14:37:48.046 [MCA] switch_ready: true
+14:37:48.052 [IST]   source: task_engine
+14:37:48.052 [MCA] ---
+14:37:48.060 [IST]   action_desc: BIPED_LOCOMOTION_WBC
+14:37:48.064 [MCA] current_action:
+14:37:48.066 [IST]   status:
+14:37:48.070 [MCA]   value: 300
+14:37:48.071 [IST]     value: 100
+14:37:48.077 [MCA] source: task_engine
+14:37:48.079 [IST]   switch_ready: true
+14:37:48.083 [MCA] action_desc: BIPED_LOCOMOTION_WBC
+14:37:48.096 [IST] held_state:
+14:37:48.096 [MCA] status:
+14:37:48.101 [MCA]   value: 100
+14:37:48.103 [IST]   is_held: true
+14:37:48.106 [MCA] switch_ready: true
+14:37:48.110 [IST]   hand_held: 3
+14:37:48.111 [MCA] ---
+14:37:48.116 [IST] mode: 1
+14:37:48.116 [MCA] current_action:
+14:37:48.122 [IST] mode_speed: 0.5
+14:37:48.122 [MCA]   value: 300
+14:37:48.127 [MCA] source: task_engine
+14:37:48.127 [IST] prohibition_broadcast_net: false
+14:37:48.132 [IST] task_state:
+14:37:48.133 [MCA] action_desc: BIPED_LOCOMOTION_WBC
+14:37:48.137 [IST]   task_type: 0
+14:37:48.138 [MCA] status:
+14:37:48.145 [MCA]   value: 100
+14:37:48.148 [IST]   task_stage: 0
+14:37:48.150 [MCA] switch_ready: true
+14:37:48.156 [IST]   token:
+14:37:48.160 [MCA] ---
+14:37:48.163 [IST]     source: ''
+14:37:48.166 [MCA] current_action:
+14:37:48.171 [IST]     token: ''
+14:37:48.171 [MCA]   value: 300
+14:37:48.177 [MCA] source: task_engine
+14:37:48.179 [IST] motion: ''
+14:37:48.184 [MCA] action_desc: BIPED_LOCOMOTION_WBC
+14:37:48.186 [IST] percep_env_state: 0
+14:37:48.193 [MCA] status:
+14:37:48.194 [IST] ---
+14:37:48.200 [MCA]   value: 100
+14:37:48.200 [IST] header:
+14:37:48.206 [MCA] switch_ready: true
+14:37:48.207 [IST]   stamp:
+14:37:48.211 [MCA] ---
+14:37:48.216 [IST]     sec: 0
+14:37:48.217 [MCA] current_action:
+14:37:48.221 [IST]     nanosec: 0
+14:37:48.222 [MCA]   value: 300
+14:37:48.227 [IST]   frame_id: ''
+14:37:48.227 [MCA] source: task_engine
+14:37:48.232 [MCA] action_desc: BIPED_LOCOMOTION_WBC
+14:37:48.233 [IST]   sequence: 0
+14:37:48.238 [MCA] status:
+14:37:48.238 [IST]   meas_stamp:
+14:37:48.243 [MCA]   value: 100
+14:37:48.249 [MCA] switch_ready: true
+14:37:48.249 [IST]     sec: 0
+14:37:48.255 [MCA] ---
+14:37:48.261 [IST]     nanosec: 0
+14:37:48.261 [MCA] current_action:
+14:37:48.268 [IST] interaction_id: 0
+14:37:48.268 [MCA]   value: 300
+14:37:48.273 [MCA] source: task_engine
+14:37:48.276 [IST] mp_state:
+14:37:48.279 [MCA] action_desc: BIPED_LOCOMOTION_WBC
+14:37:48.286 [IST]   value: 0
+14:37:48.294 [MCA] status:
+14:37:48.294 [IST] form_state:
+14:37:48.301 [IST]   current_form: 2
+14:37:48.301 [MCA]   value: 100
+14:37:48.306 [MCA] switch_ready: true
+14:37:48.307 [IST] action_info:
+14:37:48.313 [IST]   current_action:
+14:37:48.313 [MCA] ---
+14:37:48.318 [MCA] current_action:
+14:37:48.319 [IST]     value: 300
+14:37:48.323 [MCA]   value: 300
+14:37:48.325 [IST]   source: task_engine
+14:37:48.328 [MCA] source: task_engine
+14:37:48.330 [IST]   action_desc: BIPED_LOCOMOTION_WBC
+14:37:48.335 [MCA] action_desc: BIPED_LOCOMOTION_WBC
+14:37:48.337 [IST]   status:
+14:37:48.340 [MCA] status:
+14:37:48.342 [IST]     value: 100
+14:37:48.348 [MCA]   value: 100
+14:37:48.349 [IST]   switch_ready: true
+14:37:48.356 [MCA] switch_ready: true
+14:37:48.359 [IST] held_state:
+14:37:48.363 [MCA] ---
+14:37:48.366 [IST]   is_held: true
+14:37:48.369 [MCA] current_action:
+14:37:48.372 [IST]   hand_held: 3
+14:37:48.374 [MCA]   value: 300
+14:37:48.380 [MCA] source: task_engine
+14:37:48.379 [IST] mode: 1
+14:37:48.388 [MCA] action_desc: BIPED_LOCOMOTION_WBC
+14:37:48.398 [IST] mode_speed: 0.5
+14:37:48.402 [MCA] status:
+14:37:48.404 [IST] prohibition_broadcast_net: false
+14:37:48.411 [MCA]   value: 100
+14:37:48.413 [IST] task_state:
+14:37:48.418 [IST]   task_type: 0
+14:37:48.418 [MCA] switch_ready: true
+14:37:48.423 [MCA] ---
+14:37:48.424 [IST]   task_stage: 0
+14:37:48.429 [MCA] current_action:
+14:37:48.429 [IST]   token:
+14:37:48.433 [MCA]   value: 300
+14:37:48.436 [IST]     source: ''
+14:37:48.438 [MCA] source: task_engine
+14:37:48.442 [IST]     token: ''
+14:37:48.442 [MCA] action_desc: BIPED_LOCOMOTION_WBC
+14:37:48.449 [MCA] status:
+14:37:48.449 [IST] motion: ''
+14:37:48.456 [IST] percep_env_state: 0
+14:37:48.455 [MCA]   value: 100
+14:37:48.461 [IST] ---
+14:37:48.465 [MCA] switch_ready: true
+14:37:48.467 [IST] header:
+14:37:48.472 [MCA] ---
+14:37:48.473 [IST]   stamp:
+14:37:48.478 [MCA] current_action:
+14:37:48.481 [IST]     sec: 0
+14:37:48.483 [MCA]   value: 300
+14:37:48.497 [IST]     nanosec: 0
+14:37:48.490 [MCA] source: task_engine
+14:37:48.503 [IST]   frame_id: ''
+14:37:48.507 [MCA] action_desc: BIPED_LOCOMOTION_WBC
+14:37:48.509 [IST]   sequence: 0
+14:37:48.515 [MCA] status:
+14:37:48.516 [IST]   meas_stamp:
+14:37:48.519 [MCA]   value: 100
+14:37:48.522 [IST]     sec: 0
+14:37:48.524 [MCA] switch_ready: true
+14:37:48.528 [IST]     nanosec: 0
+14:37:48.529 [MCA] ---
+14:37:48.534 [MCA] current_action:
+14:37:48.534 [IST] interaction_id: 0
+14:37:48.539 [MCA]   value: 300
+14:37:48.540 [IST] mp_state:
+14:37:48.545 [MCA] source: task_engine
+14:37:48.545 [IST]   value: 0
+14:37:48.552 [IST] form_state:
+14:37:48.552 [MCA] action_desc: BIPED_LOCOMOTION_WBC
+14:37:48.558 [IST]   current_form: 2
+14:37:48.558 [MCA] status:
+14:37:48.565 [IST] action_info:
+14:37:48.565 [MCA]   value: 100
+14:37:48.571 [MCA] switch_ready: true
+14:37:48.573 [IST]   current_action:
+14:37:48.577 [MCA] ---
+14:37:48.579 [IST]     value: 300
+14:37:48.583 [MCA] current_action:
+14:37:48.590 [IST]   source: task_engine
+14:37:48.596 [MCA]   value: 300
+14:37:48.602 [MCA] source: task_engine
+14:37:48.603 [IST]   action_desc: BIPED_LOCOMOTION_WBC
+14:37:48.609 [IST]   status:
+14:37:48.610 [MCA] action_desc: BIPED_LOCOMOTION_WBC
+14:37:48.615 [IST]     value: 100
+14:37:48.617 [MCA] status:
+14:37:48.622 [MCA]   value: 100
+14:37:48.622 [IST]   switch_ready: true
+14:37:48.627 [MCA] switch_ready: true
+14:37:48.629 [IST] held_state:
+14:37:48.632 [MCA] ---
+14:37:48.634 [IST]   is_held: false
+14:37:48.637 [MCA] current_action:
+14:37:48.639 [IST]   hand_held: 1
+14:37:48.643 [MCA]   value: 300
+14:37:48.645 [IST] mode: 1
+14:37:48.650 [MCA] source: task_engine
+14:37:48.651 [IST] mode_speed: 0.5
+14:37:48.658 [MCA] action_desc: BIPED_LOCOMOTION_WBC
+14:37:48.659 [IST] prohibition_broadcast_net: false
+14:37:48.667 [IST] task_state:
+14:37:48.668 [MCA] status:
+14:37:48.672 [IST]   task_type: 0
+14:37:48.673 [MCA]   value: 100
+14:37:48.681 [MCA] switch_ready: true
+14:37:48.682 [IST]   task_stage: 0
+14:37:48.687 [MCA] ---
+14:37:48.693 [MCA] current_action:
+14:37:48.695 [IST]   token:
+14:37:48.699 [MCA]   value: 300
+14:37:48.700 [IST]     source: ''
+14:37:48.705 [IST]     token: ''
+14:37:48.705 [MCA] source: task_engine
+14:37:48.711 [IST] motion: ''
+14:37:48.712 [MCA] action_desc: BIPED_LOCOMOTION_WBC
+14:37:48.717 [IST] percep_env_state: 0
+14:37:48.717 [MCA] status:
+14:37:48.722 [MCA]   value: 100
+14:37:48.723 [IST] ---
+14:37:48.728 [IST] header:
+14:37:48.728 [MCA] switch_ready: true
+14:37:48.733 [IST]   stamp:
+14:37:48.733 [MCA] ---
+14:37:48.738 [MCA] current_action:
+14:37:48.739 [IST]     sec: 0
+14:37:48.747 [MCA]   value: 300
+14:37:48.747 [IST]     nanosec: 0
+14:37:48.754 [IST]   frame_id: ''
+14:37:48.752 [MCA] source: task_engine
+14:37:48.760 [IST]   sequence: 0
+14:37:48.762 [MCA] action_desc: BIPED_LOCOMOTION_WBC
+14:37:48.766 [IST]   meas_stamp:
+14:37:48.768 [MCA] status:
+14:37:48.773 [IST]     sec: 0
+14:37:48.774 [MCA]   value: 100
+14:37:48.779 [MCA] switch_ready: true
+14:37:48.779 [IST]     nanosec: 0
+14:37:48.793 [IST] interaction_id: 0
+14:37:48.795 [MCA] ---
+14:37:48.801 [IST] mp_state:
+14:37:48.802 [MCA] current_action:
+14:37:48.808 [MCA]   value: 300
+14:37:48.814 [MCA] source: task_engine
+14:37:48.814 [IST]   value: 0
+14:37:48.819 [MCA] action_desc: BIPED_LOCOMOTION_WBC
+14:37:48.819 [IST] form_state:
+14:37:48.824 [MCA] status:
+14:37:48.825 [IST]   current_form: 2
+14:37:48.829 [MCA]   value: 100
+14:37:48.832 [IST] action_info:
+14:37:48.833 [MCA] switch_ready: true
+14:37:48.838 [IST]   current_action:
+14:37:48.840 [MCA] ---
+14:37:48.843 [IST]     value: 300
+14:37:48.854 [IST]   source: task_engine
+14:37:48.860 [MCA] current_action:
+14:37:48.860 [IST]   action_desc: BIPED_LOCOMOTION_WBC
+14:37:48.866 [IST]   status:
+14:37:48.866 [MCA]   value: 300
+14:37:48.870 [IST]     value: 100
+14:37:48.871 [MCA] source: task_engine
+14:37:48.877 [MCA] action_desc: BIPED_LOCOMOTION_WBC
+14:37:48.878 [IST]   switch_ready: true
+14:37:48.882 [MCA] status:
+14:37:48.888 [MCA]   value: 100
+14:37:48.895 [IST] held_state:
+14:37:48.899 [MCA] switch_ready: true
+14:37:48.901 [IST]   is_held: false
+14:37:48.903 [MCA] ---
+14:37:48.907 [IST]   hand_held: 1
+14:37:48.909 [MCA] current_action:
+14:37:48.914 [IST] mode: 1
+14:37:48.916 [MCA]   value: 300
+14:37:48.919 [IST] mode_speed: 0.5
+14:37:48.920 [MCA] source: task_engine
+14:37:48.924 [IST] prohibition_broadcast_net: false
+14:37:48.925 [MCA] action_desc: BIPED_LOCOMOTION_WBC
+14:37:48.930 [MCA] status:
+14:37:48.930 [IST] task_state:
+14:37:48.934 [MCA]   value: 100
+14:37:48.935 [IST]   task_type: 0
+14:37:48.940 [MCA] switch_ready: true
+14:37:48.941 [IST]   task_stage: 0
+14:37:48.947 [IST]   token:
+14:37:48.952 [IST]     source: ''
+14:37:48.956 [MCA] ---
+14:37:48.959 [IST]     token: ''
+14:37:48.962 [MCA] current_action:
+14:37:48.964 [IST] motion: ''
+14:37:48.968 [MCA]   value: 300
+14:37:48.970 [IST] percep_env_state: 0
+14:37:48.974 [MCA] source: task_engine
+14:37:48.979 [IST] ---
+14:37:48.979 [MCA] action_desc: BIPED_LOCOMOTION_WBC
+14:37:48.989 [MCA] status:
+14:37:48.992 [IST] header:
+14:37:48.997 [MCA]   value: 100
+14:37:48.998 [IST]   stamp:
+14:37:49.002 [MCA] switch_ready: true
+14:37:49.003 [IST]     sec: 0
+14:37:49.007 [MCA] ---
+14:37:49.008 [IST]     nanosec: 0
+14:37:49.012 [MCA] current_action:
+14:37:49.014 [IST]   frame_id: ''
+14:37:49.019 [MCA]   value: 300
+14:37:49.019 [IST]   sequence: 0
+14:37:49.023 [MCA] source: task_engine
+14:37:49.025 [IST]   meas_stamp:
+14:37:49.028 [MCA] action_desc: BIPED_LOCOMOTION_WBC
+14:37:49.030 [IST]     sec: 0
+14:37:49.034 [MCA] status:
+14:37:49.036 [IST]     nanosec: 0
+14:37:49.038 [MCA]   value: 100
+14:37:49.042 [IST] interaction_id: 0
+14:37:49.043 [MCA] switch_ready: true
+14:37:49.050 [IST] mp_state:
+14:37:49.053 [MCA] ---
+14:37:49.057 [IST]   value: 0
+14:37:49.063 [MCA] current_action:
+14:37:49.064 [IST] form_state:
+14:37:49.068 [MCA]   value: 300
+14:37:49.070 [IST]   current_form: 2
+14:37:49.075 [IST] action_info:
+14:37:49.075 [MCA] source: task_engine
+14:37:49.080 [IST]   current_action:
+14:37:49.087 [MCA] action_desc: BIPED_LOCOMOTION_WBC
+14:37:49.094 [MCA] status:
+14:37:49.094 [IST]     value: 300
+14:37:49.100 [IST]   source: task_engine
+14:37:49.100 [MCA]   value: 100
+14:37:49.105 [MCA] switch_ready: true
+14:37:49.106 [IST]   action_desc: BIPED_LOCOMOTION_WBC
+14:37:49.111 [MCA] ---
+14:37:49.115 [IST]   status:
+14:37:49.117 [MCA] current_action:
+14:37:49.120 [IST]     value: 100
+14:37:49.121 [MCA]   value: 300
+14:37:49.125 [IST]   switch_ready: true
+14:37:49.126 [MCA] source: task_engine
+14:37:49.130 [MCA] action_desc: BIPED_LOCOMOTION_WBC
+14:37:49.132 [IST] held_state:
+14:37:49.136 [IST]   is_held: false
+14:37:49.137 [MCA] status:
+14:37:49.141 [MCA]   value: 100
+14:37:49.141 [IST]   hand_held: 1
+14:37:49.148 [IST] mode: 1
+14:37:49.148 [MCA] switch_ready: true
+14:37:49.156 [MCA] ---
+14:37:49.156 [IST] mode_speed: 0.5
+14:37:49.162 [MCA] current_action:
+14:37:49.162 [IST] prohibition_broadcast_net: false
+14:37:49.168 [MCA]   value: 300
+14:37:49.169 [IST] task_state:
+14:37:49.173 [MCA] source: task_engine
+14:37:49.176 [IST]   task_type: 0
+14:37:49.181 [IST]   task_stage: 0
+14:37:49.182 [MCA] action_desc: BIPED_LOCOMOTION_WBC
+14:37:49.192 [IST]   token:
+14:37:49.197 [MCA] status:
+14:37:49.199 [IST]     source: ''

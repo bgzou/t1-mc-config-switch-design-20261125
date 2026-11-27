@@ -35,8 +35,10 @@
 | P0 | `handheld/packs/01_HANDHELD_CONFIGS.md` | `arm_drag` 全字段（t2d0/t1d5/gimbal）、`command_scales`、`animation_player` 五档、`damping_default`、`bi_walk`/`quad_walk` 对照 |
 | P0 | `handheld/packs/02_ACTION_SAFETY_AND_GATING.md` | `action_ruler`（102→10/11→300；300 的出口；DAMPING 只回 PASSIVE）、`action_setting`、`action_state`、`security_guard` |
 | P0 | `handheld/packs/05_MODEL_IO_AND_LIMITS.md` | ONNX 只有 `observations[1,49]` + `observation_history[1,490]`、输出 `action[1,14]`；关节限位；obs 布局 |
-| P1 | `handheld/packs/03_INTERFACES_AND_RULES.md` | `McHandHeldState` 5 态、`is_held` 语义、`AmRequest REASON_HELD=41`、9 条 `allow_held_state:false`、`follow.yaml` |
+| P1 | `handheld/packs/03_INTERFACES_AND_RULES.md` | `McAction` 全枚举（证明没有"牵手"动作）、`McHandHeldState` 5 态、`SetMcInputSource`、`AmRequest REASON_HELD=41`、14 条任务规则 |
 | P1 | `handheld/packs/04_ANALYSIS_HYPOTHESIS.md` | 我们的假设稿 + T1 架构/接口文档摘录。**先自己下结论，再读它** |
+| P0 | `handheld/packs/06_TRANSITIONS_DEVICE_AND_LISTS.md` | Q2B runner（`quad_to_bi_rotate_run.yaml` 的重力包络/`max_cycle_time`）、device_manager、motion_list、派生清单 |
+| P0 | `handheld/packs/07_REAL_MACHINE_LOG.md` | **真机日志**：held 在 300 内多次 on/off、动作不变、`hand_held=3`、follow state 变化 |
 
 原始文件在 `handheld/raw/`（UTF-8 副本，已去 BOM；`raw/ENCODING.md` 说明）。
 
@@ -62,6 +64,7 @@
 - `DAMPING_DEFAULT`(2) 是 `kp=0` 的终端安全态，`next_actions` 只有 `PASSIVE_DEFAULT`，不能走路。
 - `held_state`：5 态 + `is_held`，50 Hz 广播；9 条任务规则 `allow_held_state:false`；`follow.yaml` **不**拦 held。
 - 动作图：102 不能直接到 300；必须先 10/11 变形，再由 10/11 落位 300。300 的出口里 `BIPED_STAND_DEFAULT` 被注释掉。
+- **真机日志（实测）**：14:35:13.982 进 11 → 14:35:18.822 进 300 → 14:37:24.205 首次 `is_held:true`（`hand_held=3`，右手单牵）→ 之后 14:37:48.6 / 14:39:30.4 / 14:39:45.7 / 14:40:02.2 / 14:40:40.8 / 14:40:46.4 多次 on/off，**`action_desc` 始终 300**；同一时刻 `[FLW] state` 从 0 变 1（目标丢失）。见 `handheld/raw/logs/`。
 
 ---
 
@@ -76,7 +79,7 @@
 1. "牵手模式"存在于哪一层（Action / Runner / Command）？有没有一个动作/枚举/服务？
 2. 判定用了哪些物理量（roll / pitch / 手端位移 / 轮端 / 电流）？逐手还是合并？
 3. 每个判据的阈值、单位、连续帧数、折算时间；为什么转向 5 帧、前进 100 帧？
-4. `held_state` 与 runner 内部"拖拽生效"是不是同一个判据？"计数大于该值才上报"说明什么？
+4. `held_state` 与 runner 内部"拖拽生效"是不是同一个判据？"计数大于该值才上报"说明什么？**用 `raw/logs/uc3_state_timeline.csv` 核对：held 切换时 action 有没有变？**
 5. **逐项检验用户的假设**：general 四足行走 + 新 runner 换 kp/kd。
    - 四足行走能不能被牵？普通双足 `bi_walk` 能不能？只改 kp/kd 缺什么？
    - `arm_drag` 是动作专属还是 runner 能力？gimbal 复用 WBC 说明什么？
@@ -87,7 +90,7 @@
 必须回答：
 
 1. 准入：形态、动作、配置、软臂档、手屏蔽、动作图路径（102→10/11→300）；从 102 能否直接牵？
-2. 进入：有没有显式入口（`SetMcAction` / 服务）？没有的话是不是自动？"待机牵"与"行走中牵"是否等价？
+2. 进入：有没有显式入口（`SetMcAction` / 服务）？没有的话是不是自动？"待机牵"与"行走中牵"是否等价？**日志里 held 在 300 内多次 on/off 而 action 不变——这能证明什么、不能证明什么？**
 3. 保持：死区、计数、轮端回馈、滞回；松手又抓住会不会抖？左右手交替怎么迁移？
 4. 准出：松手判据、回位（`rest_return_rate`）、减速（`push_release_decel`/`acc_x`）、TTL；动作级退出（换动作/变形/跌倒/急停）；为什么 300 不能回 `BIPED_STAND_DEFAULT`？
 5. 仲裁：拖拽 vs 视觉跟随（`SetMcInputSource` + `velocity`）vs 摇杆（`joystick_cooldown_frames`）；`cmd_guard 200 ms` 是否作用于拖拽？
@@ -116,6 +119,7 @@
 - 仓库没有源码：不要写"代码里是……"；写"从字段/注释推断……"。
 - 不要编造字段、单位、阈值、日志。
 - 不要把 `raw/analysis/` 的假设稿当证据复述；先独立判断，再逐条裁决（同意/修正/反驳/证据不足）。
+- `raw/docs_full/` 是完整内部文档，属**二手**；与配置冲突时以配置为准，引用时标 `[二手]`。
 - 不要用"通常/一般来说"代替 T1 的具体证据；如果只能给通用做法，明确标 `[通用工程做法，非 T1 证据]`。
 
 ---
@@ -126,7 +130,7 @@
 
 0. **答案卡**：三问各一句结论 + 三层归属小图 + 阅读声明。
 1. **Q1**：判定矩阵、判定时序图、"新 runner + 换 kp/kd"逐项裁决表、最小实现集。
-2. **Q2**：准入准出状态机、动作图 vs runner 子状态双层对照、时间线、异常退出表、仲裁。
+2. **Q2**：准入准出状态机、动作图 vs runner 子状态双层对照、**UC3 真机 held 时间线图**、时间线、异常退出表、仲裁。
 3. **Q3**：信号流图、公式表、参数-语义表、数值例子、伪代码、等效导纳。
 4. **证据/反证/未知**：S/M/W 证据表；每个未知两种解释 + 判别实验。
 5. **Collie 映射**（≤1 页）：`interaction.hand_held` YAML 草案、三条硬契约、5 条验收用例。

@@ -425,6 +425,34 @@ flowchart LR
 
 两条通路的**汇合点**是速度指令：视觉通路走 `SetMcInputSource` 抢输入源，力导引通路在 runner 内部直接写 `command`。这就是为什么"视觉全程 `follow/state=1 未发现目标`，机器人却跟着走了"。
 
+### 9.4 真机日志核对（实测，2026-10-28 UC3）
+
+> 来源：`03_参考库/qiliang_T1Pro报告库/docs/primebot/on_device_measured_data/c2_events.log`（10.8 MB，摘录见 `05_GPT架构评审/20261127_handheld/input_bundle/raw/logs/`）。这是**实测**，不是二手转述。
+
+| 时刻 | 事件 | 字段 |
+|---|---|---|
+| 14:35:13.982 | `QUADRUPED_TO_BIPED_ROTATE`(11) | `[MCA] action_desc` |
+| 14:35:18.822 | `BIPED_LOCOMOTION_WBC`(300) | 同上 |
+| 14:35:24.716 | `hand_held=1`（BOTH_NOT_HELD），`form=2` | `[IST]` |
+| **14:37:24.205** | **`is_held: true`，`hand_held: 3`（RIGHT_HELD_ONLY）** | `[IST]` |
+| 14:37:48.634 | `is_held: false` | `[IST]` |
+| 14:39:30.427 | 再次 `true`（hand=3） | `[IST]` |
+| 14:39:45.661 | `false` | `[IST]` |
+| 14:40:02.221 | 再次 `true` | `[IST]` |
+| 14:40:40.760 | `false` | `[IST]` |
+| 14:40:46.385 | 再次 `true` | `[IST]` |
+
+四次 held 区间：**24.4 s / 15.2 s / 38.5 s / …**（按 `is_held=false` 时刻估算）。
+
+**四个实测结论**：
+
+1. **动作没有切换**：全程 `action_desc` 都是 `BIPED_LOCOMOTION_WBC`。held 的 on/off 是 runner/状态层内部事件，不是 Action 迁移——这直接支持"牵手不是动作/模式"的判断。
+2. **held 会反复 on/off**：不是"牵上就一直 true"。松手、换手、形变回死区都会让它清零；清零后仍在 300 里，随时可以再次置位。
+3. **单右手、双足**：`hand_held` 恒为 3，`form=2`；进入 300 后约 **2 分 5 秒**才首次 held——说明是外力触发，不是"进 300 就置位"。
+4. **视觉同时丢失**：`[FLW] state` 在 14:37:24 从 0 变 1（"未发现目标"），与"牵手遮挡相机"的现象一致。
+
+**日志的边界**：只有 `[IST]`/`[MCA]`/`[FLW]`，**没有** `McCommonState` 的速度/关节字段，所以拿不到 vx、yaw、`arm_drag` 中间量；"解算公式"仍只能靠配置推断 + 实验（§12）。
+
 ---
 
 ## 10. 设计评价：意图、代价与失效模式
