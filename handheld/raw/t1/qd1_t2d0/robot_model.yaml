@@ -1,0 +1,235 @@
+joints:
+  - # 上肢关节
+    - UPPER_JOINT
+    - # 左上肢
+      - name: FL_HIP_ROLL_Joint
+        limits:
+          lower_position: -0.43633
+          upper_position: 0.43633
+          max_velocity: 17.802
+          max_effort: 30.0
+          tn_t0: 56.67  # TN 曲线堵转扭矩
+          tn_k: 3.183   # TN 曲线斜率
+      - name: FL_HIP_PITCH_Joint
+        limits:
+          lower_position: -1.1868
+          upper_position: 4.3284
+          max_velocity: 17.802
+          max_effort: 30.0
+          tn_t0: 56.67  # TN 曲线堵转扭矩
+          tn_k: 3.183   # TN 曲线斜率
+      - name: FL_KNEE_Joint
+        limits:
+          lower_position: -2.5831
+          upper_position: 2.5831
+          max_velocity: 17.802
+          max_effort: 30.0
+          tn_t0: 56.67  # TN 曲线堵转扭矩
+          tn_k: 3.183   # TN 曲线斜率
+      # 右上肢
+      - name: FR_HIP_ROLL_Joint
+        limits:
+          lower_position: -0.43633
+          upper_position: 0.43633
+          max_velocity: 17.802
+          max_effort: 30.0
+          tn_t0: 56.67  # TN 曲线堵转扭矩
+          tn_k: 3.183   # TN 曲线斜率
+      - name: FR_HIP_PITCH_Joint
+        limits:
+          lower_position: -1.1868
+          upper_position: 4.3284
+          max_velocity: 17.802
+          max_effort: 30.0
+          tn_t0: 56.67  # TN 曲线堵转扭矩
+          tn_k: 3.183   # TN 曲线斜率
+      - name: FR_KNEE_Joint
+        limits:
+          lower_position: -2.5831
+          upper_position: 2.5831
+          max_velocity: 17.802
+          max_effort: 30.0
+          tn_t0: 56.67
+          tn_k: 3.183
+  - # 下肢关节
+    - LOWER_JOINT
+    - 
+      - name: RL_HIP_ROLL_Joint
+        limits:
+          lower_position: -1.5359
+          upper_position: 1.5359
+          max_velocity: 17.802
+          max_effort: 30.0
+          tn_t0: 52.67
+          tn_k: 3.183
+      - name: RL_HIP_PITCH_Joint
+        limits:
+          lower_position: 0.034907
+          upper_position: 3.1067
+          max_velocity: 17.802
+          max_effort: 30.0
+          tn_t0: 56.67
+          tn_k: 3.183
+      - name: RL_KNEE_Joint
+        limits:
+          lower_position: -2.4958
+          upper_position: -0.20944
+          max_velocity: 17.802
+          max_effort: 30.0
+          tn_t0: 56.67
+          tn_k: 3.183
+      # 右下肢
+      - name: RR_HIP_ROLL_Joint
+        limits:
+          lower_position: -1.57202
+          upper_position: 1.5359
+          max_velocity: 17.802
+          max_effort: 30.0
+          tn_t0: 56.67
+          tn_k: 3.183
+      - name: RR_HIP_PITCH_Joint
+        limits:
+          lower_position: 0.034907
+          upper_position: 3.1067
+          max_velocity: 17.802
+          max_effort: 30.0
+          tn_t0: 56.67
+          tn_k: 3.183
+      - name: RR_KNEE_Joint
+        limits:
+          lower_position: -2.4958
+          upper_position: -0.20944
+          max_velocity: 17.802
+          max_effort: 30.0
+          tn_t0: 56.67
+          tn_k: 3.183
+  - # 轮子关节
+    - WHEEL_JOINT
+    - 
+      - name: RL_FOOT_Joint
+        limits:
+          # lower_position: -inf
+          # upper_position: inf
+          max_velocity: 38.746
+          max_effort: 15.0
+          tn_t0: 26.42  # TN 曲线堵转扭矩
+          tn_k: 0.6821   # TN 曲线斜率
+      - name: RR_FOOT_Joint
+        limits:
+          # lower_position: -inf
+          # upper_position: inf
+          max_velocity: 38.746
+          max_effort: 15.0
+          tn_t0: 26.42  # TN 曲线堵转扭矩
+          tn_k: 0.6821   # TN 曲线斜率
+  - # 全量关节，序号和hal层一致
+    - JOINT
+    -
+      - name: FL_HIP_ROLL_Joint
+        limits:
+          lower_position: -0.43633
+          upper_position: 0.43633
+          max_velocity: 17.802
+          max_effort: 30.0
+          tn_t0: 24.42
+          tn_k: 0.6821
+      - name: FL_HIP_PITCH_Joint
+        limits:
+          lower_position: -1.1868
+          upper_position: 4.3284
+          max_velocity: 17.802
+          max_effort: 30.0
+          tn_t0: 52.67
+          tn_k: 3.183
+      - name: FL_KNEE_Joint
+        limits:
+          lower_position: -2.5831
+          upper_position: 2.5831
+          max_velocity: 17.802
+          max_effort: 30.0
+          tn_t0: 52.67
+          tn_k: 3.183
+      - name: FR_HIP_ROLL_Joint
+        limits:
+          lower_position: -0.43633
+          upper_position: 0.43633
+          max_velocity: 17.802
+          max_effort: 30.0
+          tn_t0: 24.42
+          tn_k: 0.6821
+      - name: FR_HIP_PITCH_Joint
+        limits:
+          lower_position: -1.1868
+          upper_position: 4.3284
+          max_velocity: 17.802
+          max_effort: 30.0
+          tn_t0: 52.67
+          tn_k: 3.183
+      - name: FR_KNEE_Joint
+        limits:
+          lower_position: -2.5831
+          upper_position: 2.5831
+          max_velocity: 17.802
+          max_effort: 30.0
+          tn_t0: 52.67
+          tn_k: 3.183
+      - name: RL_HIP_ROLL_Joint
+        limits:
+          lower_position: -1.5359
+          upper_position: 1.5359
+          max_velocity: 17.802
+          max_effort: 30.0
+          tn_t0: 52.67
+          tn_k: 3.183
+      - name: RL_HIP_PITCH_Joint
+        limits:
+          lower_position: 0.034907
+          upper_position: 3.1067
+          max_velocity: 17.802
+          max_effort: 30.0
+          tn_t0: 52.67
+          tn_k: 3.183
+      - name: RL_KNEE_Joint
+        limits:
+          lower_position: -2.4958
+          upper_position: -0.20944
+          max_velocity: 17.802
+          max_effort: 30.0
+          tn_t0: 52.67
+          tn_k: 3.183
+      - name: RL_FOOT_Joint
+        limits:
+          # lower_position: -inf
+          # upper_position: inf
+          max_velocity: 38.746
+          max_effort: 15.0
+      - name: RR_HIP_ROLL_Joint
+        limits:
+          lower_position: -1.57202
+          upper_position: 1.5359
+          max_velocity: 17.802
+          max_effort: 30.0
+          tn_t0: 52.67
+          tn_k: 3.183
+      - name: RR_HIP_PITCH_Joint
+        limits:
+          lower_position: 0.034907
+          upper_position: 3.1067
+          max_velocity: 17.802
+          max_effort: 30.0
+          tn_t0: 52.67
+          tn_k: 3.183
+      - name: RR_KNEE_Joint
+        limits:
+          lower_position: -2.4958
+          upper_position: -0.20944
+          max_velocity: 17.802
+          max_effort: 30.0
+          tn_t0: 52.67
+          tn_k: 3.183
+      - name: RR_FOOT_Joint
+        limits:
+          # lower_position: -inf
+          # upper_position: inf
+          max_velocity: 38.746
+          max_effort: 15.0

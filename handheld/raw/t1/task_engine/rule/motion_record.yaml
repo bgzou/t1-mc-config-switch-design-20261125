@@ -1,0 +1,76 @@
+# 动作录制（由 RecordMotion Service 注册运行态，录制双足自定义姿态）
+task_base:
+  enable: true
+  task_name: motion_record
+  task_type: long_task
+  real_task_type: RecordTask
+  priority: 60
+  permission_level: normal
+  allow_preempt: false
+  track_running_state: true
+  timing_cycle_ms: 0
+  need_confirm: false
+allow_source: []
+allow_velocity_source: []
+velocity_source_block_robots: []
+blocks_direct_rpc: true
+precondition:
+  allow_posture: [BIPED_STAND_DEFAULT, BIPED_WHOLE_BODY_CTRL, BIPED_LOCOMOTION_WBC, BIPED_RECORD_UPPER]
+  block_posture: []
+  battery_min_percent: 25
+  allow_charging_state: false
+  allow_held_state: false  # 牵手状态下拒绝进入
+  check_app_conn: false
+  check_cloud_conn: false
+  check_network: false
+  check_log_sync: false
+alarm_condition:
+  allow_mode: none
+  allow_levels: []
+  exclude_levels: []
+motion_condition:
+  allow_motion_state: []
+  allow_preempt_running_task: false
+arbitration_policy:
+  - task_name: motion_record
+    action: reject     # 动作录制运行中拒绝
+  - task_name: move
+    action: reject       # 碰撞规避运行中拒绝
+  - task_name: app_joystick_ctrl
+    action: override     # 覆盖基础运动操控
+  - task_name: upper_body
+    action: parallel     # 与上肢动作并行
+  - task_name: whole_body
+    action: override     # 覆盖全身动作（能打断）
+  - task_name: posture
+    action: override     # 覆盖姿态变换动作
+  - task_name: navigation
+    action: override     # 覆盖室内导航
+  - task_name: camera_move
+    action: reject       # 跟拍运镜运行中拒绝
+  - task_name: idle
+    action: override     # 覆盖闲时行为
+  - task_name: wake_turn
+    action: reject       # 唤醒反馈运行中拒绝
+  - task_name: interaction
+    action: parallel     # 与主动交互并行
+  - task_name: touch
+    action: reject       # 抚摸响应运行中拒绝
+  - task_name: app_gyro_ctrl
+    action: parallel     # 与远程遥控并行
+  - task_name: app_canvas
+    action: parallel # 与画图模式并行
+  - task_name: app_teach_demo
+    action: parallel # 与动作示教并行
+  - task_name: factory_reset
+    action: reject   # 出厂重置运行中拒绝
+  - task_name: follow
+    action: override # 覆盖智能跟随
+  - task_name: localization
+    action: override # 覆盖定位
+  - task_name: mapping
+    action: override # 覆盖建图
+  - task_name: motion_playback
+    action: parallel # 与动作回放并行
+  - task_name: shutdown
+    action: reject   # 关机运行中拒绝

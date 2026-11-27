@@ -1,0 +1,500 @@
+resident_actions:
+  security_guard:
+    runners:
+      - name: security_guard_t1
+    period_ms: 50
+    priority: 0
+    cpu_affinity: []
+    start_delay_ms: 0
+
+transition_actions:
+  PASSIVE_DEFAULT: # 零力矩急停
+    - runners:
+        - name: passive_default
+      period_ms: 10
+      priority: 80
+      cpu_affinity: []
+
+  DAMPING_DEFAULT: # 阻尼急停
+    - runners:
+        - name: damping_default_t1
+          cfg_path: "./classic/damping_default.yaml"
+      period_ms: 2
+      priority: 80
+      cpu_affinity: []
+  
+  QUAD_LIE_DOWN: # 四足趴下
+    - runners:
+        - name: quad_lie_down
+          cfg_path: "./classic/quad_lie_down.yaml"
+      period_ms: 2
+      priority: 80
+      cpu_affinity: []
+  
+  QUADRUPED_CROUCH_DEFAULT: # 四足蜷缩，方便开机状态下搬运
+    - runners:
+        - name: quad_crouch
+          cfg_path: "./classic/quad_crouch.yaml"
+      period_ms: 1
+      priority: 80
+      cpu_affinity: []
+
+  QUADRUPED_GET_DOWN_DEFAULT: # 四足趴下
+    - runners:
+        - name: quad_get_down
+          cfg_path: "./classic/quad_get_down_default.yaml"
+      period_ms: 1
+      priority: 80
+      cpu_affinity: []
+  
+  STORE_DEFAULT: # 四足趴下
+    - runners:
+        - name: quad_get_down
+          cfg_path: "./classic/quad_get_down_default.yaml"
+      period_ms: 1
+      priority: 80
+      cpu_affinity: []
+  
+  QUADRUPED_SIT_DOWN_DEFAULT: # 四足坐下
+    - runners:
+        - name: quad_sit_down
+          cfg_path: "./classic/quad_sit_down_default.yaml"
+      period_ms: 1
+      priority: 80
+      cpu_affinity: []
+
+  QUADRUPED_READY_STAND_DEFAULT:  # 四足准备站立姿势(半蹲)
+    - runners:
+      - name: ready_quad_stand
+        cfg_path: "./classic/ready_stand_default.yaml"
+      period_ms: 1
+      priority: 80
+      cpu_affinity: []
+
+  QUADRUPED_STAND_DEFAULT: # 四足位控站立
+    - runners:
+        - name: quad_stand
+          cfg_path: "./classic/quad_stand_default.yaml"
+      period_ms: 1
+      priority: 80
+      cpu_affinity: []
+
+  QUADRUPED_STAND_REVERSE_DEFAULT: # 四足前肢手臂反轴站立
+    - runners:
+        - name: quad_stand_reverse
+          cfg_path: "./classic/quad_stand_reverse_default.yaml"
+      period_ms: 1
+      priority: 80
+      cpu_affinity: []
+
+  QUADRUPED_LOCOMOTION_DEFAULT: # 四足行走模式
+    - runners:
+        - name: rl_quad_loco
+          cfg_path: "./rl/quad_walk.yaml"
+      period_ms: 10
+      priority: 80
+      cpu_affinity: []
+
+  QUADRUPED_LOCOMOTION_REVERSE_DEFAULT: # 四足反向行走模式
+    - runners:
+        - name: rl_quad_loco_reverse
+          cfg_path: "./rl/quad_walk_reverse.yaml"
+      period_ms: 10
+      priority: 0
+      cpu_affinity: []
+
+  QUADRUPED_LOCOMOTION_STEP: # 四足踏步模式
+    - runners:
+        - name: rl_quad_step
+          cfg_path: "./rl/quad_step.yaml"
+      period_ms: 10
+      priority: 80
+      cpu_affinity: []
+
+  QUADRUPED_LOCOMOTION_RUN: # 四足奔跑模式
+    - runners:
+        - name: rl_quad_loco_run
+          cfg_path: "./rl/quad_run.yaml"
+      period_ms: 10
+      priority: 80
+      cpu_affinity: []
+
+  QUADRUPED_LOCOMOTION_TERRAIN: # 四足越野模式
+    - runners:
+        - name: rl_quad_loco_terrain
+          cfg_path: "./rl/quad_walk_terrain.yaml"
+      period_ms: 10
+      priority: 80
+      cpu_affinity: []
+
+  QUADRUPED_LOCOMOTION_JUMP: # 四足跳跃模式
+    - runners:
+        - name: rl_quad_jump
+          cfg_path: "./rl/quad_jump_run.yaml"
+      period_ms: 10
+      priority: 80
+      cpu_affinity: []
+
+  QUADRUPED_LOCOMOTION_HANDSHAKE: # 四足握手模式
+    - runners:
+      - name: quad_handshake
+        cfg_path: ./classic/quad_handshake_default.yaml
+      period_ms: 1
+      priority: 80
+      cpu_affinity: []
+
+  QUADRUPED_LOCOMOTION_FRONTFLIP:  # 四足前空翻
+    - runners:
+      - name: rl_quad_frontflip
+        cfg_path: "./rl/quad_frontflip_run.yaml"
+      period_ms: 10
+      priority: 80
+      cpu_affinity: []
+
+  QUADRUPED_LOCOMOTION_BACKFLIP: # 四足后空翻
+    - runners:
+      - name: rl_quad_backflip
+        cfg_path: "./rl/quad_backflip_run.yaml"
+      period_ms: 10
+      priority: 80
+      cpu_affinity: []
+
+  QUADRUPED_RECOVERY: # 任意姿态恢复四足
+    - runners:
+        - name: rl_quad_recovery
+          cfg_path: "./rl/quad_recovery.yaml"
+      period_ms: 10
+      priority: 80
+      cpu_affinity: []
+
+  QUADRUPED_LOCOMOTION_STRETCH: # 四足伸展模式
+    - runners:
+        - name: rl_quad_stretch
+          cfg_path: "./rl/quad_walk_stretch.yaml"
+      period_ms: 10
+      priority: 80
+      cpu_affinity: []
+
+  QUADRUPED_BODY_ADJUST_DEFAULT: # 四足姿态调整
+    - runners:
+        - name: rl_quad_body_adjust
+          cfg_path: "./rl/quad_body_adjust.yaml"
+      period_ms: 10
+      priority: 80
+      cpu_affinity: []      
+  
+  QUADRUPED_LOCOMOTION_DANCE: # 四足舞蹈模式
+    - runners:
+        - name: rl_quad_dance
+          cfg_path: "./rl/quad_walk_dance.yaml"
+      period_ms: 10
+      priority: 80
+      cpu_affinity: []
+  
+  QUADRUPED_PUSH_UP:
+    - runners:
+        - name: rl_quad_pushup
+          cfg_path: "./rl/quad_pushup.yaml"
+      period_ms: 10
+      priority: 80
+      cpu_affinity: []
+
+  BIPED_RECOVERY: # 任意姿态恢复双足
+    - runners:
+      - name: rl_bi_recovery
+        cfg_path: "./rl/bi_recovery.yaml"
+      period_ms: 10
+      priority: 80
+      cpu_affinity: []
+
+  BIPED_STAND_DEFAULT: # 双足位控站立
+    - runners:
+        - name: biped_stand
+          cfg_path: "./classic/biped_stand_default.yaml"
+      period_ms: 1
+      priority: 80
+      cpu_affinity: []
+
+  BIPED_LOCOMOTION_DEFAULT:  # 双足行走模式
+    - runners:
+        - name: rl_bi_loco
+          cfg_path: "./rl/bi_walk.yaml"
+      period_ms: 10
+      priority: 80
+      cpu_affinity: []
+
+  BIPED_LOCOMOTION_RUN:  # 双足奔跑模式
+    - runners:
+        - name: rl_bi_loco_run
+          cfg_path: "./rl/bi_run.yaml"
+      period_ms: 10
+      priority: 80
+      cpu_affinity: []
+
+  BIPED_LOCOMOTION_TERRAIN:  # 双足越野模式
+    - runners:
+        - name: rl_bi_terrain
+          cfg_path: "./rl/bi_walk_terrain.yaml"
+        # - name: rl_bi_loco_wbc
+        #   cfg_path: "./rl/bi_wbc_run.yaml"
+      period_ms: 10
+      priority: 80
+      cpu_affinity: []
+  
+  BIPED_LOCOMOTION_WBC: # 双足全身控制模式
+    - runners:
+      - name: rl_bi_loco_wbc
+        cfg_path: "./rl/bi_wbc_run.yaml"
+      period_ms: 10
+      priority: 80
+      cpu_affinity: []
+    # 非动画模式下不使用动画播放器
+    - runners:
+      - name: animation_player
+        cfg_path: "./classic/animation_player.yaml"
+      period_ms: 4
+      priority: 80
+      cpu_affinity: []
+
+  # 之前给演示时使用，当前没用，先保留着
+  BIPED_LOCOMOTION_ANIMATION: # 双足动画模式
+    - runners:
+      - name: rl_bi_loco_animation
+        cfg_path: "./rl/bi_loco_animation.yaml"
+      period_ms: 10
+      priority: 80
+      cpu_affinity: []
+    - runners:
+      - name: animation_player
+        cfg_path: "./classic/animation_player.yaml"
+      period_ms: 2
+      priority: 80
+      cpu_affinity: []
+
+  BIPED_LOCOMOTION_WBCDANCE: # 双足 WBC+上肢舞蹈（仅从 WBC 切入/切出；可配置旋转与总步数自动退出）
+    - runners:
+      - name: rl_bi_loco_wbcdance
+        cfg_path: "./rl/bi_wbc_dance.yaml"
+      period_ms: 10
+      priority: 80
+      cpu_affinity: []
+    # - runners:
+    #   - name: animation_player
+    #     cfg_path: "./classic/animation_player.yaml"
+    #   period_ms: 2
+    #   priority: 80
+    #   cpu_affinity: []
+
+  # SetMcMotion(type=MIMIC_QY) → SetNewAction("BIPED_MIMIC")；motion_list 选具体动作名
+  BIPED_MIMIC: # 双足模仿（上肢+下肢由 rl_bi_mimic 统一控制）
+    - runners:
+      - name: rl_bi_mimic
+        cfg_path: "./rl/bi_mimic.yaml"
+      period_ms: 10
+      priority: 80
+      cpu_affinity: []
+
+  # SetMcMotion(type=BIPED_LINGCHUANG_MIMIC) → SetNewAction("BIPED_LINGCHUANG_MIMIC")；motion_list 选具体动作名
+  BIPED_LINGCHUANG_MIMIC: # 双足灵创模仿（轨迹内嵌 onnx，由 rl_bi_lingchuang_mimic 统一控制）
+    - runners:
+      - name: rl_bi_lingchuang_mimic
+        cfg_path: "./rl/bi_lingchuang_mimic.yaml"
+      period_ms: 10
+      priority: 80
+      cpu_affinity: []
+
+  # SetMcAction("BIPED_GIMBAL") / SetMcMotion(type=BIPED_GIMBAL)；单 runner 下肢 RL + 上肢 gimbal
+  BIPED_GIMBAL:
+    - runners:
+      - name: rl_bi_gimbal
+        cfg_path: "./rl/bi_gimbal.yaml"
+      period_ms: 10
+
+  # SetMcMotion(type=BIPED_NPZ_MIMIC) → SetNewAction("BIPED_NPZ_MIMIC")；
+  # 复用 rl_bi_npz_mimic 控制器，但使用 83-obs / motion_anchor_ori_b 6D 布局的 runner cfg
+  BIPED_NPZ_MIMIC: # 双足 npz 模仿（腿部布局 command=31，obs=83，anchor_ori 6D）
+    - runners:
+      - name: rl_bi_npz_mimic
+        cfg_path: "./rl/bi_npz_mimic.yaml"
+      period_ms: 20
+      priority: 80
+      cpu_affinity: []
+
+  QUADRUPED_TO_BIPED: # 四足变双足
+    - runners:
+      - name: rl_quad_to_bi
+        cfg_path: "./rl/quad_to_bi_run.yaml"
+      period_ms: 10
+      priority: 80
+      cpu_affinity: []
+
+  QUADRUPED_TO_BIPED_ROTATE: # 四足变双足旋转
+    - runners:
+      - name: rl_quad_to_bi_rotate
+        cfg_path: "./rl/quad_to_bi_rotate_run.yaml"
+      period_ms: 10
+      priority: 80
+      cpu_affinity: []
+
+  QUADRUPED_TO_BIPED_FRONTFLIP: # 四足空翻变人形
+    - runners:
+      - name: rl_quad_to_bi_frontflip
+        cfg_path: "./rl/quad_to_bi_frontflip_run.yaml"
+      period_ms: 10
+      priority: 80
+      cpu_affinity: []
+  
+  QUADRUPED_LOCOMOTION_BIONIC: # 四足仿生
+    - runners:
+      - name: rl_quad_twist
+        cfg_path: "./rl/quad_walk_twist.yaml"
+      period_ms: 10
+      priority: 80
+      cpu_affinity: []
+
+  QUADRUPED_LOCOMOTION_PRIDE: # 四足仿生-傲娇
+    - runners:
+      - name: rl_quad_pride
+        cfg_path: "./rl/quad_walk_pride.yaml"
+      period_ms: 10
+      priority: 80
+      cpu_affinity: []
+
+  # SetMcMotion(type=MIMIC_QY) → SetNewAction("QUADRUPED_MIMIC")；motion_list 选具体动作名（如 QUAD_MIMIC）
+  QUADRUPED_MIMIC:
+    - runners:
+      - name: rl_quad_mimic
+        cfg_path: "./rl/quad_mimic.yaml"
+      period_ms: 10
+      priority: 80
+      cpu_affinity: []
+
+  QUADRUPED_LOCOMOTION_PLEASURE: # 四足仿生-愉快
+    - runners:
+      - name: rl_quad_pleasure
+        cfg_path: "./rl/quad_walk_pleasure.yaml"
+      period_ms: 10
+      priority: 80
+      cpu_affinity: []
+
+  BIPED_TO_QUADRUPED: # 双足变四足
+    - runners:
+      - name: rl_bi_to_quad
+        cfg_path: "./rl/bi_to_quad_run.yaml"
+      period_ms: 10
+      priority: 80
+      cpu_affinity: []
+
+  BIPED_YUZURU: # 羽生结弦动作
+    - runners:
+      - name: rl_bi_yuzuru
+        cfg_path: "./rl/bi_yuzuru.yaml"
+      period_ms: 10
+      priority: 80
+      cpu_affinity: []
+
+  BIPED_SPLIT: # 双足劈叉
+    - runners:
+      - name: rl_bi_split
+        cfg_path: "./rl/bi_split.yaml"
+      period_ms: 10
+      priority: 80
+      cpu_affinity: []
+  
+  BIPED_TO_QUADRUPED_FRONTFLIP: # 双足变四足-前空翻
+    - runners:
+      - name: rl_bi_to_quad_frontflip
+        cfg_path: "./rl/bi_to_quad_frontflip_run.yaml"
+      period_ms: 10
+      priority: 80
+      cpu_affinity: []
+  
+  BIPED_TO_QUADRUPED_ROTATE: # 双足变四足-旋转
+    - runners:
+      - name: rl_bi_to_quad_rotate
+        cfg_path: "./rl/bi_to_quad_rotate_run.yaml"
+      period_ms: 10
+      priority: 80
+      cpu_affinity: []
+      
+  BIPED_LOCOMOTION_ROTATE_LOCAL: # 双足旋转
+    - runners:
+      - name: rl_bi_rotate_local
+        cfg_path: "./rl/bi_rotate_local.yaml"
+      period_ms: 10
+      priority: 80
+      cpu_affinity: []
+
+  BIPED_LOCOMOTION_BACKBEND: # 双足后弯
+    - runners:
+      - name: rl_bi_backbend
+        cfg_path: "./rl/bi_backbend_run.yaml"
+      period_ms: 10
+      priority: 80
+      cpu_affinity: []
+
+  BIPED_LOCOMOTION_MOONWALK: # 双足太空漫步
+    - runners:
+      - name: rl_bi_moonwalk
+        cfg_path: "./rl/bi_moonwalk.yaml"
+      period_ms: 10
+      priority: 80
+      cpu_affinity: []
+
+  BIPED_LOCOMOTION_DANCE: # 双足舞蹈
+    - runners:
+      - name: rl_bi_dance
+        cfg_path: "./rl/bi_dance.yaml"
+      period_ms: 10
+      priority: 80
+      cpu_affinity: []
+
+  BIPED_RECORD_UPPER: # 双足位控站立动作录制模式开始
+    - runners:
+      - name: rl_bi_loco_wbc
+        cfg_path: "./rl/bi_wbc_run.yaml"
+      period_ms: 10
+      priority: 80
+      cpu_affinity: []
+    - runners:
+      - name: biped_record
+        cfg_path: "./classic/biped_record_upper.yaml"
+      period_ms: 10
+      priority: 80
+      cpu_affinity: []
+
+  BIPED_CUSTOM_UPPER: # 双足位控站立二开上肢控制
+    - runners:
+      - name: rl_bi_loco_wbc
+        cfg_path: "./rl/bi_wbc_run.yaml"
+      period_ms: 10
+      priority: 80
+      cpu_affinity: []
+    - runners:
+      - name: custom_upper
+        cfg_path: "./classic/custom_upper.yaml"
+      period_ms: 10
+      priority: 80
+      cpu_affinity: []
+
+  ###################################### test action ##################################################
+  TEST_PLATFORM:
+    - runners:
+        - name: passive_default
+      period_ms: 10
+      priority: 80
+      cpu_affinity: []
+
+  TRAJECTORY_GENERATOR:
+    - runners:
+        - name: passive_default
+      period_ms: 10
+      priority: 80
+      cpu_affinity: []
+
+  TEST_FOURIER:
+    - runners:
+        - name: passive_default
+      period_ms: 10
+      priority: 80
+      cpu_affinity: []

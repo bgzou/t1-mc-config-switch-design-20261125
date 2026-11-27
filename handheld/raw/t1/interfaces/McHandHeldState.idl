@@ -1,0 +1,38 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from aimdk_msgs/mc/data/msg/common/McHandHeldState.msg
+// generated code does not contain a copyright notice
+
+
+module aimdk_msgs {
+  module msg {
+    module McHandHeldState_Constants {
+      @verbatim (language="comment", text=
+        "The state is unknown when either hand has not produced a confirmed result.")
+      const uint8 UNKNOWN = 0;
+      @verbatim (language="comment", text=
+        "Both hands are confirmed as not held.")
+      const uint8 BOTH_NOT_HELD = 1;
+      @verbatim (language="comment", text=
+        "Only the left hand is held.")
+      const uint8 LEFT_HELD_ONLY = 2;
+      @verbatim (language="comment", text=
+        "Only the right hand is held.")
+      const uint8 RIGHT_HELD_ONLY = 3;
+      @verbatim (language="comment", text=
+        "Both hands are held.")
+      const uint8 BOTH_HELD = 4;
+    };
+    @verbatim (language="comment", text=
+      "Robot motion-control hand-held state.")
+    struct McHandHeldState {
+      @verbatim (language="comment", text=
+        "True when at least one hand is confirmed as held." "\n"
+        "False when neither hand is held or the combined state is unknown.")
+      boolean is_held;
+
+      @verbatim (language="comment", text=
+        "Current combined hand-held state. The value must be one of the constants above.")
+      uint8 hand_held;
+    };
+  };
+};

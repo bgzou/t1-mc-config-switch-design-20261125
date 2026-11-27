@@ -1,0 +1,258 @@
+BaseConfig:
+  model_type: "Walk"
+
+  use_debug: true
+  dt: 0.01  # 100Hz
+
+  # policy:
+  #   type: "rknn"
+  #   device: "rk3588"
+  #   path: "./rl_models/model_run.rknn"
+  policy:
+    type: "onnx"
+    device: "cpu"
+    # path: "./rl_models/wbc_delay0110.onnx"
+    # path: "./rl_models/t1_bi_wbc_v1.0_0110_delay.onnx"
+    # path: "./rl_models/wbc_terrain_lift0515.onnx"
+    path: "./rl_models/wbc0517.onnx"
+    
+    
+
+  # obs-action nums will be obtained by urdf
+  obs_nums: 49
+  q_nums: 14
+  action_nums: 14
+
+  joints_name:
+    [
+      'FL_HIP_ROLL_Joint',
+      'FL_HIP_PITCH_Joint',
+      'FL_KNEE_Joint',
+      
+      'FR_HIP_ROLL_Joint',
+      'FR_HIP_PITCH_Joint',
+      'FR_KNEE_Joint',
+
+      'RL_HIP_ROLL_Joint',
+      'RL_HIP_PITCH_Joint',
+      'RL_KNEE_Joint',
+      'RL_FOOT_Joint',
+      
+      'RR_HIP_ROLL_Joint',
+      'RR_HIP_PITCH_Joint',
+      'RR_KNEE_Joint',
+      'RR_FOOT_Joint',
+    ]
+
+  #define the obs sequence
+  seq:
+    [
+      'FL_HIP_ROLL_Joint',
+      'FL_HIP_PITCH_Joint',
+      'FL_KNEE_Joint',
+
+      'FR_HIP_ROLL_Joint',
+      'FR_HIP_PITCH_Joint',
+      'FR_KNEE_Joint',
+
+      'RL_HIP_ROLL_Joint',
+      'RL_HIP_PITCH_Joint',
+      'RL_KNEE_Joint',
+      'RL_FOOT_Joint',
+
+      'RR_HIP_ROLL_Joint',
+      'RR_HIP_PITCH_Joint',
+      'RR_KNEE_Joint',
+      'RR_FOOT_Joint',
+    ]
+
+  # define the action sequence
+  action_seq:
+    [
+      'FL_HIP_ROLL_Joint',
+      'FL_HIP_PITCH_Joint',
+      'FL_KNEE_Joint',
+
+      'FR_HIP_ROLL_Joint',
+      'FR_HIP_PITCH_Joint',
+      'FR_KNEE_Joint',
+      
+      'RL_HIP_ROLL_Joint',
+      'RL_HIP_PITCH_Joint',
+      'RL_KNEE_Joint',
+      'RL_FOOT_Joint',
+      
+      'RR_HIP_ROLL_Joint',
+      'RR_HIP_PITCH_Joint',
+      'RR_KNEE_Joint',
+      'RR_FOOT_Joint',
+    ]
+
+  action_scale: [ 0.1, 0.1, 0.1,
+                  0.1, 0.1, 0.1, 
+                  0.1, 0.2, 0.2, 2.0, 
+                  0.1, 0.2, 0.2, 2.0 ]
+                  
+  imu_pitch_offset: 0.0
+
+
+ACConfig:
+  infer:
+    frame_stack: 10
+
+  clips:
+    obs_clip: 20.0
+    action_clip: 20.0
+
+  reduction:   
+    wheel_reduction: 1.0
+    hip_reduction: 0.0
+
+  # planner:
+  #   enable: false
+  #   velocity: 10
+  #   acceleration: 10
+  #   dt: 1   # ms
+
+  robot:
+    # seq same as action_seq
+    # real params
+    kps: [ 
+      1.0, 0.5, 1.0, 
+      1.0, 0.5, 1.0, 
+      100.0, 30.0, 30.0, 0.0, 
+      100.0, 30.0, 30.0, 0.0 ]
+    kds: [ 
+      0.2, 0.2, 0.2,
+      0.2, 0.2, 0.2, 
+      1.5, 1.0, 1.0, 0.5, 
+      1.5, 1.0, 1.0, 0.5 ]
+
+    default_dof_pos: [ 
+      0.0, 1.57080, 0.6302,
+      0.0, 1.57080, 0.6302,
+      0.0, 1.91986, -0.6579, 0.0,
+      0.0, 1.91986, -0.6579, 0.0 ]
+    
+    default_kp: 30
+    default_kd: 1.0
+
+
+WalkConfig:
+  # define obs index
+  obs_index:
+    imu_omega: 0
+    imu_euler: 3
+    pos: 6
+    vel: 18
+    action: 32
+    command: 46
+
+  obs_scales:
+    dof_pos: 1.0
+    dof_vel: 0.05
+    lin_vel: 2.0
+    ang_vel: 0.25
+
+  command_scales:
+    cmd_x_min: -0.3
+    cmd_x_max: 1.0
+    # cmd_x_max: 0.5
+    cmd_yaw_min: -3.0
+      #cmd_yaw_min: -0.78
+    cmd_yaw_max: 3.0
+      #cmd_yaw_max: 0.78
+    # vx: 1.5
+    height: 0.0
+    dyaw: 1.2
+    cmd_x_forward_bias_scale: 1.0
+    cmd_x_backward_bias_scale: 1.0
+
+
+  filter:
+    imu_vel_cutoff_freq: 100
+    q_vel_cutoff_freq: [
+      100, 100, 100, 
+      100, 100, 100, 
+      100, 100, 100, 50, 
+      100, 100, 100, 50]
+
+  limits:
+    lower_limit: [-0.4364, -1.2217, -2.618, -0.4364, -1.2217, -2.618 ]
+    upper_limit: [0.4364,   4.3633,  2.618,  0.4364,  4.3633,  2.618 ]
+
+  odom:
+    wheel_radius: 0.07
+    odom_enable_x: 0.3
+    odom_kp_x: 0.5
+    odom_kd_x: 0.02
+    max_vel_x: 0.3
+    max_vel_yaw: 0.5
+    odom_enable_yaw: 0.2
+    odom_kp_yaw: 0.1
+    max_delta_yaw: 2.0
+    odom_log_decimation: 1
+    # x方向累计位置误差限幅
+    max_delta_x: 10
+    # x方向补偿降采样：
+    # 1 = 每步更新补偿
+    # 2 = 每2步更新一次补偿
+    # 5 = 每5步更新一次补偿
+    # 注意：CalculateDelta() 仍然每步执行
+    odom_comp_decimation: 1
+    # 从其它模式/action切换过来后，前多少秒不启用里程计补偿
+    odom_disable_after_switch_s: 1
+
+  stand_actions: [ 'BIPEDAL_STAND_DEFAULT']
+  acc_x: 1.0        # x 方向减速/刹车加速度
+  acc_x_accel: 1.0 # x 方向加速时加速度（原 acc_x * 0.25）
+  v_z: 0.2
+  acc_yaw: 3.0
+  exit_wait_step: 20
+  exit_wait_stop_step_min: 20   # 站立/低速最短退出等待（×dt=0.01 → 0.2s）
+  exit_wait_stop_step: 100      # 满速最长退出等待（×dt=0.01 → 1.0s）；按 |vx|/|yaw| 相对 command_scales 上限插值
+  bias_vx : -0
+  bias_dyaw : 0.0
+
+  transition_frames: 15 # 15帧 * 0.01 1s
+  
+  # 拖拽双臂 roll 触发转向（覆盖手柄角速度；右负左正）
+  arm_drag:
+    enable: true
+    deadzone_roll_threshold: 0.17   # rad，约 10°
+    w_deadzone_roll_threshold: 0.17   # rad，约 10°
+    roll_threshold: 0.17   # rad，约 10°
+    w_roll_threshold: 0.17   # rad，约 10°
+    roll_threshold: 0.3   # rad，持续贴近该 roll 角阈值后进入持续加速
+
+    yaw_vel: 1.2
+    log_decimation: 1
+    # # 上肢 6 关节: FL_ROLL, FL_PITCH, FL_KNEE, FR_ROLL, FR_PITCH, FR_KNEE
+    # t: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+    # kp: [4.0, 4.0, 4.0, 4.0, 4.0, 4.0]
+    # kd: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    # 上肢 6 关节: FL_ROLL, FL_PITCH, FL_KNEE, FR_ROLL, FR_PITCH, FR_KNEE
+    t: [1.0, 0.5, 1.0, 1.0, 0.5, 1.0]
+    kp: [4.0, 2.0, 4.0, 4.0, 2.0, 4.0]
+    kd: [0.2, 0.2, 0.2, 0.2, 0.2, 0.2]
+
+    # 3.5 rad/s
+    # yaw_vel_scale_kp: 11.14
+    yaw_vel_scale_kp: 10.0
+    yaw_vel_scale_kd: 0.8
+      #yaw_vel_scale_kd: 6.12
+    # yaw_vel_scale_kp: 4.78
+    # 1.5m/s
+    # bx_qz_cmd_kp: 3.56
+    bx_qz_cmd_kp: 3.14
+    # 双手末端前向位移阈值（m）；|z| 低于此不触发前进/后退
+    forward_pos_threshold: 0.30
+    # 连续满足前进条件的帧数后才下发 x_cmd（100Hz 下 300 帧约 3s）
+    forward_confirm_frames: 100
+    drag_count_threshold: 10  # 牵手判定计数阈值：某只手连续满足触发条件且计数大于该值才上报
+    arm_above_default_pitch_threshold: 0.15
+    arm_below_default_pitch_threshold: 1.50
+
+  yaw_acc:
+    d_fast: 3.0        
+    d_slow: 0.0        

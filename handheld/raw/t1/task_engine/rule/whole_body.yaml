@@ -1,0 +1,101 @@
+# 全身动作（MC 全身动画，占用完整运控资源）
+# 机器人站立或行走时可触发，运行期间不允许移动
+task_base:
+  enable: true
+  task_name: whole_body
+  task_type: long_task
+  real_task_type: AnimationTask
+  behavior_kind: whole_body_action
+  priority: 45
+  permission_level: normal
+  allow_preempt: true
+  track_running_state: true
+  timing_cycle_ms: 0
+  need_confirm: false
+allow_source: []
+allow_velocity_source: []
+velocity_source_block_robots: []
+precondition:
+  allow_posture: []
+  block_posture:
+    - DAMPING_DEFAULT
+    - LYING_DEFAULT
+    - LIE_FACE_UP
+    - LIE_FACE_DOWN
+    - STORE_DEFAULT
+  battery_min_percent: 6
+  allow_charging_state: false
+  allow_held_state: false  # 牵手状态下拒绝进入
+  check_app_conn: false
+  check_cloud_conn: false
+  check_network: false
+  check_log_sync: false
+alarm_condition:
+  allow_mode: exclude
+  allow_levels: []
+  exclude_levels: [fatal]
+motion_condition:
+  allow_motion_state: [idle, preemptable]
+  allow_preempt_running_task: false
+  allow_running:
+    - name: interruptible_locomotion
+      mc_action:
+        - QUADRUPED_LOCOMOTION_DEFAULT
+        - QUADRUPED_LOCOMOTION_RUN
+        - QUADRUPED_LOCOMOTION_TERRAIN
+        - BIPED_LOCOMOTION_DEFAULT
+        - BIPED_LOCOMOTION_TERRAIN
+        - BIPED_LOCOMOTION_RUN
+        - BIPED_LOCOMOTION_WBC
+      mc_player_state: [PLAYING, PRE_PLAYING, INTERRUPTING]
+      require_current_animation_interruptible: false
+    - name: interruptible_whole_body_motion
+      mc_action:
+        - BIPED_MIMIC
+        - QUADRUPED_MIMIC
+        - QUADRUPED_LOCOMOTION_DANCE
+      mc_player_state: [PLAYING, PRE_PLAYING, INTERRUPTING]
+      require_current_animation_interruptible: true
+arbitration_policy:
+  - task_name: move
+    action: reject       # 碰撞规避运行中拒绝
+  - task_name: whole_body
+    action: override     # 新全身动作可打断旧全身动作
+  - task_name: app_teach_demo
+    action: reject       # 动作示教运行中拒绝
+  - task_name: app_joystick_ctrl
+    action: override     # 覆盖基础运动操控
+  - task_name: upper_body
+    action: override     # 覆盖上肢动作（能打断）
+  - task_name: posture
+    action: override     # 覆盖姿态变换动作
+  - task_name: follow
+    action: reject       # 智能跟随运行中拒绝
+  - task_name: navigation
+    action: reject       # 室内导航运行中拒绝
+  - task_name: camera_move
+    action: reject       # 跟拍运镜运行中拒绝
+  - task_name: idle
+    action: override     # 覆盖闲时行为
+  - task_name: wake_turn
+    action: reject       # 唤醒反馈运行中拒绝
+  - task_name: interaction
+    action: parallel     # 与主动交互并行
+  - task_name: touch
+    action: reject       # 抚摸响应运行中拒绝
+  - task_name: app_gyro_ctrl
+    action: parallel     # 与远程遥控并行
+  - task_name: app_canvas
+    action: reject   # 画图模式运行中拒绝
+  - task_name: factory_reset
+    action: reject   # 出厂重置运行中拒绝
+  - task_name: localization
+    action: reject   # 定位运行中拒绝
+  - task_name: mapping
+    action: reject   # 建图运行中拒绝
+  - task_name: motion_playback
+    action: reject   # 动作回放运行中拒绝
+  - task_name: motion_record
+    action: reject   # 动作录制运行中拒绝
+  - task_name: shutdown
+    action: reject   # 关机运行中拒绝

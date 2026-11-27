@@ -1,0 +1,79 @@
+# 陀螺仪遥控（长时运动任务，T1 专属四足模式）
+# 电量>30%，必须四足站立姿态，运行中独占运控
+task_base:
+  enable: true
+  task_name: app_gyro_ctrl
+  task_type: long_task
+  real_task_type: RcTask
+  behavior_kind: long_task
+  priority: 50
+  permission_level: normal
+  allow_preempt: true
+  track_running_state: true
+  timing_cycle_ms: 0
+  need_confirm: false
+allow_source:
+  - SOURCE_APP
+allow_velocity_source: []
+velocity_source_block_robots: []
+precondition:
+  allow_posture: [QUADRUPED_STAND_DEFAULT, QUADRUPED_LOCOMOTION_DEFAULT, QUADRUPED_LOCOMOTION_BIONIC, QUADRUPED_LOCOMOTION_TERRAIN, QUADRUPED_LOCOMOTION_RUN]
+  block_posture: []
+  battery_min_percent: 30
+  allow_charging_state: false
+  allow_held_state: false  # 牵手状态下拒绝进入
+  check_app_conn: true
+  check_cloud_conn: false
+  check_network: true
+  check_log_sync: false
+alarm_condition:
+  allow_mode: exclude
+  allow_levels: []
+  exclude_levels: [fatal, error]
+motion_condition:
+  allow_motion_state: [idle, preemptable]
+  allow_preempt_running_task: false
+blocks_direct_rpc: true
+arbitration_policy:
+  - task_name: move
+    action: reject       # 碰撞规避运行中拒绝
+  - task_name: app_joystick_ctrl
+    action: override     # 覆盖基础运动操控
+  - task_name: upper_body
+    action: parallel     # 与上肢动作并行
+  - task_name: whole_body
+    action: override     # 覆盖全身动作（能打断）
+  - task_name: posture
+    action: override     # 覆盖姿态变换动作
+  - task_name: navigation
+    action: override     # 覆盖室内导航
+  - task_name: camera_move
+    action: reject       # 跟拍运镜运行中拒绝
+  - task_name: idle
+    action: override     # 覆盖闲时行为
+  - task_name: wake_turn
+    action: reject       # 唤醒反馈运行中拒绝
+  - task_name: interaction
+    action: parallel     # 与主动交互并行
+  - task_name: touch
+    action: reject       # 抚摸响应运行中拒绝
+  - task_name: app_gyro_ctrl
+    action: parallel     # 与远程遥控并行
+  - task_name: app_canvas
+    action: reject   # 画图模式运行中拒绝
+  - task_name: app_teach_demo
+    action: reject   # 动作示教运行中拒绝
+  - task_name: factory_reset
+    action: reject   # 出厂重置运行中拒绝
+  - task_name: follow
+    action: override # 覆盖智能跟随
+  - task_name: localization
+    action: override # 覆盖定位
+  - task_name: mapping
+    action: override # 覆盖建图
+  - task_name: motion_playback
+    action: reject   # 动作回放运行中拒绝
+  - task_name: motion_record
+    action: reject   # 动作录制运行中拒绝
+  - task_name: shutdown
+    action: reject   # 关机运行中拒绝

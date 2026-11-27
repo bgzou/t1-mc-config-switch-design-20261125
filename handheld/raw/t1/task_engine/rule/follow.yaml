@@ -1,0 +1,90 @@
+# 跟随（AmRequest 仅前置检查；运行态由 FollowTaskCtrl / FollowTask 注册）
+task_base:
+  enable: true
+  task_name: follow
+  task_type: long_task
+  real_task_type: FollowTask
+  priority: 50
+  permission_level: normal
+  allow_preempt: false
+  track_running_state: false
+  timing_cycle_ms: 0
+  need_confirm: false
+function_name_aliases: [follow_task]
+allow_source: []
+allow_velocity_source: []
+velocity_source_block_robots: []
+# 启动跟随后的目标丢失语音抑制时间
+target_lost_voice_suppress_ms: 10000
+# 目标丢失防抖时间：室内四足转向较慢，使用更长防抖
+target_lost_debounce_biped_ms: 1500
+target_lost_debounce_quadruped_indoor_ms: 3000
+target_lost_debounce_quadruped_outdoor_ms: 1500
+odom_condition:
+  require_trusted: true
+  allow_untrusted:
+    - name: rest_posture_follow_recovery
+      odom_status: [ANY]
+      mc_action: [PASSIVE_DEFAULT, QUADRUPED_GET_DOWN_DEFAULT, QUADRUPED_SIT_DOWN_DEFAULT]
+precondition:
+  allow_posture: []
+  block_posture: []
+  battery_min_percent: 6
+  allow_charging_state: false
+  check_app_conn: false
+  check_cloud_conn: false
+  check_network: false
+  check_log_sync: false
+alarm_condition:
+  allow_mode: all
+  allow_levels: []
+  exclude_levels: []
+motion_condition:
+  allow_motion_state: []
+  allow_preempt_running_task: false
+# 是否使用 brightness_allow_follow 作为跟随启动的前置判断条件
+use_brightness_allow_follow: false
+# 跟随启动时的冲突策略
+arbitration_policy:
+  - task_name: follow
+    action: reject     # 智能跟随运行中拒绝
+  - task_name: move
+    action: reject       # 碰撞规避运行中拒绝
+  - task_name: app_joystick_ctrl
+    action: override     # 覆盖基础运动操控
+  - task_name: upper_body
+    action: parallel     # 与上肢动作并行
+  - task_name: whole_body
+    action: override     # 覆盖全身动作（能打断）
+  - task_name: posture
+    action: override     # 覆盖姿态变换动作
+  - task_name: navigation
+    action: override     # 覆盖室内导航
+  - task_name: camera_move
+    action: reject       # 跟拍运镜运行中拒绝
+  - task_name: idle
+    action: override     # 覆盖闲时行为
+  - task_name: wake_turn
+    action: reject       # 唤醒反馈运行中拒绝
+  - task_name: interaction
+    action: parallel     # 与主动交互并行
+  - task_name: touch
+    action: reject       # 抚摸响应运行中拒绝
+  - task_name: app_gyro_ctrl
+    action: parallel     # 与远程遥控并行
+  - task_name: app_canvas
+    action: reject   # 画图模式运行中拒绝
+  - task_name: app_teach_demo
+    action: reject   # 动作示教运行中拒绝
+  - task_name: factory_reset
+    action: reject   # 出厂重置运行中拒绝
+  - task_name: localization
+    action: override # 覆盖定位
+  - task_name: mapping
+    action: reject   # 建图运行中拒绝
+  - task_name: motion_playback
+    action: reject   # 动作回放运行中拒绝
+  - task_name: motion_record
+    action: reject   # 动作录制运行中拒绝
+  - task_name: shutdown
+    action: reject   # 关机运行中拒绝

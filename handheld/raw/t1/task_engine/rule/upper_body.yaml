@@ -1,0 +1,77 @@
+# 上肢动作（T1 双足模式下的上半身动画，不影响下半身行走）
+# 双足站立姿态下可启动，允许与移动并行执行
+task_base:
+  enable: true
+  task_name: upper_body
+  task_type: long_task
+  real_task_type: AnimationTask
+  behavior_kind: upper_body_action
+  priority: 40
+  permission_level: normal
+  allow_preempt: true
+  track_running_state: true
+  timing_cycle_ms: 0
+  need_confirm: false
+allow_source: []
+allow_velocity_source: []
+velocity_source_block_robots: []
+precondition:
+  allow_posture: []
+  block_posture: []
+  battery_min_percent: 6
+  allow_charging_state: false
+  allow_held_state: false  # 牵手状态下拒绝进入
+  check_app_conn: false
+  check_cloud_conn: false
+  check_network: false
+  check_log_sync: false
+alarm_condition:
+  allow_mode: exclude
+  allow_levels: []
+  exclude_levels: [fatal]
+motion_condition:
+  allow_motion_state: []
+  allow_preempt_running_task: false
+arbitration_policy:
+  - task_name: upper_body
+    action: override     # 新上肢动作可打断旧上肢动作
+  - task_name: move
+    action: reject       # 碰撞规避运行中拒绝
+  - task_name: app_teach_demo
+    action: reject       # 动作示教运行中拒绝
+  - task_name: app_joystick_ctrl
+    action: parallel     # 与基础运动操控并行
+  - task_name: whole_body
+    action: override     # 覆盖全身动作（能打断）
+  - task_name: posture
+    action: override     # 覆盖姿态变换动作
+  - task_name: follow
+    action: reject       # 智能跟随运行中拒绝
+  - task_name: navigation
+    action: reject       # 室内导航运行中拒绝
+  - task_name: camera_move
+    action: reject       # 跟拍运镜运行中拒绝
+  - task_name: idle
+    action: override     # 覆盖闲时行为
+  - task_name: wake_turn
+    action: reject       # 唤醒反馈运行中拒绝
+  - task_name: interaction
+    action: parallel     # 与主动交互并行
+  - task_name: touch
+    action: reject       # 抚摸响应运行中拒绝
+  - task_name: app_gyro_ctrl
+    action: parallel     # 与远程遥控并行
+  - task_name: app_canvas
+    action: reject   # 画图模式运行中拒绝
+  - task_name: factory_reset
+    action: reject   # 出厂重置运行中拒绝
+  - task_name: localization
+    action: reject   # 定位运行中拒绝
+  - task_name: mapping
+    action: reject   # 建图运行中拒绝
+  - task_name: motion_playback
+    action: reject   # 动作回放运行中拒绝
+  - task_name: motion_record
+    action: reject   # 动作录制运行中拒绝
+  - task_name: shutdown
+    action: reject   # 关机运行中拒绝

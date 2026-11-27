@@ -1,0 +1,77 @@
+# 摇杆遥控（实时速度信号，高频下发，不记录运行态）
+# APP 摇杆为实时控制指令，仅做电量和告警校验
+task_base:
+  enable: true
+  task_name: app_joystick_ctrl
+  task_type: realtime_task
+  real_task_type: RcTask
+  priority: 50
+  permission_level: normal
+  allow_preempt: true
+  track_running_state: false
+  timing_cycle_ms: 0
+  need_confirm: false
+allow_source:
+  - SOURCE_APP
+allow_velocity_source: []
+velocity_source_block_robots: []
+precondition:
+  allow_posture: []
+  block_posture: []
+  battery_min_percent: 1
+  allow_charging_state: false
+  allow_held_state: false  # 牵手状态下拒绝进入
+  check_app_conn: false
+  check_cloud_conn: false
+  check_network: false
+  check_log_sync: false
+alarm_condition:
+  allow_mode: exclude
+  allow_levels: []
+  exclude_levels: [fatal]
+motion_condition:
+  allow_motion_state: []
+  allow_preempt_running_task: false
+arbitration_policy:
+  - task_name: app_joystick_ctrl
+    action: override     # 基础运动操控运行中拒绝
+  - task_name: move
+    action: override       # 碰撞规避运行中拒绝
+  - task_name: upper_body
+    action: parallel     # 与上肢动作并行
+  - task_name: whole_body
+    action: override     # 覆盖全身动作（能打断）
+  - task_name: posture
+    action: override     # 覆盖姿态变换动作
+  - task_name: follow
+    action: interrupt    # 暂停智能跟随
+  - task_name: navigation
+    action: interrupt    # 暂停室内导航
+  - task_name: camera_move
+    action: override     # 覆盖跟拍运镜
+  - task_name: idle
+    action: override     # 覆盖闲时行为
+  - task_name: wake_turn
+    action: override     # 覆盖唤醒反馈
+  - task_name: interaction
+    action: parallel     # 与主动交互并行
+  - task_name: touch
+    action: override     # T1: 覆盖抚摸响应
+  - task_name: app_gyro_ctrl
+    action: parallel     # T1: 与远程遥控并行
+  - task_name: app_canvas
+    action: reject   # 画图模式运行中拒绝
+  - task_name: app_teach_demo
+    action: reject   # 动作示教运行中拒绝
+  - task_name: factory_reset
+    action: reject   # 出厂重置运行中拒绝
+  - task_name: localization
+    action: interrupt # 定位运行中拒绝
+  - task_name: mapping
+    action: interrupt # 建图运行中拒绝
+  - task_name: motion_playback
+    action: reject   # 动作回放运行中拒绝
+  - task_name: motion_record
+    action: reject   # 动作录制运行中拒绝
+  - task_name: shutdown
+    action: reject   # 关机运行中拒绝

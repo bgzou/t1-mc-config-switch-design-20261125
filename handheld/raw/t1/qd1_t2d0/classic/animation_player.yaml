@@ -1,0 +1,776 @@
+animation_cfg:
+  action_period_ms: 4   # 每次 Run 累加的伪时间 (ms)，建议与 AnimationPlayer 实际控制周期一致
+
+  default_kp: 30
+  default_kd: 1
+
+  # 打断切新动画：只在前 X 比例帧里找与当前姿态最接近的起始帧（避免误匹配到后半段/末帧）
+  switch_start_search_ratio: 0.25
+
+planner:
+  default_pos: [0.0, 1.57080, 0.52360, 0.0, 1.57080, 0.52360]
+  # Idle 稳态下垂限幅（仅 FillIdleJointCommands；homing 规划不使用）
+  tau: [0.5, 0.2, 0.5, 0.5, 0.2, 0.5]
+  # tau: [1.0, 0.5, 1.0, 1.0, 0.5, 1.0]
+
+  # enter / exit / putdown / preplaying / switch_motion 归位下发 PD（ArmProfile::Planner）
+  joints:
+    - name: "FL_HIP_ROLL_Joint"
+      kp: 4.0
+      kd: 0.2
+      gravity_scale: 0.6
+    - name: "FL_HIP_PITCH_Joint"
+      kp: 2.0
+      kd: 0.2
+      gravity_scale: 0.6
+    - name: "FL_KNEE_Joint"
+      kp: 4.0
+      kd: 0.2
+      gravity_scale: 0.6
+    - name: "FR_HIP_ROLL_Joint"
+      kp: 4.0
+      kd: 0.2
+      gravity_scale: 0.6
+    - name: "FR_HIP_PITCH_Joint"
+      kp: 2.0
+      kd: 0.2
+      gravity_scale: 0.6
+    - name: "FR_KNEE_Joint"
+      kp: 4.0
+      kd: 0.2
+      gravity_scale: 0.6
+
+  # 起播 PrePlaying：时长见本段；下发 PD 用 planner.joints（ArmProfile::Planner）
+  preplaying:
+    enabled: true       # false：ArmHomingPlanner Begin 直接拒绝，不规划
+    speed_rad_s:
+      roll: 1.0
+      pitch: 1.0
+      knee: 1.0
+    acceleration: 1.0   # rad/s²；与旧 ArmPlanner 一致。<=0 则匀速
+    duration_min_s: 0.1
+    duration_max_s: 2.0
+    dt_ms: 2
+    epsilon: 1.0      # Σ(q_meas-setpoint)²，超过则本拍不推进 (rad²)
+    tau_min: -3.0       # N·m，下发力矩裁剪下限
+    tau_max: 3.0        # N·m，下发力矩裁剪上限
+    settle_frames: 300  # 松手重规划后先稳住再推进
+
+  # enter：PreRunOnce / 冷启动阻塞归位；下发 PD 用 planner.joints（ArmProfile::Planner）
+  enter:
+    enabled: true       # false：ArmHomingPlanner Begin 直接拒绝，不规划
+    speed_rad_s:
+      roll: 1.0
+      pitch: 1.0
+      knee: 1.0
+    acceleration: 1.0   # rad/s²；抬起/归位，与旧 velocity=1,acceleration=1 对齐
+    duration_min_s: 0.2
+    duration_max_s: 8.0
+    dt_ms: 2
+    epsilon: 1.0      # Σ(q_meas-setpoint)²，超过则本拍不推进 (rad²)
+    tau_min: -3.0       # N·m，下发力矩裁剪下限
+    tau_max: 3.0        # N·m，下发力矩裁剪上限
+    settle_frames: 300  # 松手重规划后先稳住再推进
+
+  # putdown：播完/打断回 idle；下发 PD 用 planner.joints（ArmProfile::Planner）
+  putdown:
+    enabled: true       # false：ArmHomingPlanner Begin 直接拒绝，不规划
+    speed_rad_s:
+      roll: 1.0
+      pitch: 0.8
+      knee: 1.0
+    acceleration: 0.6   # rad/s²；放下更柔，软 PD(kp≈2~4) 下建议 0.3~0.5
+    duration_min_s: 0.1
+    duration_max_s: 10.0
+    dt_ms: 2
+    epsilon: 1.0      # Σ(q_meas-setpoint)²，超过则本拍不推进 (rad²)
+    tau_min: -3.0       # N·m，下发力矩裁剪下限
+    tau_max: 3.0        # N·m，下发力矩裁剪上限
+    settle_frames: 300  # 松手重规划后先稳住再推进
+
+  # switch_motion：打断切新片段；下发 PD 用 planner.joints（ArmProfile::Planner）
+  switch_motion:
+    enabled: true       # false：ArmHomingPlanner Begin 直接拒绝，不规划
+    speed_rad_s:
+      roll: 0.8
+      pitch: 0.8
+      knee: 0.8
+    acceleration: 1.0
+    duration_min_s: 0.2
+    duration_max_s: 4.0
+    dt_ms: 2
+    epsilon: 1.0      # Σ(q_meas-setpoint)²，超过则本拍不推进 (rad²)
+    tau_min: -3.0       # N·m，下发力矩裁剪下限
+    tau_max: 3.0        # N·m，下发力矩裁剪上限
+    settle_frames: 300  # 松手重规划后先稳住再推进
+
+  # exit：runner 退出归位；下发 PD 用 planner.joints（ArmProfile::Planner）
+  exit:
+    enabled: true       # false：ArmHomingPlanner Begin 直接拒绝，不规划
+    speed_rad_s:
+      roll: 1.0
+      pitch: 1.0
+      knee: 1.0
+    acceleration: 1.0
+    duration_min_s: 0.1
+    duration_max_s: 5.0
+    dt_ms: 2
+    epsilon: 1.0      # Σ(q_meas-setpoint)²，超过则本拍不推进 (rad²)
+    tau_min: -3.0       # N·m，下发力矩裁剪下限
+    tau_max: 3.0        # N·m，下发力矩裁剪上限
+    settle_frames: 300  # 松手重规划后先稳住再推进
+
+# hold 播放/保持末帧（kp 较高；不做重力补偿）
+hold:
+  - name: "FL_HIP_ROLL_Joint"
+    kp: 30
+    kd: 1
+    gravity_scale: 1.0
+  - name: "FL_HIP_PITCH_Joint"
+    kp: 30
+    kd: 1
+    gravity_scale: 1.0
+  - name: "FL_KNEE_Joint"
+    kp: 30
+    kd: 1
+    gravity_scale: 1.0
+  - name: "FR_HIP_ROLL_Joint"
+    kp: 30
+    kd: 1
+    gravity_scale: 1.0
+  - name: "FR_HIP_PITCH_Joint"
+    kp: 30
+    kd: 1
+    gravity_scale: 1.0
+  - name: "FR_KNEE_Joint"
+    kp: 30
+    kd: 1
+    gravity_scale: 1.0
+
+# 柔性动画播放 + preplaying/switch_motion 过渡 PD（GetPlaybackProfile）
+animation:
+  - name: "FL_HIP_ROLL_Joint"
+    kp: 4.0
+    kd: 0.5
+    gravity_scale: 0.9
+  - name: "FL_HIP_PITCH_Joint"
+    kp: 2.0
+    kd: 0.5
+    gravity_scale: 0.9
+  - name: "FL_KNEE_Joint"
+    kp: 4.0
+    kd: 0.5
+    gravity_scale: 0.7
+  - name: "FR_HIP_ROLL_Joint"
+    kp: 4.0
+    kd: 0.5
+    gravity_scale: 0.9
+  - name: "FR_HIP_PITCH_Joint"
+    kp: 2.0
+    kd: 0.5
+    gravity_scale: 0.9
+  - name: "FR_KNEE_Joint"
+    kp: 4.0
+    kd: 0.5
+    gravity_scale: 0.7
+
+# 刚性动画播放 + preplaying/switch_motion 过渡 PD（GetPlaybackProfile）
+rigid:
+  - name: "FL_HIP_ROLL_Joint"
+    kp: 15
+    kd: 1
+    gravity_scale: 1.0
+  - name: "FL_HIP_PITCH_Joint"
+    kp: 15
+    kd: 1
+    gravity_scale: 1.0
+  - name: "FL_KNEE_Joint"
+    kp: 15
+    kd: 1
+    gravity_scale: 1.0
+  - name: "FR_HIP_ROLL_Joint"
+    kp: 15
+    kd: 1
+    gravity_scale: 1.0
+  - name: "FR_HIP_PITCH_Joint"
+    kp: 15
+    kd: 1
+    gravity_scale: 1.0
+  - name: "FR_KNEE_Joint"
+    kp: 15
+    kd: 1
+    gravity_scale: 1.0
+
+# idle 静止下垂；tau_g 缩放见各关节 gravity_scale
+idle:
+  - name: "FL_HIP_ROLL_Joint"
+    kp: 4.0
+    kd: 0.2
+    gravity_scale: 0.6
+  - name: "FL_HIP_PITCH_Joint"
+    kp: 2.0
+    kd: 0.2
+    gravity_scale: 0.75
+  - name: "FL_KNEE_Joint"
+    kp: 4.0
+    kd: 0.2
+    gravity_scale: 0.6
+  - name: "FR_HIP_ROLL_Joint"
+    kp: 4.0
+    kd: 0.2
+    gravity_scale: 0.6
+  - name: "FR_HIP_PITCH_Joint"
+    kp: 2.0
+    kd: 0.2
+    gravity_scale: 0.75
+  - name: "FR_KNEE_Joint"
+    kp: 4.0
+    kd: 0.2
+    gravity_scale: 0.6
+
+# 默认动画帧率（未在 ani_table 指定 fps 时使用）
+default_fps: 100.0
+
+# 重力补偿：按动作类型独立开关（不再使用全局 enable/scale）
+gravity_comp:
+  - mode: animation
+    enable: true
+  - mode: rigid
+    enable: false
+  - mode: hold
+    enable: false
+  - mode: idle
+    enable: true
+  - mode: planner
+    enable: true   # 取消归位段开启重力补偿，避免大臂支撑力矩一拍掉到0导致顿挫
+
+# tau = clip(kp·(q*-q) − kd·dq, ±clip_tau) + tau_g；clip_tau 仅约束 PD 项
+# 只限制跟踪误差产生的纠偏力矩 (N·m)；重力前馈 tau_g 不受此限、始终全额叠加
+# 关节摩擦力 用于补偿
+gravity_friction:
+  - name: "FL_HIP_ROLL_Joint"
+    friction: 0.0001
+  - name: "FL_HIP_PITCH_Joint"
+    friction: 0.0001
+  - name: "FL_KNEE_Joint"
+    friction: 0.2
+  - name: "FR_HIP_ROLL_Joint"
+    friction: 0.0001
+  - name: "FR_HIP_PITCH_Joint"
+    friction: 0.0001
+  - name: "FR_KNEE_Joint"
+    friction: 0.2
+
+# PD 跟踪力矩上限 (N·m)；重力项在限幅后叠加（与 Q1 一致）
+clip_tau:
+  FL_HIP_ROLL_Joint: 1.0
+  FL_HIP_PITCH_Joint: 1.0
+  FL_KNEE_Joint: 1.5
+  FR_HIP_ROLL_Joint: 1.0
+  FR_HIP_PITCH_Joint: 1.0
+  FR_KNEE_Joint: 1.5
+  default: 1.0
+
+# 个别动作大臂 pitch 需更高刚度以举到位/复位到位
+animation_overrides:
+  - animation_id: 2017            # 骄傲：大臂 pitch 提刚度，消除顶点举不满 + 底端复位滞后
+    joints:
+      - name: "FL_HIP_PITCH_Joint"
+        kp: 7.0
+        kd: 1.0
+        gravity_scale: 1.0
+      - name: "FR_HIP_PITCH_Joint"
+        kp: 7.0
+        kd: 1.0
+        gravity_scale: 1.0
+
+# ani_table.animation_type: animation（柔性，默认）/ rigid（刚性）/ hold（播完保持末帧）
+# ani_table:
+#   - animation: 1001
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 60
+#         path: "./classic/animation/Single_hand_right_waving_v2.csv"  # 右手挥手
+#   - animation: 1002
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 60
+#         path: "./classic/animation/Single_hand_right_handshake.csv"  # 右手握手
+#   - animation: 1003
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 60
+#         path: "./classic/animation/Single_hand_right_waving_for_1d5m_people.csv"  # 右手挥手，面对1.5m以上观众时
+#   - animation: 1004
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 60
+#         path: "./classic/animation/Single_hand_right_fist_bump.csv"  # 右手碰拳
+#   - animation: 1005
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 60
+#         path: "./classic/animation/Single_hand_right_cherring.csv"  # 右手加油欢呼
+#   - animation: 1006
+#     animation_type: hold
+#     resources:
+#       - area: 1
+#         fps: 60
+#         path: "./classic/animation/Single_hand_holding_camera_1.csv"  # 右手抬起(持摄像杆)
+#   - animation: 1007
+#     animation_type: hold
+#     resources:
+#       - area: 1
+#         fps: 60
+#         path: "./classic/animation/Single_hand_holding_camera_2.csv"  # 右手拍照抬起
+#   - animation: 1011
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 60
+#         path: "./classic/animation/Single_hand_left_waving_v2.csv"  # 左手挥手
+#   - animation: 1012
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 60
+#         path: "./classic/animation/Single_hand_left_handshake.csv"  # 左手握手
+#   - animation: 1013
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 60
+#         path: "./classic/animation/Single_hand_left_waving_for_1d5m_people.csv"  # 左手挥手，面对1.5m以上观众时
+#   - animation: 1014
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 60
+#         path: "./classic/animation/Single_hand_left_fist_bump.csv"  # 左手碰拳
+#   - animation: 1015
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 60
+#         path: "./classic/animation/Single_hand_left_cherring.csv"  # 左手加油欢呼
+#   - animation: 1016
+#     animation_type: hold
+#     resources:
+#       - area: 1
+#         fps: 60
+#         path: "./classic/animation/Single_hand_left_holding_camera_1.csv"  # 左手抬起
+#   - animation: 2001
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/Double_hand_making_heart_update_1.csv"  # 双手比心
+#   - animation: 2002
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 60
+#         path: "./classic/animation/Double_hand_happy.csv"  # 喜悦时双手挥动
+#   - animation: 2003
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/Double_hand_talking.csv"  # 说话动作
+#   - animation: 2004
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/T1_talk1.csv"  # 说话动作1
+#   - animation: 2005
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/T1_talk2.csv"  # 说话动作2
+#   - animation: 2006
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/T1_talk3.csv"  # 说话动作3
+#   - animation: 2007
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/T1_talk4.csv"  # 说话动作4
+#   - animation: 2008
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/T1_talk5.csv"  # 说话动作5
+#   - animation: 2009
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/T1_talk6.csv"  # 说话动作6
+#   - animation: 2011
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/Double_hand_Pose01_planner.csv"  # 拍照动作1
+#   - animation: 2012
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/Double_hand_Pose02_planner.csv"  # 拍照动作2
+#   - animation: 2013
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/Double_hand_Pose03_planner.csv"  # 拍照动作3
+#   - animation: 2014
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/Double_hand_Pose04_planner.csv"  # 拍照动作4
+#   - animation: 2015
+#     animation_type: hold
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/Double_hand_raise_holding.csv"  # 双手抬起
+#   - animation: 2016
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         # fps: 50
+#         # path: "./classic/animation/Double_hand_cherring.csv"  # 双手加油欢呼
+#         path: "./classic/animation/T1_bi_dance_one.csv"  # 双手加油欢呼 用刘开源设计的舞蹈动作1替换
+#   - animation: 2017
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/Double_hand_proud_update.csv"  # 骄傲
+#   - animation: 2020
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/Double_hand_three_shot_1.csv"  # 三连拍
+#   - animation: 2021
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         # fps: 60
+#         fps: 100
+#         # path: "./classic/animation/Double_hand_dance_update.csv"  # 跳舞动作
+#         path: "./classic/animation/T1_bi_dance_one.csv"  # 跳舞动作
+#   - animation: 2022
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         # fps: 150
+#         fps: 100
+#         # path: "./classic/animation/dance_part1.csv"  # 蛇形舞动1
+#         path: "./classic/animation/T1_bi_dance_two.csv"  # 蛇形舞动1
+#   - animation: 2023
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         # fps: 150
+#         fps: 130
+#         # path: "./classic/animation/dance_part2.csv"  # 蛇形舞动2
+#         path: "./classic/animation/T1_bi_dance_two_three.csv"  # 使用刘开源设计的舞蹈动作2和3拼接 大概20s
+#   - animation: 2024
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/T1_bi_talk_weak.csv"  # 小幅度说话动作
+#   - animation: 2025
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/T1_bi_show_justarm.csv"  # 人形炫耀动作 只有上肢版本
+#   - animation: 2026
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/T1_bi_hug.csv"  # 人形拥抱
+#   - animation: 2027
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/T1_bi_show.csv"  # 人形炫耀 带腰部
+#   - animation: 2028
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         # path: "./classic/animation/T1_bi_show_hugez.csv"  # 人形炫耀 腰部更明显
+#         path: "./classic/animation/T1_bi_show_smallz.csv"  # 人形炫耀 腰部更明显
+#   - animation: 2029
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         # fps: 100
+#         fps: 110
+#         # path: "./classic/animation/T1_bi_skating_pre.csv"  # 人形滑冰
+#         # path: "./classic/animation/T1_bi_skating.csv"  # 人形滑冰
+#         path: "./classic/animation/T1_bi_skating_30s.csv"  # 人形滑冰 30s 会下腰
+#         # path: "./classic/animation/T1_bi_skating0525.csv"  # 人形滑冰
+#         # path: "./classic/animation/T1_bi_skating_v2.csv"  # 人形滑冰
+#         # path: "./classic/animation/T1_bi_skating_backup.csv"  # 人形滑冰
+#         # path: "./classic/animation/T1_bi_skating_backup_neg.csv"  # 人形滑冰
+#         # path: "./classic/animation/T1_bi_skating0525pass.csv"  # 人形滑冰
+#   - animation: 2030
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/T1_bi_skating_backup_neg.csv"  # 人形滑冰
+#   - animation: 2031
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/T1_bi_rhythm.csv"  # 人形律动
+#   - animation: 2032
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/T1_bi_happy.csv"  # 人形喜悦
+#   - animation: 2033
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/T1_bi_sad.csv"  # 人形难过
+#   - animation: 2034
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/T1_bi_scared.csv"  # 人形害怕
+#   - animation: 2035
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/T1_bi_ponder_one.csv"  # 人形思考1
+#   - animation: 2036
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/T1_bi_ponder_two.csv"  # 人形思考2
+#   - animation: 2037
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/T1_bi_ponder_three.csv"  # 人形思考3
+#   - animation: 2038
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/T1_bi_ponder_four.csv"  # 人形思考4
+#   - animation: 2039
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/T1_bi_spin_90.csv"  # 人形惯性转圈90度
+#   - animation: 2040
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/T1_bi_spin_360.csv"  # 人形惯性转圈360度
+#   - animation: 2041
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/T1_bi_heed.csv"  # 人形聆听
+#   - animation: 2042
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/T1_bi_ice_breaking_dance.csv"  # 人形31s配合讲话的动作
+#   - animation: 2043
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 150
+#         # fps: 100
+#         path: "./classic/animation/dance_part2.csv"  # 蛇形舞动2 重新修改后的导演剪辑版本
+#   - animation: 2044
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 60
+#         # fps: 100
+#         path: "./classic/animation/Double_hand_dance_update.csv"  # 跳舞动作
+#   - animation: 2045
+#     animation_type: hold
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/Single_hand_left_lift.csv"  # 左手高举起不放下
+#   - animation: 2046
+#     animation_type: hold
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/Single_hand_right_lift.csv"  # 右手高举起不放下
+#   - animation: 3038
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/3038.csv"  # 单臂击掌
+#   - animation: 3040
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/3040.csv"  # 双手欢呼
+#   - animation: 3043
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/3043.csv"  # 双手挥舞
+#   - animation: 3045
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/3045.csv"  # 双手挥舞2
+#   - animation: 3046
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/3046.csv"  # 双手挥舞3
+#   - animation: 3047
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/3047.csv"  # 左右手挥舞
+#   - animation: 3048
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/3048.csv"  # 双手欢呼1
+#   - animation: 3052
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/3052.csv"  # 打招呼
+#   - animation: 3054
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/3054.csv"  # 双手欢呼2
+#   - animation: 3055
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/3055.csv"  # 双手欢呼3
+#   - animation: 3056
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/3056.csv"  # 打招呼2
+#   - animation: 3061
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 120
+#         path: "./classic/animation/3061.csv"  # 全身跳舞2 by Leah 20260612
+#   - animation: 3062
+#     animation_type: hold
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/3062.csv"  # 保持手臂动作1供点云采集 by Leah 20260616
+#   - animation: 3064
+#     animation_type: hold
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/3064.csv"  # 保持手臂动作2供点云采集 by Leah 20260616
+#   - animation: 3065
+#     animation_type: hold
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/3065.csv"  # 保持手臂动作3供点云采集 by Leah 20260616
+#   - animation: 3069
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/3069.csv"  # 双足摇篮舞
+#   - animation: 3070
+#     animation_type: animation
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/3070.csv"  # 双足球迷舞蹈
+        
+#   - animation: 5001
+#     animation_type: hold
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/arm_holdpc2.csv"  # 放电脑用
+#   - animation: 5002
+#     animation_type: hold
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/photo.csv"  # 右手平举
+#   - animation: 5003
+#     animation_type: hold
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/photo2.csv"  # 左手平举
+#   - animation: 5004
+#     animation_type: hold
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/photo3.csv"  # 右手高举
+#   - animation: 5005
+#     animation_type: hold
+#     resources:
+#       - area: 1
+#         fps: 100
+#         path: "./classic/animation/photo4.csv"  # 左手高举
