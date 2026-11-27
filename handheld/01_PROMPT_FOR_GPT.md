@@ -63,7 +63,7 @@
 
 - T1 是可变形的轮足机器人：四足（前腿当腿）⇄ 双足（前腿当手臂）。14 关节；双足形态下 FL/FR 六个关节是两条手臂。
 - 躯干系 `BASELINK`：**x 向上、z 向前后**。手往前伸 = +z。
-- `BIPED_LOCOMOTION_WBC`(300)：100 Hz 策略（14 维动作）+ 250 Hz 上肢动画组。普通双足行走 `bi_walk` 手臂 `kp=30`（硬）；300 的手臂由 `animation_player` 的 `idle` 档（`kp=4/2/4`，重力补偿 0.6）覆盖。
+- `BIPED_LOCOMOTION_WBC`(300)：100 Hz 策略（14 维动作）+ 250 Hz 上肢动画组。普通双足行走 `bi_walk` 手臂 `kp=30`（硬）；300 的手臂由 `animation_player` 的 `idle` 档（`kp=4/2/4`，重力补偿 0.6）覆盖（推断：高频组覆盖低频组，配置只能证明两个写者都在写）。
 - `arm_drag` 只出现在 `bi_wbc_run.yaml` 与 `bi_gimbal.yaml`；四足行走 `quad_walk`、普通双足 `bi_walk` 都没有。
 - `bi_gimbal.yaml` 注释："手臂拖拽（牵手 + 推背）：复用 WBC 的 ArmDragLocomotion。"另有 `arm_compliance`：牵引手"重力补偿浮动"、相机手刚性。
 - 300 的策略输入只有 49 维观测 + 10 帧历史，输出 14 维动作；观测里 `command` 在 46..48。**策略没有力的输入**。
