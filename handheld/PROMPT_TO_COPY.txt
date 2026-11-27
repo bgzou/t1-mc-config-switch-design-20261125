@@ -28,7 +28,7 @@
 3. `handheld/03_THREE_QUESTIONS.md` —— 三个问题的逐项展开与验收标准。
 4. `handheld/07_DELIVERABLE_SPEC.md` —— HTML 章节、图、评分、输出协议。
 
-### 1.2 再读这 5 个阅读包（带 FILE 头，便于一次读多份）
+### 1.2 再读这 7 个阅读包（带 FILE 头，便于一次读多份）
 
 | 优先级 | 文件 | 读什么 |
 |---|---|---|
@@ -62,7 +62,7 @@
 - `bi_gimbal.yaml` 注释："手臂拖拽（牵手 + 推背）：复用 WBC 的 ArmDragLocomotion。"另有 `arm_compliance`：牵引手"重力补偿浮动"、相机手刚性。
 - 300 的策略输入只有 49 维观测 + 10 帧历史，输出 14 维动作；观测里 `command` 在 46..48。**策略没有力的输入**。
 - `DAMPING_DEFAULT`(2) 是 `kp=0` 的终端安全态，`next_actions` 只有 `PASSIVE_DEFAULT`，不能走路。
-- `held_state`：5 态 + `is_held`，50 Hz 广播；9 条任务规则 `allow_held_state:false`；`follow.yaml` **不**拦 held。
+- `held_state`：5 态 + `is_held`，50 Hz 广播；14 条任务规则中有 9 条 `allow_held_state:false`；`follow.yaml` **不**拦 held。
 - 动作图：102 不能直接到 300；必须先 10/11 变形，再由 10/11 落位 300。300 的出口里 `BIPED_STAND_DEFAULT` 被注释掉。
 - **真机日志（实测）**：14:35:13.982 进 11 → 14:35:18.822 进 300 → 14:37:24.205 首次 `is_held:true`（`hand_held=3`，右手单牵）→ 之后 14:37:48.6 / 14:39:30.4 / 14:39:45.7 / 14:40:02.2 / 14:40:40.8 / 14:40:46.4 多次 on/off，**`action_desc` 始终 300**；同一时刻 `[FLW] state` 从 0 变 1（目标丢失）。见 `handheld/raw/logs/`。
 

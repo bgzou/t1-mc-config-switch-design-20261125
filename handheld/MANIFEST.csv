@@ -1,6 +1,6 @@
 category,path,bytes,sha256,source,encoding
 generated,00_READ_ME_FIRST.md,8852,1d755053ae07c0130ba6055385b804de6b19f03c8d710be89b1fc7e1ce8e5782,(generated),utf-8
-generated,01_PROMPT_FOR_GPT.md,11889,40cb31f257b24e20c17dee5a928ecb15202b76f2d07b480dcf9e7ed1cefa5d03,(generated),utf-8
+generated,01_PROMPT_FOR_GPT.md,11902,68ec1e660dd52f50a73b2ef530764ec98562ed4b2051d0f4df097cdb979e1da4,(generated),utf-8
 generated,02_CONTEXT_BRIEF.md,11962,552c77bf12f21502782e878b7aa9798acd04e2b7d441874d9fe037a1e390b583,(generated),utf-8
 generated,03_THREE_QUESTIONS.md,7768,2b69de2a62ba9cf6f07369fd8ca32972c5dc20e0d74ace510f4203aa49130873,(generated),utf-8
 generated,04_EVIDENCE_MAP.md,6597,072634d9c4b97578045e2f54055015d03ff7913a8954b8453b6ef48b3273cd32,(generated),utf-8
@@ -15,8 +15,8 @@ generated,packs/04_ANALYSIS_HYPOTHESIS.md,57576,5048c3e952f70f946b46686372bca288
 generated,packs/05_MODEL_IO_AND_LIMITS.md,41717,d8cfe7dee25fa3f475cf746696315a0006bc70a6f0206ce8f21fbec2bf666fd2,(generated),utf-8
 generated,packs/06_TRANSITIONS_DEVICE_AND_LISTS.md,59699,449c00bf31fc615cace88e1a2631db11697d44a082562a7b8efc1053d0a63dcf,(generated),utf-8
 generated,packs/07_REAL_MACHINE_LOG.md,116780,338e5117bfde1da83d6638dac89ddbc717e9044241c1e92b5c819ef82584940c,(generated),utf-8
-generated,PROMPT_TO_COPY.md,11590,0a85befbcf115e4f5003d961e3cc13cfa337c688c149b41aecd45ccac98dae14,(generated),utf-8
-generated,PROMPT_TO_COPY.txt,11590,0a85befbcf115e4f5003d961e3cc13cfa337c688c149b41aecd45ccac98dae14,(generated),utf-8
+generated,PROMPT_TO_COPY.md,11603,93bbdc9c7ed06991ca4af618e17e8a1b97a3b2c0e8a82290fda09d33eeaeede1,(generated),utf-8
+generated,PROMPT_TO_COPY.txt,11603,93bbdc9c7ed06991ca4af618e17e8a1b97a3b2c0e8a82290fda09d33eeaeede1,(generated),utf-8
 generated,raw/analysis/hypothesis_handheld.md,48097,48964ce70acd7e5a24535e7e5ab3fee306be5b3573297629e5a78df396a4e24e,(generated),utf-8
 generated,raw/docs/interface_4_4_handheld.md,1593,aad6df6b55c2dfe6b992ea0c45a7c1ab834363be42a6e585a5bea9a41d4171aa,(generated),utf-8
 generated,raw/docs/t1_arch_11_2_handheld.md,847,48531d284dfd0b2a1a14ebc0e34bb57bbb8c154cd0a3e6b6e404f5c83faf2794,(generated),utf-8
